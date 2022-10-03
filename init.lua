@@ -53,8 +53,8 @@ return require("packer").startup(function(use)
             }
         end,
     }
-    use(require "lsp")
-    use(require "gsigns")
+    use(require "plugin/lsp")
+    use(require "plugin/gitsigns")
     use {
         "kyazdani42/nvim-tree.lua",
         requires = {
