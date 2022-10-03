@@ -6,7 +6,11 @@ return {
             return vim.api.nvim_replace_termcodes(str, true, true, true)
         end
 
-        wk.setup()
+        wk.setup {
+            spelling = {
+                enabled = true,
+            },
+        }
         wk.register {
             ["<C-h>"] = { termcodes "<C-\\><C-n><C-w>h", "Go to the left window", mode = "t" },
             ["<C-j>"] = { termcodes "<C-\\><C-n><C-w>j", "Go to the down window", mode = "t" },
