@@ -44,17 +44,7 @@ return require("packer").startup(function(use)
             vim.cmd [[colorscheme gruvbox]]
         end,
     }
-    use {
-        "folke/which-key.nvim",
-        config = function()
-            local wk = require "which-key"
-            wk.setup()
-            wk.register {
-                ["<c-s>"] = { "<cmd>update<cr>", "Save if modified" },
-                ["<leader>ps"] = { "<cmd>PackerSync<cr>", "PackerSync" },
-            }
-        end,
-    }
+    use(require "plugin/whichkey")
     use(require "plugin/lsp")
     use(require "plugin/gitsigns")
     use(require "plugin/nvimtree")

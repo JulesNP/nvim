@@ -139,6 +139,7 @@ return {
             },
         }
 
+        require("cmp_git").setup()
         cmp.setup.filetype("gitcommit", {
             sources = cmp.config.sources {
                 { name = "git" },
