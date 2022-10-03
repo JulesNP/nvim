@@ -47,6 +47,7 @@ return require("packer").startup(function(use)
     use(require "plugin/whichkey")
     use(require "plugin/lsp")
     use(require "plugin/gitsigns")
+    use(require "plugin/telescope")
     use(require "plugin/nvimtree")
     use(require "plugin/neogit")
 
