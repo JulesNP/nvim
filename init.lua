@@ -13,7 +13,7 @@ end
 
 opt.expandtab = true
 opt.shiftwidth = 4
-opt.signcolumn = "number"
+opt.signcolumn = "yes:1"
 opt.number = true
 opt.relativenumber = true
 vim.g.mapleader = " "
@@ -36,6 +36,8 @@ return require("packer").startup(function(use)
     use {
         "gruvbox-community/gruvbox",
         config = function()
+            vim.g.gruvbox_italic = 1
+            vim.g.gruvbox_sign_column = "none"
             vim.cmd [[colorscheme gruvbox]]
         end,
     }
@@ -50,6 +52,7 @@ return require("packer").startup(function(use)
         end,
     }
     use(require "lsp")
+    use(require "gsigns")
     use {
         "TimUntersberger/neogit",
         requires = "nvim-lua/plenary.nvim",
