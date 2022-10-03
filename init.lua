@@ -11,6 +11,7 @@ if vim.loop.os_uname().sysname == "Windows" then
     opt.shellxquote = ""
 end
 
+opt.clipboard = "unnamedplus"
 opt.completeopt = "menu,menuone,noselect"
 opt.expandtab = true
 opt.shiftwidth = 4
