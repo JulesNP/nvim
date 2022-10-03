@@ -50,6 +50,15 @@ return require("packer").startup(function(use)
     use(require "plugin/telescope")
     use(require "plugin/nvimtree")
     use(require "plugin/neogit")
+    use {
+        "akinsho/toggleterm.nvim",
+        tag = "*",
+        config = function()
+            require("toggleterm").setup {
+                open_mapping = "<c-\\>",
+            }
+        end,
+    }
 
     if packer_bootstrap then
         require("packer").sync()
