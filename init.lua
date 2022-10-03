@@ -37,6 +37,10 @@ local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
     use "sheerun/vim-polyglot"
+    use "tpope/vim-repeat"
+    use "tpope/vim-unimpaired"
+    use "tpope/vim-speeddating"
+    use "tpope/vim-surround"
     use {
         "gruvbox-community/gruvbox",
         config = function()
