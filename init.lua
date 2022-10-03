@@ -1,6 +1,15 @@
 local fn = vim.fn
 local opt = vim.opt
 
+if vim.loop.os_uname().sysname == "Windows" then
+    opt.shell = "pwsh"
+    vim.g.shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
+    vim.g.shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+    vim.g.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+    opt.shellquote = ""
+    opt.shellxquote = ""
+end
+
 opt.expandtab = true
 opt.shiftwidth = 4
 opt.signcolumn = "number"
