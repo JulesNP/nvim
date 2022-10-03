@@ -14,14 +14,27 @@ return {
         { "saadparwaiz1/cmp_luasnip" },
         { "hrsh7th/cmp-nvim-lsp" },
         { "hrsh7th/cmp-nvim-lua" },
-        { "folke/lua-dev.nvim" },
+        { "petertriho/cmp-git" },
+        { "hrsh7th/cmp-cmdline" },
 
         -- Snippets
         { "L3MON4D3/LuaSnip" },
         { "rafamadriz/friendly-snippets" },
+
+        -- Other requirements
+        { "folke/lua-dev.nvim" },
+        { "nvim-lua/plenary.nvim" },
     },
     config = function()
         local lsp = require "lsp-zero"
+        local wk = require "which-key"
+        wk.register {
+            ["<leader>e"] = { vim.diagnostic.open_float, "View diagnostic" },
+            ["<leader>q"] = { vim.diagnostic.setloclist, "List diagnostics" },
+            ["[d"] = { vim.diagnostic.goto_prev, "Previous diagnostic" },
+            ["]d"] = { vim.diagnostic.goto_next, "Next diagnostic" },
+        }
+
         lsp.set_preferences {
             suggest_lsp_servers = true,
             setup_servers_on_start = true,
@@ -47,6 +60,119 @@ return {
             },
         }
 
+        lsp.on_attach(function(_, bufnr)
+            vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
+            wk.register {
+                K = { vim.lsp.buf.hover, "LSP hover info", buffer = bufnr },
+                ["<c-k>"] = { vim.lsp.buf.signature_help, "Signature help", buffer = bufnr },
+                gD = { vim.lsp.buf.declaration, "Go to declaration", buffer = bufnr },
+                gI = { vim.lsp.buf.implementation, "Go to implementation", buffer = bufnr },
+                gR = { vim.lsp.buf.references, "Go to references", buffer = bufnr },
+                gd = { vim.lsp.buf.definition, "Go to definition", buffer = bufnr },
+                ["<leader>"] = {
+                    D = { vim.lsp.buf.type_definition, "Type definition", buffer = bufnr },
+                    ca = { vim.lsp.buf.code_action, "Code action", buffer = bufnr },
+                    fm = {
+                        function()
+                            vim.lsp.buf.format { async = true }
+                        end,
+                        "Format document",
+                        buffer = bufnr,
+                    },
+                    rn = { vim.lsp.buf.rename, "Rename", buffer = bufnr },
+                },
+                ["<leader>w"] = {
+                    name = "workspace",
+                    a = { vim.lsp.buf.add_workspace_folder, "Add workspace folder", buffer = bufnr },
+                    r = { vim.lsp.buf.remove_workspace_folder, "Remove workspace folder", buffer = bufnr },
+                    l = {
+                        function()
+                            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+                        end,
+                        "List workspace folders",
+                        buffer = bufnr,
+                    },
+                },
+            }
+        end)
+
         lsp.setup()
+
+        local cmp = require "cmp"
+        local luasnip = require "luasnip"
+        local has_words_before = function()
+            local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+            return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
+        end
+        cmp.setup {
+            snippet = {
+                expand = function(args)
+                    require("luasnip").lsp_expand(args.body)
+                end,
+            },
+            mapping = cmp.mapping.preset.insert {
+                ["<tab>"] = cmp.mapping(function(fallback)
+                    if cmp.visible() then
+                        cmp.select_next_item()
+                    elseif luasnip.expand_or_jumpable() and has_words_before() then
+                        luasnip.expand_or_jump()
+                    else
+                        fallback()
+                    end
+                end, { "i", "s" }),
+                ["<s-tab>"] = cmp.mapping(function(fallback)
+                    if cmp.visible() then
+                        cmp.select_prev_item()
+                    elseif luasnip.jumpable(-1) then
+                        luasnip.jump(-1)
+                    else
+                        fallback()
+                    end
+                end, { "i", "s" }),
+                ["<c-b>"] = cmp.mapping.scroll_docs(-4),
+                ["<c-f>"] = cmp.mapping.scroll_docs(4),
+                ["<c-space>"] = cmp.mapping.complete(),
+                ["<c-e>"] = cmp.mapping.abort(),
+                ["<cr>"] = cmp.mapping.confirm { select = false },
+            },
+            sources = cmp.config.sources {
+                { name = "nvim_lua" },
+                { name = "nvim_lsp" },
+                { name = "luasnip" },
+                { name = "buffer" },
+                { name = "path" },
+            },
+        }
+
+        cmp.setup.filetype("gitcommit", {
+            sources = cmp.config.sources {
+                { name = "git" },
+                { name = "buffer" },
+            },
+        })
+
+        cmp.setup.cmdline({ "/", "?" }, {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = cmp.config.sources {
+                { name = "buffer" },
+            },
+        })
+
+        cmp.setup.cmdline(":", {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = cmp.config.sources {
+                { name = "path" },
+                { name = "cmdline" },
+            },
+        })
+
+        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+            border = "none",
+        })
+
+        vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+            border = "none",
+        })
     end,
 }
