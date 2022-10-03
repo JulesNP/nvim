@@ -16,16 +16,28 @@ return {
         { "hrsh7th/cmp-nvim-lua" },
         { "folke/lua-dev.nvim" },
 
-    lsp.preset('recommended')
         -- Snippets
         { "L3MON4D3/LuaSnip" },
         { "rafamadriz/friendly-snippets" },
     },
     config = function()
         local lsp = require "lsp-zero"
+        lsp.set_preferences {
+            suggest_lsp_servers = true,
+            setup_servers_on_start = true,
+            cmp_capabilities = true,
+            manage_nvim_cmp = true,
+            call_servers = "local",
+        }
 
         local luadev = require("lua-dev").setup {}
         lsp.configure("sumneko_lua", luadev)
+
+        require("null-ls").setup {
+            sources = {
+                require("null-ls").builtins.formatting.stylua,
+            },
+        }
 
         lsp.setup()
     end,
