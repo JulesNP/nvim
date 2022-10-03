@@ -17,6 +17,8 @@ opt.signcolumn = "yes:1"
 opt.number = true
 opt.relativenumber = true
 vim.g.mapleader = " "
+vim.g.loaded = 1
+vim.g.loaded_netrwPlugin = 1
 
 local ensure_packer = function()
     local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
@@ -53,6 +55,23 @@ return require("packer").startup(function(use)
     }
     use(require "lsp")
     use(require "gsigns")
+    use {
+        "kyazdani42/nvim-tree.lua",
+        requires = {
+            "kyazdani42/nvim-web-devicons",
+        },
+        tag = "nightly",
+        config = function()
+            require("nvim-tree").setup {
+                filters = {
+                    custom = { "^.git$" },
+                },
+            }
+            require("which-key").register {
+                ["<c-n>"] = { "<cmd>NvimTreeToggle<cr>", "Toggle NvimTree" },
+            }
+        end,
+    }
     use {
         "TimUntersberger/neogit",
         requires = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
