@@ -42,11 +42,23 @@ return require("packer").startup(function(use)
     use {
         "folke/which-key.nvim",
         config = function()
-            require("which-key").setup {}
+            local wk = require "which-key"
+            wk.setup()
+            wk.register {
+                ["<leader>ps"] = { "<cmd>PackerSync<cr>", "PackerSync" },
+            }
         end,
     }
     use(require "lsp")
-    use { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" }
+    use {
+        "TimUntersberger/neogit",
+        requires = "nvim-lua/plenary.nvim",
+        config = function()
+            require("which-key").register {
+                ["<leader>gg"] = { "<cmd>Neogit<cr>", "Neogit" },
+            }
+        end,
+    }
 
     if packer_bootstrap then
         require("packer").sync()
