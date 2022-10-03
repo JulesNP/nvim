@@ -55,51 +55,8 @@ return require("packer").startup(function(use)
     }
     use(require "plugin/lsp")
     use(require "plugin/gitsigns")
-    use {
-        "kyazdani42/nvim-tree.lua",
-        requires = {
-            "kyazdani42/nvim-web-devicons",
-        },
-        tag = "nightly",
-        config = function()
-            require("nvim-tree").setup {
-                filters = {
-                    custom = { "^.git$" },
-                },
-            }
-            require("which-key").register {
-                ["<c-n>"] = { "<cmd>NvimTreeToggle<cr>", "Toggle NvimTree" },
-            }
-        end,
-    }
-    use {
-        "TimUntersberger/neogit",
-        requires = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
-        config = function()
-            local neogit = require "neogit"
-            neogit.setup {
-                disable_commit_confirmation = true,
-                disable_insert_on_commit = false,
-                integrations = {
-                    diffview = true,
-                },
-            }
-            require("which-key").register {
-                ["<leader>gg"] = {
-                    function()
-                        neogit.open { cwd = (vim.fn.expand "%:p:h") }
-                    end,
-                    "Neogit",
-                },
-                ["<leader>c"] = {
-                    function()
-                        neogit.open { "commit", cwd = (vim.fn.expand "%:p:h") }
-                    end,
-                    "create commit",
-                },
-            }
-        end,
-    }
+    use(require "plugin/nvimtree")
+    use(require "plugin/neogit")
 
     if packer_bootstrap then
         require("packer").sync()
