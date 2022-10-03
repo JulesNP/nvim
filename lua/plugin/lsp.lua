@@ -43,12 +43,6 @@ return {
             cmp_capabilities = true,
             manage_nvim_cmp = false,
             call_servers = "local",
-            sign_icons = {
-                error = "✘",
-                warn = "▲",
-                hint = "⚑",
-                info = "",
-            },
         }
 
         local luadev = require("lua-dev").setup {}
