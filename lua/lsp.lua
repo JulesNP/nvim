@@ -25,9 +25,17 @@ return {
         lsp.set_preferences {
             suggest_lsp_servers = true,
             setup_servers_on_start = true,
+            set_lsp_keymaps = false,
+            configure_diagnostics = false,
             cmp_capabilities = true,
-            manage_nvim_cmp = true,
+            manage_nvim_cmp = false,
             call_servers = "local",
+            sign_icons = {
+                error = "✘",
+                warn = "▲",
+                hint = "⚑",
+                info = "",
+            },
         }
 
         local luadev = require("lua-dev").setup {}
