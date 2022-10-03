@@ -15,7 +15,7 @@ return {
                             end)
                             return "<Ignore>"
                         end,
-                        "next hunk",
+                        "Next hunk",
                     },
                     ["[c"] = {
                         function()
@@ -27,7 +27,7 @@ return {
                             end)
                             return "<Ignore>"
                         end,
-                        "prev hunk",
+                        "Prev hunk",
                     },
                     ["<leader>h"] = {
                         name = "hunk",
@@ -35,35 +35,35 @@ return {
                             function()
                                 gs.diffthis "~"
                             end,
-                            'diffthis("~")',
+                            "Git diff~",
                             buffer = bufnr,
                         },
-                        R = { gs.reset_buffer, "reset buffer", buffer = bufnr },
-                        S = { gs.stage_buffer, "stage buffer", buffer = bufnr },
+                        R = { gs.reset_buffer, "Reset buffer", buffer = bufnr },
+                        S = { gs.stage_buffer, "Stage buffer", buffer = bufnr },
                         b = {
                             function()
                                 gs.blame_line { full = true }
                             end,
-                            "blame line",
+                            "Blame line",
                             buffer = bufnr,
                         },
-                        d = { gs.diffthis, "diffthis", buffer = bufnr },
-                        p = { gs.preview_hunk, "preview hunk", buffer = bufnr },
-                        r = { "<cmd>Gitsigns reset_hunk<cr>", "reset hunk", buffer = bufnr },
-                        s = { "<cmd>Gitsigns stage_hunk<cr>", "stage hunk", buffer = bufnr },
-                        u = { gs.undo_stage_hunk, "undo stage hunk", buffer = bufnr },
+                        d = { gs.diffthis, "Git diff", buffer = bufnr },
+                        p = { gs.preview_hunk, "Preview hunk", buffer = bufnr },
+                        r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk", buffer = bufnr },
+                        s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk", buffer = bufnr },
+                        u = { gs.undo_stage_hunk, "Undo stage hunk", buffer = bufnr },
                     },
                     ["<leader>t"] = {
                         name = "toggle",
-                        b = { gs.toggle_current_line_blame, "toggle current line blame", buffer = bufnr },
-                        d = { gs.toggle_deleted, "toggle deleted", buffer = bufnr },
+                        b = { gs.toggle_current_line_blame, "Toggle current line blame", buffer = bufnr },
+                        d = { gs.toggle_deleted, "Toggle deleted", buffer = bufnr },
                     },
                     i = {
-                        h = { ":<C-U>Gitsigns select_hunk<CR>", "select hunk", mode = "o" },
+                        h = { ":<C-U>Gitsigns select_hunk<CR>", "Select hunk", mode = "o" },
                     },
-                    ih = { ":<C-U>Gitsigns select_hunk<CR>", "select hunk", mode = "x" },
-                    ["<leader>hr"] = { "<cmd>Gitsigns reset_hunk<cr>", "reset hunk", buffer = bufnr, mode = "v" },
-                    ["<leader>hs"] = { "<cmd>Gitsigns stage_hunk<cr>", "stage hunk", buffer = bufnr, mode = "v" },
+                    ih = { ":<C-U>Gitsigns select_hunk<CR>", "Select hunk", mode = "x" },
+                    ["<leader>hr"] = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk", buffer = bufnr, mode = "v" },
+                    ["<leader>hs"] = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk", buffer = bufnr, mode = "v" },
                 }
             end,
         }

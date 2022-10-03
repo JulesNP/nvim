@@ -21,7 +21,7 @@ return {
                 function()
                     neogit.open { "commit", cwd = (vim.fn.expand "%:p:h") }
                 end,
-                "create commit",
+                "Create commit",
             },
         }
     end,
