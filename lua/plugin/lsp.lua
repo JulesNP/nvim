@@ -26,6 +26,7 @@ return {
         -- Other requirements
         { "folke/lua-dev.nvim" },
         { "nvim-lua/plenary.nvim" },
+        { "windwp/nvim-autopairs" },
     },
     config = function()
         local lsp = require "lsp-zero"
@@ -166,6 +167,7 @@ return {
             },
         })
 
+        require("nvim-autopairs").setup {}
         local handlers = require "nvim-autopairs.completion.handlers"
         cmp.event:on(
             "confirm_done",
@@ -180,6 +182,7 @@ return {
                             handler = handlers["*"],
                         },
                     },
+                    lua = false,
                 },
             }
         )
