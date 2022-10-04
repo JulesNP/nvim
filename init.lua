@@ -25,6 +25,7 @@ opt.scrolloff = 2
 opt.shiftwidth = 4
 opt.signcolumn = "yes:1"
 opt.smartcase = true
+opt.termguicolors = true
 opt.undofile = true
 
 local ensure_packer = function()
@@ -53,7 +54,7 @@ return require("packer").startup(function(use)
             vim.g.gruvbox_italic = 1
             vim.g.gruvbox_sign_column = "none"
             vim.cmd [[colorscheme gruvbox]]
-            vim.cmd [[highlight MatchWord ctermbg=black guibg=black]]
+            vim.cmd [[highlight MatchParen guibg=#3c3836]]
         end,
     }
     use(require "plugin/whichkey")
@@ -76,8 +77,18 @@ return require("packer").startup(function(use)
     use {
         "lukas-reineke/indent-blankline.nvim",
         config = function()
+            vim.cmd [[highlight IndentBlanklineIndent guibg=#262626 gui=nocombine]]
             require("indent_blankline").setup {
-                show_current_context = true,
+                char = "",
+                char_highlight_list = {
+                    "",
+                    "IndentBlanklineIndent",
+                },
+                space_char_highlight_list = {
+                    "",
+                    "IndentBlanklineIndent",
+                },
+                show_trailing_blankline_indent = false,
             }
         end,
     }
