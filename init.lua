@@ -59,6 +59,7 @@ return require("packer").startup(function(use)
     use(require "plugin/telescope")
     use(require "plugin/nvimtree")
     use(require "plugin/neogit")
+    use(require "plugin/session")
     use {
         "akinsho/toggleterm.nvim",
         tag = "*",
