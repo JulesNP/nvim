@@ -14,6 +14,7 @@ end
 opt.clipboard = "unnamedplus"
 opt.completeopt = "menu,menuone,noselect"
 opt.expandtab = true
+opt.scrolloff = 2
 opt.shiftwidth = 4
 opt.signcolumn = "yes:1"
 opt.number = true
