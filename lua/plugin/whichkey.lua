@@ -7,8 +7,10 @@ return {
         end
 
         wk.setup {
-            spelling = {
-                enabled = true,
+            plugins = {
+                spelling = {
+                    enabled = true,
+                },
             },
         }
         wk.register {
