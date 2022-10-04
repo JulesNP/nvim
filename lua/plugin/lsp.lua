@@ -66,6 +66,7 @@ return {
                     border = "none",
                 },
                 hint_prefix = "﬌ ",
+                hint_scheme = "DiagnosticHint",
             }, bufnr)
 
             wk.register {
