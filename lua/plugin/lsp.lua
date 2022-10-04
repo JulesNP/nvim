@@ -189,7 +189,6 @@ return {
                             handler = handlers["*"],
                         },
                     },
-                    lua = false,
                 },
             }
         )
