@@ -7,6 +7,7 @@ return {
                 "NeogitStatus",
                 "NvimTree",
                 "gitcommit",
+                "packer",
                 "toggleterm",
             },
             autosave_ignore_not_normal = false,

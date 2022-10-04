@@ -18,11 +18,14 @@ g.mapleader = " "
 opt.clipboard = "unnamedplus"
 opt.completeopt = "menu,menuone,noselect"
 opt.expandtab = true
+opt.ignorecase = true
 opt.number = true
 opt.relativenumber = true
 opt.scrolloff = 2
 opt.shiftwidth = 4
 opt.signcolumn = "yes:1"
+opt.smartcase = true
+opt.undofile = true
 
 local ensure_packer = function()
     local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
@@ -75,7 +78,6 @@ return require("packer").startup(function(use)
         config = function()
             require("indent_blankline").setup {
                 show_current_context = true,
-                show_current_context_start = true,
             }
         end,
     }
