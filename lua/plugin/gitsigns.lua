@@ -16,6 +16,7 @@ return {
                             return "<Ignore>"
                         end,
                         "Next hunk",
+                        buffer = bufnr,
                     },
                     ["[c"] = {
                         function()
@@ -28,6 +29,7 @@ return {
                             return "<Ignore>"
                         end,
                         "Prev hunk",
+                        buffer = bufnr,
                     },
                     ["<leader>h"] = {
                         name = "hunk",
@@ -58,10 +60,7 @@ return {
                         b = { gs.toggle_current_line_blame, "Toggle current line blame", buffer = bufnr },
                         d = { gs.toggle_deleted, "Toggle deleted", buffer = bufnr },
                     },
-                    i = {
-                        h = { ":<C-U>Gitsigns select_hunk<CR>", "Select hunk", mode = "o" },
-                    },
-                    ih = { ":<C-U>Gitsigns select_hunk<CR>", "Select hunk", mode = "x" },
+                    ih = { ":<C-U>Gitsigns select_hunk<CR>", "Select hunk", buffer = bufnr, mode = "o" },
                     ["<leader>hr"] = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk", buffer = bufnr, mode = "v" },
                     ["<leader>hs"] = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk", buffer = bufnr, mode = "v" },
                 }
