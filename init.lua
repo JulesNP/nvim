@@ -43,6 +43,7 @@ return require("packer").startup(function(use)
     use "tpope/vim-unimpaired"
     use "tpope/vim-speeddating"
     use "tpope/vim-surround"
+    use "wellle/targets.vim"
     use {
         "gruvbox-community/gruvbox",
         config = function()
