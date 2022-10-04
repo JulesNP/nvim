@@ -162,6 +162,24 @@ return {
             },
         })
 
+        local handlers = require "nvim-autopairs.completion.handlers"
+        cmp.event:on(
+            "confirm_done",
+            require("nvim-autopairs.completion.cmp").on_confirm_done {
+                filetypes = {
+                    fsharp = {
+                        [" "] = {
+                            kind = {
+                                cmp.lsp.CompletionItemKind.Function,
+                                cmp.lsp.CompletionItemKind.Method,
+                            },
+                            handler = handlers["*"],
+                        },
+                    },
+                },
+            }
+        )
+
         vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
             border = "none",
         })
