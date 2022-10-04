@@ -70,7 +70,6 @@ return {
 
             wk.register {
                 K = { vim.lsp.buf.hover, "LSP hover info", buffer = bufnr },
-                ["<c-k>"] = { vim.lsp.buf.signature_help, "Signature help", buffer = bufnr },
                 gD = { vim.lsp.buf.declaration, "Go to declaration", buffer = bufnr },
                 gI = { vim.lsp.buf.implementation, "Go to implementation", buffer = bufnr },
                 gR = { vim.lsp.buf.references, "Go to references", buffer = bufnr },
