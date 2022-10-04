@@ -49,6 +49,7 @@ return require("packer").startup(function(use)
             vim.g.gruvbox_italic = 1
             vim.g.gruvbox_sign_column = "none"
             vim.cmd [[colorscheme gruvbox]]
+            vim.cmd [[highlight MatchWord ctermbg=black guibg=black]]
         end,
     }
     use(require "plugin/whichkey")
