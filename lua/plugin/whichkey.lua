@@ -19,6 +19,7 @@ return {
             ["<C-k>"] = { termcodes "<C-\\><C-n><C-w>k", "Go to the up window", mode = "t" },
             ["<C-l>"] = { termcodes "<C-\\><C-n><C-w>l", "Go to the right window", mode = "t" },
             ["<C-x>"] = { termcodes "<C-\\><C-n>", "Go to Normal mode", mode = "t" },
+            ["<esc>"] = { "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", "Clear search highlights" },
             ["<c-s>"] = {
                 function()
                     vim.lsp.buf.format()
