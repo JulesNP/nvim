@@ -27,6 +27,7 @@ return {
         { "folke/lua-dev.nvim" },
         { "nvim-lua/plenary.nvim" },
         { "windwp/nvim-autopairs" },
+        { "ray-x/lsp_signature.nvim" },
     },
     config = function()
         local lsp = require "lsp-zero"
@@ -59,6 +60,13 @@ return {
 
         lsp.on_attach(function(_, bufnr)
             vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+            require("lsp_signature").on_attach({
+                bind = true,
+                handler_opts = {
+                    border = "none",
+                },
+                hint_prefix = "﬌ ",
+            }, bufnr)
 
             wk.register {
                 K = { vim.lsp.buf.hover, "LSP hover info", buffer = bufnr },
