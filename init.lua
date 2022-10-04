@@ -1,27 +1,28 @@
+local g = vim.g
 local fn = vim.fn
 local opt = vim.opt
 
 if vim.loop.os_uname().sysname == "Windows" then
     opt.shell = "pwsh"
-    vim.g.shellcmdflag =
+    g.shellcmdflag =
     "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
-    vim.g.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-    vim.g.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+    g.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+    g.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
     opt.shellquote = ""
     opt.shellxquote = ""
 end
 
+g.loaded = 1
+g.loaded_netrwPlugin = 1
+g.mapleader = " "
 opt.clipboard = "unnamedplus"
 opt.completeopt = "menu,menuone,noselect"
 opt.expandtab = true
+opt.number = true
+opt.relativenumber = true
 opt.scrolloff = 2
 opt.shiftwidth = 4
 opt.signcolumn = "yes:1"
-opt.number = true
-opt.relativenumber = true
-vim.g.mapleader = " "
-vim.g.loaded = 1
-vim.g.loaded_netrwPlugin = 1
 
 local ensure_packer = function()
     local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
@@ -45,8 +46,8 @@ return require("packer").startup(function(use)
     use {
         "gruvbox-community/gruvbox",
         config = function()
-            vim.g.gruvbox_italic = 1
-            vim.g.gruvbox_sign_column = "none"
+            g.gruvbox_italic = 1
+            g.gruvbox_sign_column = "none"
             vim.cmd [[colorscheme gruvbox]]
         end,
     }
