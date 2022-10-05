@@ -36,7 +36,7 @@ return {
             ["<a-j>"] = { "<c-w>+", "Increase height" },
             ["<a-k>"] = { "<c-w>-", "Decrease height" },
             ["<a-l>"] = { "<c-w>>", "Increase width" },
-            ["<leader>ps"] = { "<cmd>PackerSync<cr>", "PackerSync" },
+            ["<leader>ps"] = { "<cmd>source $MYVIMRC<bar>PackerSync<cr>", "PackerSync" },
             gb = { "<cmd>bnext<cr>", "Go to next buffer" },
             gB = { "<cmd>bprevious<cr>", "Go to previous buffer" },
         }
