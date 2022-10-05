@@ -52,12 +52,6 @@ return {
         local luadev = require("lua-dev").setup {}
         lsp.configure("sumneko_lua", luadev)
 
-        require("null-ls").setup {
-            sources = {
-                require("null-ls").builtins.formatting.stylua,
-            },
-        }
-
         lsp.on_attach(function(_, bufnr)
             vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
             require("lsp_signature").on_attach({
@@ -201,5 +195,18 @@ return {
         vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
             border = "none",
         })
+
+        local null_ls = require "null-ls"
+        require("null-ls").setup {
+            sources = {
+                null_ls.builtins.code_actions.gitsigns,
+                null_ls.builtins.formatting.clang_format,
+                null_ls.builtins.formatting.prettier.with {
+                    extra_filetypes = { "pug" },
+                },
+                null_ls.builtins.formatting.stylua,
+                null_ls.builtins.hover.dictionary,
+            },
+        }
     end,
 }
