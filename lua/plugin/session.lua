@@ -12,5 +12,8 @@ return {
             },
             autosave_ignore_not_normal = false,
         }
+        require("which-key").register {
+            ["<leader>ss"] = { "<cmd>SessionManager load_session<cr>", "Select session" },
+        }
     end,
 }
