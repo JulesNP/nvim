@@ -61,7 +61,9 @@ return require("packer").startup(function(use)
     use "tpope/vim-unimpaired"
     use "tpope/vim-speeddating"
     use "tpope/vim-surround"
+    use "vim-scripts/ReplaceWithRegister"
     use "wellle/targets.vim"
+    use "junegunn/vim-easy-align"
     use {
         "gruvbox-community/gruvbox",
         config = function()
@@ -104,6 +106,18 @@ return require("packer").startup(function(use)
                 },
                 show_trailing_blankline_indent = false,
             }
+        end,
+    }
+    use {
+        "mechatroner/rainbow_csv",
+        config = function()
+            vim.g.rbql_backend_language = "js"
+        end,
+    }
+    use {
+        "norcalli/nvim-colorizer.lua",
+        config = function()
+            require("colorizer").setup()
         end,
     }
 
