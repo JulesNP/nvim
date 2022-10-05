@@ -28,6 +28,20 @@ opt.smartcase = true
 opt.termguicolors = true
 opt.undofile = true
 
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "gitcommit", "markdown", "text" },
+    callback = function()
+        vim.opt_local.spell = true
+    end,
+})
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+    pattern = "*",
+    callback = function()
+        vim.highlight.on_yank { timeout = 300 }
+    end,
+})
+
 local ensure_packer = function()
     local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
     if fn.empty(fn.glob(install_path)) > 0 then
