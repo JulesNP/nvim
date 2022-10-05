@@ -37,6 +37,8 @@ return {
             ["<a-k>"] = { "<c-w>-", "Decrease height" },
             ["<a-l>"] = { "<c-w>>", "Increase width" },
             ["<leader>ps"] = { "<cmd>PackerSync<cr>", "PackerSync" },
+            gb = { "<cmd>bnext<cr>", "Go to next buffer" },
+            gB = { "<cmd>bprevious<cr>", "Go to previous buffer" },
         }
     end,
 }
