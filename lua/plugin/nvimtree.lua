@@ -6,8 +6,16 @@ return {
     tag = "nightly",
     config = function()
         require("nvim-tree").setup {
+            diagnostics = {
+                enable = true,
+            },
             filters = {
                 custom = { "^.git$" },
+            },
+            reload_on_bufenter = true,
+            sync_root_with_cwd = true,
+            update_focused_file = {
+                enable = true,
             },
         }
         require("which-key").register {
