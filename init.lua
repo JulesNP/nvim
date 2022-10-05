@@ -91,6 +91,18 @@ return require("packer").startup(function(use)
         end,
     }
     use {
+        "mechatroner/rainbow_csv",
+        config = function()
+            vim.g.rbql_backend_language = "js"
+        end,
+    }
+    use {
+        "norcalli/nvim-colorizer.lua",
+        config = function()
+            require("colorizer").setup()
+        end,
+    }
+    use {
         "lukas-reineke/indent-blankline.nvim",
         config = function()
             vim.cmd [[highlight IndentBlanklineIndent guibg=#262626]]
@@ -106,18 +118,6 @@ return require("packer").startup(function(use)
                 },
                 show_trailing_blankline_indent = false,
             }
-        end,
-    }
-    use {
-        "mechatroner/rainbow_csv",
-        config = function()
-            vim.g.rbql_backend_language = "js"
-        end,
-    }
-    use {
-        "norcalli/nvim-colorizer.lua",
-        config = function()
-            require("colorizer").setup()
         end,
     }
 
