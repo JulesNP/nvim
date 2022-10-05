@@ -25,6 +25,8 @@ return {
                 h = { builtin.help_tags, "Find help tag" },
                 o = { builtin.oldfiles, "Find recent file" },
                 r = { builtin.resume, "Resume find" },
+                s = { builtin.lsp_dynamic_workspace_symbols, "Find workspace symbol" },
+                w = { builtin.grep_string, "Find word under cursor" },
             },
         }
     end,
