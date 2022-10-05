@@ -19,6 +19,7 @@ opt.clipboard = "unnamedplus"
 opt.completeopt = "menu,menuone,noselect"
 opt.expandtab = true
 opt.ignorecase = true
+opt.linebreak = true
 opt.number = true
 opt.relativenumber = true
 opt.scrolloff = 2
