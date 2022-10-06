@@ -104,6 +104,7 @@ return require("packer").startup(function(use)
     }
     use {
         "lukas-reineke/indent-blankline.nvim",
+        after = "gruvbox",
         config = function()
             vim.cmd [[highlight IndentBlanklineIndent ctermbg=236 guibg=#262626]]
             require("indent_blankline").setup {
