@@ -40,6 +40,7 @@ return {
             ["<leader>x"] = { "<cmd>bdelete<cr>", "Close buffer" },
             gb = { "<cmd>bnext<cr>", "Go to next buffer" },
             gB = { "<cmd>bprevious<cr>", "Go to previous buffer" },
+            wk = { "<cmd>WhichKey<cr>", "WhichKey" },
         }
     end,
 }
