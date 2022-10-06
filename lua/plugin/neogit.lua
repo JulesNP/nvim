@@ -11,17 +11,20 @@ return {
             },
         }
         require("which-key").register {
-            ["<leader>gg"] = {
-                function()
-                    neogit.open { cwd = (vim.fn.expand "%:p:h") }
-                end,
-                "Neogit",
-            },
-            ["<leader>c"] = {
-                function()
-                    neogit.open { "commit", cwd = (vim.fn.expand "%:p:h") }
-                end,
-                "Create commit",
+            ["<leader>g"] = {
+                name = "git",
+                g = {
+                    function()
+                        neogit.open { cwd = (vim.fn.expand "%:p:h") }
+                    end,
+                    "Neogit status",
+                },
+                c = {
+                    function()
+                        neogit.open { "commit", cwd = (vim.fn.expand "%:p:h") }
+                    end,
+                    "Create commit",
+                },
             },
         }
     end,
