@@ -20,6 +20,7 @@ return {
             ["<leader>f"] = {
                 name = "find",
                 b = { builtin.buffers, "Find buffer" },
+                d = { builtin.diagnostics, "Find diagnostic" },
                 f = { builtin.find_files, "Find file" },
                 g = { builtin.live_grep, "Find with grep" },
                 h = { builtin.help_tags, "Find help tag" },
