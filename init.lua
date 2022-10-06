@@ -70,7 +70,7 @@ return require("packer").startup(function(use)
             vim.g.gruvbox_italic = 1
             vim.g.gruvbox_sign_column = "none"
             vim.cmd [[colorscheme gruvbox]]
-            vim.cmd [[highlight MatchParen guibg=#3c3836]]
+            vim.cmd [[highlight MatchParen ctermbg=237 guibg=#3c3836]]
         end,
     }
     use(require "plugin/whichkey")
@@ -105,7 +105,7 @@ return require("packer").startup(function(use)
     use {
         "lukas-reineke/indent-blankline.nvim",
         config = function()
-            vim.cmd [[highlight IndentBlanklineIndent guibg=#262626]]
+            vim.cmd [[highlight IndentBlanklineIndent ctermbg=236 guibg=#262626]]
             require("indent_blankline").setup {
                 char = "",
                 char_highlight_list = {
