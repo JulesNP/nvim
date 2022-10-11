@@ -61,8 +61,8 @@ return {
                         d = { gs.toggle_deleted, "Toggle deleted", buffer = bufnr },
                     },
                     ih = { ":<C-U>Gitsigns select_hunk<CR>", "Select hunk", buffer = bufnr, mode = "o" },
-                    ["<leader>hr"] = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk", buffer = bufnr, mode = "v" },
-                    ["<leader>hs"] = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk", buffer = bufnr, mode = "v" },
+                    ["<leader>hr"] = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk", buffer = bufnr, mode = "x" },
+                    ["<leader>hs"] = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk", buffer = bufnr, mode = "x" },
                 }
             end,
         }
