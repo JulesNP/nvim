@@ -91,6 +91,19 @@ return require("packer").startup(function(use)
         end,
     }
     use {
+        "numToStr/Comment.nvim",
+        config = function()
+            require("Comment").setup {
+                toggler = {
+                    block = "g//",
+                },
+                opleader = {
+                    block = "g/",
+                },
+            }
+        end,
+    }
+    use {
         "mechatroner/rainbow_csv",
         config = function()
             vim.g.rbql_backend_language = "js"
