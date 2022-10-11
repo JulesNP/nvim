@@ -136,23 +136,27 @@ return {
                 ["<cr>"] = cmp.mapping.confirm { select = false },
             },
             sources = cmp.config.sources {
+                { name = "luasnip" },
                 { name = "nvim_lua" },
                 { name = "nvim_lsp" },
-                { name = "luasnip" },
-                { name = "buffer" },
+                { name = "git" },
                 { name = "path" },
                 { name = "calc" },
                 { name = "emoji" },
+                {
+                    name = "buffer",
+                    option = {
+                        get_bufnrs = function()
+                            return vim.api.nvim_list_bufs()
+                        end,
+                    },
+                },
             },
         }
 
-        require("cmp_git").setup()
-        cmp.setup.filetype({ "NeogitCommitMessage", "gitcommit" }, {
-            sources = cmp.config.sources {
-                { name = "git" },
-                { name = "buffer" },
-            },
-        })
+        require("cmp_git").setup {
+            filetypes = { "NeogitCommitMessage", "gitcommit", "octo" },
+        }
 
         cmp.setup.cmdline({ "/", "?" }, {
             mapping = cmp.mapping.preset.cmdline(),
