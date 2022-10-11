@@ -63,7 +63,17 @@ return require("packer").startup(function(use)
     use "tpope/vim-surround"
     use "vim-scripts/ReplaceWithRegister"
     use "wellle/targets.vim"
-    use "junegunn/vim-easy-align"
+    use {
+        "junegunn/vim-easy-align",
+        config = function()
+            require("which-key").register {
+                gl = { "<plug>(EasyAlign)", "Align items", mode = "x" },
+                g = {
+                    l = { "<plug>(EasyAlign)", "Align items" },
+                },
+            }
+        end,
+    }
     use {
         "gruvbox-community/gruvbox",
         config = function()
