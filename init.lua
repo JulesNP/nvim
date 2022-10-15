@@ -59,6 +59,7 @@ return require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
     use "sheerun/vim-polyglot"
     use "tpope/vim-repeat"
+    use "tpope/vim-rsi"
     use "tpope/vim-speeddating"
     use "tpope/vim-surround"
     use "vim-scripts/ReplaceWithRegister"
