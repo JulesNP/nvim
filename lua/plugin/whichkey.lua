@@ -37,8 +37,11 @@ return {
             ["<a-k>"] = { "<c-w>-", "Decrease height" },
             ["<a-l>"] = { "<c-w>>", "Increase width" },
             ["<leader>b"] = { "<cmd>enew<cr>", "New buffer" },
-            ["<leader>ps"] = { "<cmd>PackerSync<cr>", "PackerSync" },
-            ["<leader>pc"] = { "<cmd>PackerCompile<cr>", "PackerCompile" },
+            ["<leader>p"] = {
+                name = "packer",
+                s = { "<cmd>PackerSync<cr>", "PackerSync" },
+                c = { "<cmd>PackerCompile<cr>", "PackerCompile" },
+            },
             ["<leader>wk"] = { "<cmd>WhichKey<cr>", "WhichKey" },
             ["<leader>x"] = { "<cmd>bdelete<cr>", "Close buffer" },
             gb = { "<cmd>bnext<cr>", "Go to next buffer" },
