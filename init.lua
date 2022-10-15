@@ -2,14 +2,14 @@ local g = vim.g
 local fn = vim.fn
 local opt = vim.opt
 
-if vim.loop.os_uname().sysname == "Windows" then
-    opt.shell = "pwsh"
-    g.shellcmdflag =
-        "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
-    g.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-    g.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-    opt.shellquote = ""
-    opt.shellxquote = ""
+if vim.loop.os_uname().sysname == "Windows_NT" then
+    vim.cmd [[
+		let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
+		let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
+		let &shellredir = '-RedirectStandardOutput %s -NoNewWindow -Wait'
+		let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+		set shellquote= shellxquote=
+    ]]
 end
 
 g.loaded = 1
