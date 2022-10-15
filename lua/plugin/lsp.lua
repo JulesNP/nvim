@@ -24,7 +24,7 @@ return {
         { "rafamadriz/friendly-snippets" },
 
         -- Other requirements
-        { "folke/lua-dev.nvim" },
+        { "folke/neodev.nvim" },
         { "nvim-lua/plenary.nvim" },
         { "windwp/nvim-autopairs" },
         { "ray-x/lsp_signature.nvim" },
@@ -49,8 +49,8 @@ return {
             call_servers = "local",
         }
 
-        local luadev = require("lua-dev").setup {}
-        lsp.configure("sumneko_lua", luadev)
+        local neodev = require("neodev").setup {}
+        lsp.configure("sumneko_lua", neodev)
 
         lsp.on_attach(function(_, bufnr)
             vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
