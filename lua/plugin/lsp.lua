@@ -34,7 +34,7 @@ return {
         local wk = require "which-key"
         wk.register {
             ["<leader>e"] = { vim.diagnostic.open_float, "View diagnostic" },
-            ["<leader>q"] = { vim.diagnostic.setloclist, "List diagnostics" },
+            ["<leader>q"] = { vim.diagnostic.setqflist, "List diagnostics" },
             ["[d"] = { vim.diagnostic.goto_prev, "Previous diagnostic" },
             ["]d"] = { vim.diagnostic.goto_next, "Next diagnostic" },
         }
