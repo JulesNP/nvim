@@ -124,7 +124,7 @@ return require("packer").startup(function(use)
                 process_comment_signs = "delete",
                 sections = {
                     left = { "content" },
-                    right = { " ", "number_of_folded_lines", ":", "percentage", " " },
+                    right = { " ", "number_of_folded_lines", ": ", "percentage", " " },
                 },
             }
         end,
