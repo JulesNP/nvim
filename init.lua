@@ -1,3 +1,4 @@
+-- Use PowerShell on Windows {{{
 if vim.loop.os_uname().sysname == "Windows_NT" then
     vim.cmd [[
         let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
@@ -7,7 +8,9 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
         set shellquote= shellxquote=
     ]]
 end
+-- }}}
 
+-- General settings {{{
 vim.g.loaded = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = " "
@@ -26,7 +29,9 @@ vim.o.signcolumn = "yes:1"
 vim.o.smartcase = true
 vim.o.termguicolors = true
 vim.o.undofile = true
+-- }}}
 
+-- Autocommands {{{
 vim.api.nvim_create_autocmd("BufWinEnter", {
     pattern = "*.*",
     callback = function()
@@ -54,7 +59,9 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.highlight.on_yank { timeout = 300 }
     end,
 })
+-- }}}
 
+-- Packer bootstrap {{{
 local ensure_packer = function()
     local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
     if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -66,7 +73,9 @@ local ensure_packer = function()
 end
 
 local packer_bootstrap = ensure_packer()
+-- }}}
 
+-- Plugins {{{
 return require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
     use "sheerun/vim-polyglot"
@@ -175,3 +184,4 @@ return require("packer").startup(function(use)
         require("packer").sync()
     end
 end)
+-- }}} vim: fdm=marker
