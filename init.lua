@@ -30,7 +30,7 @@ vim.o.undofile = true
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "NeogitCommitMessage", "gitcommit", "markdown", "text" },
     callback = function()
-        vim.opt_local.spell = true
+        vim.o.spell = true
     end,
 })
 
