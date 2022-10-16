@@ -14,6 +14,8 @@ return {
             },
         }
         wk.register {
+            ["[q"] = { "<cmd>cprevious<cr>", "Previous quickfix" },
+            ["]q"] = { "<cmd>cnext<cr>", "Next quickfix" },
             ["<C-h>"] = { termcodes "<C-\\><C-n><C-w>h", "Go to the left window", mode = "t" },
             ["<C-j>"] = { termcodes "<C-\\><C-n><C-w>j", "Go to the down window", mode = "t" },
             ["<C-k>"] = { termcodes "<C-\\><C-n><C-w>k", "Go to the up window", mode = "t" },
