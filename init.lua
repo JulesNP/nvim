@@ -1,7 +1,3 @@
-local g = vim.g
-local fn = vim.fn
-local opt = vim.opt
-
 if vim.loop.os_uname().sysname == "Windows_NT" then
     vim.cmd [[
         let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
@@ -12,24 +8,24 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
     ]]
 end
 
-g.loaded = 1
-g.loaded_netrwPlugin = 1
-g.mapleader = " "
-opt.clipboard = "unnamedplus"
-opt.completeopt = "menu,menuone,noselect"
-opt.expandtab = true
-opt.foldcolumn = "auto"
-opt.ignorecase = true
-opt.linebreak = true
-opt.number = true
-opt.relativenumber = true
-opt.scrolloff = 2
-opt.shiftwidth = 4
-opt.showbreak = "↳ "
-opt.signcolumn = "yes:1"
-opt.smartcase = true
-opt.termguicolors = true
-opt.undofile = true
+vim.g.loaded = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.mapleader = " "
+vim.o.clipboard = "unnamedplus"
+vim.o.completeopt = "menu,menuone,noselect"
+vim.o.expandtab = true
+vim.o.foldcolumn = "auto"
+vim.o.ignorecase = true
+vim.o.linebreak = true
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.scrolloff = 2
+vim.o.shiftwidth = 4
+vim.o.showbreak = "↳ "
+vim.o.signcolumn = "yes:1"
+vim.o.smartcase = true
+vim.o.termguicolors = true
+vim.o.undofile = true
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "NeogitCommitMessage", "gitcommit", "markdown", "text" },
@@ -46,9 +42,9 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 local ensure_packer = function()
-    local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
-    if fn.empty(fn.glob(install_path)) > 0 then
-        fn.system { "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path }
+    local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
+    if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+        vim.fn.system { "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path }
         vim.cmd [[packadd packer.nvim]]
         return true
     end
