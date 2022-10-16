@@ -96,6 +96,7 @@ return require("packer").startup(function(use)
     use "tpope/vim-surround"
     use "vim-scripts/ReplaceWithRegister"
     use "wellle/targets.vim"
+
     use(require "plugin/gitsigns")
     use(require "plugin/indent")
     use(require "plugin/lsp")
@@ -105,6 +106,7 @@ return require("packer").startup(function(use)
     use(require "plugin/telescope")
     use(require "plugin/treesitter")
     use(require "plugin/whichkey")
+
     use { -- akinsho/toggleterm.nvim {{{
         "akinsho/toggleterm.nvim",
         tag = "*",
