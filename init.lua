@@ -59,6 +59,8 @@ local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
     use "sheerun/vim-polyglot"
+    use "tpope/vim-fugitive"
+    use "tpope/vim-rhubarb"
     use "tpope/vim-repeat"
     use "tpope/vim-rsi"
     use "tpope/vim-speeddating"
