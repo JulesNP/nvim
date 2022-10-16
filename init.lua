@@ -27,6 +27,20 @@ vim.o.smartcase = true
 vim.o.termguicolors = true
 vim.o.undofile = true
 
+vim.api.nvim_create_autocmd("BufWinEnter", {
+    pattern = "*.*",
+    callback = function()
+        vim.cmd [[silent! loadview]]
+    end,
+})
+
+vim.api.nvim_create_autocmd("BufWinLeave", {
+    pattern = "*.*",
+    callback = function()
+        vim.cmd [[mkview]]
+    end,
+})
+
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "NeogitCommitMessage", "gitcommit", "markdown", "text" },
     callback = function()
@@ -130,7 +144,9 @@ return require("packer").startup(function(use)
     use {
         "anuvyklack/pretty-fold.nvim",
         config = function()
-            require("pretty-fold").setup {}
+            require("pretty-fold").setup {
+                fill_char = " ",
+            }
         end,
     }
     use {
