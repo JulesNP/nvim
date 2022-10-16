@@ -15,7 +15,6 @@ return {
                 "IndentBlanklineIndent2",
             },
             show_foldtext = false,
-            show_trailing_blankline_indent = false,
         }
     end,
 }
