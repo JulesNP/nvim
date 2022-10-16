@@ -53,6 +53,15 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "lua",
+    callback = function()
+        vim.opt_local.suffixesadd:prepend ".lua"
+        vim.opt_local.suffixesadd:prepend "init.lua"
+        vim.opt_local.path:prepend(vim.fn.stdpath "config" .. "/lua")
+    end,
+})
+
 vim.api.nvim_create_autocmd("TextYankPost", {
     pattern = "*",
     callback = function()
