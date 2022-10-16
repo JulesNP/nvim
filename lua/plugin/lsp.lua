@@ -39,6 +39,15 @@ return {
             ["]d"] = { vim.diagnostic.goto_next, "Next diagnostic" },
         }
 
+        local function sign(name, icon)
+            vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
+        end
+
+        sign("DiagnosticSignHint", "")
+        sign("DiagnosticSignInfo", "")
+        sign("DiagnosticSignWarn", "")
+        sign("DiagnosticSignError", "")
+
         lsp.set_preferences {
             suggest_lsp_servers = true,
             setup_servers_on_start = true,

@@ -18,6 +18,7 @@ g.mapleader = " "
 opt.clipboard = "unnamedplus"
 opt.completeopt = "menu,menuone,noselect"
 opt.expandtab = true
+opt.foldcolumn = "auto"
 opt.ignorecase = true
 opt.linebreak = true
 opt.number = true
@@ -81,6 +82,7 @@ return require("packer").startup(function(use)
             vim.g.gruvbox_italic = 1
             vim.g.gruvbox_sign_column = "none"
             vim.cmd [[colorscheme gruvbox]]
+            vim.cmd [[highlight FoldColumn ctermbg=235 guibg=#282828]]
             vim.cmd [[highlight MatchParen ctermbg=237 guibg=#3c3836]]
         end,
     }
@@ -127,19 +129,27 @@ return require("packer").startup(function(use)
         end,
     }
     use {
+        "anuvyklack/pretty-fold.nvim",
+        config = function()
+            require("pretty-fold").setup()
+        end,
+    }
+    use {
         "lukas-reineke/indent-blankline.nvim",
         after = "gruvbox",
         config = function()
-            vim.cmd [[highlight IndentBlanklineIndent ctermbg=236 guibg=#262626]]
+            vim.g.indent_blankline_show_foldtext = false
+            vim.cmd [[highlight IndentBlanklineIndent1 ctermbg=235 guibg=#282828]]
+            vim.cmd [[highlight IndentBlanklineIndent2 ctermbg=236 guibg=#262626]]
             require("indent_blankline").setup {
                 char = "",
                 char_highlight_list = {
-                    "",
-                    "IndentBlanklineIndent",
+                    "IndentBlanklineIndent1",
+                    "IndentBlanklineIndent2",
                 },
                 space_char_highlight_list = {
-                    "",
-                    "IndentBlanklineIndent",
+                    "IndentBlanklineIndent1",
+                    "IndentBlanklineIndent2",
                 },
                 show_trailing_blankline_indent = false,
             }
