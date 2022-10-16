@@ -11,6 +11,7 @@ return {
                 icons = {
                     hint = "",
                 },
+                show_on_dirs = true,
             },
             filters = {
                 custom = { "^.git$" },
