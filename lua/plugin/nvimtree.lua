@@ -8,6 +8,9 @@ return {
         require("nvim-tree").setup {
             diagnostics = {
                 enable = true,
+                icons = {
+                    hint = "",
+                },
             },
             filters = {
                 custom = { "^.git$" },

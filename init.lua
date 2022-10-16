@@ -25,6 +25,7 @@ opt.number = true
 opt.relativenumber = true
 opt.scrolloff = 2
 opt.shiftwidth = 4
+opt.showbreak = "↳ "
 opt.signcolumn = "yes:1"
 opt.smartcase = true
 opt.termguicolors = true

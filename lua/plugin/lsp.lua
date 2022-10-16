@@ -43,7 +43,7 @@ return {
             vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
         end
 
-        sign("DiagnosticSignHint", "")
+        sign("DiagnosticSignHint", "")
         sign("DiagnosticSignInfo", "")
         sign("DiagnosticSignWarn", "")
         sign("DiagnosticSignError", "")
@@ -68,7 +68,7 @@ return {
                 handler_opts = {
                     border = "none",
                 },
-                hint_prefix = "﬌ ",
+                hint_prefix = "↳ ",
                 hint_scheme = "DiagnosticHint",
             }, bufnr)
 
