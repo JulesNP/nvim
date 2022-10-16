@@ -85,6 +85,8 @@ local packer_bootstrap = ensure_packer()
 -- }}}
 
 return require("packer").startup(function(use)
+    use "wbthomason/packer.nvim"
+
     use "sheerun/vim-polyglot"
     use "tpope/vim-fugitive"
     use "tpope/vim-repeat"
@@ -93,7 +95,6 @@ return require("packer").startup(function(use)
     use "tpope/vim-speeddating"
     use "tpope/vim-surround"
     use "vim-scripts/ReplaceWithRegister"
-    use "wbthomason/packer.nvim"
     use "wellle/targets.vim"
     use(require "plugin/gitsigns")
     use(require "plugin/indent")
