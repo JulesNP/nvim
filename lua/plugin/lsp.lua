@@ -39,9 +39,9 @@ return {
             ["]d"] = { vim.diagnostic.goto_next, "Next diagnostic" },
         }
 
-        local function sign(name, icon)
+        local function sign(name, icon) -- {{{
             vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
-        end
+        end -- }}}
 
         sign("DiagnosticSignHint", "")
         sign("DiagnosticSignInfo", "")
@@ -120,8 +120,8 @@ return {
                     require("luasnip").lsp_expand(args.body)
                 end,
             }, -- }}}
-            mapping = cmp.mapping.preset.insert { -- {{{
-                ["<tab>"] = cmp.mapping(function(fallback)
+            mapping = cmp.mapping.preset.insert {
+                ["<tab>"] = cmp.mapping(function(fallback) -- {{{
                     if cmp.visible() then
                         cmp.select_next_item()
                     elseif luasnip.expand_or_jumpable() and has_words_before() then
@@ -129,8 +129,8 @@ return {
                     else
                         fallback()
                     end
-                end, { "i", "s", "x" }),
-                ["<s-tab>"] = cmp.mapping(function(fallback)
+                end, { "i", "s", "x" }), -- }}}
+                ["<s-tab>"] = cmp.mapping(function(fallback) -- {{{
                     if cmp.visible() then
                         cmp.select_prev_item()
                     elseif luasnip.jumpable(-1) then
@@ -138,13 +138,13 @@ return {
                     else
                         fallback()
                     end
-                end, { "i", "s", "x" }),
+                end, { "i", "s", "x" }), -- }}}
                 ["<c-b>"] = cmp.mapping.scroll_docs(-4),
                 ["<c-f>"] = cmp.mapping.scroll_docs(4),
                 ["<c-space>"] = cmp.mapping.complete {},
                 ["<c-e>"] = cmp.mapping.abort(),
                 ["<cr>"] = cmp.mapping.confirm { select = false },
-            }, -- }}}
+            },
             sources = cmp.config.sources { -- {{{
                 { name = "luasnip" },
                 { name = "nvim_lua" },
@@ -174,7 +174,6 @@ return {
                 { name = "buffer" },
             },
         }) -- }}}
-
         cmp.setup.cmdline(":", { -- {{{
             mapping = cmp.mapping.preset.cmdline(),
             sources = cmp.config.sources {
@@ -205,7 +204,6 @@ return {
         vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
             border = "none",
         })
-
         vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
             border = "none",
         })
