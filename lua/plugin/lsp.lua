@@ -1,6 +1,7 @@
+-- vim: fdm=marker
 return {
     "VonHeikemen/lsp-zero.nvim",
-    requires = {
+    requires = { -- {{{
         -- LSP Support
         { "neovim/nvim-lspconfig" },
         { "williamboman/mason.nvim" },
@@ -28,9 +29,8 @@ return {
         { "nvim-lua/plenary.nvim" },
         { "windwp/nvim-autopairs" },
         { "ray-x/lsp_signature.nvim" },
-    },
+    }, -- }}}
     config = function()
-        local lsp = require "lsp-zero"
         local wk = require "which-key"
         wk.register {
             ["<leader>e"] = { vim.diagnostic.open_float, "View diagnostic" },
@@ -48,7 +48,8 @@ return {
         sign("DiagnosticSignWarn", "")
         sign("DiagnosticSignError", "")
 
-        lsp.set_preferences {
+        local lsp = require "lsp-zero"
+        lsp.set_preferences { -- {{{
             suggest_lsp_servers = true,
             setup_servers_on_start = true,
             set_lsp_keymaps = false,
@@ -56,21 +57,21 @@ return {
             cmp_capabilities = true,
             manage_nvim_cmp = false,
             call_servers = "local",
-        }
+        } -- }}}
 
         local neodev = require("neodev").setup {}
         lsp.configure("sumneko_lua", neodev)
 
         lsp.on_attach(function(_, bufnr)
             vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-            require("lsp_signature").on_attach({
+            require("lsp_signature").on_attach({ -- {{{
                 bind = true,
                 handler_opts = {
                     border = "none",
                 },
                 hint_prefix = "↳ ",
                 hint_scheme = "DiagnosticHint",
-            }, bufnr)
+            }, bufnr) -- }}}
 
             wk.register {
                 K = { vim.lsp.buf.hover, "LSP hover info", buffer = bufnr },
@@ -81,26 +82,26 @@ return {
                 ["<leader>"] = {
                     D = { vim.lsp.buf.type_definition, "Type definition", buffer = bufnr },
                     ca = { vim.lsp.buf.code_action, "Code action", buffer = bufnr },
-                    fm = {
+                    fm = { -- {{{
                         function()
                             vim.lsp.buf.format { async = true }
                         end,
                         "Format document",
                         buffer = bufnr,
-                    },
+                    }, -- }}}
                     rn = { vim.lsp.buf.rename, "Rename", buffer = bufnr },
                 },
                 ["<leader>w"] = {
                     name = "workspace",
                     a = { vim.lsp.buf.add_workspace_folder, "Add workspace folder", buffer = bufnr },
                     r = { vim.lsp.buf.remove_workspace_folder, "Remove workspace folder", buffer = bufnr },
-                    l = {
+                    l = { -- {{{
                         function()
                             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
                         end,
                         "List workspace folders",
                         buffer = bufnr,
-                    },
+                    }, -- }}}
                 },
             }
         end)
@@ -109,17 +110,17 @@ return {
 
         local cmp = require "cmp"
         local luasnip = require "luasnip"
-        local has_words_before = function()
+        local has_words_before = function() -- {{{
             local line, col = unpack(vim.api.nvim_win_get_cursor(0))
             return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
-        end
+        end -- }}}
         cmp.setup {
-            snippet = {
+            snippet = { -- {{{
                 expand = function(args)
                     require("luasnip").lsp_expand(args.body)
                 end,
-            },
-            mapping = cmp.mapping.preset.insert {
+            }, -- }}}
+            mapping = cmp.mapping.preset.insert { -- {{{
                 ["<tab>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_next_item()
@@ -143,8 +144,8 @@ return {
                 ["<c-space>"] = cmp.mapping.complete {},
                 ["<c-e>"] = cmp.mapping.abort(),
                 ["<cr>"] = cmp.mapping.confirm { select = false },
-            },
-            sources = cmp.config.sources {
+            }, -- }}}
+            sources = cmp.config.sources { -- {{{
                 { name = "luasnip" },
                 { name = "nvim_lua" },
                 { name = "nvim_lsp" },
@@ -160,29 +161,29 @@ return {
                         end,
                     },
                 },
-            },
+            }, -- }}}
         }
 
         require("cmp_git").setup {
             filetypes = { "NeogitCommitMessage", "gitcommit", "octo" },
         }
 
-        cmp.setup.cmdline({ "/", "?" }, {
+        cmp.setup.cmdline({ "/", "?" }, { -- {{{
             mapping = cmp.mapping.preset.cmdline(),
             sources = cmp.config.sources {
                 { name = "buffer" },
             },
-        })
+        }) -- }}}
 
-        cmp.setup.cmdline(":", {
+        cmp.setup.cmdline(":", { -- {{{
             mapping = cmp.mapping.preset.cmdline(),
             sources = cmp.config.sources {
                 { name = "path" },
                 { name = "cmdline" },
             },
-        })
+        }) -- }}}
 
-        require("nvim-autopairs").setup {}
+        require("nvim-autopairs").setup {} -- {{{
         local handlers = require "nvim-autopairs.completion.handlers"
         cmp.event:on(
             "confirm_done",
@@ -199,7 +200,7 @@ return {
                     },
                 },
             }
-        )
+        ) -- }}}
 
         vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
             border = "none",
@@ -210,7 +211,7 @@ return {
         })
 
         local null_ls = require "null-ls"
-        require("null-ls").setup {
+        require("null-ls").setup { -- {{{
             sources = {
                 null_ls.builtins.code_actions.gitsigns,
                 null_ls.builtins.formatting.clang_format,
@@ -220,6 +221,6 @@ return {
                 null_ls.builtins.formatting.stylua,
                 null_ls.builtins.hover.dictionary,
             },
-        }
+        } -- }}}
     end,
 }
