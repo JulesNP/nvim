@@ -49,7 +49,7 @@ vim.api.nvim_create_autocmd("BufWinLeave", {
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "NeogitCommitMessage", "gitcommit", "markdown", "text" },
     callback = function()
-        vim.o.spell = true
+        vim.cmd [[setlocal spell]]
     end,
 })
 
