@@ -4,9 +4,18 @@ return {
     requires = {
         { "nvim-lua/plenary.nvim" },
         { "nvim-telescope/telescope-ui-select.nvim" },
+        { "folke/trouble.nvim" },
     },
     config = function()
+        local trouble = require "trouble.providers.telescope"
+
         require("telescope").setup {
+            defaults = {
+                mappings = {
+                    i = { ["<c-q>"] = trouble.open_with_trouble },
+                    n = { ["<c-q>"] = trouble.open_with_trouble },
+                },
+            },
             extensions = {
                 ["ui-select"] = {
                     require("telescope.themes").get_dropdown {},

@@ -1,7 +1,9 @@
 return {
     "folke/which-key.nvim",
+    requires = "folke/trouble.nvim",
     config = function()
         local wk = require "which-key"
+        local trouble = require "trouble"
         local function termcodes(str)
             return vim.api.nvim_replace_termcodes(str, true, true, true)
         end
@@ -14,8 +16,30 @@ return {
             },
         }
         wk.register {
-            ["[q"] = { "<cmd>cprevious<cr>", "Previous quickfix" },
-            ["]q"] = { "<cmd>cnext<cr>", "Next quickfix" },
+            ["[Q"] = {
+                function()
+                    trouble.first { skip_groups = true, jump = true }
+                end,
+                "First trouble item",
+            },
+            ["[q"] = {
+                function()
+                    trouble.previous { skip_groups = true, jump = true }
+                end,
+                "Previous trouble item",
+            },
+            ["]Q"] = {
+                function()
+                    trouble.last { skip_groups = true, jump = true }
+                end,
+                "last trouble item",
+            },
+            ["]q"] = {
+                function()
+                    trouble.next { skip_groups = true, jump = true }
+                end,
+                "Next trouble item",
+            },
             ["<C-h>"] = { termcodes "<C-\\><C-n><C-w>h", "Go to the left window", mode = "t" },
             ["<C-j>"] = { termcodes "<C-\\><C-n><C-w>j", "Go to the down window", mode = "t" },
             ["<C-k>"] = { termcodes "<C-\\><C-n><C-w>k", "Go to the up window", mode = "t" },

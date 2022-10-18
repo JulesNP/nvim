@@ -26,15 +26,23 @@ return {
 
         -- Other requirements
         { "folke/neodev.nvim" },
+        { "folke/trouble.nvim" },
         { "nvim-lua/plenary.nvim" },
         { "windwp/nvim-autopairs" },
         { "ray-x/lsp_signature.nvim" },
     }, -- }}}
     config = function()
+        local trouble = require "trouble"
         local wk = require "which-key"
         wk.register {
             ["<leader>e"] = { vim.diagnostic.open_float, "View diagnostic" },
-            ["<leader>q"] = { vim.diagnostic.setqflist, "List diagnostics" },
+            ["<leader>q"] = { -- {{{
+                function()
+                    vim.cmd [[normal m']]
+                    trouble.open "workspace_diagnostics"
+                end,
+                "List diagnostics",
+            }, -- }}}
             ["[d"] = { vim.diagnostic.goto_prev, "Previous diagnostic" },
             ["]d"] = { vim.diagnostic.goto_next, "Next diagnostic" },
         }
@@ -76,11 +84,42 @@ return {
             wk.register {
                 K = { vim.lsp.buf.hover, "LSP hover info", buffer = bufnr },
                 gD = { vim.lsp.buf.declaration, "Go to declaration", buffer = bufnr },
-                gI = { vim.lsp.buf.implementation, "Go to implementation", buffer = bufnr },
-                gR = { vim.lsp.buf.references, "Go to references", buffer = bufnr },
-                gd = { vim.lsp.buf.definition, "Go to definition", buffer = bufnr },
+                gI = { -- {{{
+                    function()
+                        vim.cmd [[normal m']]
+                        trouble.close()
+                        trouble.open "lsp_implementations"
+                    end,
+                    "Go to implementation",
+                    buffer = bufnr,
+                }, -- }}}
+                gR = { -- {{{
+                    function()
+                        vim.cmd [[normal m']]
+                        trouble.open "lsp_references"
+                    end,
+                    "Go to references",
+                    buffer = bufnr,
+                }, -- }}}
+                gd = { -- {{{
+                    function()
+                        vim.cmd [[normal m']]
+                        trouble.close()
+                        trouble.open "lsp_definitions"
+                    end,
+                    "Go to definition",
+                    buffer = bufnr,
+                }, -- }}}
                 ["<leader>"] = {
-                    D = { vim.lsp.buf.type_definition, "Type definition", buffer = bufnr },
+                    D = { -- {{{
+                        function()
+                            vim.cmd [[normal m']]
+                            trouble.close()
+                            trouble.open "lsp_type_definitions"
+                        end,
+                        "Type definition",
+                        buffer = bufnr,
+                    }, -- }}}
                     ca = { vim.lsp.buf.code_action, "Code action", buffer = bufnr },
                     fm = { -- {{{
                         function()
