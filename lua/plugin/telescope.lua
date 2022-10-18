@@ -16,6 +16,12 @@ return {
                     n = { ["<c-q>"] = trouble.open_with_trouble },
                 },
             },
+            pickers = {
+                buffers = {
+                    ignore_current_buffer = true,
+                    sort_mru = true,
+                },
+            },
             extensions = {
                 ["ui-select"] = {
                     require("telescope.themes").get_dropdown {},
@@ -37,6 +43,12 @@ return {
                 r = { builtin.resume, "Resume find" },
                 s = { builtin.lsp_dynamic_workspace_symbols, "Find workspace symbol" },
                 w = { builtin.grep_string, "Find word under cursor" },
+            },
+            ["<leader><leader>"] = {
+                function()
+                    builtin.oldfiles { only_cwd = true }
+                end,
+                "Find recent files in cwd",
             },
         }
     end,
