@@ -1,5 +1,6 @@
 return {
-    "Shatur/neovim-session-manager",
+    "JulesNP/neovim-session-manager",
+    branch = "filter",
     requires = "nvim-lua/plenary.nvim",
     config = function()
         require("session_manager").setup {
@@ -11,6 +12,10 @@ return {
                 "gitcommit",
                 "packer",
                 "toggleterm",
+            },
+            autosave_ignore_dirs = {
+                "~",
+                "~/.config",
             },
             autosave_ignore_not_normal = false,
         }
