@@ -67,8 +67,7 @@ return {
             call_servers = "local",
         } -- }}}
 
-        local neodev = require("neodev").setup {}
-        lsp.configure("sumneko_lua", neodev)
+        require("neodev").setup {}
 
         lsp.on_attach(function(_, bufnr)
             vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
