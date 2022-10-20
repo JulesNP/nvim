@@ -15,7 +15,6 @@ return {
             },
             autosave_ignore_dirs = {
                 "~",
-                "~/.config",
             },
             autosave_ignore_not_normal = false,
         }
