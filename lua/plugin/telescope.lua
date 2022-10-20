@@ -16,12 +16,6 @@ return {
                     n = { ["<c-q>"] = trouble.open_with_trouble },
                 },
             },
-            pickers = {
-                buffers = {
-                    ignore_current_buffer = true,
-                    sort_mru = true,
-                },
-            },
             extensions = {
                 ["ui-select"] = {
                     require("telescope.themes").get_dropdown {},
@@ -46,7 +40,7 @@ return {
             },
             ["<leader><leader>"] = {
                 function()
-                    builtin.oldfiles { only_cwd = true }
+                    builtin.buffers { sort_mru = true, ignore_current_buffer = true }
                 end,
                 "Find recent files in cwd",
             },
