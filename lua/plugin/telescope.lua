@@ -42,7 +42,7 @@ return {
                 function()
                     builtin.buffers { sort_mru = true, ignore_current_buffer = true }
                 end,
-                "Find recent files in cwd",
+                "Find recent buffer",
             },
         }
     end,
