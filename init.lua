@@ -4,6 +4,7 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = " "
 vim.o.clipboard = "unnamedplus"
 vim.o.completeopt = "menu,menuone,noselect"
+vim.o.conceallevel = 2
 vim.o.expandtab = true
 vim.o.foldcolumn = "auto"
 vim.o.ignorecase = true
