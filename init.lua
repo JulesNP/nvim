@@ -5,6 +5,7 @@ vim.g.mapleader = " "
 vim.o.clipboard = "unnamedplus"
 vim.o.completeopt = "menu,menuone,noselect"
 vim.o.conceallevel = 2
+vim.o.confirm = true
 vim.o.expandtab = true
 vim.o.foldcolumn = "auto"
 vim.o.ignorecase = true
