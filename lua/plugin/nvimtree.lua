@@ -11,7 +11,6 @@ return {
                 icons = {
                     hint = "",
                 },
-                show_on_dirs = true,
             },
             filters = {
                 custom = { "^.git$" },
@@ -20,6 +19,23 @@ return {
             sync_root_with_cwd = true,
             update_focused_file = {
                 enable = true,
+            },
+            renderer = {
+                highlight_opened_files = "name",
+                icons = {
+                    git_placement = "after",
+                    glyphs = {
+                        git = {
+                            unstaged = "!",
+                            staged = "+",
+                            unmerged = "~",
+                            renamed = "->",
+                            untracked = "?",
+                            deleted = "-",
+                            ignored = ".",
+                        },
+                    },
+                },
             },
         }
         require("which-key").register {
