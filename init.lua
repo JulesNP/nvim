@@ -193,6 +193,15 @@ return require("packer").startup(function(use)
             }
         end,
     } -- }}}
+    use { -- ojroques/nvim-bufdel {{{
+        "ojroques/nvim-bufdel",
+        config = function()
+            require("bufdel").setup {
+                next = "alternate",
+                quit = false,
+            }
+        end,
+    } -- }}}
 
     if packer_bootstrap then
         require("packer").sync()
