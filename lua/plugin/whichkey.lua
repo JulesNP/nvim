@@ -1,6 +1,6 @@
 return {
     "folke/which-key.nvim",
-    requires = "folke/trouble.nvim",
+    requires = { "folke/trouble.nvim", "famiu/bufdelete.nvim" },
     config = function()
         local wk = require "which-key"
         local trouble = require "trouble"
@@ -69,7 +69,8 @@ return {
                 c = { "<cmd>PackerCompile<cr>", "PackerCompile" },
             },
             ["<leader>wk"] = { "<cmd>WhichKey<cr>", "WhichKey" },
-            ["<leader>x"] = { "<cmd>bdelete<cr>", "Close buffer" },
+            ["<leader>x"] = { "<cmd>Bdelete<cr>", "Close buffer" },
+            ["<leader>X"] = { "<cmd>Bdelete!<cr>", "Close buffer" },
             gb = { "<cmd>bnext<cr>", "Go to next buffer" },
             gB = { "<cmd>bprevious<cr>", "Go to previous buffer" },
             j = { [[v:count || mode(1)[0:1] == "no" ? "j" : "gj"]], "Down", expr = true },
