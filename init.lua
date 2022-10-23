@@ -164,6 +164,7 @@ return require("packer").startup(function(use)
             vim.g.gruvbox_sign_column = "none"
             vim.cmd "colorscheme gruvbox"
             vim.cmd "hi CursorLine ctermbg=236 guibg=#32302f"
+            vim.cmd "highlight CursorLineNr ctermbg=235 guibg=#282828"
             vim.cmd "highlight FoldColumn ctermbg=235 guibg=#282828"
             vim.cmd "highlight MatchParen ctermbg=237 guibg=#3c3836"
         end,
