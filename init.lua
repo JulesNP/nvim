@@ -6,6 +6,7 @@ vim.o.clipboard = "unnamedplus"
 vim.o.completeopt = "menu,menuone,noselect"
 vim.o.conceallevel = 2
 vim.o.confirm = true
+vim.o.cursorline = true
 vim.o.expandtab = true
 vim.o.foldcolumn = "auto"
 vim.o.ignorecase = true
@@ -151,6 +152,7 @@ return require("packer").startup(function(use)
     use { -- gruvbox-community/gruvbox {{{
         "gruvbox-community/gruvbox",
         config = function()
+            vim.g.gruvbox_invert_selection = 0
             vim.g.gruvbox_italic = 1
             vim.g.gruvbox_sign_column = "none"
             vim.cmd "colorscheme gruvbox"
