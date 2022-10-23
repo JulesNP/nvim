@@ -4,7 +4,8 @@ return {
         require("gitsigns").setup {
             on_attach = function(bufnr)
                 local gs = package.loaded.gitsigns
-                require("which-key").register {
+                local wk = require "which-key"
+                wk.register({
                     ["]c"] = {
                         function()
                             if vim.wo.diff then
@@ -16,7 +17,6 @@ return {
                             return "<Ignore>"
                         end,
                         "Next hunk",
-                        buffer = bufnr,
                     },
                     ["[c"] = {
                         function()
@@ -29,7 +29,6 @@ return {
                             return "<Ignore>"
                         end,
                         "Prev hunk",
-                        buffer = bufnr,
                     },
                     ["<leader>h"] = {
                         name = "hunk",
@@ -38,32 +37,33 @@ return {
                                 gs.diffthis "~"
                             end,
                             "Git diff~",
-                            buffer = bufnr,
                         },
-                        R = { gs.reset_buffer, "Reset buffer", buffer = bufnr },
-                        S = { gs.stage_buffer, "Stage buffer", buffer = bufnr },
+                        R = { gs.reset_buffer, "Reset buffer" },
+                        S = { gs.stage_buffer, "Stage buffer" },
                         b = {
                             function()
                                 gs.blame_line { full = true }
                             end,
                             "Blame line",
-                            buffer = bufnr,
                         },
-                        d = { gs.diffthis, "Git diff", buffer = bufnr },
-                        p = { gs.preview_hunk, "Preview hunk", buffer = bufnr },
-                        r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk", buffer = bufnr },
-                        s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk", buffer = bufnr },
-                        u = { gs.undo_stage_hunk, "Undo stage hunk", buffer = bufnr },
+                        d = { gs.diffthis, "Git diff" },
+                        p = { gs.preview_hunk, "Preview hunk" },
+                        r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
+                        s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
+                        u = { gs.undo_stage_hunk, "Undo stage hunk" },
                     },
                     ["<leader>t"] = {
                         name = "toggle",
-                        b = { gs.toggle_current_line_blame, "Toggle current line blame", buffer = bufnr },
-                        d = { gs.toggle_deleted, "Toggle deleted", buffer = bufnr },
+                        b = { gs.toggle_current_line_blame, "Toggle current line blame" },
+                        d = { gs.toggle_deleted, "Toggle deleted" },
                     },
-                    ih = { ":<C-U>Gitsigns select_hunk<CR>", "Select hunk", buffer = bufnr, mode = "o" },
-                    ["<leader>hr"] = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk", buffer = bufnr, mode = "x" },
-                    ["<leader>hs"] = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk", buffer = bufnr, mode = "x" },
-                }
+                    ih = { "<cmd>Gitsigns select_hunk<CR>", "Select hunk", mode = "o" },
+                }, { buffer = bufnr })
+                wk.register({
+                    ih = { "<cmd>Gitsigns select_hunk<CR>", "Select hunk" },
+                    ["<leader>hr"] = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
+                    ["<leader>hs"] = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
+                }, { buffer = bufnr, mode = "x" })
             end,
         }
     end,

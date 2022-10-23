@@ -80,9 +80,9 @@ return {
                 hint_scheme = "DiagnosticHint",
             }, bufnr) -- }}}
 
-            wk.register {
-                K = { vim.lsp.buf.hover, "LSP hover info", buffer = bufnr },
-                gD = { vim.lsp.buf.declaration, "Go to declaration", buffer = bufnr },
+            wk.register({
+                K = { vim.lsp.buf.hover, "LSP hover info" },
+                gD = { vim.lsp.buf.declaration, "Go to declaration" },
                 gI = { -- {{{
                     function()
                         vim.cmd "normal m'"
@@ -90,7 +90,6 @@ return {
                         trouble.open "lsp_implementations"
                     end,
                     "Go to implementation",
-                    buffer = bufnr,
                 }, -- }}}
                 gR = { -- {{{
                     function()
@@ -98,7 +97,6 @@ return {
                         trouble.open "lsp_references"
                     end,
                     "Go to references",
-                    buffer = bufnr,
                 }, -- }}}
                 gd = { -- {{{
                     function()
@@ -107,7 +105,6 @@ return {
                         trouble.open "lsp_definitions"
                     end,
                     "Go to definition",
-                    buffer = bufnr,
                 }, -- }}}
                 ["<leader>"] = {
                     D = { -- {{{
@@ -117,31 +114,28 @@ return {
                             trouble.open "lsp_type_definitions"
                         end,
                         "Type definition",
-                        buffer = bufnr,
                     }, -- }}}
-                    ca = { vim.lsp.buf.code_action, "Code action", buffer = bufnr },
+                    ca = { vim.lsp.buf.code_action, "Code action" },
                     fm = { -- {{{
                         function()
                             vim.lsp.buf.format { async = true }
                         end,
                         "Format document",
-                        buffer = bufnr,
                     }, -- }}}
-                    rn = { vim.lsp.buf.rename, "Rename", buffer = bufnr },
+                    rn = { vim.lsp.buf.rename, "Rename" },
                 },
                 ["<leader>w"] = {
                     name = "workspace",
-                    a = { vim.lsp.buf.add_workspace_folder, "Add workspace folder", buffer = bufnr },
-                    r = { vim.lsp.buf.remove_workspace_folder, "Remove workspace folder", buffer = bufnr },
+                    a = { vim.lsp.buf.add_workspace_folder, "Add workspace folder" },
+                    r = { vim.lsp.buf.remove_workspace_folder, "Remove workspace folder" },
                     l = { -- {{{
                         function()
                             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
                         end,
                         "List workspace folders",
-                        buffer = bufnr,
                     }, -- }}}
                 },
-            }
+            }, { buffer = bufnr })
         end)
 
         lsp.setup()

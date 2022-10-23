@@ -8,6 +8,7 @@ return {
             return vim.api.nvim_replace_termcodes(str, true, true, true)
         end
 
+        require("which-key.plugins.presets").operators["v"] = nil
         wk.setup {
             plugins = {
                 spelling = {
