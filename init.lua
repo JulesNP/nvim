@@ -37,21 +37,21 @@ end
 vim.api.nvim_create_autocmd("BufWinEnter", {
     pattern = "*.*",
     callback = function()
-        vim.cmd [[silent! loadview]]
+        vim.cmd "silent! loadview"
     end,
 })
 
 vim.api.nvim_create_autocmd("BufWinLeave", {
     pattern = "*.*",
     callback = function()
-        vim.cmd [[mkview]]
+        vim.cmd "mkview"
     end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "NeogitCommitMessage", "gitcommit", "markdown", "text" },
     callback = function()
-        vim.cmd [[setlocal spell]]
+        vim.cmd "setlocal spell"
     end,
 })
 
@@ -77,7 +77,7 @@ local ensure_packer = function()
     local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
     if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
         vim.fn.system { "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path }
-        vim.cmd [[packadd packer.nvim]]
+        vim.cmd "packadd packer.nvim"
         return true
     end
     return false
@@ -153,9 +153,9 @@ return require("packer").startup(function(use)
         config = function()
             vim.g.gruvbox_italic = 1
             vim.g.gruvbox_sign_column = "none"
-            vim.cmd [[colorscheme gruvbox]]
-            vim.cmd [[highlight FoldColumn ctermbg=235 guibg=#282828]]
-            vim.cmd [[highlight MatchParen ctermbg=237 guibg=#3c3836]]
+            vim.cmd "colorscheme gruvbox"
+            vim.cmd "highlight FoldColumn ctermbg=235 guibg=#282828"
+            vim.cmd "highlight MatchParen ctermbg=237 guibg=#3c3836"
         end,
     } -- }}}
     use { -- junegunn/vim-easy-align {{{

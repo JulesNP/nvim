@@ -38,7 +38,7 @@ return {
             ["<leader>e"] = { vim.diagnostic.open_float, "View diagnostic" },
             ["<leader>q"] = { -- {{{
                 function()
-                    vim.cmd [[normal m']]
+                    vim.cmd "normal m'"
                     trouble.open "workspace_diagnostics"
                 end,
                 "List diagnostics",
@@ -85,7 +85,7 @@ return {
                 gD = { vim.lsp.buf.declaration, "Go to declaration", buffer = bufnr },
                 gI = { -- {{{
                     function()
-                        vim.cmd [[normal m']]
+                        vim.cmd "normal m'"
                         trouble.close()
                         trouble.open "lsp_implementations"
                     end,
@@ -94,7 +94,7 @@ return {
                 }, -- }}}
                 gR = { -- {{{
                     function()
-                        vim.cmd [[normal m']]
+                        vim.cmd "normal m'"
                         trouble.open "lsp_references"
                     end,
                     "Go to references",
@@ -102,7 +102,7 @@ return {
                 }, -- }}}
                 gd = { -- {{{
                     function()
-                        vim.cmd [[normal m']]
+                        vim.cmd "normal m'"
                         trouble.close()
                         trouble.open "lsp_definitions"
                     end,
@@ -112,7 +112,7 @@ return {
                 ["<leader>"] = {
                     D = { -- {{{
                         function()
-                            vim.cmd [[normal m']]
+                            vim.cmd "normal m'"
                             trouble.close()
                             trouble.open "lsp_type_definitions"
                         end,
