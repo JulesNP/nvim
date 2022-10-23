@@ -132,6 +132,13 @@ return require("packer").startup(function(use)
             }
         end,
     } -- }}}
+    use { -- arsham/indent-tools.nvim {{{
+        "arsham/indent-tools.nvim",
+        requires = { "arsham/arshlib.nvim" },
+        config = function()
+            require("indent-tools").config {}
+        end,
+    } -- }}}
     use { -- folke/trouble.nvim {{{
         "folke/trouble.nvim",
         requires = "kyazdani42/nvim-web-devicons",
