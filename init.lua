@@ -90,6 +90,7 @@ local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
 
+    use "michaeljsmith/vim-indent-object"
     use "sheerun/vim-polyglot"
     use "tpope/vim-fugitive"
     use "tpope/vim-repeat"
@@ -131,13 +132,6 @@ return require("packer").startup(function(use)
                     right = { " ", "number_of_folded_lines", ": ", "percentage", " " },
                 },
             }
-        end,
-    } -- }}}
-    use { -- arsham/indent-tools.nvim {{{
-        "arsham/indent-tools.nvim",
-        requires = { "arsham/arshlib.nvim" },
-        config = function()
-            require("indent-tools").config {}
         end,
     } -- }}}
     use { -- folke/trouble.nvim {{{
