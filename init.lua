@@ -101,6 +101,7 @@ return require("packer").startup(function(use)
     use "wellle/targets.vim"
 
     use(require "plugin/gitsigns")
+    use(require "plugin/gruvbox")
     use(require "plugin/indent")
     use(require "plugin/lsp")
     use(require "plugin/neogit")
@@ -154,19 +155,6 @@ return require("packer").startup(function(use)
                     other = "",
                 },
             }
-        end,
-    } -- }}}
-    use { -- gruvbox-community/gruvbox {{{
-        "gruvbox-community/gruvbox",
-        config = function()
-            vim.g.gruvbox_invert_selection = 0
-            vim.g.gruvbox_italic = 1
-            vim.g.gruvbox_sign_column = "none"
-            vim.cmd "colorscheme gruvbox"
-            vim.cmd "hi CursorLine ctermbg=236 guibg=#32302f"
-            vim.cmd "highlight CursorLineNr ctermbg=235 guibg=#282828"
-            vim.cmd "highlight FoldColumn ctermbg=235 guibg=#282828"
-            vim.cmd "highlight MatchParen ctermbg=237 guibg=#3c3836"
         end,
     } -- }}}
     use { -- junegunn/vim-easy-align {{{
