@@ -40,9 +40,9 @@ return {
             },
             ["<leader><leader>"] = {
                 function()
-                    builtin.buffers { sort_mru = true, ignore_current_buffer = true }
+                    builtin.oldfiles { only_cwd = true }
                 end,
-                "Find recent buffer",
+                "Find recent file in cwd",
             },
         }
     end,
