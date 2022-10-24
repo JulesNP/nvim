@@ -78,6 +78,7 @@ return {
                 },
                 hint_prefix = "↳ ",
                 hint_scheme = "DiagnosticHint",
+                select_signature_key = "<m-n>",
             }, bufnr) -- }}}
 
             wk.register({
