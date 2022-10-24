@@ -110,6 +110,7 @@ return require("packer").startup(function(use)
     use(require "plugin/session")
     use(require "plugin/telescope")
     use(require "plugin/treesitter")
+    use(require "plugin/trouble")
     use(require "plugin/whichkey")
 
     use { -- akinsho/toggleterm.nvim {{{
@@ -139,23 +140,6 @@ return require("packer").startup(function(use)
         config = function()
             require("nvim-highlight-colors").setup {
                 enable_tailwind = true,
-            }
-        end,
-    } -- }}}
-    use { -- folke/trouble.nvim {{{
-        "folke/trouble.nvim",
-        requires = "kyazdani42/nvim-web-devicons",
-        config = function()
-            local trouble = require "trouble"
-            trouble.setup {
-                auto_jump = { "lsp_definitions", "lsp_implementations", "lsp_type_definitions" },
-                signs = {
-                    hint = "",
-                    information = "",
-                    warning = "",
-                    error = "",
-                    other = "",
-                },
             }
         end,
     } -- }}}
