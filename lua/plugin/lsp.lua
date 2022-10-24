@@ -69,7 +69,7 @@ return {
 
         require("neodev").setup {}
 
-        lsp.on_attach(function(_, bufnr)
+        local function on_attach(_, bufnr)
             vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
             require("lsp_signature").on_attach({ -- {{{
                 bind = true,
@@ -153,8 +153,9 @@ return {
                     }, -- }}}
                 },
             }, { buffer = bufnr })
-        end)
+        end
 
+        lsp.on_attach(on_attach)
         lsp.setup()
 
         local cmp = require "cmp"
@@ -259,6 +260,7 @@ return {
 
         local null_ls = require "null-ls"
         require("null-ls").setup { -- {{{
+            on_attach = on_attach,
             sources = {
                 null_ls.builtins.code_actions.gitsigns,
                 null_ls.builtins.formatting.clang_format,
