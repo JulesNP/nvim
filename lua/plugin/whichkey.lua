@@ -41,11 +41,6 @@ return {
                 end,
                 "Next trouble item",
             },
-            ["<C-h>"] = { termcodes "<C-\\><C-n><C-w>h", "Go to the left window", mode = "t" },
-            ["<C-j>"] = { termcodes "<C-\\><C-n><C-w>j", "Go to the down window", mode = "t" },
-            ["<C-k>"] = { termcodes "<C-\\><C-n><C-w>k", "Go to the up window", mode = "t" },
-            ["<C-l>"] = { termcodes "<C-\\><C-n><C-w>l", "Go to the right window", mode = "t" },
-            ["<C-x>"] = { termcodes "<C-\\><C-n>", "Go to Normal mode", mode = "t" },
             ["<esc>"] = { "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", "Clear search highlights" },
             ["<c-s>"] = {
                 function()
@@ -76,5 +71,18 @@ return {
             j = { [[v:count || mode(1)[0:1] == "no" ? "j" : "gj"]], "Down", expr = true },
             k = { [[v:count || mode(1)[0:1] == "no" ? "k" : "gk"]], "Up", expr = true },
         }
+        wk.register({
+            ["<c-h>"] = { termcodes "<C-\\><C-n><C-w>h", "Go to the left window" },
+            ["<c-j>"] = { termcodes "<C-\\><C-n><C-w>j", "Go to the down window" },
+            ["<c-k>"] = { termcodes "<C-\\><C-n><C-w>k", "Go to the up window" },
+            ["<c-l>"] = { termcodes "<C-\\><C-n><C-w>l", "Go to the right window" },
+            ["<c-x>"] = { termcodes "<C-\\><C-n>", "Go to Normal mode" },
+        }, { mode = "t" })
+        wk.register({
+            ["<"] = { "<gv", "Shift left" },
+            [">"] = { ">gv", "Shift left" },
+            j = { [[v:count || mode(1)[0:1] == "no" ? "j" : "gj"]], "Down", expr = true },
+            k = { [[v:count || mode(1)[0:1] == "no" ? "k" : "gk"]], "Up", expr = true },
+        }, { mode = "x" })
     end,
 }
