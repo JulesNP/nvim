@@ -9,7 +9,7 @@ return {
         vim.cmd "highlight CursorLine ctermbg=236 guibg=#32302f"
         vim.cmd "highlight CursorLineNr ctermbg=235 guibg=#282828"
         vim.cmd "highlight FoldColumn ctermbg=235 guibg=#282828"
-        vim.cmd "highlight IndentBlanklineChar ctermfg=234 guifg=#1d2021"
+        vim.cmd "highlight IndentBlanklineChar cterm=nocombine ctermfg=234 gui=nocombine guifg=#1d2021"
         vim.cmd "highlight MatchParen ctermbg=237 guibg=#3c3836"
 
         local augroup_id = vim.api.nvim_create_augroup("CursorLineInsertToggle", { clear = true })
