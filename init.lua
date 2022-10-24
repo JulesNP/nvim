@@ -134,6 +134,14 @@ return require("packer").startup(function(use)
             }
         end,
     } -- }}}
+    use { -- brenoprata10/nvim-highlight-colors {{{
+        "brenoprata10/nvim-highlight-colors",
+        config = function()
+            require("nvim-highlight-colors").setup {
+                enable_tailwind = true,
+            }
+        end,
+    } -- }}}
     use { -- folke/trouble.nvim {{{
         "folke/trouble.nvim",
         requires = "kyazdani42/nvim-web-devicons",
@@ -163,12 +171,6 @@ return require("packer").startup(function(use)
         "mechatroner/rainbow_csv",
         config = function()
             vim.g.rbql_backend_language = "js"
-        end,
-    } -- }}}
-    use { -- norcalli/nvim-colorizer.lua {{{
-        "norcalli/nvim-colorizer.lua",
-        config = function()
-            require("colorizer").setup()
         end,
     } -- }}}
     use { -- numToStr/Comment.nvim {{{
