@@ -81,7 +81,23 @@ return {
                 select_signature_key = "<m-n>",
             }, bufnr) -- }}}
 
+            local function format(async) -- {{{
+                vim.lsp.buf.format {
+                    async = async,
+                    filter = function(client)
+                        return client.name ~= "tsserver"
+                    end,
+                }
+            end -- }}}
+
             wk.register({
+                ["<c-s>"] = { -- {{{
+                    function()
+                        format(false)
+                        vim.cmd "update"
+                    end,
+                    "Format and save if modified",
+                }, -- }}}
                 K = { vim.lsp.buf.hover, "LSP hover info" },
                 gD = { vim.lsp.buf.declaration, "Go to declaration" },
                 gI = { -- {{{
@@ -119,7 +135,7 @@ return {
                     ca = { vim.lsp.buf.code_action, "Code action" },
                     fm = { -- {{{
                         function()
-                            vim.lsp.buf.format { async = true }
+                            format(true)
                         end,
                         "Format document",
                     }, -- }}}

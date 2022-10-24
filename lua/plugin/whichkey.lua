@@ -42,13 +42,7 @@ return {
                 "Next trouble item",
             },
             ["<esc>"] = { "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", "Clear search highlights" },
-            ["<c-s>"] = {
-                function()
-                    vim.lsp.buf.format()
-                    vim.cmd "update"
-                end,
-                "Format and save if modified",
-            },
+            ["<c-s>"] = { "<cmd>update<cr>", "Save if modified" },
             ["<c-q>"] = { "<c-w>q", "Quit a window" },
             ["<c-h>"] = { "<c-w>h", "Go to the left window" },
             ["<c-j>"] = { "<c-w>j", "Go to the down window" },
