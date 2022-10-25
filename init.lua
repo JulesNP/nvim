@@ -19,6 +19,7 @@ vim.o.showbreak = "↳ "
 vim.o.signcolumn = "yes:1"
 vim.o.smartcase = true
 vim.o.termguicolors = true
+vim.o.title = true
 vim.o.undofile = true
 -- }}}
 
