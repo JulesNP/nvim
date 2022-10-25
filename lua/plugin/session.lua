@@ -25,6 +25,7 @@ return {
                 cd = { "<cmd>SessionManager load_current_dir_session<cr>", "Load session from current directory" },
                 d = { "<cmd>SessionManager delete_session<cr>", "Delete session" },
                 s = { "<cmd>SessionManager load_session<cr>", "Select session" },
+                w = { "<cmd>SessionManager save_current_session<cr>", "Save current session" },
             },
         }
     end,
