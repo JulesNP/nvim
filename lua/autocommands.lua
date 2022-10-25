@@ -1,18 +1,7 @@
-vim.api.nvim_create_autocmd("BufWinEnter", {
-    pattern = "*.*",
-    callback = function()
-        vim.cmd "silent! loadview"
-    end,
-})
-
-vim.api.nvim_create_autocmd("BufWinLeave", {
-    pattern = "*.*",
-    callback = function()
-        vim.cmd "mkview"
-    end,
-})
+local filetype_settings = vim.api.nvim_create_augroup("FileTypeSettings", { clear = true })
 
 vim.api.nvim_create_autocmd("FileType", {
+    group = filetype_settings,
     pattern = { "NeogitCommitMessage", "gitcommit", "markdown", "text" },
     callback = function()
         vim.cmd "setlocal spell"
@@ -20,6 +9,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+    group = filetype_settings,
     pattern = "lua",
     callback = function()
         vim.opt_local.suffixesadd:prepend ".lua"
@@ -28,7 +18,26 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+local sync_view = vim.api.nvim_create_augroup("SyncView", { clear = true })
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+    group = sync_view,
+    pattern = "*.*",
+    callback = function()
+        vim.cmd "silent! loadview"
+    end,
+})
+
+vim.api.nvim_create_autocmd("BufWinLeave", {
+    group = sync_view,
+    pattern = "*.*",
+    callback = function()
+        vim.cmd "mkview"
+    end,
+})
+
 vim.api.nvim_create_autocmd("TextYankPost", {
+    group = vim.api.nvim_create_augroup("HighlighYank", { clear = true }),
     pattern = "*",
     callback = function()
         vim.highlight.on_yank { timeout = 300 }
