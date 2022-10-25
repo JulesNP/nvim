@@ -1,6 +1,6 @@
 return {
     "TimUntersberger/neogit",
-    requires = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
+    requires = { "folke/which-key.nvim", "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
     config = function()
         local neogit = require "neogit"
         neogit.setup {

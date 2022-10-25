@@ -1,6 +1,7 @@
 return {
     "kyazdani42/nvim-tree.lua",
     requires = {
+        "folke/which-key.nvim",
         "kyazdani42/nvim-web-devicons",
     },
     tag = "nightly",
@@ -47,8 +48,7 @@ return {
             pattern = "NvimTree_*",
             callback = function()
                 local layout = vim.api.nvim_call_function("winlayout", {})
-                if
-                    layout[1] == "leaf"
+                if layout[1] == "leaf"
                     and vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(layout[2]), "filetype") == "NvimTree"
                     and layout[3] == nil
                 then

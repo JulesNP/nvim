@@ -1,6 +1,6 @@
 return {
     "folke/which-key.nvim",
-    requires = { "folke/trouble.nvim", "ojroques/nvim-bufdel" },
+    requires = { "folke/trouble.nvim", "folke/which-key.nvim", "ojroques/nvim-bufdel" },
     config = function()
         local wk = require "which-key"
         local trouble = require "trouble"

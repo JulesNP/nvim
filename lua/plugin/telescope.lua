@@ -3,6 +3,7 @@ return {
     tag = "0.1.0",
     requires = {
         "folke/trouble.nvim",
+        "folke/which-key.nvim",
         "nvim-lua/plenary.nvim",
         "nvim-telescope/telescope-ui-select.nvim",
     },
