@@ -15,6 +15,7 @@ return {
             },
             autosave_ignore_dirs = {
                 "~",
+                "~\\Documents\\Projects",
             },
             autosave_ignore_not_normal = false,
         }
