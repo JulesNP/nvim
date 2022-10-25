@@ -2,9 +2,9 @@ return {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.0",
     requires = {
-        { "nvim-lua/plenary.nvim" },
-        { "nvim-telescope/telescope-ui-select.nvim" },
-        { "folke/trouble.nvim" },
+        "folke/trouble.nvim",
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope-ui-select.nvim",
     },
     config = function()
         local trouble = require "trouble.providers.telescope"

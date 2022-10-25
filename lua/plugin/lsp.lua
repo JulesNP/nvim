@@ -3,33 +3,33 @@ return {
     "VonHeikemen/lsp-zero.nvim",
     requires = { -- {{{
         -- LSP Support
-        { "neovim/nvim-lspconfig" },
-        { "williamboman/mason.nvim" },
-        { "williamboman/mason-lspconfig.nvim" },
-        { "jose-elias-alvarez/null-ls.nvim" },
+        "neovim/nvim-lspconfig",
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        "jose-elias-alvarez/null-ls.nvim",
 
         -- Autocompletion
-        { "hrsh7th/nvim-cmp" },
-        { "hrsh7th/cmp-buffer" },
-        { "hrsh7th/cmp-path" },
-        { "saadparwaiz1/cmp_luasnip" },
-        { "hrsh7th/cmp-nvim-lsp" },
-        { "hrsh7th/cmp-nvim-lua" },
-        { "petertriho/cmp-git" },
-        { "hrsh7th/cmp-cmdline" },
-        { "hrsh7th/cmp-calc" },
-        { "hrsh7th/cmp-emoji" },
+        "hrsh7th/nvim-cmp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "saadparwaiz1/cmp_luasnip",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-nvim-lua",
+        "petertriho/cmp-git",
+        "hrsh7th/cmp-cmdline",
+        "hrsh7th/cmp-calc",
+        "hrsh7th/cmp-emoji",
 
         -- Snippets
-        { "L3MON4D3/LuaSnip" },
-        { "rafamadriz/friendly-snippets" },
+        "L3MON4D3/LuaSnip",
+        "rafamadriz/friendly-snippets",
 
         -- Other requirements
-        { "folke/neodev.nvim" },
-        { "folke/trouble.nvim" },
-        { "nvim-lua/plenary.nvim" },
-        { "windwp/nvim-autopairs" },
-        { "ray-x/lsp_signature.nvim" },
+        "folke/neodev.nvim",
+        "folke/trouble.nvim",
+        "nvim-lua/plenary.nvim",
+        "windwp/nvim-autopairs",
+        "ray-x/lsp_signature.nvim",
     }, -- }}}
     config = function()
         local trouble = require "trouble"
