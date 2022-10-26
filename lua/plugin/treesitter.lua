@@ -18,6 +18,7 @@ return {
             autotag = {
                 enable = true,
             },
+            ensure_installed = { "org" },
             incremental_selection = {
                 enable = true,
                 keymaps = {
