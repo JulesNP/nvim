@@ -15,7 +15,6 @@ vim.o.linebreak = true
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.scrolloff = 5
-vim.o.shellslash = true
 vim.o.shiftwidth = 4
 vim.o.showbreak = "↳ "
 vim.o.signcolumn = "yes:1"
