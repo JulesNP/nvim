@@ -1,6 +1,7 @@
 vim.g.loaded = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 vim.o.clipboard = "unnamedplus"
 vim.o.completeopt = "menu,menuone,noselect"
 vim.o.conceallevel = 2
