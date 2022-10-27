@@ -21,6 +21,7 @@ return require("packer").startup(function(use)
 
     use "michaeljsmith/vim-indent-object"
     use "sheerun/vim-polyglot"
+    use "svermeulen/vim-extended-ft"
     use "tpope/vim-fugitive"
     use "tpope/vim-repeat"
     use "tpope/vim-rhubarb"
