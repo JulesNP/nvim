@@ -70,7 +70,7 @@ return {
 
         require("neodev").setup {}
 
-        local function on_attach(_, bufnr)
+        local function on_attach(client, bufnr)
             vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
             require("lsp_signature").on_attach({ -- {{{
                 bind = true,
@@ -82,23 +82,7 @@ return {
                 select_signature_key = "<m-n>",
             }, bufnr) -- }}}
 
-            local function format(async) -- {{{
-                vim.lsp.buf.format {
-                    async = async,
-                    filter = function(client)
-                        return client.name ~= "tsserver"
-                    end,
-                }
-            end -- }}}
-
             wk.register({
-                ["<c-s>"] = { -- {{{
-                    function()
-                        format(false)
-                        vim.cmd "update"
-                    end,
-                    "Format and save if modified",
-                }, -- }}}
                 K = { vim.lsp.buf.hover, "LSP hover info" },
                 gD = { vim.lsp.buf.declaration, "Go to declaration" },
                 gI = { -- {{{
@@ -134,12 +118,6 @@ return {
                         "Type definition",
                     }, -- }}}
                     ca = { vim.lsp.buf.code_action, "Code action" },
-                    fm = { -- {{{
-                        function()
-                            format(true)
-                        end,
-                        "Format document",
-                    }, -- }}}
                     rn = { vim.lsp.buf.rename, "Rename" },
                 },
                 ["<leader>w"] = {
@@ -154,6 +132,28 @@ return {
                     }, -- }}}
                 },
             }, { buffer = bufnr })
+
+            if client.supports_method "textDocument/formatting" then
+                local function format() -- {{{
+                    vim.lsp.buf.format {
+                        async = false,
+                        filter = function(fmt_client)
+                            return fmt_client.name ~= "tsserver"
+                        end,
+                    }
+                end -- }}}
+
+                wk.register({
+                    ["<c-s>"] = { -- {{{
+                        function()
+                            format()
+                            vim.cmd "update"
+                        end,
+                        "Format and save if modified",
+                    }, -- }}}
+                    ["<leader>fm"] = { format, "Format document" },
+                }, { buffer = bufnr })
+            end
         end
 
         lsp.on_attach(on_attach)
