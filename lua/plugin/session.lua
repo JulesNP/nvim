@@ -5,19 +5,10 @@ return {
     config = function()
         require("session_manager").setup {
             autoload_mode = require("session_manager.config").AutoloadMode.CurrentDir,
-            autosave_ignore_filetypes = {
-                "NeogitCommitView",
-                "NeogitStatus",
-                "NvimTree",
-                "gitcommit",
-                "packer",
-                "toggleterm",
-            },
             autosave_ignore_dirs = {
                 "~",
                 "~\\Documents\\Projects",
             },
-            autosave_ignore_not_normal = false,
         }
         require("which-key").register {
             ["<leader>s"] = {
