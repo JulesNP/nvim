@@ -1,12 +1,12 @@
 -- vim: fdm=marker
 return {
-    "VonHeikemen/lsp-zero.nvim",
+    "neovim/nvim-lspconfig",
     requires = { -- {{{
         -- LSP Support
-        "neovim/nvim-lspconfig",
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "jose-elias-alvarez/null-ls.nvim",
+        "Decodetalkers/csharpls-extended-lsp.nvim",
 
         -- Autocompletion
         "hrsh7th/nvim-cmp",
@@ -56,19 +56,6 @@ return {
         sign("DiagnosticSignInfo", "")
         sign("DiagnosticSignWarn", "")
         sign("DiagnosticSignError", "")
-
-        local lsp = require "lsp-zero"
-        lsp.set_preferences { -- {{{
-            suggest_lsp_servers = true,
-            setup_servers_on_start = true,
-            set_lsp_keymaps = false,
-            configure_diagnostics = false,
-            cmp_capabilities = true,
-            manage_nvim_cmp = false,
-            call_servers = "local",
-        } -- }}}
-
-        require("neodev").setup {}
 
         local function on_attach(client, bufnr)
             vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -155,9 +142,6 @@ return {
                 }, { buffer = bufnr })
             end
         end
-
-        lsp.on_attach(on_attach)
-        lsp.setup()
 
         local cmp = require "cmp"
         local luasnip = require "luasnip"
@@ -259,6 +243,28 @@ return {
         vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
             border = "none",
         })
+
+        local lsp = require "lspconfig"
+        local capabilities = require("cmp_nvim_lsp").default_capabilities()
+        require("neodev").setup {}
+        require("mason").setup {}
+        require("mason-lspconfig").setup_handlers {
+            function(server_name)
+                lsp[server_name].setup {
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                }
+            end,
+            ["csharp_ls"] = function(server_name)
+                lsp[server_name].setup {
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    handlers = {
+                        ["textDocument/definition"] = require("csharpls_extended").handler,
+                    },
+                }
+            end,
+        }
 
         local null_ls = require "null-ls"
         require("null-ls").setup { -- {{{
