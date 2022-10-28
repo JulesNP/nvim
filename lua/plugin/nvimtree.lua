@@ -22,7 +22,6 @@ return {
                 enable = true,
             },
             renderer = {
-                highlight_opened_files = "name",
                 icons = {
                     git_placement = "after",
                     glyphs = {
