@@ -31,6 +31,7 @@ return require("packer").startup(function(use)
     use "vim-scripts/ReplaceWithRegister"
     use "wellle/targets.vim"
 
+    use(require "plugin/cmp")
     use(require "plugin/gitsigns")
     use(require "plugin/gruvbox")
     use(require "plugin/indent")
