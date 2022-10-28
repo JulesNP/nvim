@@ -111,6 +111,20 @@ return require("packer").startup(function(use)
             }
         end,
     } -- }}}
+    use { -- ray-x/lsp_signature.nvim {{{
+        "ray-x/lsp_signature.nvim",
+        config = function()
+            require("lsp_signature").setup {
+                bind = true,
+                handler_opts = {
+                    border = "none",
+                },
+                hint_prefix = "↳ ",
+                hint_scheme = "DiagnosticHint",
+                select_signature_key = "<m-o>",
+            }
+        end,
+    } -- }}}
 
     if packer_bootstrap then
         require("packer").sync()
