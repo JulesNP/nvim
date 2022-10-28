@@ -22,3 +22,4 @@ vim.o.smartcase = true
 vim.o.termguicolors = true
 vim.o.title = true
 vim.o.undofile = true
+vim.o.viewoptions = "folds,cursor"
