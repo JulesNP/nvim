@@ -4,7 +4,7 @@ vim.api.nvim_create_autocmd("FileType", {
     group = filetype_settings,
     pattern = { "NeogitCommitMessage", "gitcommit", "markdown", "text" },
     callback = function()
-        vim.cmd "setlocal spell"
+        vim.cmd.setlocal "spell"
     end,
 })
 
