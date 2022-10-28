@@ -77,23 +77,9 @@ return {
                     end,
                     "Go to references",
                 }, -- }}}
-                gd = { -- {{{
-                    function()
-                        vim.cmd "normal m'"
-                        trouble.close()
-                        trouble.open "lsp_definitions"
-                    end,
-                    "Go to definition",
-                }, -- }}}
+                gd = { vim.lsp.buf.definition, "Go to definition" },
                 ["<leader>"] = {
-                    D = { -- {{{
-                        function()
-                            vim.cmd "normal m'"
-                            trouble.close()
-                            trouble.open "lsp_type_definitions"
-                        end,
-                        "Type definition",
-                    }, -- }}}
+                    D = { vim.lsp.buf.type_definition, "Type definition" },
                     ca = { vim.lsp.buf.code_action, "Code action" },
                     rn = { vim.lsp.buf.rename, "Rename" },
                 },
@@ -238,7 +224,7 @@ return {
         local capabilities = require("cmp_nvim_lsp").default_capabilities()
         require("neodev").setup {}
         require("mason").setup {}
-        require("mason-lspconfig").setup_handlers {
+        require("mason-lspconfig").setup_handlers { -- {{{
             function(server_name)
                 lsp[server_name].setup {
                     capabilities = capabilities,
@@ -254,7 +240,7 @@ return {
                     },
                 }
             end,
-        }
+        } -- }}}
 
         local null_ls = require "null-ls"
         require("null-ls").setup { -- {{{
