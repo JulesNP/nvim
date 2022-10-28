@@ -89,21 +89,15 @@ return {
                 { name = "cmdline" },
             },
         })
-        require("nvim-autopairs").setup {}
-        local handlers = require "nvim-autopairs.completion.handlers"
+
+        require("nvim-autopairs").setup {
+            fast_wrap = {},
+        }
         cmp.event:on(
             "confirm_done",
             require("nvim-autopairs.completion.cmp").on_confirm_done {
                 filetypes = {
-                    fsharp = {
-                        [" "] = {
-                            kind = {
-                                cmp.lsp.CompletionItemKind.Function,
-                                cmp.lsp.CompletionItemKind.Method,
-                            },
-                            handler = handlers["*"],
-                        },
-                    },
+                    fsharp = false,
                 },
             }
         )
