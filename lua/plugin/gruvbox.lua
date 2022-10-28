@@ -17,7 +17,7 @@ return {
             group = augroup_id,
             pattern = "*",
             callback = function()
-                vim.cmd "highlight CursorLine ctermbg=234 guibg=#1d2021"
+                vim.cmd "highlight CursorLine ctermbg=none guibg=none"
             end,
         })
         vim.api.nvim_create_autocmd("InsertLeave", {
