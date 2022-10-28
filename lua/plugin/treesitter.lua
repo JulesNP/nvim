@@ -1,10 +1,10 @@
 return {
     "nvim-treesitter/nvim-treesitter",
     requires = {
-        { "nvim-treesitter/nvim-treesitter-context" },
-        { "nvim-treesitter/nvim-treesitter-textobjects" },
-        { "andymass/vim-matchup" },
-        { "windwp/nvim-ts-autotag" },
+        "nvim-treesitter/nvim-treesitter-context",
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        "andymass/vim-matchup",
+        "windwp/nvim-ts-autotag",
     },
     run = function()
         require("nvim-treesitter.install").update { with_sync = true }
