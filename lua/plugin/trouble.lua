@@ -1,6 +1,6 @@
 return {
     "folke/trouble.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
+    requires = { "kyazdani42/nvim-web-devicons", "folke/which-key.nvim" },
     config = function()
         local trouble = require "trouble"
         trouble.setup {
@@ -11,6 +11,32 @@ return {
                 warning = "",
                 error = "",
                 other = "",
+            },
+        }
+        require("which-key").register {
+            ["[Q"] = {
+                function()
+                    trouble.first { skip_groups = true, jump = true }
+                end,
+                "First trouble item",
+            },
+            ["[q"] = {
+                function()
+                    trouble.previous { skip_groups = true, jump = true }
+                end,
+                "Previous trouble item",
+            },
+            ["]Q"] = {
+                function()
+                    trouble.last { skip_groups = true, jump = true }
+                end,
+                "last trouble item",
+            },
+            ["]q"] = {
+                function()
+                    trouble.next { skip_groups = true, jump = true }
+                end,
+                "Next trouble item",
             },
         }
     end,
