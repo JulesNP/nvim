@@ -10,6 +10,7 @@ vim.o.confirm = true
 vim.o.cursorline = true
 vim.o.expandtab = true
 vim.o.foldcolumn = "auto"
+vim.o.guifont = "Iosevka NF:h16"
 vim.o.ignorecase = true
 vim.o.linebreak = true
 vim.o.number = true
