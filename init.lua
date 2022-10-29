@@ -28,6 +28,7 @@ return require("packer").startup(function(use)
     use "tpope/vim-rsi"
     use "tpope/vim-speeddating"
     use "tpope/vim-surround"
+    use "tpope/vim-unimpaired"
     use "vim-scripts/ReplaceWithRegister"
     use "wellle/targets.vim"
 
