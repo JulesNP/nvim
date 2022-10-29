@@ -2,7 +2,7 @@ require "settings" -- General settings
 require "autocommands" -- Autocommands
 require "powershell" -- Use PowerShell on Windows
 
--- Packer bootstrap {{{
+-- Packer bootstrap
 local ensure_packer = function()
     local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
     if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -12,13 +12,12 @@ local ensure_packer = function()
     end
     return false
 end
-
 local packer_bootstrap = ensure_packer()
--- }}}
 
-return require("packer").startup(function(use)
+require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
 
+    -- Vim plugins
     use "michaeljsmith/vim-indent-object"
     use "sheerun/vim-polyglot"
     use "svermeulen/vim-extended-ft"
@@ -32,7 +31,14 @@ return require("packer").startup(function(use)
     use "vim-scripts/ReplaceWithRegister"
     use "wellle/targets.vim"
 
+    -- Lua plugins
+    use(require "plugin/align")
+    use(require "plugin/bufdel")
     use(require "plugin/cmp")
+    use(require "plugin/colors")
+    use(require "plugin/comment")
+    use(require "plugin/csv")
+    use(require "plugin/fold")
     use(require "plugin/gitsigns")
     use(require "plugin/gruvbox")
     use(require "plugin/indent")
@@ -41,100 +47,14 @@ return require("packer").startup(function(use)
     use(require "plugin/nvimtree")
     use(require "plugin/orgmode")
     use(require "plugin/session")
+    use(require "plugin/signature")
     use(require "plugin/telescope")
+    use(require "plugin/toggleterm")
     use(require "plugin/treesitter")
     use(require "plugin/trouble")
     use(require "plugin/whichkey")
-
-    use { -- akinsho/toggleterm.nvim {{{
-        "akinsho/toggleterm.nvim",
-        tag = "*",
-        config = function()
-            require("toggleterm").setup {
-                open_mapping = "<c-\\>",
-            }
-        end,
-    } -- }}}
-    use { -- anuvyklack/pretty-fold.nvim {{{
-        "anuvyklack/pretty-fold.nvim",
-        config = function()
-            require("pretty-fold").setup {
-                fill_char = " ",
-                process_comment_signs = "delete",
-                sections = {
-                    left = { "content" },
-                    right = { " ", "number_of_folded_lines", ": ", "percentage", " " },
-                },
-            }
-        end,
-    } -- }}}
-    use { -- brenoprata10/nvim-highlight-colors {{{
-        "brenoprata10/nvim-highlight-colors",
-        config = function()
-            require("nvim-highlight-colors").setup {
-                enable_tailwind = true,
-            }
-        end,
-    } -- }}}
-    use { -- junegunn/vim-easy-align {{{
-        "junegunn/vim-easy-align",
-        requires = "folke/which-key.nvim",
-        config = function()
-            local wk = require "which-key"
-            wk.register { gl = { "<plug>(EasyAlign)", "Align items" } }
-            wk.register({ gl = { "<plug>(EasyAlign)", "Align items" } }, { mode = "x" })
-        end,
-    } -- }}}
-    use { -- mechatroner/rainbow_csv {{{
-        "mechatroner/rainbow_csv",
-        config = function()
-            vim.g.rbql_backend_language = "js"
-        end,
-    } -- }}}
-    use { -- numToStr/Comment.nvim {{{
-        "numToStr/Comment.nvim",
-        config = function()
-            require("Comment").setup {
-                toggler = {
-                    block = "g//",
-                },
-                opleader = {
-                    block = "g/",
-                },
-            }
-        end,
-    } -- }}}
-    use { -- ojroques/nvim-bufdel {{{
-        "ojroques/nvim-bufdel",
-        requires = "folke/which-key.nvim",
-        config = function()
-            require("bufdel").setup {
-                next = "alternate",
-                quit = false,
-            }
-            require("which-key").register {
-                ["<leader>x"] = { "<cmd>BufDel<cr>", "Close buffer" },
-            }
-        end,
-    } -- }}}
-    use { -- ray-x/lsp_signature.nvim {{{
-        "ray-x/lsp_signature.nvim",
-        config = function()
-            require("lsp_signature").setup {
-                bind = true,
-                handler_opts = {
-                    border = "none",
-                },
-                hint_prefix = "↳ ",
-                hint_scheme = "DiagnosticHint",
-                select_signature_key = "<m-o>",
-            }
-        end,
-    } -- }}}
 
     if packer_bootstrap then
         require("packer").sync()
     end
 end)
-
--- vim: fdm=marker
