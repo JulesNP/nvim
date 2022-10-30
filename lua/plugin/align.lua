@@ -3,7 +3,7 @@ return {
     requires = "folke/which-key.nvim",
     config = function()
         local wk = require "which-key"
-        wk.register { gl = { "<plug>(EasyAlign)", "Align items" } }
-        wk.register({ gl = { "<plug>(EasyAlign)", "Align items" } }, { mode = "x" })
+        wk.register { ga = { "<plug>(EasyAlign)", "Align items" } }
+        wk.register({ ga = { "<plug>(EasyAlign)", "Align items" } }, { mode = "x" })
     end,
 }

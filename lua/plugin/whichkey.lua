@@ -34,6 +34,7 @@ return {
                 c = { "<cmd>PackerCompile<cr>", "PackerCompile" },
             },
             ["<leader>wk"] = { "<cmd>WhichKey<cr>", "WhichKey" },
+            gA = { "ga", "Show ASCII value" },
             gB = { "<cmd>bprevious<cr>", "Go to previous buffer" },
             gb = { "<cmd>bnext<cr>", "Go to next buffer" },
             j = { [[v:count || mode(1)[0:1] == "no" ? "j" : "gj"]], "Down", expr = true },
