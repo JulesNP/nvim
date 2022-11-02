@@ -51,7 +51,7 @@ return {
                     and vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(layout[2]), "filetype") == "NvimTree"
                     and layout[3] == nil
                 then
-                    vim.cmd "confirm quit"
+                    vim.cmd.confirm "quit"
                 end
             end,
         })
