@@ -85,6 +85,8 @@ return {
             }, { buffer = bufnr })
 
             if client.supports_method "textDocument/formatting" then
+                vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+
                 local function format()
                     vim.lsp.buf.format {
                         async = false,
