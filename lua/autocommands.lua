@@ -54,6 +54,17 @@ vim.api.nvim_create_autocmd("InsertLeave", {
     end,
 })
 
+local configure_terminal = vim.api.nvim_create_augroup("ConfigureTerminal", { clear = true })
+
+vim.api.nvim_create_autocmd("TermOpen", {
+    group = configure_terminal,
+    pattern = "*",
+    callback = function()
+        vim.cmd.setlocal "nonumber"
+        vim.cmd.setlocal "norelativenumber"
+    end,
+})
+
 vim.api.nvim_create_autocmd("TextYankPost", {
     group = vim.api.nvim_create_augroup("HighlighYank", { clear = true }),
     pattern = "*",
