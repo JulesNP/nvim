@@ -46,6 +46,7 @@ return {
 
         local function on_attach(client, bufnr)
             vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+            vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
 
             wk.register({
                 K = { vim.lsp.buf.hover, "LSP hover info" },
