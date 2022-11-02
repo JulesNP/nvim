@@ -25,7 +25,7 @@ return {
             ["<c-k>"] = { "<c-w>k", "Go to the up window" },
             ["<c-l>"] = { "<c-w>l", "Go to the right window" },
             ["<c-q>"] = { "<c-w>q", "Quit a window" },
-            ["<c-s>"] = { "<cmd>update<cr>", "Save if modified" },
+            ["<c-s>"] = { "<cmd>update<bar>mkview<cr>", "Save if modified" },
             ["<esc>"] = { "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", "Clear search highlights" },
             ["<leader>b"] = { "<cmd>enew<cr>", "New buffer" },
             ["<leader>p"] = {

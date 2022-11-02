@@ -98,7 +98,8 @@ return {
                     ["<c-s>"] = {
                         function()
                             format()
-                            vim.cmd "update"
+                            vim.cmd.update()
+                            vim.cmd.mkview()
                         end,
                         "Format and save if modified",
                     },
