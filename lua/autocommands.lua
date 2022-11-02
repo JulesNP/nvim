@@ -36,10 +36,10 @@ vim.api.nvim_create_autocmd("BufWinLeave", {
     end,
 })
 
-local augroup_id = vim.api.nvim_create_augroup("CursorLineInsertToggle", { clear = true })
+local cursorline_toggle = vim.api.nvim_create_augroup("CursorLineInsertToggle", { clear = true })
 
 vim.api.nvim_create_autocmd("InsertEnter", {
-    group = augroup_id,
+    group = cursorline_toggle,
     pattern = "*",
     callback = function()
         vim.cmd.setlocal "nocursorline"
@@ -47,7 +47,7 @@ vim.api.nvim_create_autocmd("InsertEnter", {
 })
 
 vim.api.nvim_create_autocmd("InsertLeave", {
-    group = augroup_id,
+    group = cursorline_toggle,
     pattern = "*",
     callback = function()
         vim.cmd.setlocal "cursorline"
