@@ -13,6 +13,7 @@ vim.o.foldcolumn = "auto"
 vim.o.guifont = "Iosevka NF:h16"
 vim.o.ignorecase = true
 vim.o.linebreak = true
+vim.o.nrformats = "alpha,bin,hex"
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.scrolloff = 5
