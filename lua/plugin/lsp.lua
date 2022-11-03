@@ -112,20 +112,28 @@ return {
             end,
         }
 
-        local null_ls = require "null-ls"
-        require("null-ls").setup {
-            on_attach = on_attach,
-            sources = {
-                null_ls.builtins.code_actions.gitsigns,
-                null_ls.builtins.formatting.clang_format.with {
-                    disabled_filetypes = { "cs" },
-                },
-                null_ls.builtins.formatting.prettier.with {
-                    extra_filetypes = { "pug" },
-                },
-                null_ls.builtins.formatting.stylua,
-                null_ls.builtins.hover.dictionary,
-            },
+        local builtins = require("null-ls").builtins
+        local sources = {
+            builtins.code_actions.gitrebase,
+            builtins.code_actions.gitsigns,
+            builtins.hover.dictionary,
         }
+        local optional = {
+            ["clang-format"] = { builtins.formatting.clang_format.with { disabled_filetypes = { "cs" } } },
+            ["codespell"] = { builtins.diagnostics.codespell },
+            ["misspell"] = { builtins.diagnostics.misspell },
+            ["prettier"] = { builtins.formatting.prettier.with { extra_filetypes = { "pug" } } },
+            ["pug-lint"] = { builtins.diagnostics.puglint },
+            ["stylua"] = { builtins.formatting.stylua },
+        }
+        for key, values in pairs(optional) do
+            if vim.fn.executable(key) == 1 then
+                for _, value in ipairs(values) do
+                    table.insert(sources, value)
+                end
+            end
+        end
+
+        require("null-ls").setup { on_attach = on_attach, sources = sources }
     end,
 }
