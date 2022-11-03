@@ -32,7 +32,7 @@ vim.api.nvim_create_autocmd("BufWinLeave", {
     group = sync_view,
     pattern = "*.*",
     callback = function()
-        vim.cmd.mkview()
+        vim.cmd "silent! mkview"
     end,
 })
 
