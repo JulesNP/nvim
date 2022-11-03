@@ -61,7 +61,7 @@ return {
                     ih = { "<cmd>Gitsigns select_hunk<CR>", "Select hunk", mode = "o" },
                 }, { buffer = bufnr })
                 wk.register({
-                    ih = { "<cmd>Gitsigns select_hunk<CR>", "Select hunk" },
+                    ih = { ":<c-u>Gitsigns select_hunk<CR>", "Select hunk" },
                     ["<leader>hr"] = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
                     ["<leader>hs"] = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
                 }, { buffer = bufnr, mode = "x" })
