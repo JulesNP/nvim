@@ -2,21 +2,12 @@ return {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.0",
     requires = {
-        "folke/trouble.nvim",
         "folke/which-key.nvim",
         "nvim-lua/plenary.nvim",
         "nvim-telescope/telescope-ui-select.nvim",
     },
     config = function()
-        local trouble = require "trouble.providers.telescope"
-
         require("telescope").setup {
-            defaults = {
-                mappings = {
-                    i = { ["<c-q>"] = trouble.open_with_trouble },
-                    n = { ["<c-q>"] = trouble.open_with_trouble },
-                },
-            },
             extensions = {
                 ["ui-select"] = {
                     require("telescope.themes").get_dropdown {},

@@ -51,7 +51,7 @@ require("packer").startup(function(use)
     use(require "plugin/telescope")
     use(require "plugin/toggleterm")
     use(require "plugin/treesitter")
-    use(require "plugin/trouble")
+    use(require "plugin/vimqf")
     use(require "plugin/whichkey")
 
     if packer_bootstrap then

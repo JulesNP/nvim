@@ -3,7 +3,6 @@ return {
     requires = {
         "Decodetalkers/csharpls-extended-lsp.nvim",
         "folke/neodev.nvim",
-        "folke/trouble.nvim",
         "folke/which-key.nvim",
         "hrsh7th/nvim-cmp",
         "hrsh7th/cmp-nvim-lsp",
@@ -13,17 +12,10 @@ return {
         "williamboman/mason.nvim",
     },
     config = function()
-        local trouble = require "trouble"
         local wk = require "which-key"
         wk.register {
             ["<leader>e"] = { vim.diagnostic.open_float, "View diagnostic" },
-            ["<leader>q"] = {
-                function()
-                    vim.cmd.normal "m'"
-                    trouble.open "workspace_diagnostics"
-                end,
-                "List diagnostics",
-            },
+            ["<leader>q"] = { vim.diagnostic.setqflist, "List diagnostics" },
             ["[d"] = { vim.diagnostic.goto_prev, "Previous diagnostic" },
             ["]d"] = { vim.diagnostic.goto_next, "Next diagnostic" },
         }
@@ -51,21 +43,8 @@ return {
             wk.register({
                 K = { vim.lsp.buf.hover, "LSP hover info" },
                 gD = { vim.lsp.buf.declaration, "Go to declaration" },
-                gI = {
-                    function()
-                        vim.cmd.normal "m'"
-                        trouble.close()
-                        trouble.open "lsp_implementations"
-                    end,
-                    "Go to implementation",
-                },
-                gR = {
-                    function()
-                        vim.cmd.normal "m'"
-                        trouble.open "lsp_references"
-                    end,
-                    "Go to references",
-                },
+                gI = { vim.lsp.buf.implementation, "Go to implementation" },
+                gR = { vim.lsp.buf.references, "Go to references" },
                 gd = { vim.lsp.buf.definition, "Go to definition" },
                 ["<leader>"] = {
                     D = { vim.lsp.buf.type_definition, "Type definition" },
