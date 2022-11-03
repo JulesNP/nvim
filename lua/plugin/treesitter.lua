@@ -18,7 +18,7 @@ return {
             autotag = {
                 enable = true,
             },
-            ensure_installed = { "org" },
+            ensure_installed = { "lua", "org" },
             incremental_selection = {
                 enable = true,
                 keymaps = {
