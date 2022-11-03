@@ -17,7 +17,7 @@ local packer_bootstrap = ensure_packer()
 require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
 
-    -- Vim plugins
+    -- Basic plugin imports
     use "michaeljsmith/vim-indent-object"
     use "sheerun/vim-polyglot"
     use "svermeulen/vim-extended-ft"
@@ -31,7 +31,7 @@ require("packer").startup(function(use)
     use "vim-scripts/ReplaceWithRegister"
     use "wellle/targets.vim"
 
-    -- Lua plugins
+    -- Plugins with configurations
     use(require "plugin/align")
     use(require "plugin/bufdel")
     use(require "plugin/cmp")
