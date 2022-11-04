@@ -120,7 +120,6 @@ return {
         }
         local optional = {
             ["clang-format"] = { builtins.formatting.clang_format.with { disabled_filetypes = { "cs" } } },
-            ["codespell"] = { builtins.diagnostics.codespell },
             ["misspell"] = { builtins.diagnostics.misspell },
             ["prettier"] = { builtins.formatting.prettier.with { extra_filetypes = { "pug" } } },
             ["pug-lint"] = { builtins.diagnostics.puglint },
