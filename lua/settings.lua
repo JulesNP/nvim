@@ -25,6 +25,7 @@ vim.o.shiftwidth = 4
 vim.o.showbreak = "↳ "
 vim.o.signcolumn = "yes:1"
 vim.o.smartcase = true
+vim.o.spelllang = "en_ca,en_us"
 vim.o.termguicolors = true
 vim.o.title = true
 vim.o.undofile = true
