@@ -1,6 +1,12 @@
 return {
     "TimUntersberger/neogit",
-    requires = { "folke/which-key.nvim", "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
+    requires = {
+        "folke/which-key.nvim",
+        "nvim-lua/plenary.nvim",
+        "sindrets/diffview.nvim",
+        "tpope/vim-fugitive",
+        "tpope/vim-rhubarb",
+    },
     config = function()
         local neogit = require "neogit"
         neogit.setup {
@@ -13,13 +19,10 @@ return {
         require("which-key").register {
             ["<leader>g"] = {
                 name = "git",
-                g = { neogit.open, "Neogit status" },
-                c = {
-                    function()
-                        neogit.open { "commit" }
-                    end,
-                    "Create commit",
-                },
+                P = { "<cmd>G push<cr>", "Push" },
+                c = { "<cmd>G commit<cr>", "Commit" },
+                g = { neogit.open, "Open Neogit" },
+                p = { "<cmd>G pull<cr>", "Pull" },
             },
         }
     end,

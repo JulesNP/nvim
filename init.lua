@@ -22,9 +22,7 @@ require("packer").startup(function(use)
     use "digitaltoad/vim-pug"
     use "michaeljsmith/vim-indent-object"
     use "svermeulen/vim-extended-ft"
-    use "tpope/vim-fugitive"
     use "tpope/vim-repeat"
-    use "tpope/vim-rhubarb"
     use "tpope/vim-rsi"
     use "tpope/vim-sleuth"
     use "tpope/vim-speeddating"
@@ -45,7 +43,7 @@ require("packer").startup(function(use)
     use(require "plugin/gruvbox")
     use(require "plugin/indent")
     use(require "plugin/lsp")
-    use(require "plugin/neogit")
+    use(require "plugin/git")
     use(require "plugin/nvimtree")
     use(require "plugin/orgmode")
     use(require "plugin/session")
