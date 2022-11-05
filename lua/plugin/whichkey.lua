@@ -55,6 +55,8 @@ return {
             [">"] = { ">gv", "Shift left" },
             j = { [[v:count || mode(1)[0:1] == "no" ? "j" : "gj"]], "Down", expr = true },
             k = { [[v:count || mode(1)[0:1] == "no" ? "k" : "gk"]], "Up", expr = true },
+            y = { "myy`y", "Yank selection" },
+            Y = { "myY`y", "Yank selection linewise" },
         }, { mode = "x" })
     end,
 }
