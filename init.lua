@@ -18,13 +18,15 @@ require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
 
     -- Basic plugin imports
+    use "adelarsq/neofsharp.vim"
+    use "digitaltoad/vim-pug"
     use "michaeljsmith/vim-indent-object"
-    use "sheerun/vim-polyglot"
     use "svermeulen/vim-extended-ft"
     use "tpope/vim-fugitive"
     use "tpope/vim-repeat"
     use "tpope/vim-rhubarb"
     use "tpope/vim-rsi"
+    use "tpope/vim-sleuth"
     use "tpope/vim-speeddating"
     use "tpope/vim-surround"
     use "tpope/vim-unimpaired"
