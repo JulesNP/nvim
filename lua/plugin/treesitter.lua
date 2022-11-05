@@ -22,9 +22,9 @@ return {
             incremental_selection = {
                 enable = true,
                 keymaps = {
-                    init_selection = "<cr>",
-                    node_incremental = "<tab>",
-                    node_decremental = "<s-tab>",
+                    init_selection = "gs",
+                    node_incremental = "<cr>",
+                    node_decremental = "<tab>",
                 },
             },
             matchup = {
