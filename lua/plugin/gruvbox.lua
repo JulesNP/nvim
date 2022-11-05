@@ -29,11 +29,7 @@ return {
         require("which-key").register {
             ["<leader>tt"] = {
                 function()
-                    if vim.o.background == "dark" then
-                        vim.o.background = "light"
-                    else
-                        vim.o.background = "dark"
-                    end
+                    vim.o.background = vim.o.background ~= "dark" and "dark" or "light"
                     setup()
                 end,
                 "Toggle theme",
