@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 local sync_view = vim.api.nvim_create_augroup("SyncView", { clear = true })
 
-vim.api.nvim_create_autocmd("BufWinEnter", {
+vim.api.nvim_create_autocmd("BufEnter", {
     group = sync_view,
     pattern = "*.*",
     callback = function()
