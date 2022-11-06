@@ -33,101 +33,34 @@ return {
 
         require("neo-tree").setup {
             close_if_last_window = true,
-            popup_border_style = "NC", -- "double", "none", "rounded", "shadow", "single" or "solid"
-            use_popups_for_input = true, -- If false, inputs will use vim.ui.input() instead of custom floats.
+            popup_border_style = "rounded",
+            use_popups_for_input = true,
             use_default_mappings = true,
-            -- source_selector provides clickable tabs to switch between sources.
             source_selector = {
-                statusline = true, -- toggle to show selector on statusline
-            },
-            renderers = {
-                directory = {
-                    { "indent" },
-                    { "icon" },
-                    { "current_filter" },
-                    {
-                        "container",
-                        content = {
-                            { "name", zindex = 10 },
-                            -- {
-                            --   "symlink_target",
-                            --   zindex = 10,
-                            --   highlight = "NeoTreeSymbolicLinkTarget",
-                            -- },
-                            { "clipboard", zindex = 10 },
-                            {
-                                "diagnostics",
-                                errors_only = true,
-                                zindex = 20,
-                                align = "right",
-                                hide_when_expanded = true,
-                            },
-                            { "git_status", zindex = 20, align = "right", hide_when_expanded = true },
-                        },
-                    },
-                },
-                file = {
-                    { "indent" },
-                    { "icon" },
-                    {
-                        "container",
-                        content = {
-                            {
-                                "name",
-                                zindex = 10,
-                            },
-                            -- {
-                            --   "symlink_target",
-                            --   zindex = 10,
-                            --   highlight = "NeoTreeSymbolicLinkTarget",
-                            -- },
-                            { "clipboard", zindex = 10 },
-                            { "bufnr", zindex = 10 },
-                            { "modified", zindex = 20, align = "right" },
-                            { "diagnostics", zindex = 20, align = "right" },
-                            { "git_status", zindex = 20, align = "right" },
-                        },
-                    },
-                },
-                message = {
-                    { "indent", with_markers = false },
-                    { "name", highlight = "NeoTreeMessage" },
-                },
-                terminal = {
-                    { "indent" },
-                    { "icon" },
-                    { "name" },
-                    { "bufnr" },
-                },
+                statusline = true,
             },
             window = { -- see https://github.com/MunifTanjim/nui.nvim/tree/main/lua/nui/popup for
-                width = 30, -- applies to left and right positions
+                width = "33%", -- applies to left and right positions
                 mappings = {
-                    ["<space>"] = {
-                        "toggle_node",
-                        nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use
-                    },
+                    ["<tab>"] = "toggle_node",
                     ["<2-LeftMouse>"] = "open",
-                    ["<cr>"] = "open",
                     ["<esc>"] = "revert_preview",
                     ["P"] = { "toggle_preview", config = { use_float = true } },
-                    ["S"] = "open_split",
-                    -- ["S"] = "split_with_window_picker",
-                    ["s"] = "open_vsplit",
-                    -- ["s"] = "vsplit_with_window_picker",
+                    ["S"] = "split_with_window_picker",
+                    ["s"] = "vsplit_with_window_picker",
                     ["t"] = "open_tabnew",
-                    -- ["<cr>"] = "open_drop",
-                    -- ["t"] = "open_tab_drop",
+                    ["<cr>"] = "open_drop",
+                    ["T"] = "open_tab_drop",
                     ["w"] = "open_with_window_picker",
                     ["C"] = "close_node",
                     ["z"] = "close_all_nodes",
-                    --["Z"] = "expand_all_nodes",
+                    ["Z"] = "expand_all_nodes",
                     ["R"] = "refresh",
                     ["a"] = {
                         "add",
                         -- some commands may take optional config options, see `:h neo-tree-mappings` for details
                         config = {
-                            show_path = "none", -- "none", "relative", "absolute"
+                            show_path = "relative", -- "none", "relative", "absolute"
                         },
                     },
                     ["A"] = "add_directory", -- also accepts the config.show_path option.
@@ -159,7 +92,7 @@ return {
                         ["]g"] = "next_git_modified",
                     },
                 },
-                find_by_full_path_words = false, -- `false` means it only searches the tail of a path.
+                find_by_full_path_words = true, -- `false` means it only searches the tail of a path.
                 -- `true` will change the filter into a full path
                 -- search with space as an implicit ".*", so
                 -- `fi init`
