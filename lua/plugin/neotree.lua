@@ -43,6 +43,12 @@ return {
                 highlight_background = "StatusLineNC",
                 highlight_separator = "StatusLineNC",
                 highlight_separator_active = "StatusLine",
+                tab_labels = {
+                    filesystem = "  Files",
+                    buffers = "  Buffers",
+                    git_status = "  Git",
+                    diagnostics = " 裂Diagnostics",
+                },
             },
             window = {
                 width = 28,
