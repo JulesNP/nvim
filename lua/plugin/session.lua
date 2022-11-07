@@ -19,5 +19,15 @@ return {
                 w = { "<cmd>SessionManager save_current_session<cr>", "Save current session" },
             },
         }
+
+        local session_loading = vim.api.nvim_create_augroup("SessionLoading", { clear = true })
+
+        vim.api.nvim_create_autocmd({ "User" }, {
+            pattern = "SessionLoadPre",
+            group = session_loading,
+            callback = function()
+                vim.cmd "silent! Neotree close"
+            end,
+        })
     end,
 }
