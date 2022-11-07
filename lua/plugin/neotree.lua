@@ -104,7 +104,6 @@ return {
             },
         }
 
-        vim.cmd [[nnoremap \ :Neotree toggle<cr>]]
         require("which-key").register {
             ["\\"] = { "<cmd>silent Neotree toggle<cr>", "Toggle file tree" },
         }
