@@ -50,7 +50,7 @@ return {
                 ["<c-b>"] = cmp.mapping.scroll_docs(-4),
                 ["<c-f>"] = cmp.mapping.scroll_docs(4),
                 ["<c-space>"] = cmp.mapping.complete {},
-                ["<c-e>"] = cmp.mapping.abort(),
+                ["<c-x>"] = cmp.mapping.abort(),
                 ["<cr>"] = cmp.mapping.confirm { select = false },
             },
             sources = cmp.config.sources {
