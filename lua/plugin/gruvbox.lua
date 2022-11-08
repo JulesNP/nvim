@@ -27,12 +27,15 @@ return {
         setup()
 
         require("which-key").register {
-            ["<leader>tt"] = {
-                function()
-                    vim.o.background = vim.o.background ~= "dark" and "dark" or "light"
-                    setup()
-                end,
-                "Toggle theme",
+            ["<leader>t"] = {
+                name = "toggle",
+                t = {
+                    function()
+                        vim.o.background = vim.o.background ~= "dark" and "dark" or "light"
+                        setup()
+                    end,
+                    "Toggle theme",
+                },
             },
         }
     end,
