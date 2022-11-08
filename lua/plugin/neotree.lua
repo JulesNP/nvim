@@ -12,19 +12,8 @@ return {
             tag = "v1.*",
             config = function()
                 require("window-picker").setup {
-                    autoselect_one = true,
-                    include_current = false,
-                    filter_rules = {
-                        -- filter using buffer options
-                        bo = {
-                            -- if the file type is one of following, the window will be ignored
-                            filetype = { "neo-tree", "neo-tree-popup", "notify" },
-
-                            -- if the buffer type is one of following, the window will be ignored
-                            buftype = { "terminal", "quickfix" },
-                        },
-                    },
-                    other_win_hl_color = "#e35e4f",
+                    fg_color = "#fbf1c7",
+                    other_win_hl_color = "#cc241d",
                 }
             end,
         },
@@ -72,7 +61,7 @@ return {
                     ["<leader>hr"] = "git_revert_file",
                     ["m"] = { "move", config = { show_path = "relative" } },
                     ["p"] = "paste_from_clipboard",
-                    ["q"] = "close_window",
+                    ["\\"] = "close_window",
                     ["r"] = "rename",
                     ["s"] = "vsplit_with_window_picker",
                     ["t"] = "open_tab_drop",
@@ -111,7 +100,7 @@ return {
         }
 
         require("which-key").register {
-            ["\\"] = { "<cmd>silent Neotree toggle<cr>", "Toggle file tree" },
+            ["\\"] = { "<cmd>silent Neotree reveal<cr>", "Toggle file tree" },
         }
     end,
 }
