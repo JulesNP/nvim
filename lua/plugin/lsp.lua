@@ -71,7 +71,7 @@ return {
                     vim.lsp.buf.format {
                         async = false,
                         filter = function(fmt_client)
-                            return fmt_client.name ~= "tsserver"
+                            return not vim.tbl_contains({ "tsserver", "sumneko_lua" }, fmt_client.name)
                         end,
                     }
                 end
