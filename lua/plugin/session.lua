@@ -1,6 +1,5 @@
 return {
-    "JulesNP/neovim-session-manager",
-    branch = "filter",
+    "Shatur/neovim-session-manager",
     requires = { "folke/which-key.nvim", "nvim-lua/plenary.nvim" },
     config = function()
         require("session_manager").setup {
