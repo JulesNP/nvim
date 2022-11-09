@@ -12,6 +12,11 @@ return {
             tag = "v1.*",
             config = function()
                 require("window-picker").setup {
+                    filter_rules = {
+                        bo = {
+                            buftype = { "terminal", "quickfix" },
+                        },
+                    },
                     fg_color = "#fbf1c7",
                     other_win_hl_color = "#cc241d",
                 }
