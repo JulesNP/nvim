@@ -120,6 +120,7 @@ return {
         }
         local optional = {
             ["clang-format"] = { builtins.formatting.clang_format.with { disabled_filetypes = { "cs" } } },
+            ["luacheck"] = { builtins.diagnostics.luacheck.with { extra_args = { "--globals", "vim" } } },
             ["misspell"] = { builtins.diagnostics.misspell },
             ["prettier"] = { builtins.formatting.prettier.with { extra_filetypes = { "pug" } } },
             ["pug-lint"] = { builtins.diagnostics.puglint },
