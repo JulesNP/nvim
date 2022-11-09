@@ -8,6 +8,14 @@ return {
     },
     config = function()
         require("telescope").setup {
+            defaults = {
+                mappings = {
+                    i = {
+                        ["<c-s>"] = require("telescope.actions").select_horizontal,
+                        ["<c-x>"] = require("telescope.actions").delete_buffer,
+                    },
+                },
+            },
             extensions = {
                 ["ui-select"] = {
                     require("telescope.themes").get_dropdown {},
