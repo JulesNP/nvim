@@ -89,6 +89,7 @@ return {
                 use_libuv_file_watcher = true,
             },
             buffers = {
+                show_unloaded = true,
                 window = {
                     mappings = {
                         ["."] = { "set_root", desc = "Set root folder" },
