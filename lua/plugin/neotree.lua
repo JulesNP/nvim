@@ -66,6 +66,7 @@ return {
                     c = { "copy", config = { show_path = "relative" }, desc = "Copy to a destination" },
                     d = { "delete", desc = "Delete file" },
                     m = { "move", config = { show_path = "relative" }, desc = "Move to a destination" },
+                    o = { "open_drop", desc = "Open file" },
                     p = { "paste_from_clipboard", desc = "Paste file from clipboard" },
                     r = { "rename", desc = "Rename file" },
                     s = { "vsplit_with_window_picker", desc = "Open in vertical split" },
