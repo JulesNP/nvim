@@ -8,7 +8,10 @@ return {
 
         hop.setup {}
 
-        wk.register { ["<cr>"] = { hop.hint_char2, "2-character hop", mode = "n" } }
+        wk.register {
+            gw = { hop.hint_words, "Word hop" },
+            ["<cr>"] = { hop.hint_char2, "2-character hop" },
+        }
         wk.register { ["<cr>"] = { hop.hint_char2, "2-character hop", mode = "o" } }
         wk.register { ["<cr>"] = { hop.hint_char2, "2-character hop", mode = "x" } }
     end,
