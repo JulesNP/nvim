@@ -26,17 +26,32 @@ return {
 
         local builtin = require "telescope.builtin"
         require("which-key").register {
+            ["<leader>/"] = { builtin.live_grep, "Find with live grep" },
             ["<leader>f"] = {
                 name = "find",
+                ["<c-o>"] = { builtin.jumplist, "Find in jumplist" },
+                ["<space>"] = { builtin.builtin, "Find builtin picker" },
                 b = { builtin.buffers, "Find buffer" },
                 d = { builtin.diagnostics, "Find diagnostic" },
                 f = { builtin.find_files, "Find file" },
-                g = { builtin.live_grep, "Find with grep" },
+                g = { builtin.live_grep, "Find with live grep" },
                 h = { builtin.help_tags, "Find help tag" },
                 o = { builtin.oldfiles, "Find recent file" },
                 r = { builtin.resume, "Resume find" },
                 s = { builtin.lsp_dynamic_workspace_symbols, "Find workspace symbol" },
                 w = { builtin.grep_string, "Find word under cursor" },
+            },
+            ["<leader>g"] = {
+                name = "git",
+                f = {
+                    name = "find",
+                    B = { builtin.git_branches, "Find git branch" },
+                    b = { builtin.git_bcommits, "Find git buffer commits" },
+                    c = { builtin.git_commits, "Find git commits" },
+                    f = { builtin.git_files, "Find git files" },
+                    s = { builtin.git_status, "Find git status" },
+                    z = { builtin.git_stash, "Find git stash" },
+                },
             },
             ["<leader><leader>"] = {
                 function()
