@@ -19,6 +19,10 @@ return {
                 vim.cmd.highlight "IndentBlanklineChar cterm=nocombine ctermfg=228 gui=nocombine guifg=#f2e5bc"
                 vim.cmd.highlight "MatchParen ctermbg=223 guibg=#ebdbb2"
             end
+            vim.cmd "highlight! link HopNextKey GruvboxGreenBold"
+            vim.cmd "highlight! link HopNextKey1 GruvboxAquaBold"
+            vim.cmd "highlight! link HopNextKey2 GruvboxBlue"
+            vim.cmd "highlight! link HopUnmatched GruvboxBg2"
         end
 
         vim.g.gruvbox_invert_selection = 0

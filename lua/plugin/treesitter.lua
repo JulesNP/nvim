@@ -23,8 +23,8 @@ return {
                 enable = true,
                 keymaps = {
                     init_selection = "gs",
-                    node_incremental = "<cr>",
-                    node_decremental = "<tab>",
+                    node_incremental = "<tab>",
+                    node_decremental = "<bs>",
                 },
             },
             matchup = {
