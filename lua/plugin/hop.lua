@@ -14,5 +14,13 @@ return {
         }
         wk.register { ["<cr>"] = { hop.hint_char2, "2-character hop", mode = "o" } }
         wk.register { ["<cr>"] = { hop.hint_char2, "2-character hop", mode = "x" } }
+
+        vim.api.nvim_create_autocmd("FileType", {
+            group = vim.api.nvim_create_augroup("QuickfixEnter", { clear = true }),
+            pattern = "qf",
+            callback = function(opts)
+                wk.register { ["<cr>"] = { "<cr>", "Go to item" }, buffer = opts.buf }
+            end,
+        })
     end,
 }
