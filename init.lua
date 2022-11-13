@@ -21,7 +21,6 @@ require("packer").startup(function(use)
     use "adelarsq/neofsharp.vim"
     use "digitaltoad/vim-pug"
     use "michaeljsmith/vim-indent-object"
-    use "svermeulen/vim-extended-ft"
     use "tpope/vim-repeat"
     use "tpope/vim-rsi"
     use "tpope/vim-sleuth"
@@ -38,6 +37,7 @@ require("packer").startup(function(use)
     use(require "plugin/colors")
     use(require "plugin/comment")
     use(require "plugin/csv")
+    use(require "plugin/eyeliner")
     use(require "plugin/fold")
     use(require "plugin/git")
     use(require "plugin/gitsigns")
