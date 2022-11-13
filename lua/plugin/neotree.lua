@@ -28,6 +28,7 @@ return {
 
         require("neo-tree").setup {
             close_if_last_window = true,
+            open_files_in_last_window = false,
             popup_border_style = "rounded",
             use_default_mappings = false,
             source_selector = {
