@@ -68,6 +68,7 @@ return {
                     m = { "move", config = { show_path = "relative" }, desc = "Move to a destination" },
                     o = { "open_drop", desc = "Open file" },
                     p = { "paste_from_clipboard", desc = "Paste file from clipboard" },
+                    q = { "close_window", desc = "Close file tree" },
                     r = { "rename", desc = "Rename file" },
                     s = { "vsplit_with_window_picker", desc = "Open in vertical split" },
                     t = { "open_tab_drop", desc = "Open in new tab" },
