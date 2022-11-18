@@ -42,7 +42,6 @@ return {
                     enable = true,
                     set_jumps = true,
                     goto_next_start = {
-                        ["]/"] = "@comment.outer",
                         ["]?"] = "@conditional.inner",
                         ["]]"] = "@class.outer",
                         ["]a"] = "@parameter.inner",
@@ -50,6 +49,7 @@ return {
                         ["]m"] = "@function.outer",
                     },
                     goto_next_end = {
+                        ["]/"] = "@comment.outer",
                         ["]A"] = "@parameter.inner",
                         ["]L"] = "@loop.inner",
                         ["]M"] = "@function.outer",
