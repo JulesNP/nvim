@@ -20,7 +20,6 @@ require("packer").startup(function(use)
     -- Basic plugin imports
     use "adelarsq/neofsharp.vim"
     use "digitaltoad/vim-pug"
-    use "michaeljsmith/vim-indent-object"
     use "tpope/vim-repeat"
     use "tpope/vim-rsi"
     use "tpope/vim-sleuth"
@@ -43,7 +42,8 @@ require("packer").startup(function(use)
     use(require "plugin/gitsigns")
     use(require "plugin/gruvbox")
     use(require "plugin/hop")
-    use(require "plugin/indent")
+    use(require "plugin/indent-blankline")
+    use(require "plugin/indent-tools")
     use(require "plugin/lsp")
     use(require "plugin/neotree")
     use(require "plugin/orgmode")
