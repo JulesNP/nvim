@@ -8,6 +8,10 @@ return {
                 "~",
                 "~\\Documents\\Projects",
             },
+            autosave_ignore_filetypes = {
+                "gitcommit",
+                "toggleterm",
+            },
         }
         require("which-key").register {
             ["<leader>s"] = {
