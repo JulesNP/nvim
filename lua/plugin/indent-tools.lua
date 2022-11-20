@@ -1,6 +1,5 @@
 return {
-    "JulesNP/indent-tools.nvim",
-    branch = "extend-nav",
+    "arsham/indent-tools.nvim",
     requires = "arsham/arshlib.nvim",
     config = function()
         require("indent-tools").config {}
