@@ -1,6 +1,6 @@
 return {
     "nvim-orgmode/orgmode",
-    requires = { "nvim-treesitter/nvim-treesitter", "akinsho/org-bullets.nvim" },
+    requires = { "akinsho/org-bullets.nvim", "folke/which-key.nvim", "nvim-treesitter/nvim-treesitter" },
     config = function()
         require("orgmode").setup_ts_grammar()
         require("orgmode").setup {
@@ -12,5 +12,8 @@ return {
             win_split_mode = "auto",
         }
         require("org-bullets").setup {}
+        require("which-key").register {
+            ["<leader>o"] = { name = "orgmode" },
+        }
     end,
 }
