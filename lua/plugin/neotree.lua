@@ -84,7 +84,7 @@ return {
                 window = {
                     mappings = {
                         ["."] = { "set_root", desc = "Set root folder" },
-                        ["/"] = { "filter_as_you_type", desc = "Filter files" },
+                        ["f"] = { "filter_as_you_type", desc = "Filter files" },
                         ["<bs>"] = { "navigate_up", desc = "Navigate up a folder" },
                         ["<esc>"] = { "clear_filter", desc = "Clear filter" },
                         ["[c"] = { "prev_git_modified", desc = "Previous modified file" },
