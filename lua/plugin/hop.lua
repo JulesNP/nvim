@@ -8,26 +8,27 @@ return {
 
         hop.setup { teasing = false }
 
-        wk.register {
-            gw = { hop.hint_words, "Word hop" },
-            ["<cr>"] = { hop.hint_char2, "2-character hop" },
-        }
-        wk.register {
-            ["<cr>"] = {
-                function()
-                    hop.hint_char2 { hint_offset = -1 }
-                end,
-                "2-character hop",
-                mode = "o",
-            },
-        }
-        wk.register { ["<cr>"] = { hop.hint_char2, "2-character hop", mode = "x" } }
-
-        vim.api.nvim_create_autocmd("FileType", {
-            group = vim.api.nvim_create_augroup("QuickfixEnter", { clear = true }),
-            pattern = "qf",
+        vim.api.nvim_create_autocmd("BufEnter", {
+            group = vim.api.nvim_create_augroup("HopEnter", { clear = true }),
+            pattern = "*.*",
             callback = function(opts)
-                wk.register { ["<cr>"] = { "<cr>", "Go to item" }, buffer = opts.buf }
+                if vim.bo.buftype == "" then
+                    wk.register({
+                        gw = { hop.hint_words, "Word hop" },
+                        ["<cr>"] = { hop.hint_char2, "2-character hop" },
+                    }, { buffer = opts.buf })
+                    wk.register {
+                        ["<cr>"] = {
+                            function()
+                                hop.hint_char2 { hint_offset = -1 }
+                            end,
+                            "2-character hop",
+                        },
+                        mode = "o",
+                        buffer = opts.buf,
+                    }
+                    wk.register { ["<cr>"] = { hop.hint_char2, "2-character hop", mode = "x", buffer = opts.buf } }
+                end
             end,
         })
     end,
