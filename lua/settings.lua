@@ -27,6 +27,7 @@ vim.o.relativenumber = true
 vim.o.scrolloff = 5
 vim.o.shiftwidth = 4
 vim.o.showbreak = "↳ "
+vim.o.showmode = false
 vim.o.signcolumn = "yes:1"
 vim.o.smartcase = true
 vim.o.spelllang = "en_ca,en"
