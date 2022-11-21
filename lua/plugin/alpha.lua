@@ -8,7 +8,7 @@ return {
             dashboard.button("<space> f f", "  Find file"),
             dashboard.button("<space> f o", "  Recently opened files"),
             dashboard.button("<space> w k", "  View keybindings"),
-            dashboard.button("\\", "פּ  Open file tree"),
+            dashboard.button("\\", "  Open file tree"),
             dashboard.button("q", "  Quit Neovim", "<cmd>qa<CR>"),
         }
         require("alpha").setup(dashboard.config)
