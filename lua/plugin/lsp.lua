@@ -134,6 +134,6 @@ return {
             end
         end
 
-        require("null-ls").setup { on_attach = on_attach, sources = sources }
+        require("null-ls").setup { diagnostics_format = "#{m} [#{s}]", on_attach = on_attach, sources = sources }
     end,
 }
