@@ -18,6 +18,7 @@ return {
                         "Open item in vertical split",
                         expr = true,
                     },
+                    ["<leader>q"] = { "<cmd>cclose<CR>", "Close quickfix list" },
                     ["<tab>"] = { "<CR><C-w>p", "Open item but stay in quickfix list" },
                     ["[["] = { "<plug>(qf_older)", "Switch to older quickfix list" },
                     ["]]"] = { "<plug>(qf_newer)", "Switch to newer quickfix list" },
