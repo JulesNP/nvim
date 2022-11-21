@@ -51,12 +51,16 @@ require("packer").startup(function(use)
     use(require "plugin/orgmode")
     use(require "plugin/session")
     use(require "plugin/signature")
-    use(require "plugin/sniprun")
     use(require "plugin/telescope")
     use(require "plugin/toggleterm")
     use(require "plugin/treesitter")
     use(require "plugin/vimqf")
     use(require "plugin/whichkey")
+
+    -- Linux-specific plugin
+    if vim.loop.os_uname().sysname == "Linux" then
+        use(require "plugin/sniprun")
+    end
 
     if packer_bootstrap then
         require("packer").sync()
