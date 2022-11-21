@@ -37,6 +37,8 @@ return {
                 vim.cmd.highlight "TelescopePreviewNormal ctermbg=250 guibg=#d5c4a1"
                 vim.cmd.highlight "TelescopePreviewTitle ctermbg=250 guibg=#d5c4a1"
             end
+            vim.cmd.highlight "EyelinerPrimary cterm=bold,underline gui=bold,underline"
+            vim.cmd.highlight "EyelinerSecondary cterm=bold gui=bold"
             vim.cmd "highlight! link HopNextKey GruvboxGreenBold"
             vim.cmd "highlight! link HopNextKey1 GruvboxAquaBold"
             vim.cmd "highlight! link HopNextKey2 GruvboxBlue"
