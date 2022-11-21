@@ -4,10 +4,9 @@ return {
     requires = {
         "folke/which-key.nvim",
         "nvim-lua/plenary.nvim",
-        "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+        "nvim-tree/nvim-web-devicons",
         "MunifTanjim/nui.nvim",
         {
-            -- only needed if you want to use the commands with "_with_window_picker" suffix
             "s1n7ax/nvim-window-picker",
             tag = "v1.*",
             config = function()
