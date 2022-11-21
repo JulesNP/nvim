@@ -9,6 +9,7 @@ return {
     config = function()
         require("telescope").setup {
             defaults = {
+                borderchars = { " " },
                 mappings = {
                     i = {
                         ["<c-s>"] = require("telescope.actions").select_horizontal,
@@ -18,7 +19,7 @@ return {
             },
             extensions = {
                 ["ui-select"] = {
-                    require("telescope.themes").get_dropdown {},
+                    require("telescope.themes").get_dropdown { borderchars = { " " } },
                 },
             },
         }
