@@ -27,15 +27,16 @@ return {
         local builtin = require "telescope.builtin"
         require("which-key").register {
             ["<leader>/"] = { builtin.live_grep, "Find with live grep" },
+            ["<leader><c-o>"] = { builtin.jumplist, "Find in jumplist" },
             ["<leader>f"] = {
                 name = "find",
-                ["<c-o>"] = { builtin.jumplist, "Find in jumplist" },
                 ["<space>"] = { builtin.builtin, "Find builtin picker" },
                 b = { builtin.buffers, "Find buffer" },
                 d = { builtin.diagnostics, "Find diagnostic" },
                 f = { builtin.find_files, "Find file" },
                 g = { builtin.live_grep, "Find with live grep" },
                 h = { builtin.help_tags, "Find help tag" },
+                j = { builtin.jumplist, "Find in jumplist" },
                 o = { builtin.oldfiles, "Find recent file" },
                 r = { builtin.resume, "Resume find" },
                 s = { builtin.lsp_dynamic_workspace_symbols, "Find workspace symbol" },

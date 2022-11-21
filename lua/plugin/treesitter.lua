@@ -35,7 +35,7 @@ return {
                     enable = true,
                     border = "none",
                     peek_definition_code = {
-                        ["<leader>d"] = "@function.outer",
+                        ["<leader>k"] = "@function.outer",
                     },
                 },
                 move = {
