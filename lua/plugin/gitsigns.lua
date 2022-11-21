@@ -66,6 +66,10 @@ return {
                     ["<leader>hs"] = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
                 }, { buffer = bufnr, mode = "x" })
             end,
+            preview_config = {
+                border = "none",
+                row = 1,
+            },
         }
     end,
 }
