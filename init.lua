@@ -31,6 +31,7 @@ require("packer").startup(function(use)
 
     -- Plugins with configurations
     use(require "plugin/align")
+    use(require "plugin/alpha")
     use(require "plugin/bufdel")
     use(require "plugin/cmp")
     use(require "plugin/colors")
