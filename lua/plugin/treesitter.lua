@@ -20,7 +20,6 @@ return {
                 enable = true,
             },
             ensure_installed = "all",
-            sync_install = true,
             incremental_selection = {
                 enable = true,
                 keymaps = {
