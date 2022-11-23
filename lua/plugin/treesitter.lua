@@ -13,12 +13,14 @@ return {
         require("nvim-treesitter.configs").setup {
             highlight = {
                 enable = true,
+                disable = { "pug" },
                 additional_vim_regex_highlighting = true,
             },
             autotag = {
                 enable = true,
             },
-            ensure_installed = { "lua", "org" },
+            ensure_installed = "all",
+            sync_install = true,
             incremental_selection = {
                 enable = true,
                 keymaps = {
