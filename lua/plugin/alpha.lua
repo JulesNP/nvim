@@ -2,6 +2,19 @@ return {
     "goolord/alpha-nvim",
     config = function()
         local dashboard = require "alpha.themes.dashboard"
+        dashboard.section.header.val = {
+            [[                                                               ]],
+            [[ ██      █                                                     ]],
+            [[████     ██                                   ██               ]],
+            [[█████    ███                                                    ]],
+            [[███ ██   ███  ██████   ██████  ██      ██ ███ █████████ ]],
+            [[███  ██  ███ █    █ █    █ ██      ██  ██ ██  ██  █]],
+            [[███   ██ ███ ██      ██ ██      ██ ██      ██  ██ ██    ██    ██]],
+            [[███    █████ ██████████ ██      ██ █    █  ██ ██    ██    ██]],
+            [[██     ████ ██         ██      ██  █  █   ██ ██    ██    ██]],
+            [[ █      ██  █    █ █    █   ██    ██ ██    ██    ██]],
+            [[             ██████   ██████     ██     ██ ██    ██    ██]],
+        }
         dashboard.section.buttons.val = {
             dashboard.button("e", "  New file", "<cmd>enew<CR>"),
             dashboard.button("<space> s s", "  Select session"),
