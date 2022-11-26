@@ -54,6 +54,7 @@ return {
         wk.register({
             ["<"] = { "<gv", "Shift left" },
             [">"] = { ">gv", "Shift left" },
+            ["<leader>wk"] = { "<cmd>WhichKey<cr>", "WhichKey" },
             j = { [[v:count || mode(1)[0:1] == "no" ? "j" : "gj"]], "Down", expr = true },
             k = { [[v:count || mode(1)[0:1] == "no" ? "k" : "gk"]], "Up", expr = true },
             y = { "myy`y", "Yank selection" },
