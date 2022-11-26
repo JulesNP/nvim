@@ -28,7 +28,7 @@ return {
             ["<c-s>"] = { "<cmd>update<bar>mkview<cr>", "Save if modified" },
             ["<esc>"] = { "<Cmd>nohlsearch<Bar>diffupdate<CR>", "Clear search highlights" },
             ["<leader>b"] = { "<cmd>enew<cr>", "New buffer" },
-            ["<leader>X"] = { "<cmd>bdelete<cr>", "Close split and buffer" },
+            ["<leader>X"] = { "<cmd>bdelete<cr>", "Close window and buffer" },
             ["<leader>p"] = {
                 name = "packer",
                 s = { "<cmd>PackerSync<cr>", "PackerSync" },
