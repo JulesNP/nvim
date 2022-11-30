@@ -34,6 +34,10 @@ return {
                 s = { "<cmd>PackerSync<cr>", "PackerSync" },
                 c = { "<cmd>PackerCompile<cr>", "PackerCompile" },
             },
+            ["<leader>t"] = {
+                name = "toggle",
+                w = { "<cmd>set wrap!<cr>", "Toggle word wrap" },
+            },
             ["<leader>wk"] = { "<cmd>WhichKey<cr>", "WhichKey" },
             gA = { "ga", "Show ASCII value" },
             gB = { "<cmd>bprevious<cr>", "Go to previous buffer" },
