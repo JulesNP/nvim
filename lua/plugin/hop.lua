@@ -10,9 +10,9 @@ return {
 
         vim.api.nvim_create_autocmd("BufEnter", {
             group = vim.api.nvim_create_augroup("HopEnter", { clear = true }),
-            pattern = "*.*",
+            pattern = "*",
             callback = function(opts)
-                if vim.bo.buftype == "" then
+                if vim.g.vscode or vim.bo.buftype == "" then
                     wk.register({
                         gw = { hop.hint_words, "Word hop" },
                         ["<cr>"] = { hop.hint_char2, "2-character hop" },
