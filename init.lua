@@ -59,11 +59,6 @@ require("packer").startup(function(use)
     use(require "plugin/vimqf")
     use(require "plugin/whichkey")
 
-    -- Linux-specific plugin
-    if vim.loop.os_uname().sysname == "Linux" then
-        use(require "plugin/sniprun")
-    end
-
     if packer_bootstrap then
         require("packer").sync()
     end
