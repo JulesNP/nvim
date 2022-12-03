@@ -12,7 +12,7 @@ return {
     config = function()
         require("nvim-treesitter.configs").setup {
             highlight = {
-                enable = true,
+                enable = not vim.g.vscode,
                 disable = { "pug" },
                 additional_vim_regex_highlighting = true,
             },
@@ -29,7 +29,7 @@ return {
                 },
             },
             matchup = {
-                enable = true,
+                enable = not vim.g.vscode,
             },
             textobjects = {
                 lsp_interop = {
