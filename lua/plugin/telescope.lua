@@ -10,6 +10,7 @@ return {
         require("telescope").setup {
             defaults = {
                 borderchars = { " " },
+                layout_strategy = "flex",
                 mappings = {
                     i = {
                         ["<c-s>"] = require("telescope.actions").select_horizontal,
