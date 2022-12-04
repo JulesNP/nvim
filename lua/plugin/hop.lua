@@ -8,7 +8,7 @@ return {
 
         hop.setup { teasing = false }
 
-        vim.api.nvim_create_autocmd("BufEnter", {
+        vim.api.nvim_create_autocmd("FileType", {
             group = vim.api.nvim_create_augroup("HopEnter", { clear = true }),
             pattern = "*",
             callback = function(opts)
