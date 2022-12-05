@@ -5,7 +5,6 @@ vim.g.maplocalleader = " "
 if vim.g.neovide then
     vim.g.neovide_floating_blur_amount_x = 6.0
     vim.g.neovide_floating_blur_amount_y = 6.0
-    vim.g.neovide_refresh_rate = 120
     vim.o.pumblend = 30
     vim.o.winblend = 30
 else
