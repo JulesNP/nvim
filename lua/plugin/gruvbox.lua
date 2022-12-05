@@ -39,7 +39,8 @@ return {
             end
             vim.cmd.highlight "EyelinerPrimary gui=bold,underline"
             vim.cmd.highlight "EyelinerSecondary gui=bold"
-            vim.cmd.highlight "leaplabelprimary guifg=#fbf1c7 guibg=#cc241d"
+            vim.cmd.highlight "LeapLabelPrimary guifg=#fbf1c7 guibg=#cc241d"
+            vim.cmd.highlight "LeapLabelSecondary guifg=#fbf1c7 guibg=#458588"
             vim.cmd "highlight! link HopNextKey GruvboxGreenBold"
             vim.cmd "highlight! link HopNextKey1 GruvboxAquaBold"
             vim.cmd "highlight! link HopNextKey2 GruvboxBlue"
