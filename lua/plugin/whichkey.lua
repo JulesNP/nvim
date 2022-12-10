@@ -37,6 +37,12 @@ return {
             ["<leader>t"] = {
                 name = "toggle",
                 w = { "<cmd>set wrap!<cr>", "Toggle word wrap" },
+                v = {
+                    function()
+                        vim.o.virtualedit = vim.o.virtualedit == "" and "all" or ""
+                    end,
+                    "Toggle virtual editing",
+                },
             },
             ["<leader>wk"] = { "<cmd>WhichKey<cr>", "WhichKey" },
             gA = { "ga", "Show ASCII value" },
