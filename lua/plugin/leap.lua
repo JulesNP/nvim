@@ -5,54 +5,13 @@ return {
         local leap = require "leap"
         local wk = require "which-key"
 
-        leap.opts.labels = {
-            "f",
-            "j",
-            "d",
-            "k",
-            "s",
-            "l",
-            "a",
-            "r",
-            "u",
-            "v",
-            "m",
-            "g",
-            "h",
-            "e",
-            "i",
-            "w",
-            "o",
-            "x",
-            "q",
-            "p",
-            "b",
-            "n",
-            "z",
-            "F",
-            "J",
-            "D",
-            "K",
-            "S",
-            "L",
-            "A",
-            "R",
-            "U",
-            "V",
-            "M",
-            "G",
-            "H",
-            "E",
-            "I",
-            "W",
-            "O",
-            "X",
-            "Q",
-            "P",
-            "B",
-            "N",
-            "Z",
-        }
+        -- Make new table from string
+        local t = {}
+        local str = "fjdkslaruvmgheiwoxqpbnzFJDKSLARUVMGHEIWOXQPBNZ"
+        for i = 1, #str do
+            t[i] = str:sub(i, i)
+        end
+        leap.opts.labels = t
 
         local function leap_in_win()
             leap.leap { target_windows = { vim.fn.win_getid() } }
