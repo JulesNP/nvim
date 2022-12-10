@@ -14,7 +14,6 @@ return {
             highlight = {
                 enable = not vim.g.vscode,
                 disable = { "pug" },
-                additional_vim_regex_highlighting = true,
             },
             autotag = {
                 enable = true,
