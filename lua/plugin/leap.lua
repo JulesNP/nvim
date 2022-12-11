@@ -12,6 +12,12 @@ return {
             t[i] = str:sub(i, i)
         end
         leap.opts.labels = t
+        leap.opts.highlight_unlabeled_phase_one_targets = true
+
+        if vim.g.vscode then
+            vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" })
+            vim.api.nvim_set_hl(0, "LeapMatch", { link = "Normal" })
+        end
 
         local function leap_in_win()
             leap.leap { target_windows = { vim.fn.win_getid() } }
@@ -30,7 +36,7 @@ return {
             group = vim.api.nvim_create_augroup("LeapSetup", { clear = true }),
             pattern = "*",
             callback = function(opts)
-                if vim.g.vscode or vim.bo.buftype == "" then
+                if vim.g.vscode or vim.bo.buftype == "" or vim.bo.buftype == "help" then
                     wk.register({ ["<cr>"] = { leap_anywhere, "Leap to letter pair" } }, { buffer = opts.buf })
                     wk.register { ["<cr>"] = { leap_in_win, "Leap to letter pair" }, mode = "o", buffer = opts.buf }
                     wk.register { ["<cr>"] = { leap_in_win, "Leap to letter pair", mode = "x", buffer = opts.buf } }
