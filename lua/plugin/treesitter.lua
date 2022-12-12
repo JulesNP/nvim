@@ -16,7 +16,7 @@ return {
                 disable = { "pug" },
             },
             autotag = {
-                enable = true,
+                enable = not vim.g.vscode,
             },
             ensure_installed = "all",
             incremental_selection = {
@@ -101,8 +101,10 @@ return {
             },
         }
 
-        require("treesitter-context").setup {
-            trim_scope = "inner",
-        }
+        if not vim.g.vscode then
+            require("treesitter-context").setup {
+                trim_scope = "inner",
+            }
+        end
     end,
 }
