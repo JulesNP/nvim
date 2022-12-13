@@ -60,7 +60,7 @@ require("packer").startup(function(use)
         use(require "plugin/signature")
         use(require "plugin/telescope")
         use(require "plugin/toggleterm")
-        use(require "plugin/vimqf")
+        use(require "plugin/quickfix")
     end
 
     if packer_bootstrap then
