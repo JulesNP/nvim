@@ -7,11 +7,8 @@ return {
             pattern = "qf",
             callback = function()
                 require("which-key").register({
-                    ["<c-v>"] = {
-                        [[&splitright ? "\<c-w>\<cr>\<c-w>L\<c-w>p\<c-w>J\<c-w>p" : "\<c-w>\<cr>\<c-w>H\<c-w>p\<c-w>J\<c-w>p"]],
-                        "Open item in vertical split",
-                        expr = true,
-                    },
+                    ["<c-s>"] = { "<c-w><cr><c-w>K", "Open item in horizontal split" },
+                    ["<c-v>"] = { "<c-w><cr><c-w>H<c-w>p<c-w>J<c-w>p", "Open item in vertical split" },
                     ["<leader>q"] = { "<cmd>cclose<cr>", "Close quickfix list" },
                     ["<tab>"] = { "<cr><c-w>p", "Open item but stay in quickfix list" },
                     ["[["] = { "<cmd>colder<cr>", "Switch to older quickfix list" },
