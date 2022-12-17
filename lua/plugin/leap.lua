@@ -37,9 +37,19 @@ return {
             pattern = "*",
             callback = function(opts)
                 if vim.g.vscode or vim.bo.buftype == "" or vim.bo.buftype == "help" then
-                    wk.register({ ["<cr>"] = { leap_anywhere, "Leap to letter pair" } }, { buffer = opts.buf })
-                    wk.register { ["<cr>"] = { leap_in_win, "Leap to letter pair" }, mode = "o", buffer = opts.buf }
-                    wk.register { ["<cr>"] = { leap_in_win, "Leap to letter pair", mode = "x", buffer = opts.buf } }
+                    wk.register {
+                        ["<cr>"] = { leap_in_win, "Leap to letter pair within window" },
+                        mode = "n",
+                        buffer = opts.buf,
+                    }
+                    wk.register {
+                        ["<cr>"] = { leap_in_win, "Leap to letter pair within window" },
+                        mode = "o",
+                        buffer = opts.buf,
+                    }
+                    wk.register {
+                        ["<cr>"] = { leap_in_win, "Leap to letter pair within window", mode = "x", buffer = opts.buf },
+                    }
                 end
             end,
         })
