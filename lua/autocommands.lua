@@ -59,10 +59,31 @@ if not vim.g.vscode then
         end,
     })
 
-    local configure_terminal = vim.api.nvim_create_augroup("ConfigureTerminal", { clear = true })
+    local relative_number_toggle = vim.api.nvim_create_augroup("RelativeNumberToggle", { clear = true })
+
+    vim.api.nvim_create_autocmd({ "CmdlineEnter", "WinLeave" }, {
+        group = relative_number_toggle,
+        pattern = "*",
+        callback = function()
+            if vim.o.number then
+                vim.o.relativenumber = false
+                vim.cmd.redraw()
+            end
+        end,
+    })
+
+    vim.api.nvim_create_autocmd({ "CmdlineLeave", "WinEnter" }, {
+        group = relative_number_toggle,
+        pattern = "*",
+        callback = function()
+            if vim.o.number then
+                vim.o.relativenumber = true
+            end
+        end,
+    })
 
     vim.api.nvim_create_autocmd("TermOpen", {
-        group = configure_terminal,
+        group = vim.api.nvim_create_augroup("ConfigureTerminal", { clear = true }),
         pattern = "*",
         callback = function()
             vim.cmd.setlocal "nonumber"
