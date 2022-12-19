@@ -56,8 +56,8 @@ return {
             sources = cmp.config.sources {
                 { name = "luasnip" },
                 { name = "orgmode" },
-                { name = "nvim_lua" },
                 { name = "nvim_lsp" },
+                { name = "nvim_lua" },
                 { name = "git" },
                 { name = "path" },
                 { name = "calc" },
