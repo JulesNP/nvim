@@ -41,27 +41,9 @@ if not vim.g.vscode then
         end,
     })
 
-    local cursorline_toggle = vim.api.nvim_create_augroup("CursorLineInsertToggle", { clear = true })
-
-    vim.api.nvim_create_autocmd("InsertEnter", {
-        group = cursorline_toggle,
-        pattern = "*",
-        callback = function()
-            vim.cmd.setlocal "nocursorline"
-        end,
-    })
-
-    vim.api.nvim_create_autocmd("InsertLeave", {
-        group = cursorline_toggle,
-        pattern = "*",
-        callback = function()
-            vim.cmd.setlocal "cursorline"
-        end,
-    })
-
     local relative_number_toggle = vim.api.nvim_create_augroup("RelativeNumberToggle", { clear = true })
 
-    vim.api.nvim_create_autocmd({ "CmdlineEnter", "WinLeave" }, {
+    vim.api.nvim_create_autocmd({ "BufLeave", "CmdlineEnter", "FocusLost", "InsertEnter", "WinLeave" }, {
         group = relative_number_toggle,
         pattern = "*",
         callback = function()
@@ -72,7 +54,7 @@ if not vim.g.vscode then
         end,
     })
 
-    vim.api.nvim_create_autocmd({ "CmdlineLeave", "WinEnter" }, {
+    vim.api.nvim_create_autocmd({ "BufEnter", "CmdlineLeave", "FocusGained", "InsertLeave", "WinEnter" }, {
         group = relative_number_toggle,
         pattern = "*",
         callback = function()
