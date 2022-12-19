@@ -29,7 +29,7 @@ return {
                     luasnip.lsp_expand(args.body)
                 end,
             },
-            mapping = cmp.mapping.preset.insert {
+            mapping = {
                 ["<tab>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_next_item()
@@ -50,11 +50,16 @@ return {
                 end, { "i", "s", "x" }),
                 ["<c-b>"] = cmp.mapping.scroll_docs(-4),
                 ["<c-f>"] = cmp.mapping.scroll_docs(4),
+                ["<c-n>"] = cmp.mapping.select_next_item(),
+                ["<c-p>"] = cmp.mapping.select_prev_item(),
                 ["<c-space>"] = cmp.mapping.complete {},
                 ["<c-x>"] = cmp.mapping.abort(),
                 ["<cr>"] = cmp.mapping.confirm { select = false },
+                ["<down>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
+                ["<up>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
             },
             sources = cmp.config.sources {
+                { name = "nvim_lsp_signature_help" },
                 { name = "luasnip" },
                 { name = "orgmode" },
                 { name = "nvim_lsp" },
