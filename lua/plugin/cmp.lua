@@ -99,13 +99,6 @@ return {
         require("nvim-autopairs").setup {
             fast_wrap = {},
         }
-        cmp.event:on(
-            "confirm_done",
-            require("nvim-autopairs.completion.cmp").on_confirm_done {
-                filetypes = {
-                    fsharp = false,
-                },
-            }
-        )
+        cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done {})
     end,
 }
