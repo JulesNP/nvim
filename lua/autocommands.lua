@@ -23,7 +23,7 @@ if not vim.g.vscode then
 
     vim.api.nvim_create_autocmd("BufWinEnter", {
         group = sync_view,
-        pattern = "*.*",
+        pattern = "?*",
         callback = function()
             if vim.bo.filetype ~= "org" then
                 vim.cmd "silent! loadview"
@@ -33,7 +33,7 @@ if not vim.g.vscode then
 
     vim.api.nvim_create_autocmd("BufWinLeave", {
         group = sync_view,
-        pattern = "*.*",
+        pattern = "?*",
         callback = function()
             if vim.bo.filetype ~= "org" then
                 vim.cmd "silent! mkview"
