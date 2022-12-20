@@ -11,7 +11,6 @@ return {
                 vim.cmd.highlight "FoldColumn guibg=#282828"
                 vim.cmd.highlight "IlluminatedWordRead gui=bold guibg=#504945"
                 vim.cmd.highlight "IlluminatedWordText gui=bold guibg=#504945"
-                vim.cmd.highlight "IlluminatedWordWrite gui=bold,underline guibg=#504945"
                 vim.cmd.highlight "IndentBlanklineChar gui=nocombine guifg=#1d2021"
                 vim.cmd.highlight "MatchParen guibg=#3c3836"
                 vim.cmd.highlight "TelescopePromptBorder guibg=#32302f"
@@ -32,7 +31,6 @@ return {
                 vim.cmd.highlight "FoldColumn guibg=#fbf1c7"
                 vim.cmd.highlight "IlluminatedWordRead gui=bold guibg=#d5c4a1"
                 vim.cmd.highlight "IlluminatedWordText gui=bold guibg=#d5c4a1"
-                vim.cmd.highlight "IlluminatedWordWrite gui=bold,underline guibg=#d5c4a1"
                 vim.cmd.highlight "IndentBlanklineChar gui=nocombine guifg=#f2e5bc"
                 vim.cmd.highlight "MatchParen guibg=#ebdbb2"
                 vim.cmd.highlight "TelescopePromptBorder guibg=#f2e5bc"
@@ -49,6 +47,7 @@ return {
             end
             vim.cmd.highlight "EyelinerPrimary gui=bold,underline"
             vim.cmd.highlight "EyelinerSecondary gui=bold"
+            vim.cmd.highlight "IlluminatedWordWrite gui=bold,standout"
             vim.cmd.highlight "LeapLabelPrimary gui=nocombine guifg=#fbf1c7 guibg=#cc241d"
             vim.cmd.highlight "LeapLabelSecondary gui=nocombine guifg=#fbf1c7 guibg=#458588"
             vim.cmd "highlight! link HopNextKey GruvboxGreenBold"
