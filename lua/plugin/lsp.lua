@@ -140,7 +140,7 @@ return {
             ["misspell"] = { builtins.diagnostics.misspell },
             ["prettier"] = { builtins.formatting.prettier.with { extra_filetypes = { "pug" } } },
             ["pug-lint"] = { builtins.diagnostics.puglint },
-            ["shellcheck"] = { builtins.code_actions.shellcheck, builtins.diagnostics.shellcheck },
+            ["shellcheck"] = { builtins.code_actions.shellcheck },
             ["stylua"] = { builtins.formatting.stylua },
         }
         for key, values in pairs(optional) do
