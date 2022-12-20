@@ -111,6 +111,22 @@ return {
                 }
             end,
         }
+        -- Mason's install of lua-language-server doesn't work on Termux, so use globally installed version if available
+        if
+            not require("mason-registry").is_installed "lua-language-server" and vim.fn.executable "lua-language-server"
+        then
+            lsp.sumneko_lua.setup {
+                capabilities = capabilities,
+                on_attach = on_attach,
+            }
+        end
+        -- Set up ccls separately, since it isn't available through Mason
+        if vim.fn.executable "ccls" then
+            lsp.ccls.setup {
+                capabilities = capabilities,
+                on_attach = on_attach,
+            }
+        end
 
         local builtins = require("null-ls").builtins
         local sources = {
