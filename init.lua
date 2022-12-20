@@ -1,3 +1,5 @@
+pcall(require, "impatient")
+
 require "settings" -- General settings
 require "autocommands" -- Autocommands
 require "powershell" -- Use PowerShell on Windows
@@ -18,6 +20,7 @@ require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
 
     -- Basic plugin imports
+    use "lewis6991/impatient.nvim"
     use "tpope/vim-repeat"
     use "tpope/vim-rsi"
     use "tpope/vim-sleuth"
