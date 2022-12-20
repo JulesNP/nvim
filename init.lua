@@ -37,6 +37,7 @@ require("packer").startup(function(use)
     use(require "plugin/illuminate")
     use(require "plugin/indent-tools")
     use(require "plugin/leap")
+    use(require "plugin/refactor")
     use(require "plugin/treesitter")
     use(require "plugin/whichkey")
 

@@ -49,7 +49,10 @@ return {
                 ["<leader>"] = {
                     D = { vim.lsp.buf.type_definition, "Type definition" },
                     ca = { vim.lsp.buf.code_action, "Code action" },
-                    rn = { vim.lsp.buf.rename, "Rename" },
+                    r = {
+                        name = "refactor",
+                        n = { vim.lsp.buf.rename, "Rename" },
+                    },
                 },
                 ["<leader>w"] = {
                     name = "workspace",
