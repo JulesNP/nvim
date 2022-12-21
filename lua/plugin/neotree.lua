@@ -110,23 +110,5 @@ return {
         require("which-key").register {
             ["\\"] = { "<cmd>silent Neotree reveal<cr>", "Toggle file tree" },
         }
-
-        vim.api.nvim_create_autocmd("QuitPre", {
-            group = vim.api.nvim_create_augroup("NeotreeClose", { clear = true }),
-            pattern = "*",
-            callback = function()
-                local layout = vim.fn.winlayout()
-                if
-                    layout[1] ~= "leaf"
-                    and layout[2][3] == nil
-                    and layout[2][1][1] == "leaf"
-                    and layout[2][2][1] == "leaf"
-                    and vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(layout[2][1][2]), "filetype")
-                        == "neo-tree"
-                then
-                    vim.cmd "Neotree close"
-                end
-            end,
-        })
     end,
 }

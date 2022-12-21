@@ -83,4 +83,32 @@ if not vim.g.vscode then
             vim.highlight.on_yank { timeout = 300 }
         end,
     })
+
+    -- Helper funstions to count how many windows being used for actual editing are open
+    local function is_essential(filetype)
+        return not vim.tbl_contains({ "help", "neo-tree", "qf", "toggleterm" }, filetype)
+    end
+    local function count_essential(layout)
+        if layout[1] == "leaf" then
+            return is_essential(vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(layout[2]), "filetype")) and 1 or 0
+        end
+        local count = 0
+        for _, value in ipairs(layout[2]) do
+            count = count + count_essential(value)
+        end
+        return count
+    end
+
+    -- If the only remaining editing window is being closed, also close all non-essential windows to allow vim to exit gracefully
+    vim.api.nvim_create_autocmd("QuitPre", {
+        group = vim.api.nvim_create_augroup("GracefulExit", { clear = true }),
+        pattern = "*",
+        callback = function()
+            if is_essential(vim.bo.filetype) and count_essential(vim.fn.winlayout()) == 1 then
+                vim.cmd.cclose()
+                vim.cmd "silent! Neotree close"
+                vim.cmd "silent! ToggleTermToggleAll!"
+            end
+        end,
+    })
 end
