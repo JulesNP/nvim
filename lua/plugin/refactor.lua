@@ -55,7 +55,7 @@ return {
                             "Extract variable",
                         },
                     },
-                }, { buffer = opts.buf, mode = "v" })
+                }, { buffer = opts.buf, mode = "x" })
                 wk.register({
                     ["<leader>r"] = {
                         name = "refactor",
