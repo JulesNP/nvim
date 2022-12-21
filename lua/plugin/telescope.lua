@@ -55,7 +55,7 @@ return {
             local current_file = vim.api.nvim_buf_get_name(current_buffer)
             local results = {}
 
-            for _, buffer in ipairs(vim.split(vim.fn.execute ":buffers! t", "\n", nil)) do
+            for _, buffer in ipairs(vim.split(vim.fn.execute ":buffers! t", "\n", {})) do
                 local match = tonumber(string.match(buffer, "%s*(%d+)"))
                 local open_by_lsp = string.match(buffer, "line 0$")
                 if match and not open_by_lsp then
