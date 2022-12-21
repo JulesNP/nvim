@@ -44,7 +44,7 @@ if not vim.g.vscode then
     local relative_number_toggle = vim.api.nvim_create_augroup("RelativeNumberToggle", { clear = true })
 
     -- Remove relative numbers via remap of `:` instead of CmdlineEnter to avoid clearing visual selection
-    vim.api.nvim_set_keymap("", ":", "<cmd>set nornu<cr>:", { noremap = true })
+    vim.api.nvim_set_keymap("", ":", "<cmd>set nornu<cr>:", { noremap = true, desc = "Enter command-line mode" })
 
     vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
         group = relative_number_toggle,
