@@ -26,7 +26,7 @@ return {
                 name = "diffview",
                 d = { "<cmd>DiffviewOpen<cr>", "Open diffview" },
                 f = { "<cmd>DiffviewFileHistory %<cr>", "Current file history" },
-                r = { "<cmd>DiffviewFileHistory<cr>", "Repository file history" },
+                h = { "<cmd>DiffviewFileHistory<cr>", "Repository history" },
                 o = { "<cmd>DiffviewOpen origin/HEAD<cr>", "Diffview from origin" },
             },
         }
