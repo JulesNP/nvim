@@ -25,7 +25,7 @@ if not vim.g.vscode then
         group = sync_view,
         pattern = "?*",
         callback = function()
-            if vim.bo.filetype ~= "org" then
+            if vim.bo.modifiable and vim.bo.filetype ~= "org" then
                 vim.cmd "silent! loadview"
             end
         end,
@@ -35,7 +35,7 @@ if not vim.g.vscode then
         group = sync_view,
         pattern = "?*",
         callback = function()
-            if vim.bo.filetype ~= "org" then
+            if vim.bo.modifiable and vim.bo.filetype ~= "org" then
                 vim.cmd "silent! mkview"
             end
         end,
