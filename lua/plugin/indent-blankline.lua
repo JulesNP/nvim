@@ -1,6 +1,6 @@
 return {
     "lukas-reineke/indent-blankline.nvim",
-    after = "gruvbox",
+    -- after = "gruvbox",
     config = function()
         require("indent_blankline").setup {
             char = "▏",
