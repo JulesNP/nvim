@@ -26,7 +26,7 @@ return {
                     GruvboxYellowSign = { bg = palette[bg .. "0"] },
                     IlluminatedWordRead = { bg = palette[bg .. "2"] },
                     IlluminatedWordText = { bg = palette[bg .. "2"] },
-                    IlluminatedWordWrite = { bold = true, bg = palette[bg .. "3"] },
+                    IlluminatedWordWrite = { standout = true },
                     IndentBlanklineChar = blankline,
                     IndentBlanklineSpaceChar = blankline,
                     IndentBlanklineSpaceCharBlankline = blankline,
