@@ -22,7 +22,6 @@ require("packer").startup(function(use)
     -- Basic plugin imports
     use "lewis6991/impatient.nvim"
     use "tpope/vim-repeat"
-    use "tpope/vim-rsi"
     use "tpope/vim-sleuth"
     use "tpope/vim-speeddating"
     use "tpope/vim-surround"
@@ -34,16 +33,15 @@ require("packer").startup(function(use)
     use(require "plugin/align")
     use(require "plugin/comment")
     use(require "plugin/eyeliner")
-    use(require "plugin/illuminate")
     use(require "plugin/indent-tools")
     use(require "plugin/leap")
-    use(require "plugin/refactor")
     use(require "plugin/treesitter")
     use(require "plugin/whichkey")
 
     if not vim.g.vscode then
         use "adelarsq/neofsharp.vim"
         use "digitaltoad/vim-pug"
+        use "tpope/vim-rsi"
 
         use(require "plugin/alpha")
         use(require "plugin/autopairs")
@@ -56,17 +54,19 @@ require("packer").startup(function(use)
         use(require "plugin/git")
         use(require "plugin/gitsigns")
         use(require "plugin/gruvbox")
+        use(require "plugin/illuminate")
         use(require "plugin/indent-blankline")
         use(require "plugin/lsp")
         use(require "plugin/lualine")
         use(require "plugin/maximize")
         use(require "plugin/neotree")
         use(require "plugin/orgmode")
+        use(require "plugin/quickfix")
+        use(require "plugin/refactor")
         use(require "plugin/session")
         use(require "plugin/tabout")
         use(require "plugin/telescope")
         use(require "plugin/toggleterm")
-        use(require "plugin/quickfix")
     end
 
     if packer_bootstrap then
