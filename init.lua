@@ -46,6 +46,7 @@ require("packer").startup(function(use)
         use "digitaltoad/vim-pug"
 
         use(require "plugin/alpha")
+        use(require "plugin/autopairs")
         use(require "plugin/bufdel")
         use(require "plugin/cmp")
         use(require "plugin/colors")
