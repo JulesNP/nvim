@@ -45,6 +45,7 @@ return {
                     TelescopeResultsBorder = { bg = palette[bg .. "1"] },
                     TelescopeResultsNormal = { bg = palette[bg .. "1"] },
                     TelescopeResultsTitle = { bg = palette[bg .. "1"] },
+                    TreesitterContextLineNumber = { fg = palette.gray, bg = palette[bg .. "2"] },
                 },
             }
             vim.cmd.colorscheme "gruvbox"
