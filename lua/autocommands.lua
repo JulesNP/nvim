@@ -90,13 +90,16 @@ if not vim.g.vscode then
     end
     local function count_essential(layout)
         if layout[1] == "leaf" then
-            return is_essential(vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(layout[2]), "filetype")) and 1 or 0
+            local ft = vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(layout[2]), "filetype")
+            return is_essential(ft) and 1 or 0, ft == "toggleterm" and 1 or 0
         end
-        local count = 0
+        local essential, tterm = 0, 0
         for _, value in ipairs(layout[2]) do
-            count = count + count_essential(value)
+            local e, t = count_essential(value)
+            essential = essential + e
+            tterm = tterm + t
         end
-        return count
+        return essential, tterm
     end
 
     -- If the only remaining editing window is being closed, also close all non-essential windows to allow vim to exit gracefully
@@ -104,10 +107,15 @@ if not vim.g.vscode then
         group = vim.api.nvim_create_augroup("GracefulExit", { clear = true }),
         pattern = "*",
         callback = function()
-            if is_essential(vim.bo.filetype) and count_essential(vim.fn.winlayout()) == 1 then
-                vim.cmd.cclose()
-                vim.cmd "silent! Neotree close"
-                vim.cmd "silent! ToggleTermToggleAll!"
+            if is_essential(vim.bo.filetype) then
+                local essential, tterm = count_essential(vim.fn.winlayout())
+                if essential == 1 then
+                    vim.cmd.cclose()
+                    vim.cmd "silent! Neotree close"
+                    if tterm > 0 then
+                        vim.cmd "silent! ToggleTermToggleAll!"
+                    end
+                end
             end
         end,
     })
