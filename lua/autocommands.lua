@@ -93,6 +93,7 @@ if not vim.g.vscode then
             local ft = vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(layout[2]), "filetype")
             return is_essential(ft) and 1 or 0, ft == "toggleterm" and 1 or 0
         end
+
         local essential, tterm = 0, 0
         for _, value in ipairs(layout[2]) do
             local e, t = count_essential(value)
@@ -107,15 +108,21 @@ if not vim.g.vscode then
         group = vim.api.nvim_create_augroup("GracefulExit", { clear = true }),
         pattern = "*",
         callback = function()
-            if is_essential(vim.bo.filetype) then
-                local essential, tterm = count_essential(vim.fn.winlayout())
-                if essential == 1 then
-                    vim.cmd.cclose()
-                    vim.cmd "silent! Neotree close"
-                    if tterm > 0 then
-                        vim.cmd "silent! ToggleTermToggleAll!"
-                    end
-                end
+            if not is_essential(vim.bo.filetype) then
+                return
+            end
+
+            local essential, tterm = count_essential(vim.fn.winlayout())
+
+            if essential ~= 1 then
+                return
+            end
+
+            vim.cmd.cclose()
+            vim.cmd "silent! Neotree close"
+
+            if tterm > 0 then
+                vim.cmd "silent! ToggleTermToggleAll!"
             end
         end,
     })
