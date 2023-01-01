@@ -49,7 +49,7 @@ return {
                 gd = { vim.lsp.buf.definition, "Go to definition" },
                 ["<leader>"] = {
                     D = { vim.lsp.buf.type_definition, "Type definition" },
-                    ca = { vim.lsp.buf.code_action, "Code action" },
+                    c = { vim.lsp.buf.code_action, "Code action" },
                     r = {
                         name = "refactor",
                         n = { vim.lsp.buf.rename, "Rename" },
