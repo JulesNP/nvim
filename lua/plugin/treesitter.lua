@@ -19,7 +19,8 @@ return {
             autotag = {
                 enable = not vim.g.vscode,
             },
-            ensure_installed = "all",
+            ensure_installed = "org",
+            auto_install = true,
             incremental_selection = {
                 enable = true,
                 keymaps = {
