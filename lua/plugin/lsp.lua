@@ -4,9 +4,10 @@ return {
         "Decodetalkers/csharpls-extended-lsp.nvim",
         "folke/neodev.nvim",
         "folke/which-key.nvim",
-        "hrsh7th/nvim-cmp",
         "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/nvim-cmp",
         "jose-elias-alvarez/null-ls.nvim",
+        "jose-elias-alvarez/typescript.nvim",
         "nvim-lua/plenary.nvim",
         "williamboman/mason-lspconfig.nvim",
         "williamboman/mason.nvim",
@@ -113,6 +114,12 @@ return {
                     },
                 }
             end,
+            ["tsserver"] = function(_)
+                require("typescript").setup {
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                }
+            end,
         }
         -- Mason's install of lua-language-server doesn't work on Termux, so use globally installed version if available
         if
@@ -136,6 +143,7 @@ return {
             builtins.code_actions.gitrebase,
             builtins.code_actions.gitsigns,
             builtins.hover.dictionary,
+            require "typescript.extensions.null-ls.code-actions",
         }
         local optional = {
             ["clang-format"] = { builtins.formatting.clang_format.with { disabled_filetypes = { "cs" } } },
