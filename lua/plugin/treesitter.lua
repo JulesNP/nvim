@@ -14,10 +14,7 @@ return {
                 enable = not vim.g.vscode,
                 disable = { "pug" },
             },
-            autotag = {
-                enable = not vim.g.vscode,
-            },
-            ensure_installed = { "help", "lua", "markdown", "org" },
+            ensure_installed = { "c_sharp", "cmake", "erlang", "help", "julia", "lua", "markdown", "org", "slint", "tsx", "typescript" },
             auto_install = true,
             incremental_selection = {
                 enable = true,
