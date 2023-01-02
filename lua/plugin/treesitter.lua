@@ -19,7 +19,7 @@ return {
             autotag = {
                 enable = not vim.g.vscode,
             },
-            ensure_installed = "org",
+            ensure_installed = { "lua", "org" },
             auto_install = true,
             incremental_selection = {
                 enable = true,
