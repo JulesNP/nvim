@@ -17,6 +17,7 @@ vim.o.expandtab = true
 vim.o.foldcolumn = "auto"
 vim.o.guifont = "Iosevka,Iosevka NF:h15"
 vim.o.ignorecase = true
+vim.o.inccommand = "split"
 vim.o.linebreak = true
 vim.o.nrformats = "alpha,bin,hex"
 vim.o.number = true
