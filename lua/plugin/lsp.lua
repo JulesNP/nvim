@@ -94,7 +94,10 @@ return {
             end
         end
 
-        require("neodev").setup {}
+        local lua_server_installed = vim.fn.executable "lua-language-server"
+        if lua_server_installed then
+            require("neodev").setup {}
+        end
 
         local lsp = require "lspconfig"
         local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -125,9 +128,7 @@ return {
             end,
         }
         -- Mason's install of lua-language-server doesn't work on Termux, so use globally installed version if available
-        if
-            not require("mason-registry").is_installed "lua-language-server" and vim.fn.executable "lua-language-server"
-        then
+        if not require("mason-registry").is_installed "lua-language-server" and lua_server_installed then
             lsp.sumneko_lua.setup {
                 capabilities = capabilities,
                 on_attach = on_attach,
