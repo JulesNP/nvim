@@ -26,7 +26,7 @@ return {
             ["<c-l>"] = { "<c-w>l", "Go to the right window" },
             ["<c-q>"] = { "<c-w>q", "Quit a window" },
             ["<c-s>"] = { "<cmd>update<bar>mkview<cr>", "Save if modified" },
-            ["<esc>"] = { "<Cmd>nohlsearch<Bar>diffupdate<CR>", "Clear search highlights" },
+            ["<esc>"] = { "<cmd>nohlsearch<bar>diffupdate<cr>", "Clear search highlights" },
             ["<leader>b"] = { "<cmd>enew<bar>set filetype=markdown<cr>", "New buffer" },
             ["<leader>X"] = { "<cmd>bdelete<cr>", "Close window and buffer" },
             ["<leader>p"] = {
@@ -54,12 +54,12 @@ return {
         }
 
         wk.register({
-            ["<c-h>"] = { termcodes "<C-\\><C-n><C-w>h", "Go to the left window" },
-            ["<c-j>"] = { termcodes "<C-\\><C-n><C-w>j", "Go to the down window" },
-            ["<c-k>"] = { termcodes "<C-\\><C-n><C-w>k", "Go to the up window" },
-            ["<c-l>"] = { termcodes "<C-\\><C-n><C-w>l", "Go to the right window" },
+            ["<c-h>"] = { termcodes "<c-\\><c-n><c-w>h", "Go to the left window" },
+            ["<c-j>"] = { termcodes "<c-\\><c-n><c-w>j", "Go to the down window" },
+            ["<c-k>"] = { termcodes "<c-\\><c-n><c-w>k", "Go to the up window" },
+            ["<c-l>"] = { termcodes "<c-\\><c-n><c-w>l", "Go to the right window" },
             ["<c-s-v>"] = { "<c-r>+", "Paste from clipboard" },
-            ["<c-x>"] = { termcodes "<C-\\><C-n>", "Go to Normal mode" },
+            ["<c-x>"] = { termcodes "<c-\\><c-n>", "Go to Normal mode" },
         }, { mode = "t" })
 
         wk.register({
