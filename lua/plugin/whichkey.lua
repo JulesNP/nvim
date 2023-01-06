@@ -36,6 +36,7 @@ return {
             },
             ["<leader>t"] = {
                 name = "toggle",
+                s = { "<cmd>windo set scrollbind! cursorbind!<cr>", "Toggle scroll/cursor sync" },
                 w = { "<cmd>set wrap!<cr>", "Toggle word wrap" },
                 v = {
                     function()
