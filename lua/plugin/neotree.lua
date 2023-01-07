@@ -67,7 +67,13 @@ return {
                     c = { "copy", config = { show_path = "relative" }, desc = "Copy to a destination" },
                     d = { "delete", desc = "Delete file" },
                     m = { "move", config = { show_path = "relative" }, desc = "Move to a destination" },
-                    o = { "open_drop", desc = "Open file" },
+                    o = {
+                        function(state)
+                            require("neo-tree.sources.filesystem.commands").open_drop(state)
+                            vim.cmd "Neotree close"
+                        end,
+                        desc = "Open file and close file tree",
+                    },
                     p = { "paste_from_clipboard", desc = "Paste file from clipboard" },
                     q = { "close_window", desc = "Close file tree" },
                     r = { "rename", desc = "Rename file" },
@@ -86,6 +92,13 @@ return {
                         ["f"] = { "filter_as_you_type", desc = "Filter files" },
                         ["<bs>"] = { "navigate_up", desc = "Navigate up a folder" },
                         ["<esc>"] = { "clear_filter", desc = "Clear filter" },
+                        ["<tab>"] = {
+                            function(state)
+                                require("neo-tree.sources.filesystem.commands").open_drop(state)
+                                vim.cmd "Neotree focus"
+                            end,
+                            desc = "Open item but stay in file tree",
+                        },
                         ["[c"] = { "prev_git_modified", desc = "Previous modified file" },
                         ["]c"] = { "next_git_modified", desc = "Next modified file" },
                         H = { "toggle_hidden", desc = "Toggle hidden files" },
