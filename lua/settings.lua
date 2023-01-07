@@ -28,6 +28,7 @@ vim.o.showmode = false
 vim.o.signcolumn = "yes:1"
 vim.o.smartcase = true
 vim.o.spelllang = "en_ca,en"
+vim.o.spelloptions = "camel,noplainbuffer"
 vim.o.startofline = true
 vim.o.termguicolors = true
 vim.o.title = true

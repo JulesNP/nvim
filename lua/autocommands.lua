@@ -2,7 +2,7 @@ local filetype_settings = vim.api.nvim_create_augroup("FileTypeSettings", { clea
 
 vim.api.nvim_create_autocmd("FileType", {
     group = filetype_settings,
-    pattern = { "NeogitCommitMessage", "gitcommit", "markdown", "org", "text" },
+    pattern = { "NeogitCommitMessage", "gitcommit", "html", "markdown", "org", "pug", "text" },
     callback = function()
         vim.cmd.setlocal "spell"
     end,
