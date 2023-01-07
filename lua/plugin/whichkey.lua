@@ -59,7 +59,7 @@ return {
             ["<c-k>"] = { termcodes "<c-\\><c-n><c-w>k", "Go to the up window" },
             ["<c-l>"] = { termcodes "<c-\\><c-n><c-w>l", "Go to the right window" },
             ["<c-s-v>"] = { "<c-r>+", "Paste from clipboard" },
-            ["<c-x>"] = { termcodes "<c-\\><c-n>", "Go to Normal mode" },
+            ["<m-x>"] = { termcodes "<c-\\><c-n>", "Go to Normal mode" },
         }, { mode = "t" })
 
         wk.register({

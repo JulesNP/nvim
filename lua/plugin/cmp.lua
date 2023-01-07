@@ -52,7 +52,7 @@ return {
                 ["<c-n>"] = cmp.mapping.select_next_item(),
                 ["<c-p>"] = cmp.mapping.select_prev_item(),
                 ["<c-space>"] = cmp.mapping.complete {},
-                ["<c-x>"] = cmp.mapping.abort(),
+                ["<m-x>"] = cmp.mapping.abort(),
                 ["<cr>"] = cmp.mapping.confirm { select = false },
                 ["<down>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
                 ["<up>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
