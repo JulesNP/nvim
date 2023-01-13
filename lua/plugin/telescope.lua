@@ -183,8 +183,12 @@ return {
         end
 
         require("which-key").register {
+            ["<leader>'"] = { builtin.marks, "Find mark" },
             ["<leader>/"] = { builtin.live_grep, "Find with live grep" },
+            ["<leader>6"] = { enhanced_find_files, "Find recent files in cwd" },
+            ["<leader>8"] = { builtin.grep_string, "Find word under cursor" },
             ["<leader><c-o>"] = { builtin.jumplist, "Find in jumplist" },
+            ["<leader><leader>"] = { enhanced_find_files, "Find recent files in cwd" },
             ["<leader>f"] = {
                 name = "find",
                 ["<space>"] = { builtin.builtin, "Find builtin picker" },
@@ -194,6 +198,7 @@ return {
                 g = { builtin.live_grep, "Find with live grep" },
                 h = { builtin.help_tags, "Find help tag" },
                 j = { builtin.jumplist, "Find in jumplist" },
+                m = { builtin.marks, "Find mark" },
                 o = { builtin.oldfiles, "Find recent file" },
                 r = { builtin.resume, "Resume find" },
                 s = { builtin.lsp_dynamic_workspace_symbols, "Find workspace symbol" },
@@ -211,7 +216,6 @@ return {
                     z = { builtin.git_stash, "Find git stash" },
                 },
             },
-            ["<leader><leader>"] = { enhanced_find_files, "Find recent files in cwd" },
         }
     end,
 }
