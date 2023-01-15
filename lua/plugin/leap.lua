@@ -15,8 +15,8 @@ return {
         leap.opts.highlight_unlabeled_phase_one_targets = true
 
         if vim.g.vscode then
-            vim.api.nvim_set_hl(0, "LeapBackdrop", { fg = "gray", bg = "NONE" })
-            vim.api.nvim_set_hl(0, "LeapMatch", { fg = "white", bg = "NONE" })
+            vim.api.nvim_set_hl(0, "LeapBackdrop", { fg = "gray", bg = "bg" })
+            vim.api.nvim_set_hl(0, "LeapMatch", { fg = "white", bg = "bg" })
         end
 
         local function leap_in_win()
