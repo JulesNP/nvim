@@ -38,6 +38,7 @@ require("packer").startup(function(use)
     use(require "plugin/textobjects")
     use(require "plugin/treesitter")
     use(require "plugin/whichkey")
+    use(require "plugin/wordmotion")
 
     if not vim.g.vscode then
         use "adelarsq/neofsharp.vim"
@@ -68,7 +69,6 @@ require("packer").startup(function(use)
         use(require "plugin/tabout")
         use(require "plugin/telescope")
         use(require "plugin/toggleterm")
-        use(require "plugin/wordmotion")
     end
 
     if packer_bootstrap then
