@@ -13,7 +13,21 @@ return {
             highlight = {
                 enable = not vim.g.vscode,
             },
-            ensure_installed = { "c_sharp", "cmake", "erlang", "help", "julia", "lua", "markdown", "org", "slint", "tsx", "typescript" },
+            ensure_installed = {
+                "c_sharp",
+                "cmake",
+                "erlang",
+                "help",
+                "julia",
+                "lua",
+                "markdown",
+                "markdown_inline",
+                "org",
+                "slint",
+                "tsx",
+                "typescript",
+                "vim",
+            },
             auto_install = true,
             incremental_selection = {
                 enable = true,
