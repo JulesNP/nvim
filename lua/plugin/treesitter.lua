@@ -12,7 +12,6 @@ return {
         require("nvim-treesitter.configs").setup {
             highlight = {
                 enable = not vim.g.vscode,
-                disable = { "pug" },
             },
             ensure_installed = { "c_sharp", "cmake", "erlang", "help", "julia", "lua", "markdown", "org", "slint", "tsx", "typescript" },
             auto_install = true,

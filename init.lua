@@ -41,7 +41,6 @@ require("packer").startup(function(use)
 
     if not vim.g.vscode then
         use "adelarsq/neofsharp.vim"
-        use "digitaltoad/vim-pug"
         use "tpope/vim-rsi"
 
         use(require "plugin/alpha")
