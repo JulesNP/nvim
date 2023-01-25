@@ -26,7 +26,7 @@ return {
             ["<c-q>"] = { "<c-w>q", "Quit a window" },
             ["<c-s>"] = { "<cmd>update<bar>mkview<cr>", "Save if modified" },
             ["<esc>"] = { "<cmd>nohlsearch<bar>diffupdate<cr>", "Clear search highlights" },
-            ["<leader>b"] = { "<cmd>enew<bar>set filetype=markdown<cr>", "New buffer" },
+            ["<leader>n"] = { "<cmd>enew<bar>set filetype=markdown<cr>", "New buffer" },
             ["<leader>X"] = { "<cmd>bdelete<cr>", "Close window and buffer" },
             ["<leader>p"] = {
                 name = "packer",
