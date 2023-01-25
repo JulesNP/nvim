@@ -8,17 +8,25 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
-if not vim.g.vscode then
-    vim.api.nvim_create_autocmd("FileType", {
-        group = filetype_settings,
-        pattern = "lua",
-        callback = function()
-            vim.opt_local.suffixesadd:prepend ".lua"
-            vim.opt_local.suffixesadd:prepend "init.lua"
-            vim.opt_local.path:prepend(vim.fn.stdpath "config" .. "/lua")
-        end,
-    })
+vim.api.nvim_create_autocmd("FileType", {
+    group = filetype_settings,
+    pattern = "lua",
+    callback = function()
+        vim.opt_local.suffixesadd:prepend ".lua"
+        vim.opt_local.suffixesadd:prepend "init.lua"
+        vim.opt_local.path:prepend(vim.fn.stdpath "config" .. "/lua")
+    end,
+})
 
+vim.api.nvim_create_autocmd("FileType", {
+    group = filetype_settings,
+    pattern = "*",
+    callback = function()
+        vim.opt_local.formatoptions:remove "o"
+    end,
+})
+
+if not vim.g.vscode then
     local sync_view = vim.api.nvim_create_augroup("SyncView", { clear = true })
 
     vim.api.nvim_create_autocmd("BufWinEnter", {
