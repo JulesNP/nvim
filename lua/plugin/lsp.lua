@@ -15,7 +15,7 @@ return {
     config = function()
         local wk = require "which-key"
         wk.register {
-            ["<leader>e"] = { vim.diagnostic.open_float, "View diagnostic" },
+            ["<leader>i"] = { vim.diagnostic.open_float, "View diagnostic info" },
             ["<leader>q"] = { vim.diagnostic.setqflist, "List diagnostics" },
             ["[d"] = { vim.diagnostic.goto_prev, "Previous diagnostic" },
             ["]d"] = { vim.diagnostic.goto_next, "Next diagnostic" },
@@ -55,8 +55,8 @@ return {
                         n = { vim.lsp.buf.rename, "Rename" },
                     },
                 },
-                ["<leader>w"] = {
-                    name = "workspace",
+                ["<leader>l"] = {
+                    name = "lsp",
                     a = { vim.lsp.buf.add_workspace_folder, "Add workspace folder" },
                     r = { vim.lsp.buf.remove_workspace_folder, "Remove workspace folder" },
                     l = {

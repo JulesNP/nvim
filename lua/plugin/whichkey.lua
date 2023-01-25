@@ -44,7 +44,7 @@ return {
                     "Toggle virtual editing",
                 },
             },
-            ["<leader>wk"] = { "<cmd>WhichKey<cr>", "WhichKey" },
+            ["<leader>v"] = { "<cmd>WhichKey<cr>", "View keymaps" },
             gA = { "ga", "Show ASCII value" },
             gB = { "<cmd>bprevious<cr>", "Go to previous buffer" },
             gb = { "<cmd>bnext<cr>", "Go to next buffer" },

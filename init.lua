@@ -68,6 +68,7 @@ require("packer").startup(function(use)
         use(require "plugin/tabout")
         use(require "plugin/telescope")
         use(require "plugin/toggleterm")
+        use(require "plugin/wordmotion")
     end
 
     if packer_bootstrap then
