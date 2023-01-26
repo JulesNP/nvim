@@ -22,7 +22,6 @@ require("packer").startup(function(use)
     -- Basic plugin imports
     use "lewis6991/impatient.nvim"
     use "tpope/vim-repeat"
-    use "tpope/vim-sleuth"
     use "tpope/vim-speeddating"
     use "tpope/vim-surround"
     use "tpope/vim-unimpaired"
@@ -56,6 +55,7 @@ require("packer").startup(function(use)
         use(require "plugin/git")
         use(require "plugin/gitsigns")
         use(require "plugin/gruvbox")
+        use(require "plugin/guess-indent")
         use(require "plugin/illuminate")
         use(require "plugin/indent-blankline")
         use(require "plugin/lsp")
