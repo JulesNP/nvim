@@ -6,6 +6,7 @@ return {
         "folke/which-key.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/nvim-cmp",
+        "jay-babu/mason-null-ls.nvim",
         "jose-elias-alvarez/null-ls.nvim",
         "jose-elias-alvarez/typescript.nvim",
         "nvim-lua/plenary.nvim",
@@ -142,7 +143,10 @@ return {
             }
         end
 
-        local builtins = require("null-ls").builtins
+        require("mason-null-ls").setup {}
+
+        local null_ls = require "null-ls"
+        local builtins = null_ls.builtins
         local sources = {
             builtins.code_actions.gitrebase,
             builtins.code_actions.gitsigns,
@@ -150,22 +154,28 @@ return {
             require "typescript.extensions.null-ls.code-actions",
         }
         local optional = {
-            ["clang-format"] = { builtins.formatting.clang_format.with { disabled_filetypes = { "cs" } } },
-            ["luacheck"] = { builtins.diagnostics.luacheck.with { extra_args = { "--globals", "vim" } } },
-            ["misspell"] = { builtins.diagnostics.misspell },
             ["prettier"] = { builtins.formatting.prettier.with { extra_filetypes = { "pug" } } },
-            ["pug-lint"] = { builtins.diagnostics.puglint },
-            ["shellcheck"] = { builtins.code_actions.shellcheck },
             ["stylua"] = { builtins.formatting.stylua },
         }
         for key, values in pairs(optional) do
-            if vim.fn.executable(key) == 1 then
+            if not require("mason-registry").is_installed(key) and vim.fn.executable(key) == 1 then
                 for _, value in ipairs(values) do
                     table.insert(sources, value)
                 end
             end
         end
+        null_ls.setup { diagnostics_format = "#{m} [#{s}]", on_attach = on_attach, sources = sources }
 
-        require("null-ls").setup { diagnostics_format = "#{m} [#{s}]", on_attach = on_attach, sources = sources }
+        require("mason-null-ls").setup_handlers {
+            function(source_name, methods)
+                require "mason-null-ls.automatic_setup"(source_name, methods)
+            end,
+            clang_format = function()
+                null_ls.register(builtins.formatting.clang_format.with { disabled_filetypes = { "cs" } })
+            end,
+            luacheck = function()
+                null_ls.register(builtins.diagnostics.luacheck.with { extra_args = { "--globals", "vim" } })
+            end,
+        }
     end,
 }
