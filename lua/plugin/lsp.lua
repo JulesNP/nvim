@@ -6,6 +6,7 @@ return {
         "folke/which-key.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/nvim-cmp",
+        "ionide/Ionide-vim",
         "jay-babu/mason-null-ls.nvim",
         "jose-elias-alvarez/null-ls.nvim",
         "jose-elias-alvarez/typescript.nvim",
@@ -112,7 +113,7 @@ return {
                     on_attach = on_attach,
                 }
             end,
-            ["csharp_ls"] = function(server_name)
+            csharp_ls = function(server_name)
                 lsp[server_name].setup {
                     capabilities = capabilities,
                     on_attach = on_attach,
@@ -121,7 +122,18 @@ return {
                     },
                 }
             end,
-            ["tsserver"] = function(_)
+            fsautocomplete = function(_)
+                vim.cmd [[
+                    let g:fsharp#lsp_auto_setup = 0
+                    let g:fsharp#fsautocomplete_command = [ 'fsautocomplete' ]
+                ]]
+                require("ionide").setup {
+                    autostart = true,
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                }
+            end,
+            tsserver = function(_)
                 require("typescript").setup {
                     capabilities = capabilities,
                     on_attach = on_attach,
@@ -154,8 +166,8 @@ return {
             require "typescript.extensions.null-ls.code-actions",
         }
         local optional = {
-            ["prettier"] = { builtins.formatting.prettier.with { extra_filetypes = { "pug" } } },
-            ["stylua"] = { builtins.formatting.stylua },
+            prettier = { builtins.formatting.prettier.with { extra_filetypes = { "pug" } } },
+            stylua = { builtins.formatting.stylua },
         }
         for key, values in pairs(optional) do
             if not require("mason-registry").is_installed(key) and vim.fn.executable(key) == 1 then

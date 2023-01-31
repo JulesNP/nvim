@@ -40,7 +40,6 @@ require("packer").startup(function(use)
     use(require "plugin/wordmotion")
 
     if not vim.g.vscode then
-        use "adelarsq/neofsharp.vim"
         use "tpope/vim-rsi"
 
         use(require "plugin/alpha")
