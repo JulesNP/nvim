@@ -50,7 +50,7 @@ return {
                 K = { vim.lsp.buf.hover, "LSP hover info" },
                 gD = { vim.lsp.buf.declaration, "Go to declaration" },
                 gI = { vim.lsp.buf.implementation, "Go to implementation" },
-                gR = { vim.lsp.buf.references, "Go to references" },
+                gr = { vim.lsp.buf.references, "Go to references" },
                 gd = { vim.lsp.buf.definition, "Go to definition" },
                 ["<leader>"] = {
                     ["="] = { vim.lsp.codelens.refresh, "Refresh codelens" },

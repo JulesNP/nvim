@@ -25,7 +25,6 @@ require("packer").startup(function(use)
     use "tpope/vim-speeddating"
     use "tpope/vim-surround"
     use "tpope/vim-unimpaired"
-    use "vim-scripts/ReplaceWithRegister"
     use "wellle/targets.vim"
 
     -- Plugins with configurations
@@ -65,6 +64,7 @@ require("packer").startup(function(use)
         use(require "plugin/quickfix")
         use(require "plugin/refactor")
         use(require "plugin/session")
+        use(require "plugin/substitute")
         use(require "plugin/tabout")
         use(require "plugin/telescope")
         use(require "plugin/toggleterm")
