@@ -33,5 +33,6 @@ vim.o.startofline = true
 vim.o.termguicolors = true
 vim.o.title = true
 vim.o.undofile = true
+vim.o.updatetime = 1000
 vim.o.viewoptions = "folds,cursor"
 vim.o.whichwrap = "b,s,<,>,[,]"

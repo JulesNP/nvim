@@ -53,6 +53,7 @@ return {
                 gR = { vim.lsp.buf.references, "Go to references" },
                 gd = { vim.lsp.buf.definition, "Go to definition" },
                 ["<leader>"] = {
+                    ["="] = { vim.lsp.codelens.refresh, "Refresh codelens" },
                     D = { vim.lsp.buf.type_definition, "Type definition" },
                     c = { vim.lsp.buf.code_action, "Code action" },
                     r = {
@@ -130,12 +131,19 @@ return {
                 vim.g["fsharp#fsi_keymap"] = "custom"
                 vim.g["fsharp#fsi_keymap_send"] = "<leader><cr>"
                 vim.g["fsharp#fsi_keymap_toggle"] = "<leader>\\"
+                vim.g["fsharp#lsp_codelens"] = 0
 
                 require("ionide").setup {
                     autostart = true,
                     capabilities = capabilities,
                     on_attach = on_attach,
                 }
+
+                vim.api.nvim_create_autocmd("CursorHold", {
+                    group = vim.api.nvim_create_augroup("FSharpCodelens", {}),
+                    pattern = { "*.fs", "*.fsi", "*.fsx" },
+                    callback = vim.lsp.codelens.refresh,
+                })
             end,
             tsserver = function(_)
                 require("typescript").setup {
