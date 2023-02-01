@@ -65,7 +65,7 @@ return {
             ["<"] = { "<gv", "Shift left" },
             [">"] = { ">gv", "Shift left" },
             ["<leader>s"] = { ":sort<cr>", "Sort selection" },
-            ["<leader>wk"] = { "<cmd>WhichKey<cr>", "WhichKey" },
+            ["<leader>v"] = { "<cmd>WhichKey<cr>", "View keymaps" },
             j = { [[v:count || mode(1)[0:1] == "no" ? "j" : "gj"]], "Down", expr = true },
             k = { [[v:count || mode(1)[0:1] == "no" ? "k" : "gk"]], "Up", expr = true },
             y = { "myy`y", "Yank selection" },

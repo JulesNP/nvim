@@ -11,7 +11,7 @@ return {
             s = { sub.operator, "Substitute text" },
             ss = { sub.line, "Substitute line" },
             S = { sub.eol, "Substitute to end of line" },
-            sx = { ex.operator, "Exchange" },
+            sx = { ex.operator, "Exchange text" },
             sxx = { ex.line, "Exchange lines" },
             sxc = { ex.cancel, "Cancel exchange" },
         }
