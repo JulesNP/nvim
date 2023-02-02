@@ -138,12 +138,6 @@ return {
                     capabilities = capabilities,
                     on_attach = on_attach,
                 }
-
-                vim.api.nvim_create_autocmd("CursorHold", {
-                    group = vim.api.nvim_create_augroup("FSharpCodelens", {}),
-                    pattern = { "*.fs", "*.fsi", "*.fsx" },
-                    callback = vim.lsp.codelens.refresh,
-                })
             end,
             tsserver = function(_)
                 require("typescript").setup {
