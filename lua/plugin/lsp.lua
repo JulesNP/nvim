@@ -131,8 +131,8 @@ return {
                     on_attach = on_attach,
                 }
             end,
-            csharp_ls = function(server_name)
-                lsp[server_name].setup {
+            csharp_ls = function()
+                lsp.csharp_ls.setup {
                     capabilities = capabilities,
                     on_attach = on_attach,
                     handlers = {
@@ -140,7 +140,7 @@ return {
                     },
                 }
             end,
-            fsautocomplete = function(_)
+            fsautocomplete = function()
                 vim.g["fsharp#fsautocomplete_command"] = { "fsautocomplete" }
                 vim.g["fsharp#fsi_keymap"] = "custom"
                 vim.g["fsharp#fsi_keymap_send"] = "<leader><cr>"
@@ -154,6 +154,7 @@ return {
                 }
             end,
             sumneko_lua = lua_setup,
+            tsserver = function()
                 require("typescript").setup {
                     capabilities = capabilities,
                     on_attach = on_attach,
