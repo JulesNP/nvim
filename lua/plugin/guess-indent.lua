@@ -8,6 +8,7 @@ return {
         local function update_indent()
             vim.cmd "silent GuessIndent"
             vim.wo.listchars = "tab:> ,nbsp:+,multispace:▏" .. string.rep(" ", vim.bo.shiftwidth - 1)
+            vim.wo.list = true
         end
 
         local guess_indent = vim.api.nvim_create_augroup("GuessIndent", { clear = true })
