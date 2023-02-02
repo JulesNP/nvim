@@ -8,7 +8,7 @@ return {
         local function update_indent()
             if vim.bo.buftype == "" then
                 vim.cmd "silent GuessIndent"
-                vim.wo.listchars = "tab:> ,nbsp:+,multispace:▏" .. string.rep(" ", vim.bo.shiftwidth - 1)
+                vim.wo.listchars = "tab:> ,nbsp:+,trail:-,leadmultispace:▏" .. string.rep(" ", vim.bo.shiftwidth - 1)
                 vim.wo.list = true
             end
         end
@@ -30,6 +30,22 @@ return {
                     once = true,
                     callback = update_indent,
                 })
+            end,
+        })
+
+        vim.api.nvim_create_autocmd("InsertEnter", {
+            group = guess_indent,
+            pattern = "*",
+            callback = function()
+                vim.wo.listchars = vim.wo.listchars:gsub(",trail:%-,leadmultispace", ",multispace")
+            end,
+        })
+
+        vim.api.nvim_create_autocmd("InsertLeave", {
+            group = guess_indent,
+            pattern = "*",
+            callback = function()
+                vim.wo.listchars = vim.wo.listchars:gsub(",multispace", ",trail:-,leadmultispace")
             end,
         })
     end,
