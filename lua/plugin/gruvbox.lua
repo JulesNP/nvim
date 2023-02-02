@@ -27,9 +27,6 @@ return {
                     IlluminatedWordRead = { bg = palette[bg .. "2"] },
                     IlluminatedWordText = { bg = palette[bg .. "2"] },
                     IlluminatedWordWrite = { bg = bg == "dark" and palette.faded_orange or palette.bright_yellow },
-                    IndentBlanklineChar = blankline,
-                    IndentBlanklineSpaceChar = blankline,
-                    IndentBlanklineSpaceCharBlankline = blankline,
                     LeapBackdrop = { fg = palette.gray, bg = palette[bg .. "0"] },
                     LeapLabelPrimary = { nocombine = true, fg = palette.light0, bg = palette.neutral_red },
                     LeapLabelSecondary = { nocombine = true, fg = palette.light0, bg = palette.faded_blue },
@@ -46,6 +43,7 @@ return {
                     TelescopeResultsNormal = { bg = palette[bg .. "1"] },
                     TelescopeResultsTitle = { bg = palette[bg .. "1"] },
                     TreesitterContextLineNumber = { fg = palette.gray, bg = palette[bg .. "2"] },
+                    Whitespace = blankline,
                 },
             }
             vim.cmd.colorscheme "gruvbox"
