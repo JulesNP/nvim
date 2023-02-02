@@ -26,6 +26,14 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+vim.api.nvim_create_autocmd("TextYankPost", {
+    group = vim.api.nvim_create_augroup("HighlightYank", { clear = true }),
+    pattern = "*",
+    callback = function()
+        vim.highlight.on_yank { timeout = 300 }
+    end,
+})
+
 if not vim.g.vscode then
     local sync_view = vim.api.nvim_create_augroup("SyncView", { clear = true })
 
@@ -81,14 +89,6 @@ if not vim.g.vscode then
         callback = function()
             vim.cmd.setlocal "nonumber"
             vim.cmd.setlocal "norelativenumber"
-        end,
-    })
-
-    vim.api.nvim_create_autocmd("TextYankPost", {
-        group = vim.api.nvim_create_augroup("HighlighYank", { clear = true }),
-        pattern = "*",
-        callback = function()
-            vim.highlight.on_yank { timeout = 300 }
         end,
     })
 
