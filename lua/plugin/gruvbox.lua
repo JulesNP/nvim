@@ -6,7 +6,6 @@ return {
             local palette = require "gruvbox.palette"
             local bg = vim.o.background
             local fg = bg == "dark" and "light" or "dark"
-            local blankline = { fg = bg == "dark" and palette.dark0_hard or palette.light0_soft }
 
             require("gruvbox").setup {
                 italic = false,
@@ -43,7 +42,7 @@ return {
                     TelescopeResultsNormal = { bg = palette[bg .. "1"] },
                     TelescopeResultsTitle = { bg = palette[bg .. "1"] },
                     TreesitterContextLineNumber = { fg = palette.gray, bg = palette[bg .. "2"] },
-                    Whitespace = blankline,
+                    Whitespace = { fg = bg == "dark" and palette.dark0_hard or palette.light0_soft },
                 },
             }
             vim.cmd.colorscheme "gruvbox"
