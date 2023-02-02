@@ -108,6 +108,20 @@ return {
         local lsp = require "lspconfig"
         local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+        local function lua_setup()
+            lsp.sumneko_lua.setup {
+                capabilities = capabilities,
+                on_attach = on_attach,
+                settings = {
+                    Lua = {
+                        workspace = {
+                            checkThirdParty = false,
+                        },
+                    },
+                },
+            }
+        end
+
         require("mason").setup {}
         require("mason-lspconfig").setup {}
         require("mason-lspconfig").setup_handlers {
@@ -139,7 +153,7 @@ return {
                     on_attach = on_attach,
                 }
             end,
-            tsserver = function(_)
+            sumneko_lua = lua_setup,
                 require("typescript").setup {
                     capabilities = capabilities,
                     on_attach = on_attach,
@@ -148,10 +162,7 @@ return {
         }
         -- Mason's install of lua-language-server doesn't work on Termux, so use globally installed version if available
         if not require("mason-registry").is_installed "lua-language-server" and lua_server_installed then
-            lsp.sumneko_lua.setup {
-                capabilities = capabilities,
-                on_attach = on_attach,
-            }
+            lua_setup()
         end
         -- Set up ccls separately, since it isn't available through Mason
         if vim.fn.executable "ccls" then
