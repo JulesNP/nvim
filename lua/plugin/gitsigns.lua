@@ -49,6 +49,7 @@ return {
                         },
                         d = { gs.diffthis, "Git diff" },
                         p = { gs.preview_hunk, "Preview hunk" },
+                        q = { "<cmd>Gitsigns setqflist 'all'<cr>", "List all hunks" },
                         r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
                         s = { "<cmd>Gitsigns stage_hunk<cr>", "Stage hunk" },
                         u = { gs.undo_stage_hunk, "Undo stage hunk" },
