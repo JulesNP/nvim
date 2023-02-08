@@ -25,6 +25,7 @@ return {
             ["<c-l>"] = { "<c-w>l", "Go to the right window" },
             ["<c-q>"] = { "<c-w>q", "Quit a window" },
             ["<c-s>"] = { "<cmd>update<bar>mkview<cr>", "Save if modified" },
+            ["<m-s>"] = { "<cmd>wall<bar>mkview<cr>", "Save all modified buffers" },
             ["<esc>"] = { "<cmd>nohlsearch<bar>diffupdate<cr>", "Clear search highlights" },
             ["<leader>n"] = { "<cmd>enew<bar>set filetype=markdown<cr>", "New buffer" },
             ["<leader>X"] = { "<cmd>bdelete<cr>", "Close window and buffer" },
