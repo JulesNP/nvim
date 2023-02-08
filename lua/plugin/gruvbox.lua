@@ -3,7 +3,7 @@ return {
     requires = "folke/which-key.nvim",
     config = function()
         local function setup()
-            local palette = require "gruvbox.palette"
+            local palette = (require "gruvbox.palette").colors
             local bg = vim.o.background
             local fg = bg == "dark" and "light" or "dark"
 
