@@ -81,7 +81,7 @@ return {
                     vim.lsp.buf.format {
                         async = false,
                         filter = function(fmt_client)
-                            return not vim.tbl_contains({ "tsserver", "sumneko_lua" }, fmt_client.name)
+                            return not vim.tbl_contains({ "tsserver", "lua_ls" }, fmt_client.name)
                         end,
                     }
                 end
@@ -109,7 +109,7 @@ return {
         local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
         local function lua_setup()
-            lsp.sumneko_lua.setup {
+            lsp.lua_ls.setup {
                 capabilities = capabilities,
                 on_attach = on_attach,
                 settings = {
@@ -153,7 +153,7 @@ return {
                     on_attach = on_attach,
                 }
             end,
-            sumneko_lua = lua_setup,
+            lua_ls = lua_setup,
             tsserver = function()
                 require("typescript").setup {
                     capabilities = capabilities,
