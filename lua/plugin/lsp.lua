@@ -114,6 +114,9 @@ return {
                 on_attach = on_attach,
                 settings = {
                     Lua = {
+                        hint = {
+                            enable = true,
+                        },
                         workspace = {
                             checkThirdParty = false,
                         },
