@@ -155,9 +155,21 @@ return {
             end,
             lua_ls = lua_setup,
             tsserver = function()
+                local inlay = {
+                    includeInlayParameterNameHints = "all",
+                    includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                    includeInlayFunctionParameterTypeHints = true,
+                    includeInlayVariableTypeHints = true,
+                    includeInlayPropertyDeclarationTypeHints = true,
+                    includeInlayFunctionLikeReturnTypeHints = true,
+                    includeInlayEnumMemberValueHints = true,
+                }
                 require("typescript").setup {
-                    capabilities = capabilities,
-                    on_attach = on_attach,
+                    server = {
+                        capabilities = capabilities,
+                        on_attach = on_attach,
+                        settings = { typescript = { inlayHints = inlay }, javascript = { inlayHints = inlay } },
+                    },
                 }
             end,
         }
