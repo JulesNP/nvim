@@ -3,7 +3,9 @@ return {
     requires = "folke/which-key.nvim",
     config = function()
         local inlay = require "lsp-inlayhints"
-        inlay.setup {}
+        inlay.setup {
+            enabled_at_startup = false,
+        }
 
         local inlay_group = vim.api.nvim_create_augroup("InlayHints", { clear = true })
         vim.api.nvim_create_autocmd("LspAttach", {
