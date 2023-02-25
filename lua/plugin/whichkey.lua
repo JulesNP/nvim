@@ -15,10 +15,10 @@ return {
         }
 
         wk.register {
-            ["<a-h>"] = { "<c-w><lt>", "Decrease width" },
-            ["<a-j>"] = { "<c-w>+", "Increase height" },
-            ["<a-k>"] = { "<c-w>-", "Decrease height" },
-            ["<a-l>"] = { "<c-w>>", "Increase width" },
+            ["<a-left>"] = { "<c-w><lt>", "Decrease width" },
+            ["<a-down>"] = { "<c-w>+", "Increase height" },
+            ["<a-up>"] = { "<c-w>-", "Decrease height" },
+            ["<a-right>"] = { "<c-w>>", "Increase width" },
             ["<c-h>"] = { "<c-w>h", "Go to the left window" },
             ["<c-j>"] = { "<c-w>j", "Go to the down window" },
             ["<c-k>"] = { "<c-w>k", "Go to the up window" },
