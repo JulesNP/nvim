@@ -6,13 +6,19 @@ return {
             return vim.api.nvim_replace_termcodes(str, true, true, true)
         end
 
-        wk.setup {
+        local options = {
             plugins = {
                 spelling = {
                     enabled = true,
                 },
             },
         }
+        if vim.g.neovide then
+            options.window = {
+                winblend = 30,
+            }
+        end
+        wk.setup(options)
 
         wk.register {
             ["<a-left>"] = { "<c-w><lt>", "Decrease width" },
