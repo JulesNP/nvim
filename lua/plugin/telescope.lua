@@ -20,15 +20,32 @@ return {
         telescope.setup {
             defaults = {
                 borderchars = { " " },
-                layout_strategy = "flex",
                 mappings = {
                     i = {
+                        ["<a-s>"] = actions.toggle_all,
                         ["<c-s>"] = actions.select_horizontal,
-                        ["<c-x>"] = actions.delete_buffer,
                     },
                     n = {
+                        ["<a-s>"] = actions.toggle_all,
+                        ["<c-c>"] = actions.close,
+                        ["<c-n>"] = actions.move_selection_next,
+                        ["<c-p>"] = actions.move_selection_previous,
                         ["<c-s>"] = actions.select_horizontal,
-                        ["<c-x>"] = actions.delete_buffer,
+                        q = actions.close,
+                        s = actions.toggle_selection,
+                    },
+                },
+            },
+            pickers = {
+                buffers = {
+                    mappings = {
+                        i = {
+                            ["<c-x>"] = actions.delete_buffer,
+                        },
+                        n = {
+                            ["<c-x>"] = actions.delete_buffer,
+                            x = actions.delete_buffer,
+                        },
                     },
                 },
             },
@@ -39,16 +56,20 @@ return {
                     hide_parent_dir = true,
                     mappings = {
                         i = {
+                            ["<a-h>"] = fb_actions.goto_parent_dir,
+                            ["<a-s>"] = fb_actions.toggle_all,
                             ["<c-.>"] = fb_actions.change_cwd,
-                            ["<c-_>"] = fb_actions.goto_parent_dir,
-                            ["<c-t>"] = fb_actions.toggle_all,
                         },
                         n = {
                             ["-"] = fb_actions.goto_parent_dir,
                             ["."] = fb_actions.change_cwd,
-                            t = fb_actions.toggle_all,
+                            ["<a-s>"] = fb_actions.toggle_all,
+                            ["<c-h>"] = fb_actions.toggle_hidden,
+                            ["_"] = fb_actions.goto_cwd,
+                            ["~"] = fb_actions.goto_home_dir,
                             h = fb_actions.goto_parent_dir,
                             l = actions.select_default,
+                            t = false,
                         },
                     },
                 },
