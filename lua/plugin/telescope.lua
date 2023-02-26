@@ -17,7 +17,11 @@ return {
         telescope.setup {
             defaults = {
                 borderchars = { " " },
+                layout_config = {
+                    prompt_position = "top",
+                },
                 layout_strategy = "flex",
+                sorting_strategy = "ascending",
                 mappings = {
                     i = {
                         ["<c-s>"] = require("telescope.actions").select_horizontal,
