@@ -37,8 +37,15 @@ return {
                     grouped = true,
                     hide_parent_dir = true,
                     mappings = {
+                        i = {
+                            ["<c-.>"] = fb_actions.change_cwd,
+                            ["<c-_>"] = fb_actions.goto_parent_dir,
+                            ["<c-t>"] = fb_actions.toggle_all,
+                        },
                         n = {
                             ["-"] = fb_actions.goto_parent_dir,
+                            ["."] = fb_actions.change_cwd,
+                            t = fb_actions.toggle_all,
                         },
                     },
                 },
