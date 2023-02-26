@@ -4,6 +4,7 @@ return {
     requires = {
         "folke/which-key.nvim",
         "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope-file-browser.nvim",
         "nvim-telescope/telescope-ui-select.nvim",
     },
     config = function()
@@ -14,6 +15,7 @@ return {
         local pickers = require "telescope.pickers"
         local telescope = require "telescope"
 
+        local fb_actions = require("telescope").extensions.file_browser.actions
         telescope.setup {
             defaults = {
                 borderchars = { " " },
@@ -30,11 +32,22 @@ return {
                 },
             },
             extensions = {
+                file_browser = {
+                    depth = false,
+                    grouped = true,
+                    hide_parent_dir = true,
+                    mappings = {
+                        n = {
+                            ["-"] = fb_actions.goto_parent_dir,
+                        },
+                    },
+                },
                 ["ui-select"] = {
                     require("telescope.themes").get_dropdown { borderchars = { " " } },
                 },
             },
         }
+        telescope.load_extension "file_browser"
         telescope.load_extension "ui-select"
 
         -- Makes sure aliased options are set correctly
@@ -198,7 +211,7 @@ return {
                 b = { builtin.buffers, "Find buffer" },
                 c = { builtin.colorscheme, "Find colorscheme" },
                 d = { builtin.diagnostics, "Find diagnostic" },
-                f = { builtin.find_files, "Find file" },
+                f = { "<cmd>Telescope file_browser<cr>", "File browser" },
                 g = { builtin.live_grep, "Find with live grep" },
                 h = { builtin.help_tags, "Find help tag" },
                 j = { builtin.jumplist, "Find in jumplist" },
@@ -220,6 +233,10 @@ return {
                     s = { builtin.git_status, "Find git status" },
                     z = { builtin.git_stash, "Find git stash" },
                 },
+            },
+            ["-"] = {
+                "<cmd>Telescope file_browser initial_mode=normal depth=1 path=%:p:h select_buffer=true<cr>",
+                "Browse parent directory",
             },
         }
     end,
