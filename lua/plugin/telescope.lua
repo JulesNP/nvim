@@ -15,19 +15,20 @@ return {
         local pickers = require "telescope.pickers"
         local telescope = require "telescope"
 
+        local actions = require "telescope.actions"
         local fb_actions = require("telescope").extensions.file_browser.actions
         telescope.setup {
             defaults = {
                 borderchars = { " " },
-                layout_config = {
-                    prompt_position = "top",
-                },
                 layout_strategy = "flex",
-                sorting_strategy = "ascending",
                 mappings = {
                     i = {
-                        ["<c-s>"] = require("telescope.actions").select_horizontal,
-                        ["<c-x>"] = require("telescope.actions").delete_buffer,
+                        ["<c-s>"] = actions.select_horizontal,
+                        ["<c-x>"] = actions.delete_buffer,
+                    },
+                    n = {
+                        ["<c-s>"] = actions.select_horizontal,
+                        ["<c-x>"] = actions.delete_buffer,
                     },
                 },
             },
@@ -46,6 +47,8 @@ return {
                             ["-"] = fb_actions.goto_parent_dir,
                             ["."] = fb_actions.change_cwd,
                             t = fb_actions.toggle_all,
+                            h = fb_actions.goto_parent_dir,
+                            l = actions.select_default,
                         },
                     },
                 },
@@ -242,7 +245,7 @@ return {
                 },
             },
             ["-"] = {
-                "<cmd>Telescope file_browser initial_mode=normal depth=1 path=%:p:h select_buffer=true<cr>",
+                "<cmd>Telescope file_browser initial_mode=normal depth=1 path=%:p:h select_buffer=true sorting_strategy=ascending<cr>",
                 "Browse parent directory",
             },
         }
