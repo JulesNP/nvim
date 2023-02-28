@@ -8,7 +8,8 @@ if vim.g.neovide then
     vim.keymap.set("n", "<leader>tf", function()
         vim.g.neovide_fullscreen = vim.g.neovide_fullscreen == 0 and 1 or 0
     end)
-else
+end
+if not vim.g.neovide or vim.loop.os_uname().sysname ~= "Windows_NT" then
     vim.o.clipboard = "unnamedplus"
 end
 vim.o.completeopt = "menu,menuone,noselect"
