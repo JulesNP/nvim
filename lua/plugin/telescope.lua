@@ -252,6 +252,7 @@ return {
                 r = { builtin.resume, "Resume find" },
                 s = { builtin.lsp_dynamic_workspace_symbols, "Find workspace symbol" },
                 w = { builtin.grep_string, "Find word under cursor" },
+                z = { builtin.current_buffer_fuzzy_find, "Fuzzy find in current buffer" },
             },
             ["<leader>g"] = {
                 name = "git",
