@@ -3,8 +3,8 @@ vim.g.maplocalleader = " "
 if vim.g.neovide then
     vim.g.neovide_floating_blur_amount_x = 8.0
     vim.g.neovide_floating_blur_amount_y = 8.0
-    vim.o.pumblend = 30
-    vim.o.winblend = 30
+    vim.o.pumblend = 25
+    vim.o.winblend = 25
     vim.keymap.set("n", "<leader>tf", function()
         vim.g.neovide_fullscreen = vim.g.neovide_fullscreen == 0 and 1 or 0
     end)

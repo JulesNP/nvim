@@ -15,7 +15,7 @@ return {
         }
         if vim.g.neovide then
             options.window = {
-                winblend = 30,
+                winblend = 25,
             }
         end
         wk.setup(options)
