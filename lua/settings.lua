@@ -3,6 +3,7 @@ vim.g.maplocalleader = " "
 if vim.g.neovide then
     vim.g.neovide_floating_blur_amount_x = 8.0
     vim.g.neovide_floating_blur_amount_y = 8.0
+    vim.g.neovide_input_macos_alt_is_meta = true
     vim.o.pumblend = 25
     vim.o.winblend = 25
     vim.keymap.set("n", "<leader>tf", function()
