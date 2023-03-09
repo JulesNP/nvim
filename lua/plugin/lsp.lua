@@ -10,6 +10,7 @@ return {
         "jay-babu/mason-null-ls.nvim",
         "jose-elias-alvarez/null-ls.nvim",
         "jose-elias-alvarez/typescript.nvim",
+        "kevinhwang91/nvim-ufo",
         "nvim-lua/plenary.nvim",
         "williamboman/mason-lspconfig.nvim",
         "williamboman/mason.nvim",
@@ -47,7 +48,15 @@ return {
             vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
 
             wk.register({
-                K = { vim.lsp.buf.hover, "LSP hover info" },
+                K = {
+                    function()
+                        local peek = require("ufo").peekFoldedLinesUnderCursor()
+                        if not peek then
+                            vim.lsp.buf.hover()
+                        end
+                    end,
+                    "LSP hover info",
+                },
                 gD = { vim.lsp.buf.declaration, "Go to declaration" },
                 gI = { vim.lsp.buf.implementation, "Go to implementation" },
                 gr = { vim.lsp.buf.references, "Go to references" },
@@ -107,6 +116,10 @@ return {
 
         local lsp = require "lspconfig"
         local capabilities = require("cmp_nvim_lsp").default_capabilities()
+        capabilities.textDocument.foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true,
+        }
 
         local function lua_setup()
             lsp.lua_ls.setup {

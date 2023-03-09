@@ -50,7 +50,6 @@ require("packer").startup(function(use)
         use(require "plugin/colors")
         use(require "plugin/csv")
         use(require "plugin/diffview")
-        use(require "plugin/fold")
         use(require "plugin/git")
         use(require "plugin/gitsigns")
         use(require "plugin/gruvbox")
@@ -68,6 +67,7 @@ require("packer").startup(function(use)
         use(require "plugin/tabout")
         use(require "plugin/telescope")
         use(require "plugin/toggleterm")
+        use(require "plugin/ufo")
     end
 
     if packer_bootstrap then
