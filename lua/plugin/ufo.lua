@@ -54,6 +54,9 @@ return {
                     trace = "<cr>",
                 },
             },
+            provider_selector = function()
+                return { "lsp", "indent" }
+            end,
         }
 
         vim.keymap.set("n", "zJ", ufo.goNextClosedFold, { desc = "Next closed fold" })
