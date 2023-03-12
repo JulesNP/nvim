@@ -1,8 +1,9 @@
 return {
     "nvim-treesitter/nvim-treesitter",
     requires = {
-        "nvim-treesitter/nvim-treesitter-context",
         "andymass/vim-matchup",
+        "nvim-treesitter/nvim-treesitter-context",
+        "nvim-treesitter/playground",
     },
     run = function()
         local ts_update = require("nvim-treesitter.install").update { with_sync = true }
@@ -49,6 +50,29 @@ return {
             },
             matchup = {
                 enable = not vim.g.vscode,
+            },
+            playground = {
+                enable = not vim.g.vscode,
+                disable = {},
+                updatetime = 25,
+                persist_queries = false,
+                keybindings = {
+                    toggle_query_editor = "o",
+                    toggle_hl_groups = "i",
+                    toggle_injected_languages = "t",
+                    toggle_anonymous_nodes = "a",
+                    toggle_language_display = "I",
+                    focus_language = "f",
+                    unfocus_language = "F",
+                    update = "R",
+                    goto_node = "<cr>",
+                    show_help = "?",
+                },
+            },
+            query_linter = {
+                enable = true,
+                use_virtual_text = true,
+                lint_events = { "BufWrite", "CursorHold" },
             },
             textobjects = {
                 lsp_interop = {
@@ -135,5 +159,14 @@ return {
                 trim_scope = "inner",
             }
         end
+
+        vim.keymap.set(
+            "n",
+            "<leader>tk",
+            "<cmd>TSHighlightCapturesUnderCursor<cr>",
+            { desc = "View treesitter highlights" }
+        )
+        vim.keymap.set("n", "<leader>tn", "<cmd>TSNodeUnderCursor<cr>", { desc = "View treesitter node" })
+        vim.keymap.set("n", "<leader>tp", "<cmd>TSPlaygroundToggle<cr>", { desc = "Toggle treesitter playground" })
     end,
 }
