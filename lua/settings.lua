@@ -7,7 +7,7 @@ if vim.g.neovide then
     vim.o.pumblend = 25
     vim.o.winblend = 25
     vim.keymap.set("n", "<leader>tf", function()
-        vim.g.neovide_fullscreen = vim.g.neovide_fullscreen == 0 and 1 or 0
+        vim.g.neovide_fullscreen = vim.g.neovide_fullscreen == 1 and 0 or 1
     end, { desc = "Toggle fullscreen" })
 end
 if not vim.g.neovide or vim.loop.os_uname().sysname ~= "Windows_NT" then
