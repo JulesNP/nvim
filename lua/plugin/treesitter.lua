@@ -9,6 +9,16 @@ return {
         ts_update()
     end,
     config = function()
+        local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+        parser_config.fsharp = {
+            install_info = {
+                url = "https://github.com/Nsidorenco/tree-sitter-fsharp",
+                branch = "develop",
+                files = { "src/scanner.cc", "src/parser.c" },
+            },
+            filetype = "fsharp",
+        }
+
         require("nvim-treesitter.configs").setup {
             highlight = {
                 enable = not vim.g.vscode,
