@@ -1,6 +1,6 @@
 return {
     "numToStr/Comment.nvim",
-    opt = {
+    opts = {
         toggler = {
             block = "g//",
         },
