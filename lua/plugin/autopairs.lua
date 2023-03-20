@@ -1,8 +1,8 @@
 return {
     "windwp/nvim-autopairs",
     enabled = not vim.g.vscode,
+    event = "InsertEnter",
     dependencies = "hrsh7th/nvim-cmp",
-    after = "nvim-cmp",
     config = function()
         local autopairs = require "nvim-autopairs"
 

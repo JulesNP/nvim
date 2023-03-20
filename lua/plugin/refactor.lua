@@ -1,6 +1,8 @@
+local filetypes = { "c", "cpp", "go", "java", "javascript", "lua", "php", "python", "ruby", "typescript" }
 return {
     "ThePrimeagen/refactoring.nvim",
     enabled = not vim.g.vscode,
+    ft = filetypes,
     dependencies = {
         "folke/which-key.nvim",
         "nvim-lua/plenary.nvim",
@@ -14,7 +16,7 @@ return {
 
         vim.api.nvim_create_autocmd("FileType", {
             group = vim.api.nvim_create_augroup("RefactoringSetup", { clear = true }),
-            pattern = { "c", "cpp", "go", "java", "javascript", "lua", "php", "python", "ruby", "typescript" },
+            pattern = filetypes,
             callback = function(opts)
                 wk.register({
                     ["<leader>r"] = {

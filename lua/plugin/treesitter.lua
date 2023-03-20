@@ -1,9 +1,12 @@
 return {
     "nvim-treesitter/nvim-treesitter",
+    event = "BufRead",
     dependencies = {
         "andymass/vim-matchup",
         "nvim-treesitter/nvim-treesitter-context",
+        "nvim-treesitter/nvim-treesitter-textobjects",
         "nvim-treesitter/playground",
+        "windwp/nvim-ts-autotag",
     },
     run = function()
         local ts_update = require("nvim-treesitter.install").update { with_sync = true }
@@ -40,6 +43,9 @@ return {
                 "vim",
             },
             auto_install = true,
+            autotag = {
+                enable = not vim.g.vscode,
+            },
             incremental_selection = {
                 enable = true,
                 keymaps = {

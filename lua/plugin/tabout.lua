@@ -1,7 +1,7 @@
 return {
     "abecodes/tabout.nvim",
     enabled = not vim.g.vscode,
-    after = "nvim-cmp",
+    event = "InsertEnter",
     dependencies = "nvim-treesitter",
     config = function()
         require("tabout").setup {

@@ -23,6 +23,9 @@ return {
             end,
         },
     },
+    keys = {
+        { "\\", "<cmd>silent Neotree reveal<cr>", desc = "Toggle file tree" },
+    },
     config = function()
         vim.g.neo_tree_remove_legacy_commands = 1
 
@@ -119,10 +122,6 @@ return {
                     },
                 },
             },
-        }
-
-        require("which-key").register {
-            ["\\"] = { "<cmd>silent Neotree reveal<cr>", "Toggle file tree" },
         }
     end,
 }

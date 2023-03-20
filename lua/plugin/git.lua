@@ -1,6 +1,13 @@
 return {
     "TimUntersberger/neogit",
     enabled = not vim.g.vscode,
+    event = "VeryLazy",
+    keys = {
+        { "<leader>gP", "<cmd>G push<cr>", desc = "Push" },
+        { "<leader>gc", "<cmd>G commit<cr>", desc = "Commit" },
+        { "<leader>gg", "<cmd>Neogit<cr>", desc = "Open Neogit" },
+        { "<leader>gp", "<cmd>G pull<cr>", desc = "Pull" },
+    },
     dependencies = {
         "folke/which-key.nvim",
         "nvim-lua/plenary.nvim",
@@ -18,13 +25,7 @@ return {
             },
         }
         require("which-key").register {
-            ["<leader>g"] = {
-                name = "git",
-                P = { "<cmd>G push<cr>", "Push" },
-                c = { "<cmd>G commit<cr>", "Commit" },
-                g = { neogit.open, "Open Neogit" },
-                p = { "<cmd>G pull<cr>", "Pull" },
-            },
+            ["<leader>g"] = { name = "git" },
         }
     end,
 }

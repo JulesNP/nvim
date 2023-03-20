@@ -1,9 +1,7 @@
 return {
     "junegunn/vim-easy-align",
-    dependencies = "folke/which-key.nvim",
-    config = function()
-        local wk = require "which-key"
-        wk.register { ga = { "<plug>(EasyAlign)", "Align items" } }
-        wk.register({ ga = { "<plug>(EasyAlign)", "Align items" } }, { mode = "x" })
-    end,
+    keys = {
+        { "ga", "<plug>(EasyAlign)", desc = "Align items" },
+        { "ga", "<plug>(EasyAlign)", desc = "Align items", mode = "x" },
+    },
 }
