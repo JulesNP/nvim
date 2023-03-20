@@ -1,8 +1,6 @@
 return {
     "ellisonleao/gruvbox.nvim",
     enabled = not vim.g.vscode,
-    priority = 1000,
-    dependencies = "folke/which-key.nvim",
     config = function()
         local function setup()
             local colors = (require "gruvbox.palette").colors
@@ -14,7 +12,6 @@ return {
                     strings = false,
                 },
                 overrides = {
-                    Comment = { italic = true },
                     CursorLine = { bg = bg == "dark" and colors.dark0_soft or colors.light0_hard },
                     CursorLineNr = { bg = colors[bg .. "0"] },
                     EyelinerPrimary = { bold = true, underline = true },
@@ -36,15 +33,15 @@ return {
                     LeapMatch = { fg = colors[fg .. "0"] },
                     MatchParen = { bold = false, bg = colors[bg .. "2"] },
                     SignColumn = { bg = colors[bg .. "0"] },
-                    TelescopePreviewBorder = { bg = colors[bg .. "2"] },
+                    TelescopePreviewBorder = { link = "TelescopePreviewNormal" },
                     TelescopePreviewNormal = { bg = colors[bg .. "2"] },
-                    TelescopePreviewTitle = { bg = colors[bg .. "2"] },
-                    TelescopePromptBorder = { bg = colors[bg .. "0_soft"] },
+                    TelescopePreviewTitle = { link = "TelescopePreviewNormal" },
+                    TelescopePromptBorder = { link = "TelescopePromptNormal" },
                     TelescopePromptNormal = { bg = colors[bg .. "0_soft"] },
-                    TelescopePromptTitle = { bg = colors[bg .. "0_soft"] },
-                    TelescopeResultsBorder = { bg = colors[bg .. "1"] },
+                    TelescopePromptTitle = { link = "TelescopePromptNormal" },
+                    TelescopeResultsBorder = { link = "TelescopeResultsNormal" },
                     TelescopeResultsNormal = { bg = colors[bg .. "1"] },
-                    TelescopeResultsTitle = { bg = colors[bg .. "1"] },
+                    TelescopeResultsTitle = { link = "TelescopeResultsNormal" },
                     TreesitterContextLineNumber = { fg = colors.gray, bg = colors[bg .. "2"] },
                     Whitespace = { fg = bg == "dark" and colors.dark0_hard or colors.light0_soft },
                 },
@@ -54,17 +51,9 @@ return {
 
         setup()
 
-        require("which-key").register {
-            ["<leader>t"] = {
-                name = "toggle",
-                t = {
-                    function()
-                        vim.o.background = vim.o.background ~= "dark" and "dark" or "light"
-                        setup()
-                    end,
-                    "Toggle theme",
-                },
-            },
-        }
+        vim.keymap.set("n", "<leader>tt", function()
+            vim.o.background = vim.o.background ~= "dark" and "dark" or "light"
+            setup()
+        end, { desc = "Toggle theme" })
     end,
 }
