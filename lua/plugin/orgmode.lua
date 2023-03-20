@@ -1,6 +1,6 @@
 return {
     "nvim-orgmode/orgmode",
-    enabled = not vim.g.vscode,
+    cond = not vim.g.vscode,
     event = "VeryLazy",
     ft = "org",
     dependencies = { "akinsho/org-bullets.nvim", "folke/which-key.nvim", "nvim-treesitter/nvim-treesitter" },

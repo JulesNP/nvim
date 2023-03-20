@@ -1,6 +1,6 @@
 return {
     "nvim-neo-tree/neo-tree.nvim",
-    enabled = not vim.g.vscode,
+    cond = not vim.g.vscode,
     branch = "v2.x",
     dependencies = {
         "folke/which-key.nvim",

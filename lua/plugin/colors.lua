@@ -1,6 +1,7 @@
 return {
     "brenoprata10/nvim-highlight-colors",
-    enabled = not vim.g.vscode,
+    cond = not vim.g.vscode,
+    event = "BufRead",
     config = function()
         require("nvim-highlight-colors").setup {
             enable_tailwind = true,

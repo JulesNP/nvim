@@ -1,6 +1,7 @@
 return {
     "kevinhwang91/nvim-ufo",
-    enabled = not vim.g.vscode,
+    cond = not vim.g.vscode,
+    event = "BufRead",
     dependencies = "kevinhwang91/promise-async",
     config = function()
         local handler = function(virtText, lnum, endLnum, width, truncate)

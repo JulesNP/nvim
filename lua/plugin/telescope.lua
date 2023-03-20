@@ -1,6 +1,6 @@
 return {
     "nvim-telescope/telescope.nvim",
-    enabled = not vim.g.vscode,
+    cond = not vim.g.vscode,
     branch = "0.1.x",
     dependencies = {
         "folke/which-key.nvim",

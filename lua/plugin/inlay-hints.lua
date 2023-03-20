@@ -1,6 +1,7 @@
 return {
     "lvimuser/lsp-inlayhints.nvim",
-    enabled = not vim.g.vscode,
+    cond = not vim.g.vscode,
+    event = "BufRead",
     dependencies = "folke/which-key.nvim",
     config = function()
         local inlay = require "lsp-inlayhints"

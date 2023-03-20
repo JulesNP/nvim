@@ -1,6 +1,6 @@
 return {
     "abecodes/tabout.nvim",
-    enabled = not vim.g.vscode,
+    cond = not vim.g.vscode,
     event = "InsertEnter",
     dependencies = "nvim-treesitter",
     config = function()

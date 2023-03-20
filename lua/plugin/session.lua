@@ -1,6 +1,6 @@
 return {
     "Shatur/neovim-session-manager",
-    enabled = not vim.g.vscode,
+    cond = not vim.g.vscode,
     dependencies = { "folke/which-key.nvim", "nvim-lua/plenary.nvim" },
     config = function()
         require("session_manager").setup {

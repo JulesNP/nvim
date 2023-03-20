@@ -1,7 +1,7 @@
 local filetypes = { "c", "cpp", "go", "java", "javascript", "lua", "php", "python", "ruby", "typescript" }
 return {
     "ThePrimeagen/refactoring.nvim",
-    enabled = not vim.g.vscode,
+    cond = not vim.g.vscode,
     ft = filetypes,
     dependencies = {
         "folke/which-key.nvim",

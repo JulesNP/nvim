@@ -35,7 +35,7 @@ require("lazy").setup {
     require "plugin/wordmotion",
 
     -- Only enable these if not in VSCode
-    { "tpope/vim-rsi", enabled = not vim.g.vscode },
+    { "tpope/vim-rsi", cond = not vim.g.vscode },
     require "plugin/alpha",
     require "plugin/autopairs",
     require "plugin/bufdel",

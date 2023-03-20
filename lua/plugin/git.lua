@@ -1,6 +1,6 @@
 return {
     "TimUntersberger/neogit",
-    enabled = not vim.g.vscode,
+    cond = not vim.g.vscode,
     event = "VeryLazy",
     keys = {
         { "<leader>gP", "<cmd>G push<cr>", desc = "Push" },
