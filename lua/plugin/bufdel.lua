@@ -1,6 +1,6 @@
 return {
     "ojroques/nvim-bufdel",
-    requires = "folke/which-key.nvim",
+    dependencies = "folke/which-key.nvim",
     config = function()
         require("bufdel").setup {
             next = "alternate",

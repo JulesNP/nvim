@@ -1,6 +1,6 @@
 return {
     "lewis6991/gitsigns.nvim",
-    requires = "folke/which-key.nvim",
+    dependencies = "folke/which-key.nvim",
     config = function()
         require("gitsigns").setup {
             on_attach = function(bufnr)

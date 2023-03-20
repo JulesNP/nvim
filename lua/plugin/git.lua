@@ -1,6 +1,6 @@
 return {
     "TimUntersberger/neogit",
-    requires = {
+    dependencies = {
         "folke/which-key.nvim",
         "nvim-lua/plenary.nvim",
         "sindrets/diffview.nvim",

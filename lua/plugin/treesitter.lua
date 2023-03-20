@@ -1,6 +1,6 @@
 return {
     "nvim-treesitter/nvim-treesitter",
-    requires = {
+    dependencies = {
         "andymass/vim-matchup",
         "nvim-treesitter/nvim-treesitter-context",
         "nvim-treesitter/playground",

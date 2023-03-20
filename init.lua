@@ -1,76 +1,68 @@
-pcall(require, "impatient")
-
 require "settings" -- General settings
 require "autocommands" -- Autocommands
 require "powershell" -- Use PowerShell on Windows
 
--- Packer bootstrap
-local ensure_packer = function()
-    local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
-    if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-        vim.fn.system { "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path }
-        vim.cmd.packadd "packer.nvim"
-        return true
-    end
-    return false
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system {
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable",
+        lazypath,
+    }
 end
-local packer_bootstrap = ensure_packer()
+vim.opt.rtp:prepend(lazypath)
 
-require("packer").startup(function(use)
-    use "wbthomason/packer.nvim"
-
+require("lazy").setup {
     -- Basic plugin imports
-    use "lewis6991/impatient.nvim"
-    use "tpope/vim-repeat"
-    use "tpope/vim-speeddating"
-    use "tpope/vim-surround"
-    use "tpope/vim-unimpaired"
-    use "wellle/targets.vim"
+    "tpope/vim-repeat",
+    "tpope/vim-speeddating",
+    "tpope/vim-surround",
+    "tpope/vim-unimpaired",
+    "wellle/targets.vim",
 
     -- Plugins with configurations
-    use(require "plugin/align")
-    use(require "plugin/comment")
-    use(require "plugin/eyeliner")
-    use(require "plugin/indent-tools")
-    use(require "plugin/leap")
-    use(require "plugin/substitute")
-    use(require "plugin/textobjects")
-    use(require "plugin/treesitter")
-    use(require "plugin/whichkey")
-    use(require "plugin/wordmotion")
+    (require "plugin/align"),
+    (require "plugin/comment"),
+    (require "plugin/eyeliner"),
+    (require "plugin/indent-tools"),
+    (require "plugin/leap"),
+    (require "plugin/substitute"),
+    (require "plugin/textobjects"),
+    (require "plugin/treesitter"),
+    (require "plugin/whichkey"),
+    (require "plugin/wordmotion"),
 
-    if not vim.g.vscode then
-        use "tpope/vim-rsi"
+    -- if not vim.g.vscode then
+    "tpope/vim-rsi",
 
-        use(require "plugin/alpha")
-        use(require "plugin/autopairs")
-        use(require "plugin/autotag")
-        use(require "plugin/bufdel")
-        use(require "plugin/cmp")
-        use(require "plugin/colors")
-        use(require "plugin/csv")
-        use(require "plugin/diffview")
-        use(require "plugin/git")
-        use(require "plugin/gitsigns")
-        use(require "plugin/gruvbox")
-        use(require "plugin/guess-indent")
-        use(require "plugin/illuminate")
-        use(require "plugin/inlay-hints")
-        use(require "plugin/lsp")
-        use(require "plugin/lualine")
-        use(require "plugin/maximize")
-        use(require "plugin/neotree")
-        use(require "plugin/orgmode")
-        use(require "plugin/quickfix")
-        use(require "plugin/refactor")
-        use(require "plugin/session")
-        use(require "plugin/tabout")
-        use(require "plugin/telescope")
-        use(require "plugin/toggleterm")
-        use(require "plugin/ufo")
-    end
-
-    if packer_bootstrap then
-        require("packer").sync()
-    end
-end)
+    (require "plugin/alpha"),
+    (require "plugin/autopairs"),
+    (require "plugin/autotag"),
+    (require "plugin/bufdel"),
+    (require "plugin/cmp"),
+    (require "plugin/colors"),
+    (require "plugin/csv"),
+    (require "plugin/diffview"),
+    (require "plugin/git"),
+    (require "plugin/gitsigns"),
+    (require "plugin/gruvbox"),
+    (require "plugin/guess-indent"),
+    (require "plugin/illuminate"),
+    (require "plugin/inlay-hints"),
+    (require "plugin/lsp"),
+    (require "plugin/lualine"),
+    (require "plugin/maximize"),
+    (require "plugin/neotree"),
+    (require "plugin/orgmode"),
+    (require "plugin/quickfix"),
+    (require "plugin/refactor"),
+    (require "plugin/session"),
+    (require "plugin/tabout"),
+    (require "plugin/telescope"),
+    (require "plugin/toggleterm"),
+    (require "plugin/ufo"),
+    -- end
+}

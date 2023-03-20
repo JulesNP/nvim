@@ -1,6 +1,6 @@
 return {
     "neovim/nvim-lspconfig",
-    requires = {
+    dependencies = {
         "Decodetalkers/csharpls-extended-lsp.nvim",
         "folke/neodev.nvim",
         "folke/which-key.nvim",

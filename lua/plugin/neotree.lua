@@ -1,14 +1,14 @@
 return {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
-    requires = {
+    dependencies = {
         "folke/which-key.nvim",
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
         "MunifTanjim/nui.nvim",
         {
             "s1n7ax/nvim-window-picker",
-            tag = "v1.*",
+            version = "v1.*",
             config = function()
                 require("window-picker").setup {
                     filter_rules = {

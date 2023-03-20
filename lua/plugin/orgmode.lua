@@ -1,6 +1,6 @@
 return {
     "nvim-orgmode/orgmode",
-    requires = { "akinsho/org-bullets.nvim", "folke/which-key.nvim", "nvim-treesitter/nvim-treesitter" },
+    dependencies = { "akinsho/org-bullets.nvim", "folke/which-key.nvim", "nvim-treesitter/nvim-treesitter" },
     config = function()
         require("orgmode").setup_ts_grammar()
         require("orgmode").setup {

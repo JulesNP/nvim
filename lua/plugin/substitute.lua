@@ -1,6 +1,6 @@
 return {
     "gbprod/substitute.nvim",
-    requires = "folke/which-key.nvim",
+    dependencies = "folke/which-key.nvim",
     config = function()
         local sub = require "substitute"
         local ex = require "substitute.exchange"

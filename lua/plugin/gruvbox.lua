@@ -1,6 +1,7 @@
 return {
     "ellisonleao/gruvbox.nvim",
-    requires = "folke/which-key.nvim",
+    priority = 1000,
+    dependencies = "folke/which-key.nvim",
     config = function()
         local function setup()
             local colors = (require "gruvbox.palette").colors
@@ -8,7 +9,9 @@ return {
             local fg = bg == "dark" and "light" or "dark"
 
             require("gruvbox").setup {
-                italic = false,
+                italic = {
+                    strings = false,
+                },
                 overrides = {
                     Comment = { italic = true },
                     CursorLine = { bg = bg == "dark" and colors.dark0_soft or colors.light0_hard },

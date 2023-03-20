@@ -1,6 +1,6 @@
 return {
     "itchyny/vim-qfedit",
-    requires = "folke/which-key.nvim",
+    dependencies = "folke/which-key.nvim",
     config = function()
         vim.api.nvim_create_autocmd("FileType", {
             group = vim.api.nvim_create_augroup("QFMappings", { clear = true }),

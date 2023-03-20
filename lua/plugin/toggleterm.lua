@@ -1,6 +1,6 @@
 return {
     "akinsho/toggleterm.nvim",
-    tag = "*",
+    version = "*",
     config = function()
         require("toggleterm").setup {
             open_mapping = "<c-\\>",

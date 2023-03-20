@@ -1,6 +1,6 @@
 return {
     "ggandor/leap.nvim",
-    requires = "folke/which-key.nvim",
+    dependencies = "folke/which-key.nvim",
     config = function()
         local leap = require "leap"
         local wk = require "which-key"

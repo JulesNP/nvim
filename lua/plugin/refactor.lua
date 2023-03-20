@@ -1,6 +1,6 @@
 return {
     "ThePrimeagen/refactoring.nvim",
-    requires = {
+    dependencies = {
         "folke/which-key.nvim",
         "nvim-lua/plenary.nvim",
         "nvim-treesitter/nvim-treesitter",

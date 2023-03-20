@@ -1,6 +1,6 @@
 return {
     "windwp/nvim-autopairs",
-    requires = "hrsh7th/nvim-cmp",
+    dependencies = "hrsh7th/nvim-cmp",
     after = "nvim-cmp",
     config = function()
         local autopairs = require "nvim-autopairs"

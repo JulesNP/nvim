@@ -1,7 +1,7 @@
 return {
     "abecodes/tabout.nvim",
     after = "nvim-cmp",
-    requires = "nvim-treesitter",
+    dependencies = "nvim-treesitter",
     config = function()
         require("tabout").setup {
             default_tab = "<tab>",

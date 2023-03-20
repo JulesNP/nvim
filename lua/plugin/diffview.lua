@@ -1,6 +1,6 @@
 return {
     "sindrets/diffview.nvim",
-    requires = { "folke/which-key.nvim", "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
+    dependencies = { "folke/which-key.nvim", "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
     config = function()
         local wk = require "which-key"
 
