@@ -1,5 +1,6 @@
 return {
     "windwp/nvim-autopairs",
+    enabled = not vim.g.vscode,
     dependencies = "hrsh7th/nvim-cmp",
     after = "nvim-cmp",
     config = function()

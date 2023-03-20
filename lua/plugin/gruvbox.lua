@@ -1,5 +1,6 @@
 return {
     "ellisonleao/gruvbox.nvim",
+    enabled = not vim.g.vscode,
     priority = 1000,
     dependencies = "folke/which-key.nvim",
     config = function()

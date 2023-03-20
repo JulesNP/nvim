@@ -1,5 +1,6 @@
 return {
     "itchyny/vim-qfedit",
+    enabled = not vim.g.vscode,
     dependencies = "folke/which-key.nvim",
     config = function()
         vim.api.nvim_create_autocmd("FileType", {

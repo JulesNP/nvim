@@ -1,5 +1,6 @@
 return {
     "ojroques/nvim-bufdel",
+    enabled = not vim.g.vscode,
     dependencies = "folke/which-key.nvim",
     config = function()
         require("bufdel").setup {

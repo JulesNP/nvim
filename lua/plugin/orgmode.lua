@@ -1,5 +1,6 @@
 return {
     "nvim-orgmode/orgmode",
+    enabled = not vim.g.vscode,
     dependencies = { "akinsho/org-bullets.nvim", "folke/which-key.nvim", "nvim-treesitter/nvim-treesitter" },
     config = function()
         require("orgmode").setup_ts_grammar()

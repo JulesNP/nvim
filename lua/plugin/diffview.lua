@@ -1,5 +1,6 @@
 return {
     "sindrets/diffview.nvim",
+    enabled = not vim.g.vscode,
     dependencies = { "folke/which-key.nvim", "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
     config = function()
         local wk = require "which-key"

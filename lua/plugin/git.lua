@@ -1,5 +1,6 @@
 return {
     "TimUntersberger/neogit",
+    enabled = not vim.g.vscode,
     dependencies = {
         "folke/which-key.nvim",
         "nvim-lua/plenary.nvim",

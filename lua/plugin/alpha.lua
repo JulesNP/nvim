@@ -1,5 +1,6 @@
 return {
     "goolord/alpha-nvim",
+    enabled = not vim.g.vscode,
     config = function()
         local dashboard = require "alpha.themes.dashboard"
         dashboard.section.header.val = {

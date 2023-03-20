@@ -1,5 +1,6 @@
 return {
     "neovim/nvim-lspconfig",
+    enabled = not vim.g.vscode,
     dependencies = {
         "Decodetalkers/csharpls-extended-lsp.nvim",
         "folke/neodev.nvim",

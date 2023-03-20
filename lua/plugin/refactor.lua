@@ -1,5 +1,6 @@
 return {
     "ThePrimeagen/refactoring.nvim",
+    enabled = not vim.g.vscode,
     dependencies = {
         "folke/which-key.nvim",
         "nvim-lua/plenary.nvim",
