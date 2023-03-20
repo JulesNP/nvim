@@ -35,11 +35,7 @@ return {
             ["<esc>"] = { "<cmd>nohlsearch<bar>diffupdate<cr>", "Clear search highlights" },
             ["<leader>n"] = { "<cmd>enew<bar>set filetype=markdown<cr>", "New buffer" },
             ["<leader>X"] = { "<cmd>bdelete<cr>", "Close window and buffer" },
-            ["<leader>p"] = {
-                name = "packer",
-                s = { "<cmd>PackerSync<cr>", "PackerSync" },
-                c = { "<cmd>PackerCompile<cr>", "PackerCompile" },
-            },
+            ["<leader>ll"] = { "<cmd>Lazy<cr>", "Open Lazy.nvim" },
             ["<leader>t"] = {
                 name = "toggle",
                 s = { "<cmd>windo set scrollbind! cursorbind!<cr>", "Toggle scroll/cursor sync" },

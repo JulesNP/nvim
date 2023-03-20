@@ -76,7 +76,7 @@ return {
                     name = "lsp",
                     a = { vim.lsp.buf.add_workspace_folder, "Add workspace folder" },
                     r = { vim.lsp.buf.remove_workspace_folder, "Remove workspace folder" },
-                    l = {
+                    w = {
                         function()
                             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
                         end,
