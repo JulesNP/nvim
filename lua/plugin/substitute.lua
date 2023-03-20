@@ -1,23 +1,68 @@
 return {
     "gbprod/substitute.nvim",
-    dependencies = "folke/which-key.nvim",
-    config = function()
-        local sub = require "substitute"
-        local ex = require "substitute.exchange"
-        local wk = require "which-key"
-
-        require("substitute").setup {}
-        wk.register {
-            s = { sub.operator, "Substitute text" },
-            ss = { sub.line, "Substitute line" },
-            S = { sub.eol, "Substitute to end of line" },
-            sx = { ex.operator, "Exchange text" },
-            sxx = { ex.line, "Exchange lines" },
-            sxc = { ex.cancel, "Cancel exchange" },
-        }
-        wk.register({
-            s = { sub.visual, "Substitute selection" },
-            X = { ex.visual, "Exchange selection" },
-        }, { mode = "x" })
-    end,
+    keys = {
+        {
+            "s",
+            function()
+                require("substitute").operator()
+            end,
+            desc = "Substitute text",
+        },
+        {
+            "ss",
+            function()
+                require("substitute").line()
+            end,
+            desc = "Substitute line",
+        },
+        {
+            "S",
+            function()
+                require("substitute").eol()
+            end,
+            desc = "Substitute to end of line",
+        },
+        {
+            "sx",
+            function()
+                require("substitute.exchange").operator()
+            end,
+            desc = "Exchange text",
+        },
+        {
+            "sxx",
+            function()
+                require("substitute.exchange").line()
+            end,
+            desc = "Exchange lines",
+        },
+        {
+            "sxc",
+            function()
+                require("substitute.exchange").cancel()
+            end,
+            desc = "Cancel exchange",
+        },
+        {
+            "s",
+            function()
+                require("substitute").visual()
+            end,
+            desc = "Substitute selection",
+            mode = "x",
+        },
+        {
+            "X",
+            function()
+                require("substitute.exchange").visual()
+            end,
+            desc = "Exchange selection",
+            mode = "x",
+        },
+    },
+    opts = {
+        highlight_substituted_text = {
+            timer = 300,
+        },
+    },
 }
