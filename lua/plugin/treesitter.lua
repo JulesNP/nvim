@@ -1,6 +1,7 @@
 return {
     "nvim-treesitter/nvim-treesitter",
     event = "BufRead",
+    ft = "markdown",
     dependencies = {
         "andymass/vim-matchup",
         "nvim-treesitter/nvim-treesitter-context",

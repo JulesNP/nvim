@@ -2,6 +2,7 @@ return {
     "lewis6991/gitsigns.nvim",
     cond = not vim.g.vscode,
     event = "BufRead",
+    ft = "markdown",
     dependencies = "folke/which-key.nvim",
     config = function()
         require("gitsigns").setup {

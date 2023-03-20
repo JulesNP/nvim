@@ -2,6 +2,7 @@ return {
     "sindrets/diffview.nvim",
     cond = not vim.g.vscode,
     event = "BufRead",
+    ft = "markdown",
     dependencies = { "folke/which-key.nvim", "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
     config = function()
         local wk = require "which-key"

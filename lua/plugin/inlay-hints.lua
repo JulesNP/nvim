@@ -2,6 +2,7 @@ return {
     "lvimuser/lsp-inlayhints.nvim",
     cond = not vim.g.vscode,
     event = "BufRead",
+    ft = "markdown",
     dependencies = "folke/which-key.nvim",
     config = function()
         local inlay = require "lsp-inlayhints"

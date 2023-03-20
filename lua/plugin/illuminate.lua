@@ -2,6 +2,7 @@ return {
     "RRethy/vim-illuminate",
     cond = not vim.g.vscode,
     event = "BufRead",
+    ft = "markdown",
     config = function()
         require("illuminate").configure {
             providers = {
