@@ -1,7 +1,7 @@
 return {
     "Shatur/neovim-session-manager",
     cond = not vim.g.vscode,
-    dependencies = { "folke/which-key.nvim", "nvim-lua/plenary.nvim" },
+    dependencies = { "folke/which-key.nvim", "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
     config = function()
         require("session_manager").setup {
             autoload_mode = require("session_manager.config").AutoloadMode.CurrentDir,
