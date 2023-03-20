@@ -1,6 +1,6 @@
 return {
     "chaoren/vim-wordmotion",
-    config =function ()
+    init = function()
         vim.g.wordmotion_prefix = "<leader>"
-    end
+    end,
 }
