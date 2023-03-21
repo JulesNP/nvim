@@ -1,6 +1,7 @@
 return {
     "ellisonleao/gruvbox.nvim",
     cond = not vim.g.vscode,
+    priority = 1000,
     config = function()
         local function setup()
             local colors = (require "gruvbox.palette").colors
