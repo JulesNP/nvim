@@ -1,6 +1,10 @@
 return {
     "folke/which-key.nvim",
     cond = not vim.g.vscode,
+    event = "VeryLazy",
+    keys = {
+        { "<leader>v", "<cmd>WhichKey<cr>", desc = "View keymaps", mode = { "n", "x" } },
+    },
     config = function()
         local wk = require "which-key"
 
