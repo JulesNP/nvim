@@ -1,9 +1,7 @@
 return {
     "lvimuser/lsp-inlayhints.nvim",
     cond = not vim.g.vscode,
-    event = "BufRead",
-    ft = "markdown",
-    dependencies = "folke/which-key.nvim",
+    event = "LspAttach",
     config = function()
         local inlay = require "lsp-inlayhints"
         inlay.setup {
@@ -21,9 +19,7 @@ return {
                 local client = vim.lsp.get_client_by_id(args.data.client_id)
                 inlay.on_attach(client, bufnr, false)
 
-                require("which-key").register {
-                    ["<leader>th"] = { inlay.toggle, "Toggle LSP inlay hints" },
-                }
+                vim.keymap.set("n", "<leader>th", inlay.toggle, { desc = "Toggle LSP inlay hints" })
             end,
         })
     end,

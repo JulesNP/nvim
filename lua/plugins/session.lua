@@ -1,7 +1,7 @@
 return {
     "Shatur/neovim-session-manager",
     cond = not vim.g.vscode,
-    dependencies = { "folke/which-key.nvim", "nvim-lua/plenary.nvim" },
+    dependencies = "nvim-lua/plenary.nvim",
     config = function()
         require("session_manager").setup {
             autoload_mode = require("session_manager.config").AutoloadMode.CurrentDir,
@@ -15,7 +15,6 @@ return {
                 "toggleterm",
             },
         }
-        require("which-key").register { ["<leader>s"] = { name = "session" } }
 
         local session_loading = vim.api.nvim_create_augroup("SessionLoading", { clear = true })
 

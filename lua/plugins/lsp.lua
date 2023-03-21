@@ -6,7 +6,6 @@ return {
     dependencies = {
         "Decodetalkers/csharpls-extended-lsp.nvim",
         "folke/neodev.nvim",
-        "folke/which-key.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/nvim-cmp",
         "ionide/Ionide-vim",
@@ -23,13 +22,10 @@ return {
         vim.g["fsharp#lsp_auto_setup"] = 0
     end,
     config = function()
-        local wk = require "which-key"
-        wk.register {
-            ["<leader>i"] = { vim.diagnostic.open_float, "View diagnostic info" },
-            ["<leader>q"] = { vim.diagnostic.setqflist, "List diagnostics" },
-            ["[d"] = { vim.diagnostic.goto_prev, "Previous diagnostic" },
-            ["]d"] = { vim.diagnostic.goto_next, "Next diagnostic" },
-        }
+        vim.keymap.set("n", "<leader>i", vim.diagnostic.open_float, { desc = "View diagnostic info" })
+        vim.keymap.set("n", "<leader>q", vim.diagnostic.setqflist, { desc = "List diagnostics" })
+        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
+        vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
 
         local function sign(name, icon)
             vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
@@ -51,41 +47,28 @@ return {
             vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
             vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
 
-            wk.register({
-                K = {
-                    function()
-                        local peek = require("ufo").peekFoldedLinesUnderCursor()
-                        if not peek then
-                            vim.lsp.buf.hover()
-                        end
-                    end,
-                    "LSP hover info",
-                },
-                gD = { vim.lsp.buf.declaration, "Go to declaration" },
-                gI = { vim.lsp.buf.implementation, "Go to implementation" },
-                gr = { vim.lsp.buf.references, "Go to references" },
-                gd = { vim.lsp.buf.definition, "Go to definition" },
-                ["<leader>"] = {
-                    ["="] = { vim.lsp.codelens.refresh, "Refresh codelens" },
-                    D = { vim.lsp.buf.type_definition, "Type definition" },
-                    c = { vim.lsp.buf.code_action, "Code action" },
-                    r = {
-                        name = "refactor",
-                        n = { vim.lsp.buf.rename, "Rename" },
-                    },
-                },
-                ["<leader>l"] = {
-                    name = "lsp",
-                    a = { vim.lsp.buf.add_workspace_folder, "Add workspace folder" },
-                    r = { vim.lsp.buf.remove_workspace_folder, "Remove workspace folder" },
-                    w = {
-                        function()
-                            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-                        end,
-                        "List workspace folders",
-                    },
-                },
-            }, { buffer = bufnr })
+            local function nmap(key, func, desc)
+                vim.keymap.set("n", key, func, { desc = desc, buffer = bufnr })
+            end
+            nmap("<leader>=", vim.lsp.codelens.refresh, "Refresh codelens")
+            nmap("<leader>D", vim.lsp.buf.type_definition, "Type definition")
+            nmap("<leader>c", vim.lsp.buf.code_action, "Code action")
+            nmap("<leader>la", vim.lsp.buf.add_workspace_folder, "Add workspace folder")
+            nmap("<leader>lr", vim.lsp.buf.remove_workspace_folder, "Remove workspace folder")
+            nmap("<leader>lw", function()
+                print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+            end, "List workspace folders")
+            nmap("<leader>rn", vim.lsp.buf.rename, "Rename")
+            nmap("K", function()
+                local peek = require("ufo").peekFoldedLinesUnderCursor()
+                if not peek then
+                    vim.lsp.buf.hover()
+                end
+            end, "LSP hover info")
+            nmap("gD", vim.lsp.buf.declaration, "Go to declaration")
+            nmap("gI", vim.lsp.buf.implementation, "Go to implementation")
+            nmap("gd", vim.lsp.buf.definition, "Go to definition")
+            nmap("gr", vim.lsp.buf.references, "Go to references")
 
             if client.supports_method "textDocument/formatting" then
                 vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
@@ -99,17 +82,12 @@ return {
                     }
                 end
 
-                wk.register({
-                    ["<c-s>"] = {
-                        function()
-                            format()
-                            vim.cmd.update()
-                            vim.cmd.mkview()
-                        end,
-                        "Format and save if modified",
-                    },
-                    ["<leader>fm"] = { format, "Format document" },
-                }, { buffer = bufnr })
+                nmap("<c-s>", function()
+                    format()
+                    vim.cmd.update()
+                    vim.cmd.mkview()
+                end, "Format and save if modified")
+                nmap("<leader>fm", format, "Format document")
             end
         end
 

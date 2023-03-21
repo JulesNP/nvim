@@ -1,6 +1,7 @@
 require "settings" -- General settings
 require "autocommands" -- Autocommands
 require "powershell" -- Use PowerShell on Windows
+require "keymaps" -- Load keymaps
 
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then

@@ -3,7 +3,6 @@ return {
     cond = not vim.g.vscode,
     branch = "0.1.x",
     dependencies = {
-        "folke/which-key.nvim",
         "nvim-lua/plenary.nvim",
         "nvim-telescope/telescope-file-browser.nvim",
         "nvim-telescope/telescope-ui-select.nvim",
@@ -266,10 +265,5 @@ return {
         }
         telescope.load_extension "file_browser"
         telescope.load_extension "ui-select"
-
-        require("which-key").register {
-            ["<leader>f"] = { name = "find" },
-            ["<leader>g"] = { name = "git", f = { name = "find" } },
-        }
     end,
 }

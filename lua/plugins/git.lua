@@ -9,7 +9,6 @@ return {
         { "<leader>gp", "<cmd>G pull<cr>", desc = "Pull" },
     },
     dependencies = {
-        "folke/which-key.nvim",
         "nvim-lua/plenary.nvim",
         "sindrets/diffview.nvim",
         "tpope/vim-fugitive",
@@ -23,9 +22,6 @@ return {
             integrations = {
                 diffview = true,
             },
-        }
-        require("which-key").register {
-            ["<leader>g"] = { name = "git" },
         }
     end,
 }

@@ -1,10 +1,8 @@
 return {
     "ggandor/leap.nvim",
-    dependencies = "folke/which-key.nvim",
     event = "VeryLazy",
     config = function()
         local leap = require "leap"
-        local wk = require "which-key"
 
         -- Make new table from string
         local t = {}
@@ -31,26 +29,31 @@ return {
             }
         end
 
-        wk.register { ["g<cr>"] = { leap_anywhere, "Leap to letter pair" } }
+        vim.keymap.set("n", "g<cr>", leap_anywhere, { desc = "Leap to letter pair" })
 
         vim.api.nvim_create_autocmd("FileType", {
             group = vim.api.nvim_create_augroup("LeapSetup", { clear = true }),
             pattern = "*",
             callback = function(opts)
                 if vim.g.vscode or vim.bo.buftype == "" or vim.bo.buftype == "help" then
-                    wk.register {
-                        ["<cr>"] = { leap_in_win, "Leap to letter pair within window" },
-                        mode = "n",
-                        buffer = opts.buf,
-                    }
-                    wk.register {
-                        ["<cr>"] = { leap_in_win, "Leap to letter pair within window" },
-                        mode = "o",
-                        buffer = opts.buf,
-                    }
-                    wk.register {
-                        ["<cr>"] = { leap_in_win, "Leap to letter pair within window", mode = "x", buffer = opts.buf },
-                    }
+                    vim.keymap.set(
+                        "n",
+                        "<cr>",
+                        leap_in_win,
+                        { desc = "Leap to letter pair within window", buffer = opts.buf }
+                    )
+                    vim.keymap.set(
+                        "o",
+                        "<cr>",
+                        leap_in_win,
+                        { desc = "Leap to letter pair within window", buffer = opts.buf }
+                    )
+                    vim.keymap.set(
+                        "x",
+                        "<cr>",
+                        leap_in_win,
+                        { desc = "Leap to letter pair within window", buffer = opts.buf }
+                    )
                 end
             end,
         })
