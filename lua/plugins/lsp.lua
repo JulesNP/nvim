@@ -1,7 +1,7 @@
 return {
     "neovim/nvim-lspconfig",
     cond = not vim.g.vscode,
-    event = "BufRead",
+    event = "BufReadPre",
     ft = "markdown",
     dependencies = {
         "Decodetalkers/csharpls-extended-lsp.nvim",

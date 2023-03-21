@@ -1,6 +1,7 @@
 return {
     "ggandor/leap.nvim",
-    event = "VeryLazy",
+    event = "BufRead",
+    ft = "markdown",
     config = function()
         local leap = require "leap"
 

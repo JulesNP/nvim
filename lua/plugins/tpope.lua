@@ -1,7 +1,7 @@
 return {
-    { "tpope/vim-repeat", event = "VeryLazy" },
-    { "tpope/vim-speeddating", event = "VeryLazy" },
-    { "tpope/vim-surround", event = "VeryLazy" },
-    { "tpope/vim-unimpaired", event = "VeryLazy" },
+    { "tpope/vim-repeat", event = "BufReadPost", ft = "markdown" },
+    { "tpope/vim-speeddating", event = "BufReadPost", ft = "markdown" },
+    { "tpope/vim-surround", event = "BufReadPost", ft = "markdown" },
+    { "tpope/vim-unimpaired", event = "BufReadPost", ft = "markdown" },
     { "tpope/vim-rsi", cond = not vim.g.vscode, event = { "CmdlineEnter", "InsertEnter" } },
 }
