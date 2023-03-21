@@ -7,7 +7,7 @@ return {
         "nvim-telescope/telescope-file-browser.nvim",
         "nvim-telescope/telescope-ui-select.nvim",
     },
-    keys = {
+    keys = vim.g.vscode and {} or {
         {
             "<leader>'",
             function()

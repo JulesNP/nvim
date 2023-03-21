@@ -2,7 +2,7 @@ return {
     "folke/which-key.nvim",
     cond = not vim.g.vscode,
     event = "VeryLazy",
-    keys = {
+    keys = vim.g.vscode and {} or {
         { "<leader>v", "<cmd>WhichKey<cr>", desc = "View keymaps", mode = { "n", "x" } },
     },
     config = function()

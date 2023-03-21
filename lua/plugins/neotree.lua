@@ -1,7 +1,7 @@
 return {
     "nvim-neo-tree/neo-tree.nvim",
     cond = not vim.g.vscode,
-    keys = {
+    keys = vim.g.vscode and {} or {
         { "\\", "<cmd>silent Neotree reveal<cr>", desc = "Toggle file tree" },
     },
     branch = "v2.x",

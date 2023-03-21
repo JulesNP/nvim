@@ -2,7 +2,7 @@ return {
     "sindrets/diffview.nvim",
     cond = not vim.g.vscode,
     ft = { "NeogitStatus", "lazy" },
-    keys = {
+    keys = vim.g.vscode and {} or {
         { "<leader>dd", "<cmd>DiffviewOpen<cr>", desc = "Open diffview" },
         { "<leader>df", "<cmd>DiffviewFileHistory %<cr>", desc = "Current file history" },
         { "<leader>dh", "<cmd>DiffviewFileHistory<cr>", desc = "Repository history" },

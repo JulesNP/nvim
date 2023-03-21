@@ -2,7 +2,7 @@ return {
     "TimUntersberger/neogit",
     cond = not vim.g.vscode,
     event = "BufRead",
-    keys = {
+    keys = vim.g.vscode and {} or {
         { "<leader>gP", "<cmd>G push<cr>", desc = "Push" },
         { "<leader>gc", "<cmd>G commit<cr>", desc = "Commit" },
         { "<leader>gg", "<cmd>Neogit<cr>", desc = "Open Neogit" },

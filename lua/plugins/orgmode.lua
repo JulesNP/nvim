@@ -1,7 +1,7 @@
 return {
     "nvim-orgmode/orgmode",
     cond = not vim.g.vscode,
-    keys = {
+    keys = vim.g.vscode and {} or {
         {
             "<leader>oa",
             function()
