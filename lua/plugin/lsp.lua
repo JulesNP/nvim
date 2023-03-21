@@ -18,10 +18,11 @@ return {
         "williamboman/mason-lspconfig.nvim",
         "williamboman/mason.nvim",
     },
-    config = function()
+    init = function()
         -- Prevent auto setup of Ionide
         vim.g["fsharp#lsp_auto_setup"] = 0
-
+    end,
+    config = function()
         local wk = require "which-key"
         wk.register {
             ["<leader>i"] = { vim.diagnostic.open_float, "View diagnostic info" },
@@ -160,7 +161,7 @@ return {
                 }
             end,
             fsautocomplete = function()
-                vim.g["fsharp#fsautocomplete_command"] = { "fsautocomplete" }
+                vim.g["fsharp#fsautocomplete_command"] = { "fsautocomplete", "--adaptive-lsp-server-enabled" }
                 vim.g["fsharp#fsi_keymap"] = "custom"
                 vim.g["fsharp#fsi_keymap_send"] = "<leader><cr>"
                 vim.g["fsharp#fsi_keymap_toggle"] = "<m-\\>"
