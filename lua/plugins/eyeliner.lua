@@ -1,8 +1,8 @@
 return {
     "jinh0/eyeliner.nvim",
-    config = function()
-        require("eyeliner").setup {
-            highlight_on_key = true,
-        }
-    end,
+    event = "BufRead",
+    ft = "markdown",
+    opts = {
+        highlight_on_key = true,
+    },
 }

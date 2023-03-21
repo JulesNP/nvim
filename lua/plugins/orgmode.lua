@@ -1,7 +1,22 @@
 return {
     "nvim-orgmode/orgmode",
     cond = not vim.g.vscode,
-    event = "VeryLazy",
+    keys = {
+        {
+            "<leader>oa",
+            function()
+                require("orgmode").action("agenda.prompt", { opts = { buffer = false, desc = "org agenda" } })
+            end,
+            desc = "org agenda",
+        },
+        {
+            "<leader>oc",
+            function()
+                require("orgmode").action("capture.prompt", { opts = { buffer = false, desc = "org capture" } })
+            end,
+            desc = "org capture",
+        },
+    },
     ft = "org",
     dependencies = { "akinsho/org-bullets.nvim", "folke/which-key.nvim", "nvim-treesitter/nvim-treesitter" },
     config = function()

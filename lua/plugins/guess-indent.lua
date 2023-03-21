@@ -1,6 +1,8 @@
 return {
     "nmac427/guess-indent.nvim",
     cond = not vim.g.vscode,
+    event = "BufRead",
+    ft = "markdown",
     config = function()
         require("guess-indent").setup {
             auto_cmd = false,

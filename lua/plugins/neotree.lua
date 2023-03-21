@@ -1,9 +1,11 @@
 return {
     "nvim-neo-tree/neo-tree.nvim",
     cond = not vim.g.vscode,
+    keys = {
+        { "\\", "<cmd>silent Neotree reveal<cr>", desc = "Toggle file tree" },
+    },
     branch = "v2.x",
     dependencies = {
-        "folke/which-key.nvim",
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
         "MunifTanjim/nui.nvim",
@@ -22,9 +24,6 @@ return {
                 }
             end,
         },
-    },
-    keys = {
-        { "\\", "<cmd>silent Neotree reveal<cr>", desc = "Toggle file tree" },
     },
     config = function()
         vim.g.neo_tree_remove_legacy_commands = 1

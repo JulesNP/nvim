@@ -1,6 +1,7 @@
 return {
     "ggandor/leap.nvim",
     dependencies = "folke/which-key.nvim",
+    event = "VeryLazy",
     config = function()
         local leap = require "leap"
         local wk = require "which-key"

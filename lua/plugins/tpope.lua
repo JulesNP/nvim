@@ -1,7 +1,7 @@
 return {
-    "tpope/vim-repeat",
-    "tpope/vim-speeddating",
-    "tpope/vim-surround",
-    "tpope/vim-unimpaired",
-    { "tpope/vim-rsi", cond = not vim.g.vscode },
+    { "tpope/vim-repeat", event = "VeryLazy" },
+    { "tpope/vim-speeddating", event = "VeryLazy" },
+    { "tpope/vim-surround", event = "VeryLazy" },
+    { "tpope/vim-unimpaired", event = "VeryLazy" },
+    { "tpope/vim-rsi", cond = not vim.g.vscode, event = "VeryLazy" },
 }

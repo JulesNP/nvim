@@ -190,6 +190,14 @@ return {
             "<cmd>Telescope file_browser initial_mode=normal depth=1 path=%:p:h scroll_strategy=limit select_buffer=true sorting_strategy=ascending<cr>",
             desc = "Browse parent directory",
         },
+        {
+            "<leader>scd",
+            "<cmd>SessionManager load_current_dir_session<cr>",
+            desc = "Load session from current directory",
+        },
+        { "<leader>sd", "<cmd>SessionManager delete_session<cr>", desc = "Delete session" },
+        { "<leader>ss", "<cmd>SessionManager load_session<cr>", desc = "Select session" },
+        { "<leader>sw", "<cmd>SessionManager save_current_session<cr>", desc = "Save current session" },
     },
     config = function()
         local telescope = require "telescope"
