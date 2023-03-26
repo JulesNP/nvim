@@ -1,12 +1,5 @@
 return {
     {
-        "arsham/indent-tools.nvim",
-        event = "BufRead",
-        ft = "markdown",
-        dependencies = "arsham/arshlib.nvim",
-        opts = {},
-    },
-    {
         "nmac427/guess-indent.nvim",
         cond = not vim.g.vscode,
         event = "BufReadPre",
@@ -22,6 +15,8 @@ return {
                     vim.wo.listchars = "tab:> ,nbsp:+,trail:-,lead:▏,leadmultispace:▏"
                         .. string.rep(" ", vim.bo.shiftwidth - 1)
                     vim.wo.list = true
+                else
+                    vim.b.miniindentscope_disable = true
                 end
             end
 

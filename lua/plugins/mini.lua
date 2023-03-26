@@ -15,6 +15,16 @@ return {
     config = function()
         require("mini.ai").setup {}
         require("mini.bufremove").setup {}
+        require("mini.indentscope").setup {
+            draw = {
+                delay = 30,
+                animation = require("mini.indentscope").gen_animation.none(),
+            },
+            options = {
+                try_as_border = true,
+            },
+            symbol = "▏",
+        }
         require("mini.move").setup {}
         if not vim.g.vscode and not vim.g.neovide then
             local animate = require "mini.animate"
