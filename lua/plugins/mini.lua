@@ -17,8 +17,21 @@ return {
         require("mini.bufremove").setup {}
         require("mini.move").setup {}
         if not vim.g.vscode and not vim.g.neovide then
-            require("mini.animate").setup {
+            local animate = require "mini.animate"
+            animate.setup {
                 cursor = {
+                    enable = false,
+                },
+                scroll = {
+                    timing = animate.gen_timing.linear { duration = 30, unit = "total" },
+                },
+                resize = {
+                    enable = false,
+                },
+                open = {
+                    enable = false,
+                },
+                close = {
                     enable = false,
                 },
             }
