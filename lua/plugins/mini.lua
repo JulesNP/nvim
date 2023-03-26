@@ -12,6 +12,9 @@ return {
             desc = "Close buffer",
         },
     },
+    init = function()
+        vim.g.miniindentscope_disable = vim.g.vscode
+    end,
     config = function()
         require("mini.ai").setup {}
         require("mini.bufremove").setup {}
