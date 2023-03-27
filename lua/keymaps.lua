@@ -17,7 +17,7 @@ vim.keymap.set("n", "<esc>", "<cmd>nohlsearch<bar>diffupdate<cr>", { desc = "Cle
 vim.keymap.set("n", "<leader>n", "<cmd>enew<bar>set filetype=markdown<cr>", { desc = "New buffer" })
 vim.keymap.set("n", "<leader>X", "<cmd>bdelete<cr>", { desc = "Close window and buffer" })
 vim.keymap.set("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Open Lazy.nvim" })
-vim.keymap.set("n", "gA", "ga", { desc = "Show ASCII value" })
+vim.keymap.set("n", "<m-a>", "ga", { desc = "Show ASCII value" })
 vim.keymap.set("n", "gB", "<cmd>bprevious<cr>", { desc = "Go to previous buffer" })
 vim.keymap.set("n", "gb", "<cmd>bnext<cr>", { desc = "Go to next buffer" })
 vim.keymap.set("n", "j", [[v:count || mode(1)[0:1] == "no" ? "j" : "gj"]], { desc = "Down", expr = true })

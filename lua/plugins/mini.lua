@@ -34,6 +34,7 @@ return {
                 o = ts { a = { "@conditional.outer", "@loop.outer" }, i = { "@conditional.inner", "@loop.inner" } },
             },
         }
+        require("mini.align").setup {}
         require("mini.bufremove").setup {}
         require("mini.indentscope").setup {
             draw = {
