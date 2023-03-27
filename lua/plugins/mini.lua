@@ -55,6 +55,22 @@ return {
                 hooks_post = { require("mini.splitjoin").gen_hook.pad_brackets { brackets = { "%b[]", "%b{}" } } },
             },
         }
+        require("mini.surround").setup {
+            mappings = {
+                add = "ys",
+                delete = "ds",
+                find = "",
+                find_left = "",
+                highlight = "",
+                replace = "cs",
+                update_n_lines = "",
+            },
+            search_method = "cover_or_next",
+        }
+        vim.keymap.del("x", "ys")
+        vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { silent = true })
+        vim.keymap.set("n", "yss", "ys_", { remap = true })
+
         if not vim.g.vscode and not vim.g.neovide then
             local animate = require "mini.animate"
             animate.setup {
