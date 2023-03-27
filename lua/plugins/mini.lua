@@ -2,7 +2,7 @@ return {
     "echasnovski/mini.nvim",
     version = false,
     event = "BufRead",
-    ft = "markdown",
+    ft = { "lazy", "markdown" },
     keys = vim.g.vscode and {} or {
         {
             "<leader>x",
