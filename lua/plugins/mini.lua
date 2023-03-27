@@ -33,10 +33,10 @@ return {
             local animate = require "mini.animate"
             animate.setup {
                 cursor = {
-                    enable = false,
+                    timing = animate.gen_timing.linear { duration = 120, unit = "total" },
                 },
                 scroll = {
-                    timing = animate.gen_timing.linear { duration = 30, unit = "total" },
+                    timing = animate.gen_timing.linear { duration = 40, unit = "total" },
                 },
                 resize = {
                     enable = false,
