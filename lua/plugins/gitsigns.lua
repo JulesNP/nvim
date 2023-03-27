@@ -25,27 +25,29 @@ return {
             map("n", "<leader>hu", gs.undo_stage_hunk, "Undo stage hunk")
             map("n", "<leader>tb", gs.toggle_current_line_blame, "Toggle current line blame")
             map("n", "<leader>td", gs.toggle_deleted, "Toggle deleted")
-            map("n", "[c", function()
+            map("n", "[h", function()
                 if vim.wo.diff then
-                    return "[c"
+                    return "[h"
                 end
                 vim.schedule(function()
                     gs.prev_hunk()
                 end)
                 return "<Ignore>"
             end, "Prev hunk")
-            map("n", "]c", function()
+            map("n", "]h", function()
                 if vim.wo.diff then
-                    return "]c"
+                    return "]h"
                 end
                 vim.schedule(function()
                     gs.next_hunk()
                 end)
                 return "<Ignore>"
             end, "Next hunk")
+            map("o", "ah", "<cmd>Gitsigns select_hunk<CR>", "Select hunk")
             map("o", "ih", "<cmd>Gitsigns select_hunk<CR>", "Select hunk")
             map("x", "<leader>hr", ":Gitsigns reset_hunk<cr>", "Reset hunk")
             map("x", "<leader>hs", ":Gitsigns stage_hunk<cr>", "Stage hunk")
+            map("x", "ah", ":<c-u>Gitsigns select_hunk<CR>", "Select hunk")
             map("x", "ih", ":<c-u>Gitsigns select_hunk<CR>", "Select hunk")
         end,
         preview_config = {
