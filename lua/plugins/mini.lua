@@ -47,6 +47,14 @@ return {
             symbol = "▏",
         }
         require("mini.move").setup {}
+        require("mini.splitjoin").setup {
+            detect = {
+                separator = "[,;]",
+            },
+            join = {
+                hooks_post = { require("mini.splitjoin").gen_hook.pad_brackets { brackets = { "%b[]", "%b{}" } } },
+            },
+        }
         if not vim.g.vscode and not vim.g.neovide then
             local animate = require "mini.animate"
             animate.setup {
