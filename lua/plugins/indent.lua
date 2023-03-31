@@ -3,7 +3,7 @@ return {
         "nmac427/guess-indent.nvim",
         cond = not vim.g.vscode,
         event = "BufReadPre",
-        ft = "markdown",
+        ft = { "lazy", "markdown" },
         config = function()
             require("guess-indent").setup {
                 auto_cmd = false,
