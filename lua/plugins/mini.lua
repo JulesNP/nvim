@@ -75,10 +75,10 @@ return {
             local animate = require "mini.animate"
             animate.setup {
                 cursor = {
-                    timing = animate.gen_timing.linear { duration = 120, unit = "total" },
+                    timing = animate.gen_timing.linear { duration = 100, unit = "total" },
                 },
                 scroll = {
-                    timing = animate.gen_timing.linear { duration = 40, unit = "total" },
+                    timing = animate.gen_timing.linear { duration = 50, unit = "total" },
                 },
                 resize = {
                     enable = false,
