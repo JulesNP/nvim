@@ -1,8 +1,9 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+vim.o.winblend = 1
 if vim.g.neovide then
-    vim.g.neovide_floating_blur_amount_x = 8.0
-    vim.g.neovide_floating_blur_amount_y = 8.0
+    vim.g.neovide_floating_blur_amount_x = 6.0
+    vim.g.neovide_floating_blur_amount_y = 6.0
     vim.g.neovide_input_macos_alt_is_meta = true
     vim.o.pumblend = 25
     vim.o.winblend = 25

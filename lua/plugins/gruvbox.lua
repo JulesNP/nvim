@@ -44,6 +44,11 @@ return {
                     TelescopeResultsBorder = { link = "TelescopeResultsNormal" },
                     TelescopeResultsNormal = { bg = colors[bg .. "1"] },
                     TelescopeResultsTitle = { link = "TelescopeResultsNormal" },
+                    TreesitterContext = {
+                        fg = colors[fg .. "1"],
+                        bg = colors[bg .. "1"],
+                        blend = vim.g.neovide and 25 or 10,
+                    },
                     TreesitterContextLineNumber = { fg = colors.gray, bg = colors[bg .. "1"] },
                     Whitespace = { fg = bg == "dark" and colors.dark0_hard or colors.light0_soft },
                 },
