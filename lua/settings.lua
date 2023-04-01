@@ -1,19 +1,5 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-vim.o.winblend = 1
-if vim.g.neovide then
-    vim.g.neovide_floating_blur_amount_x = 6.0
-    vim.g.neovide_floating_blur_amount_y = 6.0
-    vim.g.neovide_input_macos_alt_is_meta = true
-    vim.o.pumblend = 25
-    vim.o.winblend = 25
-    vim.keymap.set("n", "<leader>tf", function()
-        vim.g.neovide_fullscreen = vim.g.neovide_fullscreen == 1 and 0 or 1
-    end, { desc = "Toggle fullscreen" })
-end
-if not vim.g.neovide or vim.loop.os_uname().sysname ~= "Windows_NT" then
-    vim.o.clipboard = "unnamedplus"
-end
 vim.o.completeopt = "menu,menuone,noselect"
 vim.o.concealcursor = "nc"
 vim.o.conceallevel = 2
@@ -27,6 +13,7 @@ vim.o.ignorecase = true
 vim.o.inccommand = "split"
 vim.o.linebreak = true
 vim.o.number = true
+vim.o.pumblend = 5
 vim.o.scrolloff = 5
 vim.o.shiftwidth = 4
 vim.o.showbreak = "↳ "
@@ -42,3 +29,18 @@ vim.o.undofile = true
 vim.o.updatetime = 1000
 vim.o.viewoptions = "folds,cursor"
 vim.o.whichwrap = "b,s,<,>,[,]"
+vim.o.winblend = 5
+
+if vim.g.neovide then
+    vim.g.neovide_floating_blur_amount_x = 6.0
+    vim.g.neovide_floating_blur_amount_y = 6.0
+    vim.g.neovide_input_macos_alt_is_meta = true
+    vim.o.pumblend = 25
+    vim.o.winblend = 25
+    vim.keymap.set("n", "<leader>tf", function()
+        vim.g.neovide_fullscreen = vim.g.neovide_fullscreen == 1 and 0 or 1
+    end, { desc = "Toggle fullscreen" })
+end
+if not vim.g.neovide or vim.loop.os_uname().sysname ~= "Windows_NT" then
+    vim.o.clipboard = "unnamedplus"
+end
