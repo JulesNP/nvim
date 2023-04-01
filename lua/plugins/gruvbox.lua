@@ -44,7 +44,7 @@ return {
                     TelescopeResultsBorder = { link = "TelescopeResultsNormal" },
                     TelescopeResultsNormal = { bg = colors[bg .. "1"] },
                     TelescopeResultsTitle = { link = "TelescopeResultsNormal" },
-                    TreesitterContextLineNumber = { fg = colors.gray, bg = colors[bg .. "2"] },
+                    TreesitterContextLineNumber = { fg = colors.gray, bg = colors[bg .. "1"] },
                     Whitespace = { fg = bg == "dark" and colors.dark0_hard or colors.light0_soft },
                 },
             }
