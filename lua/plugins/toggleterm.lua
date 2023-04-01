@@ -16,6 +16,7 @@ return {
     keys = vim.g.vscode and {} or {
         { "<c-\\>", toggle, desc = "Open ToggleTerm" },
         { "<c-\\>", toggle, desc = "Open ToggleTerm", mode = "t" },
+        { "<c-\\>", ":ToggleTermSendVisualSelection<cr>gv", desc = "Send selection to ToggleTerm", mode = "x" },
     },
     opts = {},
 }
