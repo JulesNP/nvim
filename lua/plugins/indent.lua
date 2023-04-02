@@ -11,8 +11,20 @@ return {
         cond = not vim.g.vscode,
         event = "BufReadPre",
         ft = { "lazy", "markdown" },
+        init = function()
+            vim.g.indent_blankline_enabled = false
+            vim.api.nvim_create_autocmd("FileType", {
+                group = vim.api.nvim_create_augroup("IndentBlanklineEnable", { clear = true }),
+                callback = function()
+                    if vim.bo.buftype == "" then
+                        vim.b.indent_blankline_enabled = true
+                    end
+                end,
+            })
+        end,
         opts = {
             char = "▏",
+            show_trailing_blankline_indent = false,
         },
     },
 }
