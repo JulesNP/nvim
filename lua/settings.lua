@@ -32,11 +32,9 @@ vim.o.whichwrap = "b,s,<,>,[,]"
 vim.o.winblend = 5
 
 if vim.g.neovide then
-    vim.g.neovide_floating_blur_amount_x = 6.0
-    vim.g.neovide_floating_blur_amount_y = 6.0
     vim.g.neovide_input_macos_alt_is_meta = true
-    vim.o.pumblend = 25
-    vim.o.winblend = 25
+    vim.o.pumblend = 10
+    vim.o.winblend = 10
     vim.keymap.set("n", "<leader>tf", function()
         vim.g.neovide_fullscreen = vim.g.neovide_fullscreen == 1 and 0 or 1
     end, { desc = "Toggle fullscreen" })
