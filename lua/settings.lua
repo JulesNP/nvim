@@ -13,7 +13,7 @@ vim.o.ignorecase = true
 vim.o.inccommand = "split"
 vim.o.linebreak = true
 vim.o.number = true
-vim.o.pumblend = 5
+vim.o.pumblend = 8
 vim.o.scrolloff = 5
 vim.o.shiftwidth = 4
 vim.o.showbreak = "↳ "
@@ -29,12 +29,10 @@ vim.o.undofile = true
 vim.o.updatetime = 1000
 vim.o.viewoptions = "folds,cursor"
 vim.o.whichwrap = "b,s,<,>,[,]"
-vim.o.winblend = 5
+vim.o.winblend = 8
 
 if vim.g.neovide then
     vim.g.neovide_input_macos_alt_is_meta = true
-    vim.o.pumblend = 10
-    vim.o.winblend = 10
     vim.keymap.set("n", "<leader>tf", function()
         vim.g.neovide_fullscreen = vim.g.neovide_fullscreen == 1 and 0 or 1
     end, { desc = "Toggle fullscreen" })
