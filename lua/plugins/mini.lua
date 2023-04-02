@@ -13,7 +13,18 @@ return {
         },
     },
     init = function()
-        vim.g.miniindentscope_disable = vim.g.vscode
+        vim.g.miniindentscope_disable = true
+        vim.g.indent_blankline_enabled = false
+
+        vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+            group = vim.api.nvim_create_augroup("Indent", { clear = true }),
+            callback = function()
+                if vim.bo.buftype == "" then
+                    -- vim.b.indentLine_enabled = true
+                    vim.b.miniindentscope_disable = false
+                end
+            end,
+        })
     end,
     config = function()
         local ts = require("mini.ai").gen_spec.treesitter
