@@ -28,6 +28,8 @@ return {
                     IlluminatedWordRead = { bg = colors[bg .. "2"] },
                     IlluminatedWordText = { bg = colors[bg .. "2"] },
                     IlluminatedWordWrite = { bg = bg == "dark" and colors.faded_orange or colors.bright_yellow },
+                    IndentBlanklineChar = { fg = bg == "dark" and colors.dark0_hard or colors.light0_soft },
+                    IndentBlanklineSpaceChar = { fg = bg == "dark" and colors.bright_orange or colors.faded_orange },
                     LeapBackdrop = { fg = colors.gray, bg = colors[bg .. "0"] },
                     LeapLabelPrimary = { nocombine = true, fg = colors.light0, bg = colors.neutral_red },
                     LeapLabelSecondary = { nocombine = true, fg = colors.light0, bg = colors.faded_blue },
@@ -50,7 +52,6 @@ return {
                         blend = 12,
                     },
                     TreesitterContextLineNumber = { fg = colors.gray, bg = colors[bg .. "1"] },
-                    Whitespace = { fg = bg == "dark" and colors.dark0_hard or colors.light0_soft },
                 },
             }
             vim.cmd.colorscheme "gruvbox"
