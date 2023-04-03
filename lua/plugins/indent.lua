@@ -24,6 +24,7 @@ return {
         end,
         opts = {
             char = "▏",
+            char_priority = 15,
             show_trailing_blankline_indent = false,
         },
     },

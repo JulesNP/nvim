@@ -51,6 +51,7 @@ return {
             draw = {
                 delay = 30,
                 animation = require("mini.indentscope").gen_animation.none(),
+                priority = 20,
             },
             options = {
                 indent_at_cursor = false,
