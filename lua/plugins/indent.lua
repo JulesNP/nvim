@@ -2,14 +2,14 @@ return {
     {
         "nmac427/guess-indent.nvim",
         cond = not vim.g.vscode,
-        event = "BufReadPre",
+        event = "BufRead",
         ft = { "lazy", "markdown" },
         config = true,
     },
     {
         "lukas-reineke/indent-blankline.nvim",
         cond = not vim.g.vscode,
-        event = "BufReadPre",
+        event = "BufRead",
         ft = { "lazy", "markdown" },
         init = function()
             vim.g.indent_blankline_enabled = false
