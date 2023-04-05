@@ -1,7 +1,3 @@
-local function termcodes(str)
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
 vim.keymap.set("n", "<a-left>", "<c-w><lt>", { desc = "Decrease width" })
 vim.keymap.set("n", "<a-down>", "<c-w>+", { desc = "Increase height" })
 vim.keymap.set("n", "<a-up>", "<c-w>-", { desc = "Decrease height" })
@@ -28,12 +24,13 @@ vim.keymap.set("n", "<leader>tv", function()
     vim.o.virtualedit = vim.o.virtualedit == "" and "all" or ""
 end, { desc = "Toggle virtual editing" })
 
-vim.keymap.set("t", "<c-h>", termcodes "<c-\\><c-n><c-w>h", { desc = "Go to the left window" })
-vim.keymap.set("t", "<c-j>", termcodes "<c-\\><c-n><c-w>j", { desc = "Go to the down window" })
-vim.keymap.set("t", "<c-k>", termcodes "<c-\\><c-n><c-w>k", { desc = "Go to the up window" })
-vim.keymap.set("t", "<c-l>", termcodes "<c-\\><c-n><c-w>l", { desc = "Go to the right window" })
-vim.keymap.set("t", "<c-s-v>", "<c-r>+", { desc = "Paste from clipboard" })
-vim.keymap.set("t", "<m-x>", termcodes "<c-\\><c-n>", { desc = "Go to Normal mode" })
+vim.keymap.set("t", "<c-h>", "<cmd>wincmd h<cr>", { desc = "Go to the left window" })
+vim.keymap.set("t", "<c-j>", "<cmd>wincmd j<cr>", { desc = "Go to the down window" })
+vim.keymap.set("t", "<c-k>", "<cmd>wincmd k<cr>", { desc = "Go to the up window" })
+vim.keymap.set("t", "<c-l>", "<cmd>wincmd l<cr>", { desc = "Go to the right window" })
+vim.keymap.set("t", "<c-w>", [[<c-\><c-n>w]], { desc = "Input window command" })
+vim.keymap.set("t", "<c-s-v>", [[<c-\><c-n>"+pa]], { desc = "Paste from clipboard" })
+vim.keymap.set("t", "<m-x>", [[<c-\><c-n>]], { desc = "Go to Normal mode" })
 
 vim.keymap.set("x", "<", "<gv", { desc = "Shift left" })
 vim.keymap.set("x", ">", ">gv", { desc = "Shift left" })

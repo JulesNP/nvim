@@ -31,5 +31,7 @@ return {
             mode = "x",
         },
     },
-    opts = {},
+    opts = {
+        autochdir = true,
+    },
 }
