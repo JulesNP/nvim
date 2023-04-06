@@ -36,7 +36,7 @@ return {
             group = vim.api.nvim_create_augroup("LeapSetup", { clear = true }),
             pattern = "*",
             callback = function(opts)
-                if vim.g.vscode or vim.bo.buftype == "" or vim.bo.buftype == "help" then
+                if (vim.g.vscode or vim.bo.buftype == "" or vim.bo.buftype == "help") and vim.bo.filetype ~= "octo" then
                     vim.keymap.set(
                         "n",
                         "<cr>",
