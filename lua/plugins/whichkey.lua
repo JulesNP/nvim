@@ -24,6 +24,7 @@ return {
 
         wk.register {
             ["<leader>d"] = { name = "diffview" },
+            ["<leader>e"] = { name = "rest" },
             ["<leader>f"] = { name = "find" },
             ["<leader>g"] = { name = "git", f = { name = "find" } },
             ["<leader>h"] = { name = "hunk" },
