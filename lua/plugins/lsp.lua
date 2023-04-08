@@ -183,8 +183,6 @@ return {
             }
         end
 
-        require("mason-null-ls").setup {}
-
         local null_ls = require "null-ls"
         local builtins = null_ls.builtins
         local sources = {
@@ -206,16 +204,18 @@ return {
         end
         null_ls.setup { diagnostics_format = "#{m} [#{s}]", on_attach = on_attach, sources = sources }
 
-        require("mason-null-ls").setup_handlers {
-            function(source_name, methods)
-                require "mason-null-ls.automatic_setup"(source_name, methods)
-            end,
-            clang_format = function()
-                null_ls.register(builtins.formatting.clang_format.with { disabled_filetypes = { "cs" } })
-            end,
-            luacheck = function()
-                null_ls.register(builtins.diagnostics.luacheck.with { extra_args = { "--globals", "vim" } })
-            end,
+        require("mason-null-ls").setup {
+            handlers = {
+                function(source_name, methods)
+                    require "mason-null-ls.automatic_setup"(source_name, methods)
+                end,
+                clang_format = function()
+                    null_ls.register(builtins.formatting.clang_format.with { disabled_filetypes = { "cs" } })
+                end,
+                luacheck = function()
+                    null_ls.register(builtins.diagnostics.luacheck.with { extra_args = { "--globals", "vim" } })
+                end,
+            },
         }
     end,
 }
