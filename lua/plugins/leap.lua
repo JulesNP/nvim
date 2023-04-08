@@ -1,5 +1,6 @@
 return {
     "ggandor/leap.nvim",
+    dependencies = { "ggandor/leap-spooky.nvim" },
     event = "BufRead",
     ft = "markdown",
     config = function()
@@ -58,5 +59,7 @@ return {
                 end
             end,
         })
+
+        require("leap-spooky").setup {}
     end,
 }
