@@ -3,15 +3,6 @@ return {
     version = false,
     event = "BufRead",
     ft = { "lazy", "markdown" },
-    keys = vim.g.vscode and {} or {
-        {
-            "<leader>x",
-            function()
-                require("mini.bufremove").delete()
-            end,
-            desc = "Close buffer",
-        },
-    },
     init = function()
         if vim.g.vscode then
             vim.g.miniindentscope_disable = true
@@ -46,7 +37,6 @@ return {
             },
         }
         require("mini.align").setup {}
-        require("mini.bufremove").setup {}
         require("mini.indentscope").setup {
             draw = {
                 delay = 30,
