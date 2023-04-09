@@ -40,5 +40,7 @@ return {
 
         paren_subpair " "
         paren_subpair "|"
+        autopairs.remove_rule "'"
+        autopairs.add_rule(rule("'", "'", "-fsharp"))
     end,
 }
