@@ -3,6 +3,10 @@ return {
     cond = not vim.g.vscode,
     event = "BufRead",
     ft = "markdown",
+    cmd = { "Mason" },
+    keys = vim.g.vscode and {} or {
+        { "<leader>m", "<cmd>Mason<cr>", desc = "Open Mason" },
+    },
     dependencies = {
         "Decodetalkers/csharpls-extended-lsp.nvim",
         "folke/neodev.nvim",
