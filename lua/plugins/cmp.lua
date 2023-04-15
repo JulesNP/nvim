@@ -12,6 +12,7 @@ return {
         "hrsh7th/cmp-nvim-lsp-signature-help",
         "hrsh7th/cmp-nvim-lua",
         "hrsh7th/cmp-path",
+        { "kristijanhusak/vim-dadbod-completion", dependencies = { "tpope/vim-dadbod" } },
         "petertriho/cmp-git",
         "rafamadriz/friendly-snippets",
         "saadparwaiz1/cmp_luasnip",
@@ -87,6 +88,18 @@ return {
         require("cmp_git").setup {
             filetypes = { "NeogitCommitMessage", "gitcommit", "octo" },
         }
+
+        cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
+            sources = {
+                { name = "nvim_lsp_signature_help" },
+                { name = "luasnip" },
+                { name = "vim-dadbod-completion" },
+                { name = "nvim_lsp" },
+                { name = "path" },
+                { name = "calc" },
+                { name = "buffer" },
+            },
+        })
 
         cmp.setup.cmdline({ "/", "?" }, {
             mapping = cmp.mapping.preset.cmdline(),
