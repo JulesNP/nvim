@@ -10,7 +10,18 @@ return {
         result = {
             formatters = {
                 html = function(body)
-                    return vim.fn.system({ "prettier", "--parser", "html" }, body)
+                    if vim.fn.executable "prettier" then
+                        return vim.fn.system({ "prettier", "--parser", "html" }, body)
+                    else
+                        return body
+                    end
+                end,
+                json = function(body)
+                    if vim.fn.executable "prettier" then
+                        return vim.fn.system({ "prettier", "--parser", "json" }, body)
+                    else
+                        return body
+                    end
                 end,
             },
         },
