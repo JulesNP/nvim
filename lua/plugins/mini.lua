@@ -39,7 +39,7 @@ return {
         require("mini.align").setup {}
         require("mini.indentscope").setup {
             draw = {
-                delay = 30,
+                delay = 25,
                 animation = require("mini.indentscope").gen_animation.none(),
                 priority = 20,
             },
@@ -77,7 +77,7 @@ return {
             local animate = require "mini.animate"
             animate.setup {
                 cursor = {
-                    timing = animate.gen_timing.linear { duration = 100, unit = "total" },
+                    timing = animate.gen_timing.linear { duration = 50, unit = "total" },
                 },
                 scroll = {
                     timing = animate.gen_timing.linear { duration = 50, unit = "total" },
