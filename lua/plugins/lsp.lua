@@ -220,7 +220,17 @@ return {
                     null_ls.register(builtins.diagnostics.luacheck.with { extra_args = { "--globals", "vim" } })
                 end,
                 sqlfmt = function()
-                    null_ls.register(builtins.formatting.sqlfmt.with { args = { "-" }, to_stdin = true })
+                    -- Custom config of sqlfmt using stdin, since base config only works with .sql files,
+                    -- and Dadbod UI creates/saves queries without any extensions
+                    null_ls.register {
+                        method = null_ls.methods.FORMATTING,
+                        filetypes = { "sql", "jinja" },
+                        generator = require("null-ls.helpers").formatter_factory {
+                            command = "sqlfmt",
+                            args = { "-" },
+                            to_stdin = true,
+                        },
+                    }
                 end,
             },
         }
