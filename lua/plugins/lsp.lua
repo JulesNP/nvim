@@ -219,6 +219,9 @@ return {
                 luacheck = function()
                     null_ls.register(builtins.diagnostics.luacheck.with { extra_args = { "--globals", "vim" } })
                 end,
+                sqlfmt = function()
+                    null_ls.register(builtins.formatting.sqlfmt.with { args = { "-" }, to_stdin = true })
+                end,
             },
         }
     end,
