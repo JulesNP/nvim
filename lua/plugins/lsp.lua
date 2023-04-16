@@ -2,7 +2,7 @@ return {
     "neovim/nvim-lspconfig",
     cond = not vim.g.vscode,
     event = "BufRead",
-    ft = "markdown",
+    ft = { "dbui", "markdown" },
     cmd = { "Mason" },
     keys = vim.g.vscode and {} or {
         { "<leader>m", "<cmd>Mason<cr>", desc = "Open Mason" },
