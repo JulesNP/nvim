@@ -6,7 +6,7 @@ return {
         event = { "CmdlineEnter", "BufRead" },
         ft = { "sql", "mysql", "plsql" },
         keys = vim.g.vscode and {} or {
-            { "<leader>db", "<cmd>DBUI<cr>", desc = "Dadbod UI" },
+            { "<leader>db", "<cmd>DBUIToggle<cr>", desc = "Dadbod UI" },
         },
     },
     { "tpope/vim-repeat", event = "BufRead", ft = "markdown" },
