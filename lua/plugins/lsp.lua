@@ -224,7 +224,7 @@ return {
                     -- and Dadbod UI creates/saves queries without any extensions
                     null_ls.register {
                         method = null_ls.methods.FORMATTING,
-                        filetypes = { "sql", "jinja" },
+                        filetypes = { "jinja", "mysql", "sql" },
                         generator = require("null-ls.helpers").formatter_factory {
                             command = "sqlfmt",
                             args = { "-" },
