@@ -40,7 +40,6 @@ return {
 
         paren_subpair " "
         paren_subpair "|"
-        autopairs.remove_rule "'"
-        autopairs.add_rule(rule("'", "'", "-fsharp"))
+        require("nvim-autopairs").get_rule("'")[1].not_filetypes = { "fsharp" }
     end,
 }
