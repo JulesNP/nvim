@@ -6,7 +6,7 @@ return {
         { "<leader>ep", "<Plug>RestNvimPreview", desc = "Preview HTTP request" },
         { "<leader>er", "<Plug>RestNvimLast", desc = "Repeat HTTP request" },
     },
-    config = {
+    opts = {
         result = {
             formatters = {
                 html = function(body)
