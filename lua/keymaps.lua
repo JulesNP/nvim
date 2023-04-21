@@ -40,7 +40,7 @@ vim.keymap.set("x", "k", [[v:count || mode(1)[0:1] == "no" ? "k" : "gk"]], { des
 vim.keymap.set("x", "y", "myy`y", { desc = "Yank selection" })
 vim.keymap.set("x", "Y", "myY`y", { desc = "Yank selection linewise" })
 
-vim.keymap.set({ "n", "x" }, "H", function()
+vim.keymap.set({ "n", "o", "x" }, "H", function()
     local so = 0
     for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
         local config = vim.api.nvim_win_get_config(win)
@@ -51,7 +51,7 @@ vim.keymap.set({ "n", "x" }, "H", function()
     vim.o.scrolloff = so
     vim.api.nvim_feedkeys("H", "n", false)
 end, { desc = "Home line of window (top)" })
-vim.keymap.set({ "n", "x" }, "L", function()
+vim.keymap.set({ "n", "o", "x" }, "L", function()
     vim.o.scrolloff = 0
     vim.api.nvim_feedkeys("L", "n", false)
 end, { desc = "Last line of window" })
