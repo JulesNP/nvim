@@ -49,9 +49,9 @@ vim.keymap.set({ "n", "o", "x" }, "H", function()
         end
     end
     vim.o.scrolloff = so
-    vim.api.nvim_feedkeys("H", "n", false)
+    vim.api.nvim_feedkeys(vim.v.count > 0 and vim.v.count .. "H" or "H", "n", false)
 end, { desc = "Home line of window (top)" })
 vim.keymap.set({ "n", "o", "x" }, "L", function()
     vim.o.scrolloff = 0
-    vim.api.nvim_feedkeys("L", "n", false)
+    vim.api.nvim_feedkeys(vim.v.count > 0 and vim.v.count .. "L" or "L", "n", false)
 end, { desc = "Last line of window" })
