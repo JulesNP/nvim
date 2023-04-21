@@ -14,7 +14,6 @@ vim.o.inccommand = "split"
 vim.o.linebreak = true
 vim.o.number = true
 vim.o.pumblend = 8
-vim.o.scrolloff = 5
 vim.o.shiftwidth = 4
 vim.o.showbreak = "↳ "
 vim.o.showmode = false
