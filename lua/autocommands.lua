@@ -18,14 +18,6 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-    group = filetype_settings,
-    pattern = "*",
-    callback = function()
-        vim.opt_local.formatoptions:remove "o"
-    end,
-})
-
 vim.api.nvim_create_autocmd("TextYankPost", {
     group = vim.api.nvim_create_augroup("HighlightYank", { clear = true }),
     pattern = "*",
