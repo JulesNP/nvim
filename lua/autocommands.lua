@@ -75,21 +75,14 @@ if not vim.g.vscode then
         end,
     })
 
-    vim.api.nvim_create_autocmd("CursorMoved", {
+    vim.api.nvim_create_autocmd({ "CursorMoved", "WinScrolled" }, {
         group = vim.api.nvim_create_augroup("ToggleScrolloff", { clear = true }),
         pattern = "*",
         callback = function()
             if vim.fn.winline() * 2 >= vim.api.nvim_win_get_height(0) then
                 vim.o.scrolloff = 0
             else
-                local so = 0
-                for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-                    local config = vim.api.nvim_win_get_config(win)
-                    if config.relative == "win" and config.zindex == 20 then
-                        so = config.height
-                    end
-                end
-                vim.o.scrolloff = so
+                vim.o.scrolloff = require "context-height"()
             end
         end,
     })

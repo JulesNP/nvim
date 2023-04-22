@@ -16,8 +16,6 @@ vim.keymap.set("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Open Lazy.nvim" })
 vim.keymap.set("n", "<m-a>", "ga", { desc = "Show ASCII value" })
 vim.keymap.set("n", "gB", "<cmd>bprevious<cr>", { desc = "Go to previous buffer" })
 vim.keymap.set("n", "gb", "<cmd>bnext<cr>", { desc = "Go to next buffer" })
-vim.keymap.set("n", "j", [[v:count || mode(1)[0:1] == "no" ? "j" : "gj"]], { desc = "Down", expr = true })
-vim.keymap.set("n", "k", [[v:count || mode(1)[0:1] == "no" ? "k" : "gk"]], { desc = "Up", expr = true })
 vim.keymap.set("n", "<leader>ts", "<cmd>windo set scrollbind! cursorbind!<cr>", { desc = "Toggle scroll/cursor sync" })
 vim.keymap.set("n", "<leader>tw", "<cmd>set wrap!<cr>", { desc = "Toggle word wrap" })
 vim.keymap.set("n", "<leader>tv", function()
@@ -35,22 +33,27 @@ vim.keymap.set("t", "<m-x>", [[<c-\><c-n>]], { desc = "Go to Normal mode" })
 vim.keymap.set("x", "<", "<gv", { desc = "Shift left" })
 vim.keymap.set("x", ">", ">gv", { desc = "Shift left" })
 vim.keymap.set("x", "<leader>s", ":sort<cr>", { desc = "Sort selection" })
-vim.keymap.set("x", "j", [[v:count || mode(1)[0:1] == "no" ? "j" : "gj"]], { desc = "Down", expr = true })
-vim.keymap.set("x", "k", [[v:count || mode(1)[0:1] == "no" ? "k" : "gk"]], { desc = "Up", expr = true })
 vim.keymap.set("x", "y", "myy`y", { desc = "Yank selection" })
 vim.keymap.set("x", "Y", "myY`y", { desc = "Yank selection linewise" })
 
-vim.keymap.set({ "n", "o", "x" }, "H", function()
-    local so = 0
-    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-        local config = vim.api.nvim_win_get_config(win)
-        if config.relative == "win" and config.zindex == 20 then
-            so = config.height
-        end
+vim.keymap.set({ "n", "x" }, "j", function()
+    vim.api.nvim_feedkeys(vim.v.count > 0 and "j" or "gj", "n", false)
+end, { desc = "Down", expr = true })
+
+vim.keymap.set({ "n", "x" }, "k", function()
+    if vim.v.count == 0 and vim.fn.winline() <= vim.o.scrolloff + 1 then
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<c-y>", true, false, true), "n", true)
+        vim.api.nvim_input "gk"
+    else
+        vim.api.nvim_feedkeys(vim.v.count > 0 and "k" or "gk", "n", false)
     end
-    vim.o.scrolloff = so
+end, { desc = "Up", expr = true })
+
+vim.keymap.set({ "n", "o", "x" }, "H", function()
+    vim.o.scrolloff = require "context-height"()
     vim.api.nvim_feedkeys(vim.v.count > 0 and vim.v.count .. "H" or "H", "n", false)
 end, { desc = "Home line of window (top)" })
+
 vim.keymap.set({ "n", "o", "x" }, "L", function()
     vim.o.scrolloff = 0
     vim.api.nvim_feedkeys(vim.v.count > 0 and vim.v.count .. "L" or "L", "n", false)
