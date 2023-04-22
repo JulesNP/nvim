@@ -3,6 +3,7 @@ return {
     event = "BufRead",
     ft = "markdown",
     dependencies = {
+        "HiPhish/nvim-ts-rainbow2",
         "andymass/vim-matchup",
         "nvim-treesitter/nvim-treesitter-context",
         "nvim-treesitter/nvim-treesitter-textobjects",
@@ -80,6 +81,9 @@ return {
                 enable = true,
                 use_virtual_text = true,
                 lint_events = { "BufWrite", "CursorHold" },
+            },
+            rainbow = {
+                enable = true,
             },
             textobjects = {
                 lsp_interop = {
