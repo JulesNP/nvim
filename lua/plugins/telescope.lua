@@ -206,6 +206,7 @@ return {
         local telescope = require "telescope"
         local actions = require "telescope.actions"
         local fb_actions = require("telescope").extensions.file_browser.actions
+        local tu_actions = require "telescope-undo.actions"
         telescope.setup {
             defaults = {
                 borderchars = { " " },
@@ -264,6 +265,16 @@ return {
                 },
                 ["ui-select"] = {
                     require("telescope.themes").get_dropdown { borderchars = { " " } },
+                },
+                undo = {
+                    diff_context_lines = 5,
+                    mappings = {
+                        i = {
+                            ["<c-y>"] = tu_actions.yank_additions,
+                            ["<a-y>"] = tu_actions.yank_deletions,
+                            ["<cr>"] = tu_actions.restore,
+                        },
+                    },
                 },
             },
         }
