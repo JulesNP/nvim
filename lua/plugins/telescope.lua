@@ -65,13 +65,6 @@ return {
                 desc = "Find buffer",
             },
             {
-                "<leader>fc",
-                function()
-                    require("telescope.builtin").colorscheme()
-                end,
-                desc = "Find colorscheme",
-            },
-            {
                 "<leader>fd",
                 function()
                     require("telescope.builtin").diagnostics()
@@ -135,7 +128,14 @@ return {
                 end,
                 desc = "Find workspace symbol",
             },
-            { "<leader>fu", "<cmd>Telescope undo<cr>", desc = "Save current session" },
+            {
+                "<leader>ft",
+                function()
+                    require("telescope.builtin").colorscheme()
+                end,
+                desc = "Find theme",
+            },
+            { "<leader>fu", "<cmd>Telescope undo<cr>", desc = "Search undo tree" },
             {
                 "<leader>fw",
                 function()
@@ -200,7 +200,7 @@ return {
             { "<leader>sd", "<cmd>SessionManager delete_session<cr>", desc = "Delete session" },
             { "<leader>ss", "<cmd>SessionManager load_session<cr>", desc = "Select session" },
             { "<leader>sw", "<cmd>SessionManager save_current_session<cr>", desc = "Save current session" },
-            { "<leader>u", "<cmd>Telescope undo<cr>", desc = "Save current session" },
+            { "<leader>u", "<cmd>Telescope undo<cr>", desc = "Search undo tree" },
         },
     config = function()
         local telescope = require "telescope"
