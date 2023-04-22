@@ -14,6 +14,7 @@ return {
         "hrsh7th/nvim-cmp",
         "ionide/Ionide-vim",
         "jay-babu/mason-null-ls.nvim",
+        "joechrisellis/lsp-format-modifications.nvim",
         "jose-elias-alvarez/null-ls.nvim",
         "jose-elias-alvarez/typescript.nvim",
         "kevinhwang91/nvim-ufo",
@@ -92,6 +93,15 @@ return {
                     vim.cmd.mkview()
                 end, "Format and save if modified")
                 nmap("<leader>fm", format, "Format document")
+            end
+
+            if client.supports_method "textDocument/rangeFormatting" then
+                require("lsp-format-modifications").attach(
+                    client,
+                    bufnr,
+                    { format_on_save = false, experimental_empty_line_handling = true }
+                )
+                nmap("<leader>fc", "<cmd>FormatModifications<cr>", "Format changes")
             end
         end
 
