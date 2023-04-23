@@ -6,8 +6,22 @@ return {
         event = { "CmdlineEnter", "BufRead" },
         ft = { "sql", "mysql", "plsql" },
         keys = vim.g.vscode and {} or {
-            { "<leader>db", "<cmd>DBUIToggle<cr>", desc = "Dadbod UI" },
+            {
+                "<leader>db",
+                function()
+                    if vim.bo.filetype == "alpha" then
+                        vim.cmd "enew"
+                        vim.bo.filetype = "markdown"
+                        vim.bo.filetype = "sql"
+                    end
+                    vim.cmd "DBUIToggle"
+                end,
+                desc = "Dadbod UI",
+            },
         },
+        init = function()
+            vim.g.db_ui_use_nerd_fonts = 1
+        end,
     },
     { "tpope/vim-repeat", event = "BufRead", ft = "markdown" },
     { "tpope/vim-speeddating", event = "BufReadPost", ft = "markdown" },
