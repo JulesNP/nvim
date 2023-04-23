@@ -67,6 +67,8 @@ return {
                 replace = "cs",
                 update_n_lines = "",
             },
+            n_lines = 50,
+            respect_selection_type = true,
             search_method = "cover_or_next",
         }
         vim.keymap.del("x", "ys")

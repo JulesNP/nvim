@@ -40,7 +40,7 @@ return {
                     LeapLabelPrimary = { nocombine = true, fg = colors.light0, bg = colors.neutral_red },
                     LeapLabelSecondary = { nocombine = true, fg = colors.light0, bg = colors.faded_blue },
                     LeapMatch = { fg = colors[fg .. "0"] },
-                    MatchParen = { bold = false, bg = colors[bg .. "2"] },
+                    MatchParen = { bg = colors[bg .. "2"] },
                     MiniIndentscopeSymbol = { fg = colors[bg .. "2"] },
                     SignColumn = { bg = colors[bg .. "0"] },
                     TelescopePreviewBorder = { link = "TelescopePreviewNormal" },
