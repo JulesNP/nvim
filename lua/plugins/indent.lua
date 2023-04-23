@@ -16,7 +16,7 @@ return {
             vim.api.nvim_create_autocmd("FileType", {
                 group = vim.api.nvim_create_augroup("IndentBlanklineEnable", { clear = true }),
                 callback = function()
-                    if vim.bo.buftype == "" and vim.bo.filetype ~= "toggleterm" then
+                    if vim.bo.buftype == "" and vim.bo.filetype ~= "toggleterm" and vim.bo.filetype ~= "dbout" then
                         vim.b.indent_blankline_enabled = true
                     end
                 end,
