@@ -20,7 +20,6 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.api.nvim_create_autocmd("TextYankPost", {
     group = vim.api.nvim_create_augroup("HighlightYank", { clear = true }),
-    pattern = "*",
     callback = function()
         vim.highlight.on_yank { timeout = 300 }
     end,
@@ -56,7 +55,6 @@ if not vim.g.vscode then
 
     vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
         group = relative_number_toggle,
-        pattern = "*",
         callback = function()
             if vim.o.number then
                 vim.o.relativenumber = false
@@ -67,7 +65,6 @@ if not vim.g.vscode then
 
     vim.api.nvim_create_autocmd({ "BufEnter", "CmdlineLeave", "FocusGained", "InsertLeave", "WinEnter" }, {
         group = relative_number_toggle,
-        pattern = "*",
         callback = function()
             if vim.o.number then
                 vim.o.relativenumber = true
@@ -90,7 +87,6 @@ if not vim.g.vscode then
 
     vim.api.nvim_create_autocmd("TermOpen", {
         group = vim.api.nvim_create_augroup("ConfigureTerminal", { clear = true }),
-        pattern = "*",
         callback = function()
             vim.cmd.setlocal "nonumber"
             vim.cmd.setlocal "norelativenumber"
@@ -119,7 +115,6 @@ if not vim.g.vscode then
     -- If the only remaining editing window is being closed, also close all non-essential windows to allow vim to exit gracefully
     vim.api.nvim_create_autocmd("QuitPre", {
         group = vim.api.nvim_create_augroup("GracefulExit", { clear = true }),
-        pattern = "*",
         callback = function()
             if not is_essential(vim.bo.filetype) then
                 return
