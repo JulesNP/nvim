@@ -4,12 +4,16 @@ return {
     ft = "markdown",
     config = function()
         require("illuminate").configure {
-            providers = vim.g.vscode and { "treesitter", "regex" } or {
+            providers = vim.g.vscode and { "treesitter" } or {
                 "lsp",
                 "treesitter",
-                "regex",
             },
             min_count_to_highlight = 2,
+            filetype_overrides = {
+                sql = {
+                    providers = { "regex" },
+                },
+            },
         }
     end,
 }
