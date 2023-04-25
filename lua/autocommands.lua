@@ -77,12 +77,13 @@ if not vim.g.vscode then
 
     vim.api.nvim_create_autocmd({ "CursorMoved", "WinScrolled" }, {
         group = vim.api.nvim_create_augroup("ToggleScrolloff", { clear = true }),
-        pattern = "*",
         callback = function()
-            if vim.fn.winline() * 2 >= vim.api.nvim_win_get_height(0) then
-                vim.o.scrolloff = 0
-            else
-                vim.o.scrolloff = require "context-height"()
+            local scrolloff = 0
+            if vim.fn.winline() * 2 < vim.api.nvim_win_get_height(0) then
+                scrolloff = require "context-height"()
+            end
+            if scrolloff ~= vim.o.scrolloff then
+                vim.o.scrolloff = scrolloff
             end
         end,
     })
