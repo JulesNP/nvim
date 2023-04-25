@@ -10,7 +10,6 @@ return {
         },
         extensions = {
             "fugitive",
-            "lazy",
             "man",
             "quickfix",
             "toggleterm",
