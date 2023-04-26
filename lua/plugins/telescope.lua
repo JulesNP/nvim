@@ -8,6 +8,7 @@ return {
         "nvim-telescope/telescope-file-browser.nvim",
         "nvim-telescope/telescope-ui-select.nvim",
     },
+    ft = { "mason" },
     keys = vim.g.vscode and {}
         or {
             {
