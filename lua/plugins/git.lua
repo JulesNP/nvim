@@ -7,9 +7,9 @@ return {
         cond = not vim.g.vscode,
         event = "CmdlineEnter",
         keys = vim.g.vscode and {} or {
-            { "<leader>gP", "<cmd>G push<cr>", desc = "Push" },
-            { "<leader>gc", "<cmd>G commit<cr>", desc = "Commit" },
-            { "<leader>gp", "<cmd>G pull<cr>", desc = "Pull" },
+            { "<leader>gP", "<cmd>Git push<cr>", desc = "Push" },
+            { "<leader>gc", "<cmd>Git commit<cr>", desc = "Commit" },
+            { "<leader>gp", "<cmd>Git pull<cr>", desc = "Pull" },
         },
     },
     {
