@@ -3,6 +3,7 @@ return {
     cond = not vim.g.vscode,
     keys = vim.g.vscode and {} or {
         { "\\", "<cmd>silent Neotree reveal<cr>", desc = "Toggle file tree" },
+        { "<leader>\\", "<cmd>silent Neotree document_symbols reveal<cr>", desc = "Toggle document symbols" },
     },
     branch = "v2.x",
     dependencies = {
@@ -33,6 +34,12 @@ return {
             open_files_in_last_window = false,
             popup_border_style = "rounded",
             use_default_mappings = false,
+            sources = {
+                "filesystem",
+                "git_status",
+                "buffers",
+                "document_symbols",
+            },
             source_selector = {
                 statusline = true,
                 highlight_tab = "StatusLineNC",
@@ -43,24 +50,24 @@ return {
                 sources = {
                     {
                         source = "filesystem",
-                        display_name = "  Files",
+                        display_name = " Files",
                     },
                     {
                         source = "buffers",
-                        display_name = "  Buffers",
+                        display_name = "Buffers",
                     },
                     {
                         source = "git_status",
-                        display_name = "  Git",
+                        display_name = " Git",
                     },
                     {
-                        source = "diagnostics",
-                        display_name = " 裂Diagnostics",
+                        source = "document_symbols",
+                        display_name = "Symbols",
                     },
                 },
             },
             window = {
-                width = 28,
+                width = 36,
                 mappings = {
                     ["<2-LeftMouse>"] = { "open_drop", desc = "Open file" },
                     ["<c-s>"] = { "split_with_window_picker", desc = "Open in horizontal split" },
@@ -131,6 +138,14 @@ return {
                         ["<bs>"] = { "navigate_up", desc = "Navigate up a folder" },
                         bd = { "buffer_delete", desc = "Delete buffer" },
                     },
+                },
+            },
+            document_symbols = {
+                follow_cursor = true,
+                server_filter = {
+                    fn = function(name)
+                        return name ~= "null-ls"
+                    end,
                 },
             },
         }
