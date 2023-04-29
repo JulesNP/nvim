@@ -1,5 +1,6 @@
 return {
     "windwp/nvim-autopairs",
+    commit = "463165e",
     cond = not vim.g.vscode,
     event = "InsertEnter",
     dependencies = "hrsh7th/nvim-cmp",
