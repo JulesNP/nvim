@@ -123,13 +123,6 @@ return {
                 desc = "Find outgoing calls",
             },
             {
-                "<leader>flq",
-                function()
-                    require("telescope.builtin").diagnostics()
-                end,
-                desc = "Find diagnostics",
-            },
-            {
                 "<leader>flr",
                 function()
                     require("telescope.builtin").lsp_references()
