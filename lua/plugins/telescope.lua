@@ -95,6 +95,76 @@ return {
                 desc = "Find in jumplist",
             },
             {
+                "<leader>fld",
+                function()
+                    require("telescope.builtin").lsp_definitions()
+                end,
+                desc = "Find definitions",
+            },
+            {
+                "<leader>fli",
+                function()
+                    require("telescope.builtin").lsp_incoming_calls()
+                end,
+                desc = "Find incoming calls",
+            },
+            {
+                "<leader>flm",
+                function()
+                    require("telescope.builtin").lsp_implementations()
+                end,
+                desc = "Find implementations",
+            },
+            {
+                "<leader>flo",
+                function()
+                    require("telescope.builtin").lsp_outgoing_calls()
+                end,
+                desc = "Find outgoing calls",
+            },
+            {
+                "<leader>flq",
+                function()
+                    require("telescope.builtin").diagnostics()
+                end,
+                desc = "Find diagnostics",
+            },
+            {
+                "<leader>flr",
+                function()
+                    require("telescope.builtin").lsp_references()
+                end,
+                desc = "Find references",
+            },
+            {
+                "<leader>fls",
+                function()
+                    require("telescope.builtin").lsp_document_symbols()
+                end,
+                desc = "Find document symbols",
+            },
+            {
+                "<leader>flt",
+                function()
+                    require("telescope.builtin").lsp_type_definitions()
+                end,
+                desc = "Find type definitions",
+            },
+            {
+                "<leader>flw",
+                function()
+                    require("telescope.builtin").lsp_workspace_symbols()
+                end,
+                desc = "Find workspace symbols",
+            },
+            {
+                "<leader>fly",
+                function()
+                    require("telescope.builtin").lsp_dynamic_workspace_symbols()
+                end,
+                desc = "Find dynamic workspace symbols",
+            },
+            {
                 "<leader>fo",
                 function()
                     require("telescope.builtin").oldfiles()
@@ -239,6 +309,8 @@ return {
                         },
                     },
                 },
+                include_current_line = true,
+                trim_text = true,
             },
             extensions = {
                 file_browser = {

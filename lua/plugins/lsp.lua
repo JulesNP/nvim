@@ -19,6 +19,7 @@ return {
         "jose-elias-alvarez/typescript.nvim",
         "kevinhwang91/nvim-ufo",
         "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope.nvim",
         "williamboman/mason-lspconfig.nvim",
         "williamboman/mason.nvim",
     },
@@ -52,11 +53,12 @@ return {
             vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
             vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
 
+            local telescope = require "telescope.builtin"
             local function nmap(key, func, desc)
                 vim.keymap.set("n", key, func, { desc = desc, buffer = bufnr })
             end
             nmap("<leader>=", vim.lsp.codelens.refresh, "Refresh codelens")
-            nmap("<leader>D", vim.lsp.buf.type_definition, "Type definition")
+            nmap("<leader>D", telescope.lsp_type_definitions, "Type definition")
             nmap("<leader>c", vim.lsp.buf.code_action, "Code action")
             nmap("<leader>la", vim.lsp.buf.add_workspace_folder, "Add workspace folder")
             nmap("<leader>lr", vim.lsp.buf.remove_workspace_folder, "Remove workspace folder")
@@ -71,9 +73,9 @@ return {
                 end
             end, "LSP hover info")
             nmap("gD", vim.lsp.buf.declaration, "Go to declaration")
-            nmap("gI", vim.lsp.buf.implementation, "Go to implementation")
-            nmap("gd", vim.lsp.buf.definition, "Go to definition")
-            nmap("gr", vim.lsp.buf.references, "Go to references")
+            nmap("gI", telescope.lsp_implementations, "Go to implementation")
+            nmap("gd", telescope.lsp_definitions, "Go to definition")
+            nmap("gr", telescope.lsp_references, "Go to references")
 
             if client.supports_method "textDocument/formatting" then
                 vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
