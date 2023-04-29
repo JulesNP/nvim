@@ -1,6 +1,5 @@
 local function toggle()
-    local columns = vim.o.columns
-    if columns >= 160 then
+    if vim.api.nvim_win_get_width(0) >= 160 then
         local width = vim.o.columns / math.floor(vim.o.columns / 80)
         require("toggleterm").toggle(vim.v.count, width, nil, "vertical")
     else
