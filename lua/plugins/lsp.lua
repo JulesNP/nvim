@@ -75,7 +75,7 @@ return {
             nmap("gD", vim.lsp.buf.declaration, "Go to declaration")
             nmap("gI", telescope.lsp_implementations, "Go to implementation")
             nmap("gd", telescope.lsp_definitions, "Go to definition")
-            nmap("gr", telescope.lsp_references, "Go to references")
+            nmap("gr", vim.lsp.buf.references, "Go to references")
 
             if client.supports_method "textDocument/formatting" then
                 vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
