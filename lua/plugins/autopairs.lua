@@ -1,6 +1,5 @@
 return {
     "windwp/nvim-autopairs",
-    commit = "463165e",
     cond = not vim.g.vscode,
     event = "InsertEnter",
     dependencies = "hrsh7th/nvim-cmp",
@@ -41,6 +40,6 @@ return {
 
         paren_subpair " "
         paren_subpair "|"
-        require("nvim-autopairs").get_rule("'")[1].not_filetypes = { "fsharp" }
+        require("nvim-autopairs").get_rules("'")[1].not_filetypes = { "fsharp" }
     end,
 }
