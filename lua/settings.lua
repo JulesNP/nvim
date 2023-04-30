@@ -23,12 +23,15 @@ vim.o.spelllang = "en_ca,en"
 vim.o.spelloptions = "camel,noplainbuffer"
 vim.o.startofline = true
 vim.o.termguicolors = true
-vim.o.title = true
 vim.o.undofile = true
 vim.o.updatetime = 1000
 vim.o.viewoptions = "folds,cursor"
 vim.o.whichwrap = "b,s,<,>,[,]"
 vim.o.winblend = 8
+
+if os.getenv "SSH_CONNECTION" == nil then
+    vim.o.title = true
+end
 
 if vim.g.neovide then
     vim.g.neovide_input_macos_alt_is_meta = true
