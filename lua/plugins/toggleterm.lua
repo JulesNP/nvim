@@ -1,21 +1,26 @@
+local size, orientation = 80, "vertical"
 local function toggle()
     -- Determine whether to use vertical or horizontal terminal split
     -- based on width of largest window in the current tab
-    local max_width, max_height = 0, 0
+    local max_width, max_height, toggleterm_visible = 0, 0, false
     for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
         local width, height = vim.api.nvim_win_get_width(win), vim.api.nvim_win_get_height(win)
+        toggleterm_visible = toggleterm_visible or vim.bo[vim.api.nvim_win_get_buf(win)].filetype == "toggleterm"
         if width * height > max_width * max_height then
             max_width = width
             max_height = height
         end
     end
-    if max_width >= 160 then
-        local width = max_width / math.floor(max_width / 80)
-        require("toggleterm").toggle(vim.v.count, width, nil, "vertical")
-    else
-        local height = math.max(math.min(15, max_height / 2), max_height / 4)
-        require("toggleterm").toggle(vim.v.count, height, nil, "horizontal")
+    if not toggleterm_visible then
+        if max_width >= 160 then
+            size = max_width / math.floor(max_width / 80)
+            orientation = "vertical"
+        else
+            size = math.max(math.min(15, max_height / 2), max_height / 4)
+            orientation = "horizontal"
+        end
     end
+    require("toggleterm").toggle(vim.v.count, size, nil, orientation)
 end
 
 return {
