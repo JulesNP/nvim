@@ -35,7 +35,6 @@ return {
                 "c_sharp",
                 "cmake",
                 "erlang",
-                "help",
                 "julia",
                 "lua",
                 "markdown",
