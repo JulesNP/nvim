@@ -15,7 +15,7 @@ return {
         local brackets = { { "(", ")" }, { "[", "]" }, { "{", "}" } }
         local function paren_subpair(char)
             autopairs.add_rules {
-                rule(char, char):with_pair(function(opts)
+                rule(char, char, "-markdown"):with_pair(function(opts)
                     local pair = opts.line:sub(opts.col - 1, opts.col)
                     return vim.tbl_contains({
                         brackets[1][1] .. brackets[1][2],
@@ -26,7 +26,7 @@ return {
             }
             for _, bracket in pairs(brackets) do
                 autopairs.add_rules {
-                    rule(bracket[1] .. char, char .. bracket[2])
+                    rule(bracket[1] .. char, char .. bracket[2], "-markdown")
                         :with_pair(function()
                             return false
                         end)
