@@ -3,6 +3,7 @@ return {
     cond = not vim.g.vscode,
     event = { "CmdlineEnter", "InsertEnter" },
     dependencies = {
+        "FelipeLema/cmp-async-path",
         "L3MON4D3/LuaSnip",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-calc",
@@ -11,11 +12,10 @@ return {
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-nvim-lsp-signature-help",
         "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-path",
-        { "kristijanhusak/vim-dadbod-completion", dependencies = { "tpope/vim-dadbod" } },
         "petertriho/cmp-git",
         "rafamadriz/friendly-snippets",
         "saadparwaiz1/cmp_luasnip",
+        { "kristijanhusak/vim-dadbod-completion", dependencies = { "tpope/vim-dadbod" } },
     },
     config = function()
         local cmp = require "cmp"
@@ -67,7 +67,7 @@ return {
                 { name = "nvim_lsp" },
                 { name = "nvim_lua" },
                 { name = "git" },
-                { name = "path" },
+                { name = "async_path" },
                 { name = "calc" },
                 { name = "emoji" },
                 {
@@ -93,8 +93,8 @@ return {
             sources = {
                 { name = "nvim_lsp_signature_help" },
                 { name = "luasnip" },
-                { name = "vim-dadbod-completion" },
                 { name = "nvim_lsp" },
+                { name = "vim-dadbod-completion" },
                 { name = "path" },
                 { name = "calc" },
                 {
