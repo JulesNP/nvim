@@ -12,6 +12,7 @@ return {
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-nvim-lsp-signature-help",
         "hrsh7th/cmp-nvim-lua",
+        "lukas-reineke/cmp-rg",
         "petertriho/cmp-git",
         "rafamadriz/friendly-snippets",
         "saadparwaiz1/cmp_luasnip",
@@ -60,7 +61,7 @@ return {
                 ["<down>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
                 ["<up>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
             },
-            sources = cmp.config.sources {
+            sources = cmp.config.sources({
                 { name = "nvim_lsp_signature_help" },
                 { name = "luasnip" },
                 { name = "orgmode" },
@@ -82,7 +83,9 @@ return {
                         end,
                     },
                 },
-            },
+            }, {
+                { name = "rg", keyword_length = 2 },
+            }),
         }
 
         require("cmp_git").setup {
