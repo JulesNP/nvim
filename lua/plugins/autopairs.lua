@@ -39,6 +39,8 @@ return {
         end
 
         paren_subpair " "
+        paren_subpair "#"
+        paren_subpair "%"
         paren_subpair "|"
         require("nvim-autopairs").get_rules("'")[1].not_filetypes = { "fsharp" }
     end,
