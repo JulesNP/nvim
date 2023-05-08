@@ -23,23 +23,24 @@ syn keyword fsharpScript contained print_length define undef if elif else endif
 syn keyword fsharpScript contained line error warning light nowarn
 
 " Operators
-syn match   fsharpOperator "&"
-syn match   fsharpOperator "*"
-syn match   fsharpOperator "+"
-syn match   fsharpOperator ","
-syn match   fsharpOperator "-"
-syn match   fsharpOperator "/"
-syn match   fsharpOperator ":"
-syn match   fsharpOperator ";"
-syn match   fsharpOperator "<"
-syn match   fsharpOperator "="
-syn match   fsharpOperator ">"
-syn match   fsharpOperator "?"
-syn match   fsharpOperator "\."
-syn match   fsharpOperator "\<_\>"
-syn match   fsharpOperator "\~"
-syn match   fsharpOperator "|"
-syn keyword fsharpOperator not and or
+syn match   fsharpDelimiter ","
+syn match   fsharpDelimiter ";"
+syn match   fsharpOperator  "!"
+syn match   fsharpOperator  "&"
+syn match   fsharpOperator  "*"
+syn match   fsharpOperator  "+"
+syn match   fsharpOperator  "-"
+syn match   fsharpOperator  "/"
+syn match   fsharpOperator  ":"
+syn match   fsharpOperator  "<"
+syn match   fsharpOperator  "="
+syn match   fsharpOperator  ">"
+syn match   fsharpOperator  "?"
+syn match   fsharpOperator  "\."
+syn match   fsharpOperator  "\<_\>"
+syn match   fsharpOperator  "\~"
+syn match   fsharpOperator  "|"
+syn keyword fsharpOperator  not and or
 
 " Errors
 syn keyword fsharpError failwith failwithf invalid_arg raise
@@ -108,14 +109,17 @@ syn match   fsharpFloat   "\<\d\+\.\d*"
 syn keyword fsharpType array bool byte char decimal double enum exn float float32 int int16 int32 int64 lazy_t list nativeint
 syn keyword fsharpType obj option sbyte single string uint uint32 uint64 uint16 unativeint unit
 syn match   fsharpType "\v'[A-Za-z0-9_]+(')@!"
-syn region  fsharpMatchParen transparent matchgroup=fsharpTypedef start="\[<" end=">]" contains=ALLBUT,fsharpError
+syn region  fsharpAttribute matchgroup=fsharpAttribBraces start="\[<" end=">]" contains=ALLBUT,fsharpError
 
 " Highlight links
+hi def link fsharpAttribBraces       PreProc
+hi def link fsharpAttribute          PreProc
 hi def link fsharpBoolean            Boolean
 hi def link fsharpCharacter          Character
 hi def link fsharpComment            Comment
 hi def link fsharpConditional        Conditional
 hi def link fsharpConstant           Constant
+hi def link fsharpDelimiter          Delimiter
 hi def link fsharpError              Error
 hi def link fsharpFloat              Float
 hi def link fsharpFormat             Operator
