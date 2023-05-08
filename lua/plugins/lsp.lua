@@ -76,10 +76,16 @@ return {
                 vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
 
                 local function format()
+                    -- Only use LSP formatting if null-ls formatter is unavailable
+                    local generators = require("null-ls.generators").get_available(
+                        vim.bo.filetype,
+                        require("null-ls.methods").FORMATTING
+                    )
+
                     vim.lsp.buf.format {
                         async = false,
                         filter = function(fmt_client)
-                            return not vim.tbl_contains({ "tsserver", "lua_ls" }, fmt_client.name)
+                            return #generators == 0 or fmt_client.name == "null-ls"
                         end,
                     }
                 end
