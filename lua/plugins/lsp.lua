@@ -32,8 +32,8 @@ return {
             vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
         end
 
-        sign("DiagnosticSignHint", "")
-        sign("DiagnosticSignInfo", "")
+        sign("DiagnosticSignHint", "󰌵")
+        sign("DiagnosticSignInfo", "󰋼")
         sign("DiagnosticSignWarn", "")
         sign("DiagnosticSignError", "")
 
