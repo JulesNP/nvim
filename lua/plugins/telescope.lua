@@ -277,14 +277,22 @@ return {
                 mappings = {
                     i = {
                         ["<a-s>"] = actions.toggle_all,
+                        ["<c-d>"] = actions.results_scrolling_down,
+                        ["<c-j>"] = actions.preview_scrolling_down,
+                        ["<c-k>"] = actions.preview_scrolling_up,
                         ["<c-s>"] = actions.select_horizontal,
+                        ["<c-u>"] = actions.results_scrolling_up,
                     },
                     n = {
                         ["<a-s>"] = actions.toggle_all,
                         ["<c-c>"] = actions.close,
+                        ["<c-d>"] = actions.results_scrolling_down,
+                        ["<c-j>"] = actions.preview_scrolling_down,
+                        ["<c-k>"] = actions.preview_scrolling_up,
                         ["<c-n>"] = actions.move_selection_next,
                         ["<c-p>"] = actions.move_selection_previous,
                         ["<c-s>"] = actions.select_horizontal,
+                        ["<c-u>"] = actions.results_scrolling_up,
                         q = actions.close,
                         s = actions.toggle_selection,
                     },
