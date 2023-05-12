@@ -16,6 +16,7 @@ vim.o.linebreak = true
 vim.o.mousemodel = "popup"
 vim.o.number = true
 vim.o.pumblend = 8
+vim.o.shellslash = true
 vim.o.shiftwidth = 4
 vim.o.showbreak = "↳ "
 vim.o.showmode = false
