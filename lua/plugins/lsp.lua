@@ -223,6 +223,7 @@ return {
                     -- Custom config of sqlfmt using stdin, since base config only works with .sql files,
                     -- and Dadbod UI creates/saves queries without any extensions
                     null_ls.register {
+                        name = "sqlfmt",
                         method = null_ls.methods.FORMATTING,
                         filetypes = { "jinja", "mysql", "sql" },
                         generator = require("null-ls.helpers").formatter_factory {
