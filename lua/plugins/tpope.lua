@@ -1,6 +1,7 @@
 return {
     {
-        "kristijanhusak/vim-dadbod-ui",
+        "JulesNP/vim-dadbod-ui",
+        branch = "nerdfix",
         cond = not vim.g.vscode,
         dependencies = "tpope/vim-dadbod",
         event = { "CmdlineEnter", "BufRead" },
