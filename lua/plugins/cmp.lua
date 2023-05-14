@@ -4,7 +4,6 @@ return {
     event = { "CmdlineEnter", "InsertEnter" },
     dependencies = {
         "FelipeLema/cmp-async-path",
-        "L3MON4D3/LuaSnip",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-calc",
         "hrsh7th/cmp-cmdline",
@@ -14,8 +13,8 @@ return {
         "hrsh7th/cmp-nvim-lua",
         "lukas-reineke/cmp-rg",
         "petertriho/cmp-git",
-        "rafamadriz/friendly-snippets",
         "saadparwaiz1/cmp_luasnip",
+        { "L3MON4D3/LuaSnip", dependencies = { "rafamadriz/friendly-snippets" } },
         { "kristijanhusak/vim-dadbod-completion", dependencies = { "tpope/vim-dadbod" } },
     },
     config = function()
@@ -25,6 +24,8 @@ return {
             local line, col = unpack(vim.api.nvim_win_get_cursor(0))
             return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
         end
+
+        require("luasnip.loaders.from_vscode").lazy_load()
 
         cmp.setup {
             snippet = {
