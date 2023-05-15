@@ -54,7 +54,7 @@ return {
             end
             nmap("<leader>=", vim.lsp.codelens.refresh, "Refresh codelens")
             nmap("<leader>D", telescope.lsp_type_definitions, "Type definition")
-            nmap("<leader>c", vim.lsp.buf.code_action, "Code action")
+            nmap("<leader>ca", vim.lsp.buf.code_action, "Code action")
             nmap("<leader>la", vim.lsp.buf.add_workspace_folder, "Add workspace folder")
             nmap("<leader>lr", vim.lsp.buf.remove_workspace_folder, "Remove workspace folder")
             nmap("<leader>lw", function()

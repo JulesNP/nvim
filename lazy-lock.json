@@ -34,6 +34,7 @@
   "mini.nvim": { "branch": "main", "commit": "50ade2218c2ad32b1c6421ea500adaad01fa476f" },
   "neo-tree.nvim": { "branch": "v2.x", "commit": "541f5c92d2492041afb354e2df6e74809094b051" },
   "neodev.nvim": { "branch": "main", "commit": "5e7e613950df5e2be27534ab5c55fd21af1b2ad3" },
+  "neogen": { "branch": "main", "commit": "c0fd3dc9e7cc91181ea5a345c4b01c865626c81e" },
   "neogit": { "branch": "master", "commit": "917fb24c9b7e0506ebfa94ccdbeaaea5eff2f916" },
   "neovim-session-manager": { "branch": "master", "commit": "be04daecc27de3f7a2d2f61f94bee8a66758bd6f" },
   "nui.nvim": { "branch": "main", "commit": "698e75814cd7c56b0dd8af4936bcef2d13807f3c" },
