@@ -17,6 +17,7 @@ return {
                     CursorLineNr = { bg = colors[bg .. "0"] },
                     EyelinerPrimary = { bold = true, underline = true },
                     EyelinerSecondary = { bold = true },
+                    Folded = { italic = false },
                     FoldColumn = { bg = colors[bg .. "0"] },
                     GruvboxAquaSign = { bg = colors[bg .. "0"] },
                     GruvboxBlueSign = { bg = colors[bg .. "0"] },
