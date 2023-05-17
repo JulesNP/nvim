@@ -9,7 +9,7 @@ return {
             component_separators = "",
         },
         sections = {
-            lualine_b = { "branch", "diff" },
+            lualine_b = { "branch", { "diff", padding = { left = 0, right = 1 } } },
             lualine_c = { { "filename", path = 1 } },
             lualine_x = {
                 { "diagnostics", padding = { left = 1, right = 0 } },
