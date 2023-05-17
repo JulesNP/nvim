@@ -22,7 +22,7 @@ return {
             install_info = {
                 url = "https://github.com/Nsidorenco/tree-sitter-fsharp",
                 branch = "develop",
-                files = { "src/scanner.cc", "src/parser.c" },
+                files = { "src/scanner.cc" },
             },
             filetype = "fsharp",
         }
