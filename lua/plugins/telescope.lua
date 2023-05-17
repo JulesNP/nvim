@@ -13,7 +13,7 @@ return {
         or {
             {
                 "-",
-                "<cmd>Telescope file_browser initial_mode=normal depth=1 path=%:p:h scroll_strategy=limit select_buffer=true sorting_strategy=ascending<cr>",
+                "<cmd>Telescope file_browser initial_mode=normal depth=1 auto_depth=true path=%:p:h scroll_strategy=limit select_buffer=true sorting_strategy=ascending<cr>",
                 desc = "Browse parent directory",
             },
             {
