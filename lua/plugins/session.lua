@@ -16,6 +16,8 @@ return {
             },
         }
 
+        vim.keymap.set("n", "<leader>sx", "<cmd>cd ~|%bd|Alpha<cr>", { desc = "Clear session" })
+
         local session_loading = vim.api.nvim_create_augroup("SessionLoading", { clear = true })
 
         vim.api.nvim_create_autocmd({ "User" }, {
