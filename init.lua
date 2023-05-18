@@ -16,4 +16,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins", { diff = { cmd = "diffview.nvim" } })
+require("lazy").setup(
+    "plugins",
+    { diff = { cmd = "diffview.nvim" }, change_detection = {
+        enabled = true,
+        notify = false,
+    } }
+)
