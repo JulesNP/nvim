@@ -18,7 +18,6 @@ vim.o.number = true
 vim.o.pumblend = 8
 vim.o.shellslash = true
 vim.o.shiftwidth = 4
-vim.o.showbreak = "↳ "
 vim.o.showmode = false
 vim.o.signcolumn = "yes:1"
 vim.o.smartcase = true
