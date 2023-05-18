@@ -26,7 +26,6 @@
   "leap-spooky.nvim": { "branch": "main", "commit": "3e940464b1728b22052dd565accc949c0b02b025" },
   "leap.nvim": { "branch": "main", "commit": "3144cefc5ec8872c838dc6710707d23b6de5ec02" },
   "lsp-format-modifications.nvim": { "branch": "main", "commit": "9c17f34c0ddd15c56c575a8a187d6a566ce9939b" },
-  "lsp-inlayhints.nvim": { "branch": "main", "commit": "62c7b8dd8ac9933b071912fe3c789ef2cb704672" },
   "lualine.nvim": { "branch": "master", "commit": "05d78e9fd0cdfb4545974a5aa14b1be95a86e9c9" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "90a8bbf106b85b76951a34c542058ffa807de2b1" },
   "mason-null-ls.nvim": { "branch": "main", "commit": "54d702020bf94e4eefd357f0b738317af30217eb" },
