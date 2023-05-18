@@ -329,6 +329,8 @@ return {
                             ["."] = fb_actions.change_cwd,
                             ["<a-s>"] = fb_actions.toggle_all,
                             ["<c-h>"] = fb_actions.toggle_hidden,
+                            ["<left>"] = fb_actions.goto_parent_dir,
+                            ["<right>"] = actions.select_default,
                             ["_"] = fb_actions.goto_cwd,
                             ["~"] = fb_actions.goto_home_dir,
                             h = fb_actions.goto_parent_dir,
