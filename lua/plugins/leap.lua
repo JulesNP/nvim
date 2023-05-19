@@ -64,6 +64,23 @@ return {
             end,
         })
 
+        local ok, illuminate_ref = pcall(require, "illuminate.reference")
+        if ok then
+            vim.keymap.set("n", "<leader><cr>", function()
+                local refs = illuminate_ref.buf_get_references(vim.api.nvim_get_current_buf())
+                if not refs or #refs == 0 then
+                    return
+                end
+                local targets = {}
+                for _, ref in pairs(refs) do
+                    table.insert(targets, {
+                        pos = { ref[1][1] + 1, ref[1][2] + 1 },
+                    })
+                end
+                leap.leap { targets = targets, target_windows = { vim.api.nvim_get_current_win() } }
+            end, { desc = "Leap to reference" })
+        end
+
         require("leap-spooky").setup {}
     end,
 }
