@@ -85,14 +85,16 @@ syn region fsharpInterpolatedString start=+$"""+                  end=+"""+ cont
 syn region fsharpString             start="``"                    end="``"  keepend oneline
 
 " Keywords
-syn keyword fsharpConditional if elif try finally else match with then
 syn keyword fsharpConstant    null
-syn keyword fsharpRepeat      for while
-syn keyword fsharpInclude     open module namespace
-syn keyword fsharpKeyword     abstract as assert base begin class default delegate do done downcast downto end exception extern
-syn keyword fsharpKeyword     fun function global in inherit inline interface lazy let member mutable new of override
-syn keyword fsharpKeyword     rec static struct to type upcast use val void when
-syn keyword fsharpStatement   orderBy select where yield
+syn keyword fsharpInclude     open
+syn keyword fsharpKeyword     abstract and as asr assert base begin break checked class component const const constraint
+syn keyword fsharpKeyword     continue default delegate do done downcast downto elif else end event exception extern
+syn keyword fsharpKeyword     external finally fixed for fun function global if in include inherit inline interface
+syn keyword fsharpKeyword     internal land lazy let lor lsl lsr lxor match member mixin mod module mutable namespace
+syn keyword fsharpKeyword     new not of or override parallel private process protected public pure rec return sealed
+syn keyword fsharpKeyword     select sig static struct tailcall then to trait try type upcast use val virtual void when
+syn keyword fsharpKeyword     while with yield
+syn keyword fsharpStatement   orderBy
 
 " Value literals
 syn keyword fsharpBoolean true false
@@ -111,24 +113,32 @@ syn keyword fsharpType obj option sbyte single string uint uint32 uint64 uint16 
 syn match   fsharpType "\v'[A-Za-z0-9_]+(')@!"
 syn region  fsharpAttribute matchgroup=fsharpAttribBraces start="\[<" end=">]" contains=ALLBUT,fsharpError
 
+" Builtin functions
+syn keyword fsharpFunction abs acos array2D asin async atan atan2 box byte ceil char compare cos cosh decr defaultArg
+syn keyword fsharpFunction defaultValueArg dict double enum eprintf eprintfn exit exp failwith failwithf floor fprintf
+syn keyword fsharpFunction fprintfn fst hash id ignore incr infinity infinityf int8 invalidArg invalidOp isNull
+syn keyword fsharpFunction limitedHash lock log log10 max methodhandleof min nameof nan nanf not nullArg pown printf
+syn keyword fsharpFunction printfn query raise readOnlyDict ref reraise round rows sbyte seq set sign sin single sinh
+syn keyword fsharpFunction sizeof snd sprintf sqrt stderr stdin stdout tan tanh truncate tryUnbox typedefof typeof
+syn keyword fsharpFunction uint8 unbox using
+
 " Highlight links
 hi def link fsharpAttribBraces       PreProc
 hi def link fsharpAttribute          PreProc
 hi def link fsharpBoolean            Boolean
 hi def link fsharpCharacter          Character
 hi def link fsharpComment            Comment
-hi def link fsharpConditional        Conditional
 hi def link fsharpConstant           Constant
 hi def link fsharpDelimiter          Delimiter
 hi def link fsharpError              Error
 hi def link fsharpFloat              Float
 hi def link fsharpFormat             Operator
+hi def link fsharpFunction           Function
 hi def link fsharpInclude            Include
 hi def link fsharpInterpolatedString fsharpString
 hi def link fsharpKeyword            Keyword
 hi def link fsharpNumber             Number
 hi def link fsharpOperator           Operator
-hi def link fsharpRepeat             Repeat
 hi def link fsharpScript             Include
 hi def link fsharpStatement          Statement
 hi def link fsharpString             String
