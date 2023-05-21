@@ -116,7 +116,7 @@ syn region  fsharpAttribute matchgroup=fsharpAttribBraces start="\[<" end=">]" c
 " Builtin functions
 syn keyword fsharpFunction abs acos array2D asin async atan atan2 box byte ceil char compare cos cosh decr defaultArg
 syn keyword fsharpFunction defaultValueArg dict double enum eprintf eprintfn exit exp failwith failwithf floor fprintf
-syn keyword fsharpFunction fprintfn fst hash id ignore incr infinity infinityf int8 invalidArg invalidOp isNull
+syn keyword fsharpFunction fprintfn fst get hash id ignore incr infinity infinityf int8 invalidArg invalidOp isNull
 syn keyword fsharpFunction limitedHash lock log log10 max methodhandleof min nameof nan nanf not nullArg pown printf
 syn keyword fsharpFunction printfn query raise readOnlyDict ref reraise round rows sbyte seq set sign sin single sinh
 syn keyword fsharpFunction sizeof snd sprintf sqrt stderr stdin stdout tan tanh truncate tryUnbox typedefof typeof
