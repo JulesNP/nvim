@@ -8,7 +8,7 @@ return {
         { "<leader>m", "<cmd>Mason<cr>", desc = "Open Mason" },
     },
     dependencies = {
-        "Decodetalkers/csharpls-extended-lsp.nvim",
+        "Hoffs/omnisharp-extended-lsp.nvim",
         "folke/neodev.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/nvim-cmp",
@@ -146,12 +146,33 @@ return {
                     on_attach = on_attach,
                 }
             end,
-            csharp_ls = function()
-                lsp.csharp_ls.setup {
+            omnisharp = function()
+                local on_attach_cs = function(client, bufnr)
+                    local function toSnakeCase(str)
+                        return string.gsub(str, "%s*[- ]%s*", "_")
+                    end
+                    local tokenModifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
+                    for i, v in ipairs(tokenModifiers) do
+                        tokenModifiers[i] = toSnakeCase(v)
+                    end
+                    local tokenTypes = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
+                    for i, v in ipairs(tokenTypes) do
+                        tokenTypes[i] = toSnakeCase(v)
+                    end
+                    on_attach(client, bufnr)
+                    vim.keymap.set(
+                        "n",
+                        "gd",
+                        require("omnisharp_extended").lsp_definitions,
+                        { desc = "Go to definition", buffer = bufnr }
+                    )
+                end
+                lsp.omnisharp.setup {
                     capabilities = capabilities,
-                    on_attach = on_attach,
+                    on_attach = on_attach_cs,
                     handlers = {
-                        ["textDocument/definition"] = require("csharpls_extended").handler,
+                        ["textDocument/definition"] = require("omnisharp_extended").handler,
+                        -- cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
                     },
                 }
             end,
