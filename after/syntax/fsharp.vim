@@ -55,14 +55,6 @@ syn match fsharpError "|}"
 syn match fsharpError ">]"
 syn match fsharpError "\*)"
 
-" Enclosing delimiters
-syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="("   end=")"  contains=ALLBUT,fsharpError
-syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="{"   end="}"  contains=ALLBUT,fsharpError
-syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="\["  end="]"  contains=ALLBUT,fsharpError
-syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="(|"  end="|)" contains=ALLBUT,fsharpError
-syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="\[|" end="|]" contains=ALLBUT,fsharpError
-syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="{|"  end="|}" contains=ALLBUT,fsharpError
-
 " Comments
 syn match   fsharpComment "//.*$"               contains=@Spell,fsharpTodo
 syn region  fsharpComment start="///" end="$"   contains=@Spell,fsharpTodo keepend oneline
@@ -71,7 +63,7 @@ syn keyword fsharpTodo contained TODO FIXME XXX NOTE
 
 " Strings
 syn match  fsharpFormat display "%\(\d\+\$\)\=[-+' #0*]*\(\d*\|\*\|\*\d\+\$\)\(\.\(\d*\|\*\|\*\d\+\$\)\)\=\([hlL]\|ll\)\=\([bscdiuxXoEefFgGMOAat]\|\[\^\=.[^]]*\]\)" contained
-syn region fsharpInterpolation matchgroup=fsharpOperator start="{" end="}" contained
+syn region fsharpInterpolation matchgroup=fsharpOperator start="{" end="}" containedin=fsharpInterpolatedString
 
 syn match  fsharpCharacter "'\\\d\d\d'\|'\\[\'ntbr]'\|'.'"
 syn match  fsharpCharacter "'\\\d\d'\|'\\\d'"
@@ -82,7 +74,15 @@ syn region fsharpString             start=+@"+   skip=+""+        end=+"+   cont
 syn region fsharpInterpolatedString start=+$"+                    end=+"+   contains=fsharpFormat,fsharpInterpolation
 syn region fsharpString             start=+"""+  skip=+\\\\\|\\"+ end=+"""+ contains=fsharpFormat
 syn region fsharpInterpolatedString start=+$"""+                  end=+"""+ contains=fsharpFormat,fsharpInterpolation
-syn region fsharpString             start="``"                    end="``"  keepend oneline
+syn region fsharpVariable           start="``"                    end="``"  keepend oneline
+
+" Enclosing delimiters
+syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="("   end=")"  contains=ALLBUT,fsharpError
+syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="{"   end="}"  contains=ALLBUT,fsharpError
+syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="\["  end="]"  contains=ALLBUT,fsharpError
+syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="(|"  end="|)" contains=ALLBUT,fsharpError
+syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="\[|" end="|]" contains=ALLBUT,fsharpError
+syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="{|"  end="|}" contains=ALLBUT,fsharpError
 
 " Keywords
 syn keyword fsharpConstant    null
