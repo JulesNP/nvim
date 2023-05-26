@@ -5,5 +5,6 @@ return {
     dependencies = "nvim-treesitter",
     opts = {
         default_tab = "<tab>",
+        exclude = { "fsharp" },
     },
 }
