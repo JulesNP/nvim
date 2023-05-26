@@ -22,19 +22,16 @@ return {
         require("mini.ai").setup {
             custom_textobjects = {
                 F = ts { a = "@function.outer", i = "@function.inner" },
-                a = ts { a = "@parameter.outer", i = "@parameter.inner" },
+                a = require("mini.ai").gen_spec.argument { separator = "[,;]" },
                 c = ts { a = "@comment.outer", i = "@comment.inner" },
-                f = ts { a = "@call.outer", i = "@call.inner" },
                 g = function()
                     local from = { line = 1, col = 1 }
-                    local to = {
-                        line = vim.fn.line "$",
-                        col = math.max(vim.fn.getline("$"):len(), 1),
-                    }
+                    local to = { line = vim.fn.line "$", col = math.max(vim.fn.getline("$"):len(), 1) }
                     return { from = from, to = to }
                 end,
                 o = ts { a = { "@conditional.outer", "@loop.outer" }, i = { "@conditional.inner", "@loop.inner" } },
             },
+            n_lines = 100,
         }
         require("mini.align").setup {}
         require("mini.indentscope").setup {
