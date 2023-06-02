@@ -23,7 +23,7 @@ return {
             { "<leader>cf", "<cmd>Neogen func<cr>", desc = "Create function annotation" },
             { "<leader>ct", "<cmd>Neogen type<cr>", desc = "Create class annotation" },
         },
-        config = {
+        opts = {
             snippet_engine = "luasnip",
         },
     },
