@@ -87,6 +87,7 @@ return {
                         filter = function(fmt_client)
                             return #generators == 0 or fmt_client.name == "null-ls"
                         end,
+                        timeout_ms = 2500,
                     }
                 end
 
@@ -96,15 +97,15 @@ return {
                     vim.cmd.mkview()
                 end, "Format and save if modified")
                 nmap("<leader>fm", format, "Format document")
-            end
 
-            if client.supports_method "textDocument/rangeFormatting" then
-                require("lsp-format-modifications").attach(
-                    client,
-                    bufnr,
-                    { format_on_save = false, experimental_empty_line_handling = true }
-                )
-                nmap("<leader>fc", "<cmd>FormatModifications<cr>", "Format changes")
+                if client.supports_method "textDocument/rangeFormatting" then
+                    require("lsp-format-modifications").attach(
+                        client,
+                        bufnr,
+                        { format_callback = format, format_on_save = false, experimental_empty_line_handling = true }
+                    )
+                    nmap("<leader>fc", "<cmd>FormatModifications<cr>", "Format changes")
+                end
             end
         end
 
