@@ -12,6 +12,7 @@ return {
         "folke/neodev.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/nvim-cmp",
+        "Issafalcon/lsp-overloads.nvim",
         "jay-babu/mason-null-ls.nvim",
         "joechrisellis/lsp-format-modifications.nvim",
         "jose-elias-alvarez/null-ls.nvim",
@@ -71,6 +72,14 @@ return {
             nmap("gI", telescope.lsp_implementations, "Go to implementation")
             nmap("gd", telescope.lsp_definitions, "Go to definition")
             nmap("gr", vim.lsp.buf.references, "Go to references")
+
+            if client.server_capabilities.signatureHelpProvider then
+                require("lsp-overloads").setup(client, {
+                    ui = {
+                        border = "none",
+                    },
+                })
+            end
 
             if client.supports_method "textDocument/formatting" then
                 vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")

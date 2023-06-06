@@ -9,7 +9,6 @@ return {
         "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-emoji",
         "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-nvim-lsp-signature-help",
         "hrsh7th/cmp-nvim-lua",
         "lukas-reineke/cmp-rg",
         "petertriho/cmp-git",
@@ -63,7 +62,6 @@ return {
                 ["<up>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
             },
             sources = cmp.config.sources({
-                { name = "nvim_lsp_signature_help" },
                 { name = "luasnip" },
                 { name = "orgmode" },
                 { name = "nvim_lsp" },
@@ -95,7 +93,6 @@ return {
 
         cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
             sources = {
-                { name = "nvim_lsp_signature_help" },
                 { name = "luasnip" },
                 { name = "nvim_lsp" },
                 { name = "path" },
