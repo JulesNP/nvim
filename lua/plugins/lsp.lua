@@ -78,6 +78,9 @@ return {
                     ui = {
                         border = "none",
                     },
+                    keymaps = {
+                        close_signature = "<m-x>",
+                    },
                 })
             end
 
