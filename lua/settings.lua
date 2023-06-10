@@ -11,7 +11,6 @@ vim.o.foldlevelstart = 99
 vim.o.guifont = "Iosevka Nerd Font,Iosevka NF,Iosevka:h15"
 vim.o.ignorecase = true
 vim.o.inccommand = "split"
-vim.o.keymodel = "startsel"
 vim.o.linebreak = true
 vim.o.mousemodel = "popup"
 vim.o.number = true
