@@ -94,7 +94,11 @@ syn keyword fsharpKeyword     internal land lazy let lor lsl lsr lxor match memb
 syn keyword fsharpKeyword     new not of or override parallel private process protected public pure rec return sealed
 syn keyword fsharpKeyword     select sig static struct tailcall then to trait try type upcast use val virtual void when
 syn keyword fsharpKeyword     while with yield
-syn keyword fsharpStatement   orderBy
+syn keyword fsharpStatement   all averageBy averageByNullable count distinct exactlyOne exactlyOneOrDefault
+syn keyword fsharpStatement   exists find groupBy groupJoin groupValBy head headOrDefault into join last lastOrDefault
+syn keyword fsharpStatement   leftOuterJoin maxBy maxByNullable minBy minByNullable nth on select skip skipWhile sortBy
+syn keyword fsharpStatement   sortByDescending sortByNullable sortByNullableDescending sumBy sumByNullable take takeWhile
+syn keyword fsharpStatement   thenBy thenByDescending thenByNullable thenByNullableDescending where
 
 " Value literals
 syn keyword fsharpBoolean true false
