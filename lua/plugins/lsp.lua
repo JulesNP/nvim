@@ -12,6 +12,7 @@ return {
         "folke/neodev.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/nvim-cmp",
+        "ionide/Ionide-vim",
         "Issafalcon/lsp-overloads.nvim",
         "jay-babu/mason-null-ls.nvim",
         "joechrisellis/lsp-format-modifications.nvim",
@@ -23,6 +24,10 @@ return {
         "williamboman/mason-lspconfig.nvim",
         "williamboman/mason.nvim",
     },
+    init = function()
+        -- Prevent auto setup of Ionide
+        vim.g["fsharp#lsp_auto_setup"] = 0
+    end,
     config = function()
         vim.keymap.set("n", "<leader>i", vim.diagnostic.open_float, { desc = "View diagnostic info" })
         vim.keymap.set("n", "<leader>q", vim.diagnostic.setqflist, { desc = "List diagnostics" })
@@ -187,6 +192,19 @@ return {
                         ["textDocument/definition"] = require("omnisharp_extended").handler,
                         -- cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
                     },
+                }
+            end,
+            fsautocomplete = function()
+                vim.g["fsharp#fsautocomplete_command"] = { "fsautocomplete", "--adaptive-lsp-server-enabled" }
+                vim.g["fsharp#fsi_keymap"] = "custom"
+                vim.g["fsharp#fsi_keymap_send"] = "<leader><cr>"
+                vim.g["fsharp#fsi_keymap_toggle"] = "<m-\\>"
+                vim.g["fsharp#lsp_codelens"] = 0
+
+                require("ionide").setup {
+                    autostart = true,
+                    capabilities = capabilities,
+                    on_attach = on_attach,
                 }
             end,
             lua_ls = lua_setup,
