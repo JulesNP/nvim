@@ -81,6 +81,16 @@ return {
             nmap("gd", telescope.lsp_definitions, "Go to definition")
             nmap("gr", vim.lsp.buf.references, "Go to references")
 
+            nmap("<leader>bO", require("dap").step_out, "Step out")
+            nmap("<leader>bb", require("dap").toggle_breakpoint, "Toggle breakpoint")
+            nmap("<leader>bc", require("dap").continue, "Continue")
+            nmap("<leader>bi", require("dap").step_into, "Step into")
+            nmap("<leader>bo", require("dap").step_over, "Step over")
+            nmap("<leader>bp", require("dap.ui.widgets").preview, "Preview value")
+            nmap("<leader>bq", require("dap").list_breakpoints, "List breakpoints")
+            nmap("<leader>bt", require("dapui").toggle, "Toggle debug UI")
+            nmap("<leader>bx", require("dap").set_exception_breakpoints, "Set exception breakpoints")
+
             if client.server_capabilities.signatureHelpProvider then
                 require("lsp-overloads").setup(client, {
                     ui = {
@@ -290,28 +300,10 @@ return {
                 end,
             },
         }
-        local dap = require "dap"
+
         require("dapui").setup {}
         require("mason-nvim-dap").setup {
-            handlers = {
-                function(config)
-                    require("mason-nvim-dap").default_setup(config)
-                    vim.keymap.set("n", "<leader>bb", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
-                    vim.keymap.set("n", "<leader>bc", dap.continue, { desc = "Continue" })
-                    vim.keymap.set("n", "<leader>bi", dap.step_into, { desc = "Step into" })
-                    vim.keymap.set("n", "<leader>bo", dap.step_over, { desc = "Step over" })
-                    vim.keymap.set("n", "<leader>bO", dap.step_out, { desc = "Step out" })
-                    vim.keymap.set(
-                        "n",
-                        "<leader>bx",
-                        dap.set_exception_breakpoints,
-                        { desc = "Set exception breakpoints" }
-                    )
-                    vim.keymap.set("n", "<leader>bp", require("dap.ui.widgets").preview, { desc = "Preview value" })
-                    vim.keymap.set("n", "<leader>bt", require("dapui").toggle, { desc = "Toggle debug UI" })
-                    vim.keymap.set("n", "<leader>bq", dap.list_breakpoints, { desc = "List breakpoints" })
-                end,
-            },
+            handlers = {},
         }
     end,
 }
