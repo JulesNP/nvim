@@ -13,7 +13,7 @@ return {
         "folke/neodev.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/nvim-cmp",
-        "ionide/Ionide-vim",
+        { "JulesNP/Ionide-vim", branch = "project-syntax" },
         "jay-babu/mason-null-ls.nvim",
         "jay-babu/mason-nvim-dap.nvim",
         "joechrisellis/lsp-format-modifications.nvim",
@@ -208,7 +208,6 @@ return {
                 }
             end,
             fsautocomplete = function()
-                vim.g["fsharp#fsautocomplete_command"] = { "fsautocomplete", "--adaptive-lsp-server-enabled" }
                 vim.g["fsharp#fsi_keymap"] = "custom"
                 vim.g["fsharp#fsi_keymap_send"] = "<leader><cr>"
                 vim.g["fsharp#fsi_keymap_toggle"] = "<m-\\>"
