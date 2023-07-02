@@ -55,12 +55,6 @@ syn match fsharpError "|}"
 syn match fsharpError ">]"
 syn match fsharpError "\*)"
 
-" Comments
-syn match   fsharpComment "//.*$"               contains=@Spell,fsharpTodo
-syn region  fsharpComment start="///" end="$"   contains=@Spell,fsharpTodo keepend oneline
-syn region  fsharpComment start="(\*" end="\*)" contains=@Spell,fsharpTodo
-syn keyword fsharpTodo contained TODO FIXME XXX NOTE
-
 " Strings
 syn match  fsharpFormat display "%\(\d\+\$\)\=[-+' #0*]*\(\d*\|\*\|\*\d\+\$\)\(\.\(\d*\|\*\|\*\d\+\$\)\)\=\([hlL]\|ll\)\=\([bscdiuxXoEefFgGMOAat]\|\[\^\=.[^]]*\]\)" contained
 syn region fsharpInterpolation matchgroup=fsharpOperator start="{" end="}" containedin=fsharpInterpolatedString
@@ -83,6 +77,12 @@ syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="\["  en
 syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="(|"  end="|)" contains=ALLBUT,fsharpError
 syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="\[|" end="|]" contains=ALLBUT,fsharpError
 syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="{|"  end="|}" contains=ALLBUT,fsharpError
+
+" Comments
+syn match   fsharpComment "//.*$"               contains=@Spell,fsharpTodo
+syn region  fsharpComment start="///" end="$"   contains=@Spell,fsharpTodo keepend oneline
+syn region  fsharpComment start="(\*" end="\*)" contains=@Spell,fsharpTodo
+syn keyword fsharpTodo contained TODO FIXME XXX NOTE
 
 " Keywords
 syn keyword fsharpConstant    null
