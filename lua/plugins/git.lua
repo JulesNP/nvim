@@ -13,7 +13,7 @@ return {
         },
     },
     {
-        "TimUntersberger/neogit",
+        "NeogitOrg/neogit",
         cond = not vim.g.vscode,
         keys = vim.g.vscode and {} or {
             { "<leader>gg", "<cmd>Neogit<cr>", desc = "Open Neogit" },
