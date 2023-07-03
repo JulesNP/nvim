@@ -13,7 +13,7 @@ return {
         "folke/neodev.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/nvim-cmp",
-        { "JulesNP/Ionide-vim", branch = "project-syntax" },
+        { "JulesNP/Ionide-vim", branch = "indent" },
         "jay-babu/mason-null-ls.nvim",
         "jay-babu/mason-nvim-dap.nvim",
         "joechrisellis/lsp-format-modifications.nvim",

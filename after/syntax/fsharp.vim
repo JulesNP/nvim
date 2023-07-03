@@ -4,7 +4,7 @@
 syntax clear
 
 " reset 'iskeyword' setting
-setl isk&vim
+setl iskeyword&vim
 
 " sync from start to avoid paren match errors
 syn sync fromstart
