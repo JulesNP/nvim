@@ -34,6 +34,14 @@ return {
             n_lines = 100,
         }
         require("mini.align").setup {}
+        require("mini.files").setup {
+            windows = {
+                preview = true,
+            },
+        }
+        vim.keymap.set("n", "<leader>\\", function()
+            require("mini.files").open(vim.api.nvim_buf_get_name(0))
+        end, { desc = "Open file browser" })
         require("mini.indentscope").setup {
             draw = {
                 delay = 25,
