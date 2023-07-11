@@ -34,14 +34,90 @@ return {
             n_lines = 100,
         }
         require("mini.align").setup {}
-        require("mini.files").setup {
+
+        local MiniFiles = require "mini.files"
+
+        local show_dotfiles = false
+
+        local filter_show = function()
+            return true
+        end
+
+        local filter_hide = function(fs_entry)
+            return not vim.startswith(fs_entry.name, ".")
+        end
+
+        local toggle_dotfiles = function()
+            show_dotfiles = not show_dotfiles
+            local new_filter = show_dotfiles and filter_show or filter_hide
+            MiniFiles.refresh { content = { filter = new_filter } }
+        end
+
+        local files_set_cwd = function()
+            local cur_entry_path = MiniFiles.get_fs_entry().path
+            local cur_directory = vim.fs.dirname(cur_entry_path)
+            vim.fn.chdir(cur_directory)
+        end
+
+        local map_split = function(buf_id, lhs, direction)
+            local rhs = function()
+                -- Make new window and set it as target
+                local new_target_window
+                vim.api.nvim_win_call(MiniFiles.get_target_window(), function()
+                    vim.cmd(direction .. " split")
+                    new_target_window = vim.api.nvim_get_current_win()
+                end)
+
+                MiniFiles.set_target_window(new_target_window)
+            end
+
+            -- Adding `desc` will result into `show_help` entries
+            local desc = "Split " .. direction
+            vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
+        end
+
+        vim.api.nvim_create_autocmd("User", {
+            pattern = "MiniFilesBufferCreate",
+            callback = function(args)
+                local buf_id = args.data.buf_id
+                vim.keymap.set("n", "h", function()
+                    MiniFiles.go_out()
+                end, { buffer = buf_id })
+                vim.keymap.set("n", "<esc>", function()
+                    MiniFiles.close()
+                end, { buffer = buf_id })
+                vim.keymap.set("n", "g~", files_set_cwd, { buffer = buf_id })
+                map_split(buf_id, "gs", "horizontal")
+                map_split(buf_id, "gv", "vertical")
+                vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id })
+            end,
+        })
+
+        MiniFiles.setup {
+            content = {
+                filter = filter_hide,
+            },
+            mappings = {
+                close = "q",
+                go_in = "<tab>",
+                go_in_plus = "l",
+                go_out = "-",
+                go_out_plus = "",
+                reset = "<bs>",
+                show_help = "g?",
+                synchronize = "<c-s>",
+                trim_left = "<",
+                trim_right = ">",
+            },
             windows = {
                 preview = true,
             },
         }
-        vim.keymap.set("n", "<leader>\\", function()
+
+        vim.keymap.set("n", "-", function()
             require("mini.files").open(vim.api.nvim_buf_get_name(0))
         end, { desc = "Open file browser" })
+
         require("mini.indentscope").setup {
             draw = {
                 delay = 25,
