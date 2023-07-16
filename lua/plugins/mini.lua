@@ -127,8 +127,16 @@ return {
                 pattern = "MiniFilesBufferCreate",
                 callback = function(args)
                     local buf_id = args.data.buf_id
-                    vim.keymap.set("n", "h", function()
+                    vim.keymap.set("n", "-", function()
                         MiniFiles.go_out()
+                    end, { buffer = buf_id })
+                    vim.keymap.set("n", "<cr>", function()
+                        local fs_entry = MiniFiles.get_fs_entry()
+                        local is_at_file = fs_entry ~= nil and fs_entry.fs_type == "file"
+                        MiniFiles.go_in()
+                        if is_at_file then
+                            MiniFiles.close()
+                        end
                     end, { buffer = buf_id })
                     vim.keymap.set("n", "<esc>", function()
                         MiniFiles.close()
@@ -148,7 +156,7 @@ return {
                     close = "q",
                     go_in = "<tab>",
                     go_in_plus = "l",
-                    go_out = "-",
+                    go_out = "h",
                     go_out_plus = "",
                     reset = "<bs>",
                     reveal_cwd = "@",
