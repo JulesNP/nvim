@@ -26,6 +26,7 @@ return {
             disable_commit_confirmation = true,
             disable_insert_on_commit = false,
             integrations = {
+                telescope = true,
                 diffview = true,
             },
         },
