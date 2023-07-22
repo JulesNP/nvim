@@ -140,6 +140,7 @@ return {
             end
 
             vim.api.nvim_create_autocmd("User", {
+                group = vim.api.nvim_create_augroup("MiniFilesMappings", { clear = true }),
                 pattern = "MiniFilesBufferCreate",
                 callback = function(args)
                     local buf_id = args.data.buf_id
@@ -153,6 +154,9 @@ return {
                         if is_at_file then
                             MiniFiles.close()
                         end
+                    end, { buffer = buf_id })
+                    vim.keymap.set("n", "<c-q>", function()
+                        MiniFiles.close()
                     end, { buffer = buf_id })
                     vim.keymap.set("n", "<esc>", function()
                         MiniFiles.close()
