@@ -44,6 +44,29 @@ return {
             desc = "Send selection to ToggleTerm",
             mode = "x",
         },
+        {
+            "<c-->",
+            function()
+                local Terminal = require("toggleterm.terminal").Terminal
+                local localterm = Terminal:new {
+                    hidden = true,
+                    dir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h"),
+                    direction = "float",
+                    on_open = function(term)
+                        vim.cmd "startinsert!"
+                        vim.api.nvim_buf_set_keymap(
+                            term.bufnr,
+                            "t",
+                            "<c-->",
+                            "<cmd>close<cr>",
+                            { noremap = true, silent = true }
+                        )
+                    end,
+                }
+                localterm:toggle()
+            end,
+            desc = "Open ToggleTerm",
+        },
     },
     opts = {
         autochdir = true,
