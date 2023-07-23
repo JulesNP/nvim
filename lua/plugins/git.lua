@@ -24,7 +24,7 @@ return {
                     require("neogit").open {}
                     vim.cmd(":lcd" .. cwd)
                 end,
-                desc = "Open Neogit",
+                desc = "Open Neogit for current buffer",
             },
         },
         dependencies = {
