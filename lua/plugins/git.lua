@@ -17,6 +17,15 @@ return {
         cond = not vim.g.vscode,
         keys = vim.g.vscode and {} or {
             { "<leader>gg", "<cmd>Neogit<cr>", desc = "Open Neogit" },
+            {
+                "<leader>g-",
+                function()
+                    local cwd = vim.fn.expand "%:p:h"
+                    require("neogit").open {}
+                    vim.cmd(":lcd" .. cwd)
+                end,
+                desc = "Open Neogit",
+            },
         },
         dependencies = {
             "nvim-lua/plenary.nvim",
