@@ -141,7 +141,7 @@ return {
 
         local lua_server_installed = vim.fn.executable "lua-language-server"
         if lua_server_installed then
-            require("neodev").setup { library = { plugins = { "nvim-dap-ui" }, types = true } }
+            require("neodev").setup {}
         end
 
         local lsp = require "lspconfig"
