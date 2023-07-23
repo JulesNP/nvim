@@ -37,7 +37,7 @@ return {
                         fg = bg == "dark" and colors.bright_orange or colors.faded_orange,
                         nocombine = true,
                     },
-                    FlashLabel = { nocombine = true, fg = colors.light0_hard, bg = colors.faded_blue },
+                    FlashLabel = { nocombine = true, bold = true, fg = colors.light0_hard, bg = colors.faded_red },
                     MatchParen = { bg = colors[bg .. "2"] },
                     MiniIndentscopeSymbol = { fg = colors[bg .. "2"] },
                     SignColumn = { bg = colors[bg .. "0"] },

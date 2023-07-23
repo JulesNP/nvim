@@ -2,6 +2,10 @@ return {
     "folke/flash.nvim",
     event = "VeryLazy",
     opts = {
+        labels = "fjdkslaruvmgheiwoxqpbnz",
+        label = {
+            uppercase = false,
+        },
         search = {
             incremental = true,
         },
