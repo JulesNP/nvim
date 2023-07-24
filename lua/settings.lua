@@ -4,7 +4,6 @@ vim.o.completeopt = "menu,menuone,noselect"
 vim.o.concealcursor = "nc"
 vim.o.conceallevel = 2
 vim.o.confirm = true
-vim.o.cursorline = true
 vim.o.expandtab = true
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
