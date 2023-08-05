@@ -12,16 +12,6 @@ syn sync fromstart
 " fsharp is case sensitive.
 syn case match
 
-" Scripting/preprocessor directives
-syn match   fsharpSScript "^\s*#\S\+" transparent contains=fsharpScript
-
-syn match   fsharpScript contained "#"
-syn keyword fsharpScript contained quitlabels warnings directory cd load use
-syn keyword fsharpScript contained install_printer remove_printer requirethread
-syn keyword fsharpScript contained trace untrace untrace_all print_depth
-syn keyword fsharpScript contained print_length define undef if elif else endif
-syn keyword fsharpScript contained line error warning light nowarn
-
 " Operators
 syn match   fsharpDelimiter ","
 syn match   fsharpDelimiter ";"
@@ -125,6 +115,16 @@ syn keyword fsharpFunction limitedHash lock log log10 max methodhandleof min nam
 syn keyword fsharpFunction printfn query raise readOnlyDict ref reraise round rows sbyte seq set sign sin single sinh
 syn keyword fsharpFunction sizeof snd sprintf sqrt stderr stdin stdout tan tanh truncate tryUnbox typedefof typeof
 syn keyword fsharpFunction uint8 unbox using
+
+" Scripting/preprocessor directives
+syn match   fsharpSScript "^\s*#\S\+" transparent contains=fsharpScript
+
+syn match   fsharpScript contained "#"
+syn keyword fsharpScript contained quitlabels warnings directory cd load use
+syn keyword fsharpScript contained install_printer remove_printer requirethread
+syn keyword fsharpScript contained trace untrace untrace_all print_depth
+syn keyword fsharpScript contained print_length define undef if elif else endif
+syn keyword fsharpScript contained line error warning light nowarn
 
 " Highlight links
 hi def link fsharpAttribBraces       PreProc
