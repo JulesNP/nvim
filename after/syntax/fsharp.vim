@@ -61,12 +61,12 @@ syn region fsharpInterpolatedString start=+$"""+                  end=+"""+ cont
 syn region fsharpVariable           start="``"                    end="``"  keepend oneline
 
 " Enclosing delimiters
-syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="("   end=")"  contains=ALLBUT,fsharpError
-syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="{"   end="}"  contains=ALLBUT,fsharpError
-syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="\["  end="]"  contains=ALLBUT,fsharpError
-syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="(|"  end="|)" contains=ALLBUT,fsharpError
-syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="\[|" end="|]" contains=ALLBUT,fsharpError
-syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="{|"  end="|}" contains=ALLBUT,fsharpError
+syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="("   end=")"  fold contains=ALLBUT,fsharpError
+syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="{"   end="}"  fold contains=ALLBUT,fsharpError
+syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="\["  end="]"  fold contains=ALLBUT,fsharpError
+syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="(|"  end="|)" fold contains=ALLBUT,fsharpError
+syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="\[|" end="|]" fold contains=ALLBUT,fsharpError
+syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="{|"  end="|}" fold contains=ALLBUT,fsharpError
 
 " Comments
 syn match   fsharpComment "//.*$"               contains=@Spell,fsharpTodo
@@ -116,15 +116,17 @@ syn keyword fsharpFunction printfn query raise readOnlyDict ref reraise round ro
 syn keyword fsharpFunction sizeof snd sprintf sqrt stderr stdin stdout tan tanh truncate tryUnbox typedefof typeof
 syn keyword fsharpFunction uint8 unbox using
 
-" Scripting/preprocessor directives
-syn match   fsharpSScript "^\s*#\S\+" transparent contains=fsharpScript
-
-syn match   fsharpScript contained "#"
-syn keyword fsharpScript contained quitlabels warnings directory cd load use
-syn keyword fsharpScript contained install_printer remove_printer requirethread
-syn keyword fsharpScript contained trace untrace untrace_all print_depth
-syn keyword fsharpScript contained print_length define undef if elif else endif
-syn keyword fsharpScript contained line error warning light nowarn
+" Compiler directives
+syn match   fsharpScript "^\s*#I\>"
+syn match   fsharpScript "^\s*#\s"
+syn match   fsharpScript "^\s*#else\>"
+syn match   fsharpScript "^\s*#endif\>"
+syn match   fsharpScript "^\s*#if\>"
+syn match   fsharpScript "^\s*#line\>"
+syn match   fsharpScript "^\s*#load\>"
+syn match   fsharpScript "^\s*#nowarn\>"
+syn match   fsharpScript "^\s*#r\>"
+syn match   fsharpScript "^\s*#time\>"
 
 " Highlight links
 hi def link fsharpAttribBraces       PreProc
