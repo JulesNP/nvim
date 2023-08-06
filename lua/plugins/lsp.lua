@@ -139,7 +139,7 @@ return {
             end
         end
 
-        local lua_server_installed = vim.fn.executable "lua-language-server"
+        local lua_server_installed = vim.fn.executable "lua-language-server" == 1
         if lua_server_installed then
             require("neodev").setup {}
         end
@@ -244,7 +244,7 @@ return {
             lua_setup()
         end
         -- Set up ccls separately, since it isn't available through Mason
-        if vim.fn.executable "ccls" then
+        if vim.fn.executable "ccls" == 1 then
             lsp.ccls.setup {
                 capabilities = capabilities,
                 on_attach = on_attach,

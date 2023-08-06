@@ -17,7 +17,7 @@ return {
     config = function()
         vim.g.matchup_transmute_enabled = 1
 
-        if vim.fn.executable "dotnet" ~= 0 then
+        if vim.fn.executable "dotnet" == 1 then
             local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
             parser_config.fsharp = {
                 install_info = {
