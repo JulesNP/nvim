@@ -139,6 +139,8 @@ return {
             end
         end
 
+        require("mason").setup {}
+
         local lua_server_installed = vim.fn.executable "lua-language-server" == 1
         if lua_server_installed then
             require("neodev").setup {}
@@ -168,7 +170,6 @@ return {
             }
         end
 
-        require("mason").setup {}
         require("mason-lspconfig").setup {}
         require("mason-lspconfig").setup_handlers {
             function(server_name)
