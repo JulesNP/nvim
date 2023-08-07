@@ -146,7 +146,7 @@ return {
                     local buf_id = args.data.buf_id
                     vim.keymap.set("n", "-", function()
                         MiniFiles.go_out()
-                    end, { buffer = buf_id })
+                    end, { buffer = buf_id, desc = "Go out of directory" })
                     vim.keymap.set("n", "<cr>", function()
                         local fs_entry = MiniFiles.get_fs_entry()
                         local is_at_file = fs_entry ~= nil and fs_entry.fs_type == "file"
@@ -154,17 +154,17 @@ return {
                         if is_at_file then
                             MiniFiles.close()
                         end
-                    end, { buffer = buf_id })
+                    end, { buffer = buf_id, desc = "Go in entry" })
                     vim.keymap.set("n", "<c-q>", function()
                         MiniFiles.close()
-                    end, { buffer = buf_id })
+                    end, { buffer = buf_id, desc = "Close" })
                     vim.keymap.set("n", "<esc>", function()
                         MiniFiles.close()
-                    end, { buffer = buf_id })
-                    vim.keymap.set("n", "g~", files_set_cwd, { buffer = buf_id })
+                    end, { buffer = buf_id, desc = "Close" })
+                    vim.keymap.set("n", "g~", files_set_cwd, { buffer = buf_id, desc = "Set CWD" })
                     map_split(buf_id, "gs", "horizontal")
                     map_split(buf_id, "gv", "vertical")
-                    vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id })
+                    vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id, desc = "Toggle hidden files" })
                 end,
             })
 
