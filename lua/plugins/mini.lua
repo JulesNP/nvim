@@ -139,8 +139,26 @@ return {
                 vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
             end
 
+            local minifiles_track_lost_focus = vim.schedule_wrap(function()
+                local ft = vim.bo.filetype
+                if ft == "minifiles" or ft == "minifiles-help" then
+                    return
+                end
+                local cur_win_id = vim.api.nvim_get_current_win()
+                MiniFiles.close()
+                pcall(vim.api.nvim_set_current_win, cur_win_id)
+            end)
+
+            local minifiles_triggers = vim.api.nvim_create_augroup("MiniFilesMappings", { clear = true })
+
+            vim.api.nvim_create_autocmd("BufEnter", {
+                group = minifiles_triggers,
+                callback = minifiles_track_lost_focus,
+                desc = "Close 'mini.files' on lost focus",
+            })
+
             vim.api.nvim_create_autocmd("User", {
-                group = vim.api.nvim_create_augroup("MiniFilesMappings", { clear = true }),
+                group = minifiles_triggers,
                 pattern = "MiniFilesBufferCreate",
                 callback = function(args)
                     local buf_id = args.data.buf_id
