@@ -144,9 +144,18 @@ return {
                 pattern = "MiniFilesBufferCreate",
                 callback = function(args)
                     local buf_id = args.data.buf_id
+                    map_split(buf_id, "gs", "horizontal")
+                    map_split(buf_id, "gv", "vertical")
                     vim.keymap.set("n", "-", function()
                         MiniFiles.go_out()
                     end, { buffer = buf_id, desc = "Go out of directory" })
+                    vim.keymap.set("n", "<c-h>", toggle_dotfiles, { buffer = buf_id, desc = "Toggle hidden files" })
+                    vim.keymap.set("n", "<c-j>", "<c-j>", { buffer = buf_id, desc = "Down" })
+                    vim.keymap.set("n", "<c-k>", "k", { buffer = buf_id, desc = "Up" })
+                    vim.keymap.set("n", "<c-l>", "<c-l>", { buffer = buf_id, desc = "Clear and redraw screen" })
+                    vim.keymap.set("n", "<c-q>", function()
+                        MiniFiles.close()
+                    end, { buffer = buf_id, desc = "Close" })
                     vim.keymap.set("n", "<cr>", function()
                         local fs_entry = MiniFiles.get_fs_entry()
                         local is_at_file = fs_entry ~= nil and fs_entry.fs_type == "file"
@@ -155,16 +164,13 @@ return {
                             MiniFiles.close()
                         end
                     end, { buffer = buf_id, desc = "Go in entry" })
-                    vim.keymap.set("n", "<c-q>", function()
-                        MiniFiles.close()
-                    end, { buffer = buf_id, desc = "Close" })
                     vim.keymap.set("n", "<esc>", function()
                         MiniFiles.close()
                     end, { buffer = buf_id, desc = "Close" })
-                    vim.keymap.set("n", "g~", files_set_cwd, { buffer = buf_id, desc = "Set CWD" })
-                    map_split(buf_id, "gs", "horizontal")
-                    map_split(buf_id, "gv", "vertical")
                     vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id, desc = "Toggle hidden files" })
+                    vim.keymap.set("n", "gh", "h", { buffer = buf_id, desc = "Left" })
+                    vim.keymap.set("n", "gl", "l", { buffer = buf_id, desc = "Right" })
+                    vim.keymap.set("n", "g~", files_set_cwd, { buffer = buf_id, desc = "Set CWD" })
                 end,
             })
 
