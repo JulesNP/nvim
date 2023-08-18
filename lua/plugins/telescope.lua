@@ -6,6 +6,7 @@ return {
         "debugloop/telescope-undo.nvim",
         "nvim-lua/plenary.nvim",
         "nvim-telescope/telescope-ui-select.nvim",
+        "echasnovski/mini.nvim",
     },
     ft = { "mason" },
     keys = vim.g.vscode and {} or {
@@ -271,6 +272,7 @@ return {
         local tu_actions = require "telescope-undo.actions"
         telescope.setup {
             defaults = {
+                generic_sorter = require("mini.fuzzy").get_telescope_sorter,
                 borderchars = { " " },
                 mappings = {
                     i = {
