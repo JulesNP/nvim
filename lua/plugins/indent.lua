@@ -11,6 +11,16 @@ return {
         cond = not vim.g.vscode,
         event = "BufRead",
         ft = { "lazy", "markdown" },
+        keys = vim.g.vscode and {} or {
+            {
+                "<leader>ti",
+                function()
+                    vim.b.miniindentscope_disable = not vim.b.miniindentscope_disable
+                    vim.cmd "IndentBlanklineToggle"
+                end,
+                desc = "Toggle indent guides",
+            },
+        },
         init = function()
             vim.g.indent_blankline_enabled = false
             vim.api.nvim_create_autocmd("FileType", {
