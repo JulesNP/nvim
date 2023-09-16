@@ -18,6 +18,15 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+    group = filetype_settings,
+    pattern = "dbui",
+    callback = function()
+        vim.keymap.set("n", "<c-j>", "<c-w>j", { desc = "Go to the down window", buffer = 0 })
+        vim.keymap.set("n", "<c-k>", "<c-w>k", { desc = "Go to the up window", buffer = 0 })
+    end,
+})
+
 vim.api.nvim_create_autocmd("TextYankPost", {
     group = vim.api.nvim_create_augroup("HighlightYank", { clear = true }),
     callback = function()
