@@ -84,7 +84,12 @@ return {
                     },
                 },
             }, {
-                { name = "rg", keyword_length = 2 },
+                {
+                    name = "rg",
+                    option = {
+                        additional_arguments = "--max-depth 6 --one-file-system",
+                    },
+                },
             }),
         }
 
