@@ -16,6 +16,7 @@ syn case match
 syn match   fsharpDelimiter ","
 syn match   fsharpDelimiter ";"
 syn match   fsharpOperator  "!"
+syn match   fsharpOperator  "%"
 syn match   fsharpOperator  "&"
 syn match   fsharpOperator  "*"
 syn match   fsharpOperator  "+"
