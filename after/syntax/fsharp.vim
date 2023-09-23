@@ -93,13 +93,13 @@ syn keyword fsharpStatement   thenBy thenByDescending thenByNullable thenByNulla
 " Value literals
 syn keyword fsharpBoolean true false
 syn match   fsharpNumber  "\<\d\+"
-syn match   fsharpNumber  "\<-\=\d\(_\|\d\)*\(u\|u\?[yslLn]\|UL\)\?\>"
-syn match   fsharpNumber  "\<-\=0[x|X]\(\x\|_\)\+\(u\|u\?[yslLn]\|UL\)\?\>"
-syn match   fsharpNumber  "\<-\=0[o|O]\(\o\|_\)\+\(u\|u\?[yslLn]\|UL\)\?\>"
+syn match   fsharpNumber  "\<-\=\d\(_\|\d\)*\(u\|u\?[yslLn]\|UL\|M\)\?\>"
+syn match   fsharpNumber  "\<-\=0[x|X]\(\x\|_\)\+\(u\|u\?[yslLn]\|UL\|M\)\?\>"
+syn match   fsharpNumber  "\<-\=0[o|O]\(\o\|_\)\+\(u\|u\?[yslLn]\|UL\|M\)\?\>"
 syn match   fsharpNumber  "\<-\=0[b|B]\([01]\|_\)\+\(u\|u\?[yslLn]\|UL\)\?\>"
 syn match   fsharpFloat   "\<-\=\d\(_\|\d\)*\.\(_\|\d\)*\([eE][-+]\=\d\(_\|\d\)*\)\=\>"
 syn match   fsharpFloat   "\<-\=\d\(_\|\d\)*\.\(_\|\d\)*\([eE][-+]\=\d\(_\|\d\)*\)\=\>"
-syn match   fsharpFloat   "\<\d\+\.\d*"
+syn match   fsharpFloat   "\<\d\+\.\d*M?\>"
 
 " Types
 syn keyword fsharpType array bool byte char decimal double enum exn float float32 int int16 int32 int64 lazy_t list nativeint
