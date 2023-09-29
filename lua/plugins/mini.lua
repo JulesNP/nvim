@@ -31,7 +31,12 @@ return {
             vim.api.nvim_create_autocmd("FileType", {
                 group = vim.api.nvim_create_augroup("IndentScopeDisable", { clear = true }),
                 callback = function()
-                    if vim.bo.buftype ~= "" or vim.bo.filetype == "toggleterm" or vim.bo.filetype == "dbout" then
+                    if
+                        vim.bo.buftype ~= ""
+                        or vim.bo.filetype == "toggleterm"
+                        or vim.bo.filetype == "dbout"
+                        or vim.bo.filetype == "dbui"
+                    then
                         vim.b.miniindentscope_disable = true
                     end
                 end,

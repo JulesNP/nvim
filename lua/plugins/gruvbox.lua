@@ -34,11 +34,11 @@ return {
                     IlluminatedWordRead = { bg = neutral.bg2 },
                     IlluminatedWordText = { bg = neutral.bg2 },
                     IlluminatedWordWrite = { bg = bg == "dark" and opposite.orange or opposite.yellow },
-                    IndentBlanklineChar = {
+                    IblIndent = {
                         fg = bg == "dark" and hard.bg0 or soft.bg0,
                         nocombine = true,
                     },
-                    IndentBlanklineSpaceChar = {
+                    IblWhitespace = {
                         fg = neutral.orange,
                         nocombine = true,
                     },
