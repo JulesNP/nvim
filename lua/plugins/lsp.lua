@@ -13,6 +13,15 @@ return {
         "folke/neodev.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/nvim-cmp",
+        {
+            "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+            config = function()
+                local lsp_lines = require "lsp_lines"
+                lsp_lines.setup()
+                vim.diagnostic.config { virtual_text = false }
+                vim.keymap.set("n", "<leader>ti", lsp_lines.toggle, { desc = "Toggle LSP diagnostics" })
+            end,
+        },
         { "JulesNP/Ionide-vim", branch = "indent" },
         "jay-babu/mason-null-ls.nvim",
         "jay-babu/mason-nvim-dap.nvim",
