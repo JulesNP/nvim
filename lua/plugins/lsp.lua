@@ -19,6 +19,7 @@ return {
                 local lsp_lines = require "lsp_lines"
                 lsp_lines.setup()
                 vim.diagnostic.config { virtual_text = false }
+                vim.diagnostic.config({ virtual_lines = false }, require("lazy.core.config").ns)
                 vim.keymap.set("n", "<leader>ti", lsp_lines.toggle, { desc = "Toggle LSP diagnostics" })
             end,
         },
