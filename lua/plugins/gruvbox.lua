@@ -1,5 +1,6 @@
 return {
     "ellisonleao/gruvbox.nvim",
+    commit = "e810b46",
     cond = not vim.g.vscode,
     priority = 1000,
     config = function()
