@@ -3,7 +3,7 @@ return {
     cond = not vim.g.vscode,
     ft = "markdown",
     keys = vim.g.vscode and {} or {
-        { "<c-p>", "<Plug>MarkdownPreviewToggle", desc = "Toggle Markdown Preview" },
+        { "<leader>p", "<Plug>MarkdownPreviewToggle", desc = "Toggle Markdown Preview" },
     },
     build = function()
         vim.fn["mkdp#util#install"]()
