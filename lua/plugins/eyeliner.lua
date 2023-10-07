@@ -1,6 +1,6 @@
 return {
     "jinh0/eyeliner.nvim",
-    event = "BufRead",
+    event = "BufReadPre",
     ft = "markdown",
     opts = {
         highlight_on_key = true,
