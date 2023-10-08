@@ -226,6 +226,8 @@ return {
                 }
             end,
             fsautocomplete = function()
+                vim.g["fsharp#external_autocomplete"] = 1
+                vim.g["fsharp#simplify_name_analyzer"] = 1
                 vim.g["fsharp#fsi_keymap"] = "custom"
                 vim.g["fsharp#fsi_keymap_send"] = "<leader><cr>"
                 vim.g["fsharp#fsi_keymap_toggle"] = "<m-\\>"
