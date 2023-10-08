@@ -29,6 +29,13 @@ return {
         "joechrisellis/lsp-format-modifications.nvim",
         "jose-elias-alvarez/null-ls.nvim",
         "jose-elias-alvarez/typescript.nvim",
+        {
+            "kosayoda/nvim-lightbulb",
+            opts = {
+                autocmd = { enabled = true },
+                ignore = { clients = { "null-ls", "lua_ls" } },
+            },
+        },
         "kevinhwang91/nvim-ufo",
         "mfussenegger/nvim-dap",
         "nvim-lua/plenary.nvim",
