@@ -49,7 +49,7 @@ return {
             custom_textobjects = {
                 F = ts { a = "@function.outer", i = "@function.inner" },
                 a = require("mini.ai").gen_spec.argument { separator = "[,;]" },
-                c = ts { a = "@comment.outer", i = "@comment.inner" },
+                ["/"] = ts { a = "@comment.outer", i = "@comment.inner" },
                 g = function()
                     local from = { line = 1, col = 1 }
                     local to = { line = vim.fn.line "$", col = math.max(vim.fn.getline("$"):len(), 1) }
@@ -60,7 +60,14 @@ return {
             n_lines = 100,
         }
         require("mini.align").setup {}
-
+        require("mini.bracketed").setup {
+            indent = { suffix = "" },
+        }
+        require("mini.comment").setup {
+            mappings = {
+                textobject = "ac",
+            },
+        }
         require("mini.indentscope").setup {
             draw = {
                 delay = 25,

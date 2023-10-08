@@ -103,9 +103,7 @@ return {
                     set_jumps = true,
                     goto_next_start = {
                         ["]/"] = "@comment.outer",
-                        ["]C"] = "@comment.outer",
                         ["]M"] = "@function.outer",
-                        ["]O"] = "@loop.outer",
                         ["]]"] = "@class.outer",
                         ["]a"] = "@parameter.inner",
                         ["]m"] = "@call.outer",
@@ -113,22 +111,17 @@ return {
                     },
                     goto_next_end = {
                         ["]A"] = "@parameter.inner",
-                        ["]C"] = "@comment.outer",
                         ["]["] = "@class.outer",
                     },
                     goto_previous_start = {
                         ["[/"] = "@comment.outer",
-                        ["[C"] = "@comment.outer",
                         ["[M"] = "@function.outer",
-                        ["[O"] = "@loop.outer",
                         ["[["] = "@class.outer",
                         ["[a"] = "@parameter.inner",
                         ["[m"] = "@call.outer",
-                        ["[o"] = "@conditional.outer",
                     },
                     goto_previous_end = {
                         ["[A"] = "@parameter.inner",
-                        ["[C"] = "@comment.outer",
                         ["[]"] = "@class.outer",
                     },
                 },
