@@ -2,6 +2,22 @@ return {
     "RRethy/vim-illuminate",
     event = "BufRead",
     ft = "markdown",
+    keys = vim.g.vscode and {} or {
+        {
+            "<d-n>",
+            function()
+                require("illuminate").goto_next_reference(true)
+            end,
+            desc = "Go to next reference",
+        },
+        {
+            "<d-p>",
+            function()
+                require("illuminate").goto_prev_reference(true)
+            end,
+            desc = "Go to previous reference",
+        },
+    },
     config = function()
         require("illuminate").configure {
             providers = vim.g.vscode and { "treesitter" } or {
