@@ -41,6 +41,38 @@ vim.keymap.set("x", "<leader>s", ":sort<cr>", { desc = "Sort selection" })
 vim.keymap.set("x", "y", "myy`y", { desc = "Yank selection" })
 vim.keymap.set("x", "Y", "myY`y", { desc = "Yank selection linewise" })
 
+local function putline(action)
+    return function()
+        local regType = vim.fn.getregtype(vim.v.register)
+        if regType ~= "V" then
+            local regValue = vim.fn.getreg(vim.v.register)
+            vim.fn.setreg(vim.v.register, regValue, "V")
+            vim.cmd('normal! "' .. vim.v.register .. vim.v.count .. action)
+            vim.fn.setreg(vim.v.register, regValue, regType)
+        else
+            vim.cmd('normal! "' .. vim.v.register .. vim.v.count .. action)
+        end
+    end
+end
+
+vim.keymap.set("n", "]p", putline "]p", { desc = "Put text after cursor at current indent" })
+vim.keymap.set("n", "]P", putline "]P", { desc = "Put text after cursor at current indent" })
+vim.keymap.set("n", "[p", putline "[p", { desc = "Put text before cursor at current indent" })
+vim.keymap.set("n", "[P", putline "[P", { desc = "Put text before cursor at current indent" })
+vim.keymap.set("n", ">p", putline "]p>']", { desc = "Put text after cursor at higher indent" })
+vim.keymap.set("n", ">P", putline "[p>']", { desc = "Put text before cursor at higher indent" })
+vim.keymap.set("n", "<p", putline "]p<']", { desc = "Put text after cursor at lower indent" })
+vim.keymap.set("n", "<P", putline "[p<']", { desc = "Put text before cursor at lower indent" })
+vim.keymap.set("n", "=p", putline "]p=']", { desc = "Put text after cursor and reformat" })
+vim.keymap.set("n", "=P", putline "[p=']", { desc = "Put text before cursor and reformat" })
+
+vim.keymap.set("n", "] ", function()
+    vim.cmd("normal! m`" .. vim.v.count .. "o``")
+end, { desc = "Add blank line below" })
+vim.keymap.set("n", "[ ", function()
+    vim.cmd("normal! m`" .. vim.v.count .. "O``")
+end, { desc = "Add blank line above" })
+
 vim.keymap.set({ "n", "x" }, "j", function()
     vim.api.nvim_feedkeys(vim.v.count > 0 and "j" or "gj", "n", false)
 end, { desc = "Down", expr = true })
