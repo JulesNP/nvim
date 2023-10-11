@@ -4,9 +4,10 @@ return {
     branch = "0.1.x",
     dependencies = {
         "debugloop/telescope-undo.nvim",
-        "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope-ui-select.nvim",
         "echasnovski/mini.nvim",
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope-frecency.nvim",
+        "nvim-telescope/telescope-ui-select.nvim",
     },
     ft = { "mason" },
     keys = vim.g.vscode and {} or {
@@ -25,13 +26,6 @@ return {
             desc = "Find with live grep",
         },
         {
-            "<leader>6",
-            function()
-                require "enhanced-find"()
-            end,
-            desc = "Find recent files in cwd",
-        },
-        {
             "<leader>8",
             function()
                 require("telescope.builtin").grep_string()
@@ -48,7 +42,7 @@ return {
         {
             "<leader><leader>",
             function()
-                require "enhanced-find"()
+                require("telescope").extensions.frecency.frecency { workspace = "CWD" }
             end,
             desc = "Find recent files in cwd",
         },
@@ -69,9 +63,9 @@ return {
         {
             "<leader>ff",
             function()
-                require("telescope.builtin").find_files()
+                require("telescope").extensions.frecency.frecency {}
             end,
-            desc = "Find files",
+            desc = "Find recent files",
         },
         {
             "<leader>fg",
@@ -314,6 +308,11 @@ return {
                 trim_text = true,
             },
             extensions = {
+                frecency = {
+                    ignore_patterns = { "*.git/*", "*/svg/*", "*/tmp/*", "term://*" },
+                    show_filter_column = false,
+                    sorter = require("mini.fuzzy").get_telescope_sorter(),
+                },
                 ["ui-select"] = {
                     require("telescope.themes").get_dropdown { borderchars = { " " } },
                 },
@@ -329,6 +328,7 @@ return {
                 },
             },
         }
+        telescope.load_extension "frecency"
         telescope.load_extension "ui-select"
         telescope.load_extension "undo"
     end,
