@@ -1,7 +1,7 @@
 return {
     "RRethy/vim-illuminate",
     event = "BufRead",
-    ft = "markdown",
+    ft = "text",
     keys = vim.g.vscode and {} or {
         {
             "<d-n>",

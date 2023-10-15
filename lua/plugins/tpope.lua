@@ -11,7 +11,7 @@ return {
                 function()
                     if vim.bo.filetype == "alpha" then
                         vim.cmd "enew"
-                        vim.bo.filetype = "markdown"
+                        vim.bo.filetype = "text"
                         vim.bo.filetype = "sql"
                     end
                     vim.cmd "DBUIToggle"
@@ -24,7 +24,7 @@ return {
             vim.g.db_ui_force_echo_notifications = 1
         end,
     },
-    { "tpope/vim-repeat", event = "BufRead", ft = "markdown" },
-    { "tpope/vim-speeddating", event = "BufReadPost", ft = "markdown" },
+    { "tpope/vim-repeat", event = "BufRead", ft = "text" },
+    { "tpope/vim-speeddating", event = "BufRead", ft = "text" },
     { "tpope/vim-rsi", cond = not vim.g.vscode, event = { "CmdlineEnter", "InsertEnter" } },
 }

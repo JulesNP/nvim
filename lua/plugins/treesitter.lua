@@ -1,7 +1,7 @@
 return {
     "nvim-treesitter/nvim-treesitter",
     event = "BufRead",
-    ft = "markdown",
+    ft = "text",
     dependencies = {
         "HiPhish/nvim-ts-rainbow2",
         "andymass/vim-matchup",
@@ -34,20 +34,6 @@ return {
         require("nvim-treesitter.configs").setup {
             highlight = {
                 enable = not vim.g.vscode,
-            },
-            ensure_installed = {
-                "c_sharp",
-                "cmake",
-                "erlang",
-                "julia",
-                "lua",
-                "markdown",
-                "markdown_inline",
-                "org",
-                "slint",
-                "tsx",
-                "typescript",
-                "vim",
             },
             auto_install = true,
             autotag = {

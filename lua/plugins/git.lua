@@ -44,7 +44,7 @@ return {
         "lewis6991/gitsigns.nvim",
         cond = not vim.g.vscode,
         event = "BufRead",
-        ft = "markdown",
+        ft = "text",
         opts = {
             on_attach = function(bufnr)
                 local gs = package.loaded.gitsigns

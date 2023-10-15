@@ -3,7 +3,6 @@ return {
         "danymat/neogen",
         dependencies = "nvim-treesitter/nvim-treesitter",
         event = "BufRead",
-        ft = { "markdown" },
         keys = {
             { "<leader>cF", "<cmd>Neogen file<cr>", desc = "Create file annotation" },
             { "<leader>cc", "<cmd>Neogen class<cr>", desc = "Create class annotation" },

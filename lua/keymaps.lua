@@ -11,7 +11,7 @@ vim.keymap.set("n", "<c-s>", "<cmd>update<bar>mkview<cr>", { desc = "Save if mod
 vim.keymap.set("n", "<d-s>", "<cmd>wall<bar>mkview<cr>", { desc = "Save all modified buffers" })
 vim.keymap.set("n", "<m-s>", "<cmd>wall<bar>mkview<cr>", { desc = "Save all modified buffers" })
 vim.keymap.set("n", "<esc>", "<cmd>nohlsearch<bar>diffupdate<cr>", { desc = "Clear search highlights" })
-vim.keymap.set("n", "<leader>n", "<cmd>enew<bar>set filetype=markdown<cr>", { desc = "New buffer" })
+vim.keymap.set("n", "<leader>n", "<cmd>enew<bar>set filetype=text<cr>", { desc = "New buffer" })
 vim.keymap.set("n", "<leader>X", "<cmd>bdelete<cr>", { desc = "Close window and buffer" })
 vim.keymap.set("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Open Lazy.nvim" })
 vim.keymap.set("n", "<d-a>", "ga", { desc = "Show ASCII value" })

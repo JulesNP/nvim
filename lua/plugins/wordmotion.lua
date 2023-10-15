@@ -1,7 +1,7 @@
 return {
     "chaoren/vim-wordmotion",
     event = "BufRead",
-    ft = "markdown",
+    ft = "text",
     init = function()
         vim.g.wordmotion_mappings = {
             w = "<m-w>",

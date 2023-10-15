@@ -3,14 +3,14 @@ return {
         "nmac427/guess-indent.nvim",
         cond = not vim.g.vscode,
         event = "BufRead",
-        ft = { "lazy", "markdown" },
+        ft = { "lazy", "text" },
         config = true,
     },
     {
         "lukas-reineke/indent-blankline.nvim",
         cond = not vim.g.vscode,
         event = "BufRead",
-        ft = { "lazy", "markdown" },
+        ft = { "lazy", "text" },
         keys = vim.g.vscode and {} or {
             {
                 "<leader>ti",
