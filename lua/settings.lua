@@ -1,7 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.o.completeopt = "menu,menuone,noselect"
-vim.o.concealcursor = "nc"
 vim.o.conceallevel = 2
 vim.o.confirm = true
 vim.o.expandtab = true
