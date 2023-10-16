@@ -136,6 +136,8 @@ return {
                         end,
                         timeout_ms = 2500,
                     }
+
+                    vim.cmd "GuessIndent"
                 end
 
                 nmap("<c-s>", function()
