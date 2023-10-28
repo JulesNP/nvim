@@ -27,7 +27,7 @@ return {
         "jay-babu/mason-null-ls.nvim",
         "jay-babu/mason-nvim-dap.nvim",
         "joechrisellis/lsp-format-modifications.nvim",
-        "jose-elias-alvarez/null-ls.nvim",
+        "nvimtools/none-ls.nvim",
         "jose-elias-alvarez/typescript.nvim",
         {
             "kosayoda/nvim-lightbulb",
