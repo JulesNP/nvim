@@ -211,6 +211,13 @@ return {
                     width_preview = 30,
                 },
             }
+
+            local MiniPick = require "mini.pick"
+            MiniPick.setup {
+                mappings = {
+                    choose_marked = "<c-q>",
+                },
+            }
         end
         if not vim.g.vscode and not vim.g.neovide then
             local animate = require "mini.animate"
