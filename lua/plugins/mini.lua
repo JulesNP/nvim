@@ -218,6 +218,7 @@ return {
                     choose_marked = "<c-q>",
                 },
             }
+            vim.ui.select = MiniPick.ui_select
         end
         if not vim.g.vscode and not vim.g.neovide then
             local animate = require "mini.animate"
