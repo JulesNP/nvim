@@ -50,7 +50,7 @@ return {
                         bg = bg == "dark" and opposite.red or neutral.red,
                     },
                     MatchParen = { bg = neutral.bg2 },
-                    MiniFilesNormal = { bg = neutral.bg0 },
+                    MiniFilesCursorLine = { bg = neutral.bg2 },
                     MiniIndentscopeSymbol = { fg = neutral.bg2 },
                     MiniPickMatchCurrent = { bg = neutral.bg2 },
                     NeoGitDiffAdd = { bg = opposite.green },
