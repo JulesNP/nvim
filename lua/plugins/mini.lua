@@ -95,44 +95,44 @@ return {
             desc = "Find files",
         },
         {
-            "<leader>fGb",
+            "<leader>gb",
             "<cmd>Pick git_branches<cr>",
-            desc = "Find git branches",
+            desc = "Find branches",
         },
         {
-            "<leader>fGc",
+            "<leader>gC",
             "<cmd>Pick git_commits<cr>",
-            desc = "Find git commits",
+            desc = "Find commits",
         },
         {
-            "<leader>fGd",
+            "<leader>gd",
             "<cmd>Pick git_files scope='deleted'<cr>",
-            desc = "Find deleted git files",
+            desc = "Find deleted files",
         },
         {
-            "<leader>fGf",
+            "<leader>gf",
             "<cmd>Pick git_files<cr>",
-            desc = "Find tracked git files",
+            desc = "Find tracked files",
         },
         {
-            "<leader>fGh",
+            "<leader>gh",
             "<cmd>Pick git_hunks<cr>",
-            desc = "Find git hunks",
+            desc = "Find hunks",
         },
         {
-            "<leader>fGi",
+            "<leader>gi",
             "<cmd>Pick git_files scope='ignored'<cr>",
-            desc = "Find ignored git files",
+            desc = "Find ignored files",
         },
         {
-            "<leader>fGm",
+            "<leader>gm",
             "<cmd>Pick git_files scope='modified'<cr>",
-            desc = "Find modified git files",
+            desc = "Find modified files",
         },
         {
-            "<leader>fGu",
+            "<leader>gu",
             "<cmd>Pick git_files scope='untracked'<cr>",
-            desc = "Find untracked git files",
+            desc = "Find untracked files",
         },
         {
             "<leader>fg",
@@ -432,6 +432,10 @@ return {
                 },
             }
 
+            local MiniMisc = require "mini.misc"
+            MiniMisc.setup {}
+            MiniMisc.setup_auto_root()
+
             local MiniPick = require "mini.pick"
             MiniPick.setup {
                 mappings = {
@@ -448,6 +452,13 @@ return {
                         func = function()
                             local mappings = MiniPick.get_picker_opts().mappings
                             vim.api.nvim_input(mappings.mark .. mappings.move_up)
+                        end,
+                    },
+                    move_down_alt = {
+                        char = "<c-j>",
+                        func = function()
+                            local mappings = MiniPick.get_picker_opts().mappings
+                            vim.api.nvim_input(mappings.move_down)
                         end,
                     },
                     refine = "<c-e>",

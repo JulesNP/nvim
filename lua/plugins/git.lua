@@ -8,7 +8,7 @@ return {
         event = "CmdlineEnter",
         keys = vim.g.vscode and {} or {
             { "<leader>gP", "<cmd>Git push<cr>", desc = "Push" },
-            { "<leader>gc", "<cmd>Git commit<cr>", desc = "Commit" },
+            { "<leader>gc", "<cmd>Git commit<cr>", desc = "New commit" },
             { "<leader>gp", "<cmd>Git pull<cr>", desc = "Pull" },
         },
     },
@@ -17,15 +17,6 @@ return {
         cond = not vim.g.vscode,
         keys = vim.g.vscode and {} or {
             { "<leader>gg", "<cmd>Neogit<cr>", desc = "Open Neogit" },
-            {
-                "<leader>g-",
-                function()
-                    local cwd = vim.fn.expand "%:p:h"
-                    require("neogit").open {}
-                    vim.cmd(":lcd" .. cwd)
-                end,
-                desc = "Open Neogit for current buffer",
-            },
         },
         dependencies = {
             "nvim-lua/plenary.nvim",
