@@ -263,17 +263,18 @@ return {
         end
     end,
     config = function()
+        local gen_ai_spec = require("mini.extra").gen_ai_spec
         local ts = require("mini.ai").gen_spec.treesitter
         require("mini.ai").setup {
             custom_textobjects = {
                 F = ts { a = "@function.outer", i = "@function.inner" },
-                a = require("mini.ai").gen_spec.argument { separator = "[,;]" },
+                I = gen_ai_spec.indent(),
+                L = gen_ai_spec.line(),
+                N = gen_ai_spec.number(),
                 ["/"] = ts { a = "@comment.outer", i = "@comment.inner" },
-                g = function()
-                    local from = { line = 1, col = 1 }
-                    local to = { line = vim.fn.line "$", col = math.max(vim.fn.getline("$"):len(), 1) }
-                    return { from = from, to = to }
-                end,
+                a = require("mini.ai").gen_spec.argument { separator = "[,;]" },
+                d = gen_ai_spec.diagnostic(),
+                g = gen_ai_spec.buffer(),
                 o = ts { a = { "@conditional.outer", "@loop.outer" }, i = { "@conditional.inner", "@loop.inner" } },
             },
             n_lines = 100,
