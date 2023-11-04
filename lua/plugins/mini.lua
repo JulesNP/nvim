@@ -95,49 +95,49 @@ return {
             desc = "Find files",
         },
         {
-            "<leader>fg",
-            "<cmd>Pick grep_live<cr>",
-            desc = "Find with grep",
-        },
-        {
-            "<leader>fgb",
+            "<leader>fGb",
             "<cmd>Pick git_branches<cr>",
             desc = "Find git branches",
         },
         {
-            "<leader>fgc",
+            "<leader>fGc",
             "<cmd>Pick git_commits<cr>",
             desc = "Find git commits",
         },
         {
-            "<leader>fgd",
+            "<leader>fGd",
             "<cmd>Pick git_files scope='deleted'<cr>",
             desc = "Find deleted git files",
         },
         {
-            "<leader>fgf",
+            "<leader>fGf",
             "<cmd>Pick git_files<cr>",
             desc = "Find tracked git files",
         },
         {
-            "<leader>fgh",
+            "<leader>fGh",
             "<cmd>Pick git_hunks<cr>",
             desc = "Find git hunks",
         },
         {
-            "<leader>fgi",
+            "<leader>fGi",
             "<cmd>Pick git_files scope='ignored'<cr>",
             desc = "Find ignored git files",
         },
         {
-            "<leader>fgm",
+            "<leader>fGm",
             "<cmd>Pick git_files scope='modified'<cr>",
             desc = "Find modified git files",
         },
         {
-            "<leader>fgu",
+            "<leader>fGu",
             "<cmd>Pick git_files scope='untracked'<cr>",
             desc = "Find untracked git files",
+        },
+        {
+            "<leader>fg",
+            "<cmd>Pick grep_live<cr>",
+            desc = "Find with grep",
         },
         {
             "<leader>fH",
