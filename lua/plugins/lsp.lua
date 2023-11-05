@@ -5,7 +5,7 @@ return {
     ft = { "dbui", "text" },
     cmd = { "Mason" },
     keys = vim.g.vscode and {} or {
-        { "<leader>m", "<cmd>Mason<cr>", desc = "Open Mason" },
+        { "<leader>M", "<cmd>Mason<cr>", desc = "Open Mason" },
     },
     dependencies = {
         "Hoffs/omnisharp-extended-lsp.nvim",

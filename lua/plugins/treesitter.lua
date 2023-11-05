@@ -90,25 +90,21 @@ return {
                     goto_next_start = {
                         ["]/"] = "@comment.outer",
                         ["]M"] = "@function.outer",
-                        ["]]"] = "@class.outer",
                         ["]a"] = "@parameter.inner",
                         ["]m"] = "@call.outer",
                         ["]o"] = "@conditional.outer",
                     },
                     goto_next_end = {
                         ["]A"] = "@parameter.inner",
-                        ["]["] = "@class.outer",
                     },
                     goto_previous_start = {
                         ["[/"] = "@comment.outer",
                         ["[M"] = "@function.outer",
-                        ["[["] = "@class.outer",
                         ["[a"] = "@parameter.inner",
                         ["[m"] = "@call.outer",
                     },
                     goto_previous_end = {
                         ["[A"] = "@parameter.inner",
-                        ["[]"] = "@class.outer",
                     },
                 },
                 swap = {

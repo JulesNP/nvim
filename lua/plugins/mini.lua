@@ -230,11 +230,6 @@ return {
             desc = "Find spelling suggestions",
         },
         {
-            "<leader><leader>",
-            "<cmd>Pick oldfiles<cr>",
-            desc = "Find recent files",
-        },
-        {
             "<leader>scd",
             "<cmd>SessionManager load_current_dir_session<cr>",
             desc = "Load session from current directory",
