@@ -221,6 +221,7 @@ return {
                 vim.g["fsharp#fsi_keymap"] = "custom"
                 vim.g["fsharp#fsi_keymap_send"] = "<leader><cr>"
                 vim.g["fsharp#fsi_keymap_toggle"] = "<m-\\>"
+                vim.g["fsharp#lsp_codelens"] = 0
 
                 require("ionide").setup {
                     autostart = true,
