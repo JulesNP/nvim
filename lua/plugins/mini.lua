@@ -367,6 +367,11 @@ return {
                 vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
             end
 
+            local yank_relative_path = function()
+                local path = MiniFiles.get_fs_entry().path
+                vim.fn.setreg('"', vim.fn.fnamemodify(path, ":."))
+            end
+
             local minifiles_triggers = vim.api.nvim_create_augroup("MiniFilesMappings", { clear = true })
 
             vim.api.nvim_create_autocmd("User", {
@@ -400,6 +405,7 @@ return {
                     vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id, desc = "Toggle hidden files" })
                     vim.keymap.set("n", "gh", "h", { buffer = buf_id, desc = "Left" })
                     vim.keymap.set("n", "gl", "l", { buffer = buf_id, desc = "Right" })
+                    vim.keymap.set("n", "gy", yank_relative_path, { buffer = buf_id, desc = "Yank relative path" })
                     vim.keymap.set("n", "g~", files_set_cwd, { buffer = buf_id, desc = "Set CWD" })
                 end,
             })
