@@ -170,7 +170,7 @@ return {
             desc = "Find buffer lines",
         },
         {
-            "<leader>fm",
+            "<leader>fM",
             "<cmd>Pick marks<cr>",
             desc = "Find marks",
         },
