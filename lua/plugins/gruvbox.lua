@@ -32,13 +32,14 @@ return {
                     },
                     MatchParen = { bg = dark and palette.dark2 or palette.light2 },
                     MiniFilesCursorLine = { bg = dark and palette.dark2 or palette.light2 },
-                    MiniIndentscopeSymbol = { link = "Whitespace" },
+                    MiniIndentscopeSymbol = { fg = dark and palette.dark2 or palette.light2 },
                     MiniPickMatchCurrent = { bg = dark and palette.dark2 or palette.light2 },
                     SignColumn = { link = "LineNr" },
                     TreesitterContextLineNumber = {
                         fg = palette.gray,
                         bg = dark and palette.dark1 or palette.light1,
                     },
+                    Whitespace = { fg = dark and palette.dark1 or palette.light1 },
                 },
             }
             vim.cmd.colorscheme "gruvbox"

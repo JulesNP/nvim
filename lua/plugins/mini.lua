@@ -291,7 +291,6 @@ return {
             options = {
                 indent_at_cursor = false,
             },
-            symbol = "▏",
         }
         require("mini.move").setup {}
         require("mini.splitjoin").setup {
