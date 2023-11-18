@@ -322,8 +322,53 @@ return {
         vim.keymap.set("n", "yss", "ys_", { remap = true })
 
         if not vim.g.vscode then
-            local MiniFiles = require "mini.files"
+            local MiniClue = require "mini.clue"
+            MiniClue.setup {
+                triggers = {
+                    { mode = "c", keys = "<C-r>" },
+                    { mode = "i", keys = "<C-r>" },
+                    { mode = "i", keys = "<C-x>" },
+                    { mode = "n", keys = "'" },
+                    { mode = "n", keys = "<C-w>" },
+                    { mode = "n", keys = "<Leader>" },
+                    { mode = "n", keys = "[" },
+                    { mode = "n", keys = "]" },
+                    { mode = "n", keys = "`" },
+                    { mode = "n", keys = "g" },
+                    { mode = "n", keys = "z" },
+                    { mode = "n", keys = '"' },
+                    { mode = "x", keys = "'" },
+                    { mode = "x", keys = "<Leader>" },
+                    { mode = "x", keys = "`" },
+                    { mode = "x", keys = "g" },
+                    { mode = "x", keys = "z" },
+                    { mode = "x", keys = '"' },
+                },
 
+                clues = {
+                    MiniClue.gen_clues.builtin_completion(),
+                    MiniClue.gen_clues.g(),
+                    MiniClue.gen_clues.marks(),
+                    MiniClue.gen_clues.registers(),
+                    MiniClue.gen_clues.windows(),
+                    MiniClue.gen_clues.z(),
+                    { mode = "n", keys = "<leader>b", desc = "+debug" },
+                    { mode = "n", keys = "<leader>d", desc = "+diffview" },
+                    { mode = "n", keys = "<leader>e", desc = "+rest" },
+                    { mode = "n", keys = "<leader>f", desc = "+find" },
+                    { mode = "n", keys = "<leader>g", desc = "+git" },
+                    { mode = "n", keys = "<leader>h", desc = "+hunk" },
+                    { mode = "n", keys = "<leader>l", desc = "+lsp" },
+                    { mode = "n", keys = "<leader>o", desc = "+orgmode" },
+                    { mode = "n", keys = "<leader>r", desc = "+refactor" },
+                    { mode = "n", keys = "<leader>s", desc = "+session" },
+                    { mode = "n", keys = "<leader>t", desc = "+toggle" },
+                    { mode = "x", keys = "<leader>h", desc = "+hunk" },
+                    { mode = "x", keys = "<leader>r", desc = "+refactor" },
+                },
+            }
+
+            local MiniFiles = require "mini.files"
             local show_dotfiles = false
 
             local filter_show = function()
