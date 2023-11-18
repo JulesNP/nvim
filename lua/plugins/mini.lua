@@ -1,8 +1,7 @@
 return {
     "echasnovski/mini.nvim",
     version = false,
-    event = "BufRead",
-    ft = { "lazy", "text" },
+    event = "VeryLazy",
     keys = vim.g.vscode and {} or {
         {
             "\\",
@@ -286,9 +285,8 @@ return {
         require("mini.extra").setup {}
         require("mini.indentscope").setup {
             draw = {
-                delay = 25,
+                delay = 20,
                 animation = require("mini.indentscope").gen_animation.none(),
-                priority = 20,
             },
             options = {
                 indent_at_cursor = false,

@@ -10,6 +10,7 @@ vim.o.guifont = "Iosevka Nerd Font,Iosevka NF,Iosevka:h15"
 vim.o.ignorecase = true
 vim.o.inccommand = "split"
 vim.o.linebreak = true
+vim.o.list = true
 vim.o.mousemodel = "popup"
 vim.o.number = true
 vim.o.pumblend = 8
@@ -27,6 +28,7 @@ vim.o.updatetime = 1000
 vim.o.viewoptions = "folds,cursor"
 vim.o.whichwrap = "b,s,<,>,[,]"
 vim.o.winblend = 8
+vim.opt.listchars = { leadmultispace = "⸽   ", tab = "> ", trail = "-", nbsp = "+" }
 
 if os.getenv "SSH_CONNECTION" == nil then
     vim.o.title = true

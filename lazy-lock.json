@@ -22,7 +22,6 @@
   "gruvbox.nvim": { "branch": "main", "commit": "e810b46367a89e8b733cd100d12a6c8b2fc022c3" },
   "guess-indent.nvim": { "branch": "main", "commit": "b8ae749fce17aa4c267eec80a6984130b94f80b2" },
   "harpoon": { "branch": "master", "commit": "c1aebbad9e3d13f20bedb8f2ce8b3a94e39e424a" },
-  "indent-blankline.nvim": { "branch": "master", "commit": "29be0919b91fb59eca9e90690d76014233392bef" },
   "lazy.nvim": { "branch": "main", "commit": "96584866b9c5e998cbae300594d0ccfd0c464627" },
   "lsp-format-modifications.nvim": { "branch": "main", "commit": "006d4cd88f4f09fdc4375fcb75dd5b7d981a723b" },
   "lsp-overloads.nvim": { "branch": "main", "commit": "f7afc7a66b5319036e84487240283fa7d8e1100d" },

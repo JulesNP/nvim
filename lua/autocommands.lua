@@ -120,7 +120,7 @@ if not vim.g.vscode then
 
     -- Helper funstions to count how many windows being used for actual editing are open
     local function is_essential(filetype)
-        return not vim.tbl_contains({ "help", "neo-tree", "qf", "toggleterm" }, filetype)
+        return not vim.tbl_contains({ "help", "qf", "toggleterm" }, filetype)
     end
     local function count_essential(layout)
         if layout[1] == "leaf" then
@@ -152,11 +152,37 @@ if not vim.g.vscode then
             end
 
             vim.cmd.cclose()
-            vim.cmd "silent! Neotree close"
 
             if tterm > 0 then
                 vim.cmd "silent! ToggleTermToggleAll!"
             end
         end,
+    })
+
+    local indent_guide = vim.api.nvim_create_augroup("IndentGuide", { clear = true })
+    local function normal_guide()
+        vim.opt.listchars =
+            { leadmultispace = "⸽" .. string.rep(" ", vim.bo.shiftwidth - 1), tab = "> ", trail = "-", nbsp = "+" }
+    end
+    local function insert_guide()
+        vim.opt.listchars = { multispace = "⸽" .. string.rep(" ", vim.bo.shiftwidth - 1), tab = "> ", nbsp = "+" }
+    end
+
+    vim.api.nvim_create_autocmd("OptionSet", {
+        group = indent_guide,
+        pattern = "shiftwidth",
+        callback = normal_guide,
+    })
+
+    vim.api.nvim_create_autocmd("InsertEnter", {
+        group = indent_guide,
+        pattern = "*",
+        callback = insert_guide,
+    })
+
+    vim.api.nvim_create_autocmd("InsertLeave", {
+        group = indent_guide,
+        pattern = "*",
+        callback = normal_guide,
     })
 end
