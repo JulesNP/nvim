@@ -1,69 +1,44 @@
 return {
     "ellisonleao/gruvbox.nvim",
-    commit = "e810b46",
     cond = not vim.g.vscode,
     priority = 1000,
     config = function()
         local function setup()
-            local bg = vim.o.background
-            local fg = bg == "dark" and "light" or "dark"
+            local dark = vim.o.background == "dark"
+            local Gruvbox = require "gruvbox"
+            local palette = Gruvbox.palette
 
-            local palette = require "gruvbox.palette"
-            local neutral = palette.get_base_colors({}, nil, "")
-            local soft = palette.get_base_colors({}, nil, "soft")
-            local hard = palette.get_base_colors({}, nil, "hard")
-            local opposite = palette.get_base_colors({}, fg, "")
-
-            require("gruvbox").setup {
+            Gruvbox.setup {
                 italic = {
+                    comments = true,
+                    emphasis = true,
+                    folds = false,
+                    operators = false,
                     strings = false,
                 },
                 overrides = {
-                    CursorLine = { bg = bg == "dark" and soft.bg0 or hard.bg0 },
-                    CursorLineNr = { bg = neutral.bg0 },
+                    CursorLine = { bg = dark and palette.dark0_soft or palette.light0_hard },
+                    CursorLineNr = { bg = dark and palette.dark0 or palette.light0 },
                     EyelinerPrimary = { bold = true, underline = true },
                     EyelinerSecondary = { bold = true },
-                    Folded = { italic = false },
-                    FoldColumn = { bg = neutral.bg0 },
-                    GruvboxAquaSign = { bg = neutral.bg0 },
-                    GruvboxBlueSign = { bg = neutral.bg0 },
-                    GruvboxGreenSign = { bg = neutral.bg0 },
-                    GruvboxOrangeSign = { bg = neutral.bg0 },
-                    GruvboxPurpleSign = { bg = neutral.bg0 },
-                    GruvboxRedSign = { bg = neutral.bg0 },
-                    GruvboxYellowSign = { bg = neutral.bg0 },
-                    IlluminatedWordRead = { bg = neutral.bg2 },
-                    IlluminatedWordText = { bg = neutral.bg2 },
-                    IlluminatedWordWrite = { bg = bg == "dark" and opposite.orange or opposite.yellow },
-                    IblIndent = {
-                        fg = bg == "dark" and hard.bg0 or soft.bg0,
-                        nocombine = true,
-                    },
-                    IblWhitespace = {
-                        fg = neutral.orange,
-                        nocombine = true,
-                    },
+                    IlluminatedWordRead = { bg = dark and palette.dark2 or palette.light2 },
+                    IlluminatedWordText = { bg = dark and palette.dark2 or palette.light2 },
+                    IlluminatedWordWrite = { bg = dark and palette.faded_orange or palette.bright_orange },
                     FlashLabel = {
                         nocombine = true,
                         bold = true,
-                        fg = bg == "dark" and hard.fg0 or hard.bg0,
-                        bg = bg == "dark" and opposite.red or neutral.red,
+                        fg = palette.light0_hard,
+                        bg = dark and palette.faded_red or palette.bright_red,
                     },
-                    MatchParen = { bg = neutral.bg2 },
-                    MiniFilesCursorLine = { bg = neutral.bg2 },
-                    MiniIndentscopeSymbol = { fg = neutral.bg2 },
-                    MiniPickMatchCurrent = { bg = neutral.bg2 },
-                    NeoGitDiffAdd = { bg = opposite.green },
-                    NeoGitDiffAddHighlight = { bg = neutral.neutral_green },
-                    NeoGitDiffDelete = { bg = opposite.red },
-                    NeoGitDiffDeleteHighlight = { bg = neutral.neutral_red },
-                    SignColumn = { bg = neutral.bg0 },
-                    TreesitterContext = {
-                        fg = neutral.fg1,
-                        bg = neutral.bg1,
-                        blend = 12,
+                    MatchParen = { bg = dark and palette.dark2 or palette.light2 },
+                    MiniFilesCursorLine = { bg = dark and palette.dark2 or palette.light2 },
+                    MiniIndentscopeSymbol = { link = "Whitespace" },
+                    MiniPickMatchCurrent = { bg = dark and palette.dark2 or palette.light2 },
+                    SignColumn = { link = "LineNr" },
+                    TreesitterContextLineNumber = {
+                        fg = palette.gray,
+                        bg = dark and palette.dark1 or palette.light1,
                     },
-                    TreesitterContextLineNumber = { fg = neutral.gray, bg = neutral.bg1 },
                 },
             }
             vim.cmd.colorscheme "gruvbox"
