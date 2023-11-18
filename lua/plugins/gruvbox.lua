@@ -17,7 +17,7 @@ return {
                     strings = false,
                 },
                 overrides = {
-                    CursorLine = { bg = dark and palette.dark0_soft or palette.light0_hard },
+                    CursorLine = { bg = dark and palette.dark0_hard or palette.light0_hard },
                     CursorLineNr = { bg = dark and palette.dark0 or palette.light0 },
                     EyelinerPrimary = { bold = true, underline = true },
                     EyelinerSecondary = { bold = true },
@@ -31,9 +31,7 @@ return {
                         bg = dark and palette.faded_red or palette.bright_red,
                     },
                     MatchParen = { bg = dark and palette.dark2 or palette.light2 },
-                    MiniFilesCursorLine = { bg = dark and palette.dark2 or palette.light2 },
                     MiniIndentscopeSymbol = { fg = dark and palette.dark2 or palette.light2 },
-                    MiniPickMatchCurrent = { bg = dark and palette.dark2 or palette.light2 },
                     SignColumn = { link = "LineNr" },
                     TreesitterContextLineNumber = {
                         fg = palette.gray,
