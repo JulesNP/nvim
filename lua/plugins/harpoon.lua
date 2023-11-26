@@ -8,7 +8,11 @@ return {
         {
             "<leader><leader>",
             function()
-                require("harpoon.ui").toggle_quick_menu()
+                if require("harpoon.mark").get_length() > 1 then
+                    require("harpoon.ui").toggle_quick_menu()
+                else
+                    vim.cmd "Pick files"
+                end
             end,
             desc = "Harpoon file menu",
         },
@@ -25,6 +29,13 @@ return {
                 require("harpoon.ui").nav_prev()
             end,
             desc = "Go to previous Harpoon file",
+        },
+        {
+            "<leader>`",
+            function()
+                require("harpoon.ui").toggle_quick_menu()
+            end,
+            desc = "Harpoon file menu",
         },
         {
             "<leader>m",
