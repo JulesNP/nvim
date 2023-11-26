@@ -393,9 +393,14 @@ return {
             desc = "Find untracked files",
         },
         {
+            "<leader>fG",
+            "<cmd>Pick grep<cr>",
+            desc = "Find with grep",
+        },
+        {
             "<leader>fg",
             "<cmd>Pick grep_live<cr>",
-            desc = "Find with grep",
+            desc = "Find with live grep",
         },
         {
             "<leader>fH",
