@@ -500,6 +500,13 @@ return {
         { "<leader>sd", "<cmd>SessionManager delete_session<cr>", desc = "Delete session" },
         { "<leader>ss", "<cmd>SessionManager load_session<cr>", desc = "Select session" },
         { "<leader>sw", "<cmd>SessionManager save_current_session<cr>", desc = "Save current session" },
+        {
+            "<leader>tm",
+            function()
+                require("mini.map").toggle()
+            end,
+            desc = "Toggle mini.map",
+        },
     },
     init = function()
         -- Disable mini.indentscope in certain filetypes
@@ -560,6 +567,24 @@ return {
             mini_clue_setup()
 
             mini_files_setup()
+
+            local MiniMap = require "mini.map"
+            MiniMap.setup {
+                integrations = {
+                    MiniMap.gen_integration.builtin_search(),
+                    MiniMap.gen_integration.gitsigns(),
+                    MiniMap.gen_integration.diagnostic(),
+                },
+                symbols = {
+                    encode = MiniMap.gen_encode_symbols.dot "4x2",
+                },
+                window = {
+                    zindex = 30,
+                },
+            }
+            for _, key in ipairs { "n", "N", "*", "#" } do
+                vim.keymap.set("n", key, key .. "<Cmd>lua MiniMap.refresh({}, {lines = false, scrollbar = false})<CR>")
+            end
 
             local MiniMisc = require "mini.misc"
             MiniMisc.setup {}
