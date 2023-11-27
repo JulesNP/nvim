@@ -7,6 +7,7 @@ return {
                 "conflicts",
                 "cursor",
                 "diagnostics",
+                "folds",
                 "loclist",
                 "marks",
                 "quickfix",

@@ -53,7 +53,7 @@
   "nvim-ts-autotag": { "branch": "main", "commit": "6be1192965df35f94b8ea6d323354f7dc7a557e4" },
   "nvim-ts-rainbow2": { "branch": "master", "commit": "b3120cd5ae9ca524af9cb602f41e12e301fa985f" },
   "nvim-ufo": { "branch": "main", "commit": "c35c447ae65e2879b10d2429489088509d75c329" },
-  "nvim-web-devicons": { "branch": "master", "commit": "e034579da4d33e99230273e978527c01e5f0feca" },
+  "nvim-web-devicons": { "branch": "master", "commit": "5efb8bd06841f91f97c90e16de85e96d57e9c862" },
   "omnisharp-extended-lsp.nvim": { "branch": "main", "commit": "53edfb413a54c9e55dcddc9e9fa4977a897e4425" },
   "org-bullets.nvim": { "branch": "main", "commit": "6e0d60e901bb939eb526139cb1f8d59065132fd9" },
   "orgmode": { "branch": "master", "commit": "cbb10d4c7514680e90f791d62f1168cb87aad0ce" },
