@@ -32,8 +32,6 @@ return {
                     },
                     MatchParen = { bg = dark and palette.dark2 or palette.light2 },
                     MiniIndentscopeSymbol = { fg = dark and palette.dark2 or palette.light2 },
-                    ScrollViewFolds = { link = "Whitespace" },
-                    ScrollViewSearch = { link = "Title" },
                     SignColumn = { link = "LineNr" },
                     TreesitterContextLineNumber = {
                         fg = palette.gray,
