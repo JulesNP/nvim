@@ -28,7 +28,7 @@ vim.o.updatetime = 1000
 vim.o.viewoptions = "folds,cursor"
 vim.o.whichwrap = "b,s,<,>,[,]"
 vim.o.winblend = 8
-vim.opt.listchars = { leadmultispace = "╎   ", tab = "> ", trail = "-", nbsp = "+" }
+vim.opt.listchars = { leadmultispace = "▏   ", tab = "> ", trail = "-", nbsp = "+" }
 
 if os.getenv "SSH_CONNECTION" == nil then
     vim.o.title = true
