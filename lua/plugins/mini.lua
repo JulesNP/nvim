@@ -507,6 +507,17 @@ return {
             end,
             desc = "Toggle mini.map",
         },
+        {
+            "z=",
+            function()
+                if vim.v.count > 0 then
+                    vim.api.nvim_feedkeys(vim.v.count .. "z=", "n", false)
+                else
+                    vim.cmd "Pick spellsuggest"
+                end
+            end,
+            desc = "Find spelling suggestions",
+        },
     },
     init = function()
         -- Disable mini.indentscope in certain filetypes
