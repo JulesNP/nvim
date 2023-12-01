@@ -508,6 +508,13 @@ return {
             desc = "Toggle mini.map",
         },
         {
+            "<leader>x",
+            function()
+                require("mini.bufremove").delete()
+            end,
+            desc = "Close buffer",
+        },
+        {
             "<leader>z",
             function()
                 require("mini.misc").zoom(0, { width = vim.o.columns, height = vim.o.lines })
@@ -583,6 +590,8 @@ return {
 
         if not vim.g.vscode then
             mini_clue_setup()
+
+            require("mini.bufremove").setup {}
 
             mini_files_setup()
 
