@@ -601,8 +601,14 @@ return {
                 },
             }
             for _, key in ipairs { "n", "N", "*", "#" } do
-                vim.keymap.set("n", key, key .. "<Cmd>lua MiniMap.refresh({}, {lines = false, scrollbar = false})<CR>")
+                vim.keymap.set("n", key, key .. "<cmd>lua MiniMap.refresh({}, {lines = false, scrollbar = false})<cr>")
             end
+            vim.keymap.set(
+                "n",
+                "<esc>",
+                "<cmd>nohlsearch<bar>diffupdate<bar>lua MiniMap.refresh({}, {lines = false, scrollbar = false})<cr>",
+                { desc = "Clear search highlights" }
+            )
 
             local MiniMisc = require "mini.misc"
             MiniMisc.setup {}
