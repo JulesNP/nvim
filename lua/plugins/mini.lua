@@ -508,6 +508,13 @@ return {
             desc = "Toggle mini.map",
         },
         {
+            "<leader>z",
+            function()
+                require("mini.misc").zoom(0, { width = vim.o.columns, height = vim.o.lines })
+            end,
+            desc = "Zoom current buffer",
+        },
+        {
             "z=",
             function()
                 if vim.v.count > 0 then
