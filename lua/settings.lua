@@ -1,5 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+vim.o.clipboard = "unnamedplus"
 vim.o.completeopt = "menu,menuone,noselect"
 vim.o.conceallevel = 2
 vim.o.confirm = true
@@ -39,7 +40,4 @@ if vim.g.neovide then
     vim.keymap.set("n", "<leader>tf", function()
         vim.g.neovide_fullscreen = vim.g.neovide_fullscreen == 1 and 0 or 1
     end, { desc = "Toggle fullscreen" })
-end
-if not vim.g.neovide or vim.loop.os_uname().sysname ~= "Windows_NT" then
-    vim.o.clipboard = "unnamedplus"
 end
