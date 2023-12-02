@@ -78,7 +78,7 @@ vim.keymap.set({ "n", "x" }, "j", function()
 end, { desc = "Down", expr = true })
 
 vim.keymap.set({ "n", "x" }, "k", function()
-    if vim.v.count == 0 and vim.fn.winline() <= vim.o.scrolloff + 1 then
+    if vim.v.count == 0 and vim.fn.reg_recording() == "" and vim.fn.winline() <= vim.o.scrolloff + 1 then
         vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<c-y>", true, false, true), "n", true)
         vim.api.nvim_input "gk"
     else
