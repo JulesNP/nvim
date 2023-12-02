@@ -24,6 +24,7 @@ return {
             vim.g.db_ui_force_echo_notifications = 1
         end,
     },
+    { "tpope/vim-abolish", cond = not vim.g.vscode, event = { "CmdlineEnter" } },
     { "tpope/vim-repeat", event = "BufRead", ft = "text" },
     { "tpope/vim-speeddating", event = "BufRead", ft = "text" },
     { "tpope/vim-rsi", cond = not vim.g.vscode, event = { "CmdlineEnter", "InsertEnter" } },
