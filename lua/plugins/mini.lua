@@ -659,6 +659,20 @@ return {
 
         require("mini.move").setup {}
 
+        require("mini.operators").setup {
+            exchange = {
+                prefix = "sx",
+            },
+            replace = {
+                prefix = "s",
+            },
+        }
+        vim.keymap.set("n", "S", "s$", { remap = true })
+        vim.keymap.del("x", "sx")
+        vim.keymap.set("x", "X", function()
+            require("mini.operators").exchange "visual"
+        end)
+
         require("mini.splitjoin").setup {
             detect = { separator = "[,;]" },
             join = {
