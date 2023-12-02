@@ -74,20 +74,15 @@ return {
                     enable = true,
                     set_jumps = true,
                     goto_next_start = {
-                        ["]/"] = "@comment.outer",
-                        ["]M"] = "@function.outer",
+                        ["]m"] = "@function.outer",
                         ["]a"] = "@parameter.inner",
-                        ["]m"] = "@call.outer",
-                        ["]o"] = "@conditional.outer",
                     },
                     goto_next_end = {
                         ["]A"] = "@parameter.inner",
                     },
                     goto_previous_start = {
-                        ["[/"] = "@comment.outer",
-                        ["[M"] = "@function.outer",
+                        ["[m"] = "@function.outer",
                         ["[a"] = "@parameter.inner",
-                        ["[m"] = "@call.outer",
                     },
                     goto_previous_end = {
                         ["[A"] = "@parameter.inner",

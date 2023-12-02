@@ -3,15 +3,20 @@ local function mini_ai_setup()
     local ts = require("mini.ai").gen_spec.treesitter
     require("mini.ai").setup {
         custom_textobjects = {
+            C = ts { a = "@class.outer", i = "@class.inner" },
             F = ts { a = "@function.outer", i = "@function.inner" },
-            I = gen_ai_spec.indent(),
             L = gen_ai_spec.line(),
             N = gen_ai_spec.number(),
             a = require("mini.ai").gen_spec.argument { separator = "[,;]" },
             c = ts { a = "@comment.outer", i = "@comment.inner" },
             d = gen_ai_spec.diagnostic(),
             g = gen_ai_spec.buffer(),
-            o = ts { a = { "@conditional.outer", "@loop.outer" }, i = { "@conditional.inner", "@loop.inner" } },
+            k = ts { a = "@block.outer", i = "@block.inner" },
+            m = ts { a = "@function.outer", i = "@function.inner" },
+            o = ts {
+                a = { "@conditional.outer", "@loop.outer" },
+                i = { "@conditional.inner", "@loop.inner" },
+            },
         },
         n_lines = 100,
     }
