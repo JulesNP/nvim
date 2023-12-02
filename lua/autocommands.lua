@@ -180,7 +180,7 @@ if not vim.g.vscode then
         callback = insert_guide,
     })
 
-    vim.api.nvim_create_autocmd("InsertLeave", {
+    vim.api.nvim_create_autocmd({ "InsertLeave", "BufWinEnter" }, {
         group = indent_guide,
         pattern = "*",
         callback = normal_guide,
