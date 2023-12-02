@@ -263,28 +263,28 @@ local function mini_pick_setup()
     }
     vim.ui.select = MiniPick.ui_select
     MiniPick.registry.sessions = function()
-        local sessions = require("mini.sessions").detected
-        local items = vim.tbl_keys(sessions)
+        local items = vim.tbl_values(require("mini.sessions").detected)
+        local current = vim.fn.fnamemodify(vim.v.this_session, ":t")
         table.sort(items, function(a, b)
-            local a_session = sessions[a]
-            local b_session = sessions[b]
-            local current = vim.fn.fnamemodify(vim.v.this_session, ":t")
-            if a_session.name == current then
+            if a.name == current then
                 return false
-            elseif b_session.name == current then
+            elseif b.name == current then
                 return true
             end
-            return a_session.modify_time > b_session.modify_time
+            return a.modify_time > b.modify_time
         end)
-        local picker = MiniPick.start {
+        for _, value in pairs(items) do
+            value.text = value.name .. " (" .. value.type .. ")"
+        end
+        local selection = MiniPick.start {
             source = {
                 items = items,
                 name = "Sessions",
                 choose = function() end,
             },
         }
-        if picker ~= nil then
-            require("mini.sessions").read(picker)
+        if selection ~= nil then
+            require("mini.sessions").read(selection.name)
         end
     end
 end
