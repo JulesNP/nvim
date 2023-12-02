@@ -189,6 +189,32 @@ local function mini_files_setup()
     }
 end
 
+local function mini_map_setup()
+    local MiniMap = require "mini.map"
+    MiniMap.setup {
+        integrations = {
+            MiniMap.gen_integration.builtin_search(),
+            MiniMap.gen_integration.gitsigns(),
+            MiniMap.gen_integration.diagnostic(),
+        },
+        symbols = {
+            encode = MiniMap.gen_encode_symbols.dot "4x2",
+        },
+        window = {
+            zindex = 30,
+        },
+    }
+    for _, key in ipairs { "n", "N", "*", "#" } do
+        vim.keymap.set("n", key, key .. "<cmd>lua MiniMap.refresh({}, {lines = false, scrollbar = false})<cr>")
+    end
+    vim.keymap.set(
+        "n",
+        "<esc>",
+        "<cmd>nohlsearch<bar>diffupdate<bar>lua MiniMap.refresh({}, {lines = false, scrollbar = false})<cr>",
+        { desc = "Clear search highlights" }
+    )
+end
+
 local function mini_pick_setup()
     local MiniPick = require "mini.pick"
     MiniPick.setup {
@@ -651,29 +677,7 @@ return {
 
             mini_files_setup()
 
-            local MiniMap = require "mini.map"
-            MiniMap.setup {
-                integrations = {
-                    MiniMap.gen_integration.builtin_search(),
-                    MiniMap.gen_integration.gitsigns(),
-                    MiniMap.gen_integration.diagnostic(),
-                },
-                symbols = {
-                    encode = MiniMap.gen_encode_symbols.dot "4x2",
-                },
-                window = {
-                    zindex = 30,
-                },
-            }
-            for _, key in ipairs { "n", "N", "*", "#" } do
-                vim.keymap.set("n", key, key .. "<cmd>lua MiniMap.refresh({}, {lines = false, scrollbar = false})<cr>")
-            end
-            vim.keymap.set(
-                "n",
-                "<esc>",
-                "<cmd>nohlsearch<bar>diffupdate<bar>lua MiniMap.refresh({}, {lines = false, scrollbar = false})<cr>",
-                { desc = "Clear search highlights" }
-            )
+            mini_map_setup()
 
             local MiniMisc = require "mini.misc"
             MiniMisc.setup {}
