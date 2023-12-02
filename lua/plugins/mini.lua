@@ -240,7 +240,15 @@ local function mini_pick_setup()
         local sessions = require("mini.sessions").detected
         local items = vim.tbl_keys(sessions)
         table.sort(items, function(a, b)
-            return sessions[a].modify_time > sessions[b].modify_time
+            local a_session = sessions[a]
+            local b_session = sessions[b]
+            local current = vim.fn.fnamemodify(vim.v.this_session, ":t")
+            if a_session.name == current then
+                return false
+            elseif b_session.name == current then
+                return true
+            end
+            return a_session.modify_time > b_session.modify_time
         end)
         local picker = MiniPick.start {
             source = {
