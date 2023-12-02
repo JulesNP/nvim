@@ -236,6 +236,23 @@ local function mini_pick_setup()
         },
     }
     vim.ui.select = MiniPick.ui_select
+    MiniPick.registry.sessions = function()
+        local sessions = require("mini.sessions").detected
+        local items = vim.tbl_keys(sessions)
+        table.sort(items, function(a, b)
+            return sessions[a].modify_time > sessions[b].modify_time
+        end)
+        local picker = MiniPick.start {
+            source = {
+                items = items,
+                name = "Sessions",
+                choose = function() end,
+            },
+        }
+        if picker ~= nil then
+            require("mini.sessions").read(picker)
+        end
+    end
 end
 
 local function mini_surround_setup()
@@ -493,13 +510,42 @@ return {
             desc = "Find spelling suggestions",
         },
         {
-            "<leader>scd",
-            "<cmd>SessionManager load_current_dir_session<cr>",
-            desc = "Load session from current directory",
+            "<leader>sd",
+            function()
+                require("mini.sessions").select "delete"
+            end,
+            desc = "Delete session",
         },
-        { "<leader>sd", "<cmd>SessionManager delete_session<cr>", desc = "Delete session" },
-        { "<leader>ss", "<cmd>SessionManager load_session<cr>", desc = "Select session" },
-        { "<leader>sw", "<cmd>SessionManager save_current_session<cr>", desc = "Save current session" },
+        {
+            "<leader>ss",
+            "<cmd>Pick sessions<cr>",
+            desc = "Select session",
+        },
+        {
+            "<leader>sw",
+            function()
+                vim.ui.input({
+                    prompt = "Session Name: ",
+                    default = vim.v.this_session ~= "" and vim.v.this_session
+                        or vim.fn.fnamemodify(vim.fn.getcwd(), ":t"),
+                }, function(input)
+                    if input ~= nil then
+                        require("mini.sessions").write(input, { force = true })
+                    end
+                end)
+            end,
+            desc = "Save session",
+        },
+        {
+            "<leader>sx",
+            function()
+                vim.v.this_session = ""
+                vim.cmd "%bw"
+                vim.cmd "cd ~"
+                vim.cmd "Alpha"
+            end,
+            desc = "Clear current session",
+        },
         {
             "<leader>tm",
             function()
@@ -585,6 +631,8 @@ return {
                 hooks_post = { require("mini.splitjoin").gen_hook.pad_brackets { brackets = { "%b[]", "%b{}" } } },
             },
         }
+
+        require("mini.sessions").setup {}
 
         mini_surround_setup()
 
