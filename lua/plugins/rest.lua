@@ -1,10 +1,35 @@
+local function run(action)
+    if vim.bo.filetype == "" then
+        vim.bo.filetype = "http"
+    end
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(action, true, false, true), "n", false)
+end
+
 return {
     "rest-nvim/rest.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     keys = vim.g.vscode and {} or {
-        { "<leader>ee", "<Plug>RestNvim", desc = "Run HTTP request" },
-        { "<leader>ep", "<Plug>RestNvimPreview", desc = "Preview HTTP request" },
-        { "<leader>er", "<Plug>RestNvimLast", desc = "Repeat HTTP request" },
+        {
+            "<leader>ee",
+            function()
+                run "<plug>RestNvim"
+            end,
+            desc = "Run HTTP request",
+        },
+        {
+            "<leader>ep",
+            function()
+                run "<plug>RestNvimPreview"
+            end,
+            desc = "Preview HTTP request",
+        },
+        {
+            "<leader>er",
+            function()
+                run "<plug>RestNvimLast"
+            end,
+            desc = "Repeat HTTP request",
+        },
     },
     opts = {
         result = {
