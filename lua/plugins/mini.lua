@@ -3,9 +3,9 @@ local function mini_ai_setup()
     local ts = require("mini.ai").gen_spec.treesitter
     require("mini.ai").setup {
         custom_textobjects = {
+            A = ts { a = "@assignment.lhs", i = "@assignment.rhs" },
             C = ts { a = "@class.outer", i = "@class.inner" },
             F = ts { a = "@function.outer", i = "@function.inner" },
-            L = gen_ai_spec.line(),
             N = gen_ai_spec.number(),
             a = require("mini.ai").gen_spec.argument { separator = "[,;]" },
             c = ts { a = "@comment.outer", i = "@comment.inner" },
