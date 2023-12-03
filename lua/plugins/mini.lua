@@ -47,6 +47,7 @@ local function mini_clue_setup()
             { mode = "n", keys = "]" },
             { mode = "n", keys = "`" },
             { mode = "n", keys = "g" },
+            { mode = "n", keys = "s" },
             { mode = "n", keys = "z" },
             { mode = "n", keys = '"' },
             { mode = "x", keys = "'" },
