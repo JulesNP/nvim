@@ -4,7 +4,7 @@ return {
     event = { "BufRead", "CmdlineEnter", "InsertEnter" },
     cmd = { "Mason" },
     keys = vim.g.vscode and {} or {
-        { "<leader>M", "<cmd>Mason<cr>", desc = "Open Mason" },
+        { "<leader>m", "<cmd>Mason<cr>", desc = "Open Mason" },
     },
     dependencies = {
         "Hoffs/omnisharp-extended-lsp.nvim",
