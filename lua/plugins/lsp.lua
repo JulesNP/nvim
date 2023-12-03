@@ -18,13 +18,7 @@ return {
         "joechrisellis/lsp-format-modifications.nvim",
         "nvimtools/none-ls.nvim",
         "jose-elias-alvarez/typescript.nvim",
-        {
-            "kosayoda/nvim-lightbulb",
-            opts = {
-                autocmd = { enabled = true },
-                ignore = { clients = { "null-ls", "lua_ls" } },
-            },
-        },
+        { "kosayoda/nvim-lightbulb", opts = { autocmd = { enabled = true } } },
         "kevinhwang91/nvim-ufo",
         "mfussenegger/nvim-dap",
         "nvim-lua/plenary.nvim",
@@ -128,9 +122,9 @@ return {
                 end
 
                 nmap("<c-s>", function()
+                    vim.cmd.mkview()
                     format()
                     vim.cmd.update()
-                    vim.cmd.mkview()
                 end, "Format and save if modified")
                 nmap("<leader>fm", format, "Format document")
 
@@ -264,7 +258,6 @@ return {
         local builtins = null_ls.builtins
         local sources = {
             builtins.code_actions.gitrebase,
-            builtins.code_actions.gitsigns,
             builtins.hover.dictionary,
             require "typescript.extensions.null-ls.code-actions",
         }
