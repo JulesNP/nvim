@@ -1,7 +1,6 @@
 return {
     "RRethy/vim-illuminate",
-    event = "BufRead",
-    ft = "text",
+    event = { "BufRead", "CmdlineLeave", "InsertEnter" },
     keys = vim.g.vscode and {} or {
         {
             "<d-n>",

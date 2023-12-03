@@ -1,6 +1,7 @@
 return {
     "sindrets/diffview.nvim",
     cond = not vim.g.vscode,
+    event = { "BufRead", "CmdlineEnter" },
     ft = { "NeogitStatus", "lazy" },
     keys = vim.g.vscode and {} or {
         { "<leader>dd", "<cmd>DiffviewOpen<cr>", desc = "Open diffview" },

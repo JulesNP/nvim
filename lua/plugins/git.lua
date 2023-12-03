@@ -5,7 +5,7 @@ return {
             "tpope/vim-rhubarb",
         },
         cond = not vim.g.vscode,
-        event = "CmdlineEnter",
+        event = { "BufRead", "CmdlineEnter" },
         keys = vim.g.vscode and {} or {
             { "<leader>gP", "<cmd>Git push<cr>", desc = "Push" },
             { "<leader>gc", "<cmd>Git commit<cr>", desc = "New commit" },
@@ -33,8 +33,7 @@ return {
     {
         "lewis6991/gitsigns.nvim",
         cond = not vim.g.vscode,
-        event = "BufRead",
-        ft = "text",
+        event = { "BufRead", "BufWrite", "CmdlineEnter" },
         opts = {
             on_attach = function(bufnr)
                 local gs = package.loaded.gitsigns

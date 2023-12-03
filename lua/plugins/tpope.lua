@@ -3,19 +3,12 @@ return {
         "kristijanhusak/vim-dadbod-ui",
         cond = not vim.g.vscode,
         dependencies = "tpope/vim-dadbod",
-        event = { "CmdlineEnter", "BufRead" },
-        ft = { "sql", "mysql", "plsql" },
+        event = { "BufRead", "CmdlineEnter", "InsertEnter" },
+        ft = { "dbui", "dbout", "sql", "mysql", "plsql", "psql" },
         keys = vim.g.vscode and {} or {
             {
                 "<leader>db",
-                function()
-                    if vim.bo.filetype == "alpha" then
-                        vim.cmd "enew"
-                        vim.bo.filetype = "text"
-                        vim.bo.filetype = "sql"
-                    end
-                    vim.cmd "DBUIToggle"
-                end,
+                "<cmd>DBUIToggle<cr>",
                 desc = "Dadbod UI",
             },
         },
@@ -25,7 +18,7 @@ return {
         end,
     },
     { "tpope/vim-abolish", cond = not vim.g.vscode, event = { "CmdlineEnter" } },
-    { "tpope/vim-repeat", event = "BufRead", ft = "text" },
-    { "tpope/vim-speeddating", event = "BufRead", ft = "text" },
-    { "tpope/vim-rsi", cond = not vim.g.vscode, event = { "CmdlineEnter", "InsertEnter" } },
+    { "tpope/vim-repeat", event = { "BufRead", "CmdlineEnter", "InsertEnter" } },
+    { "tpope/vim-speeddating", event = { "BufRead", "CmdlineEnter", "InsertEnter" } },
+    { "tpope/vim-rsi", cond = not vim.g.vscode, event = { "BufRead", "CmdlineEnter", "InsertEnter" } },
 }

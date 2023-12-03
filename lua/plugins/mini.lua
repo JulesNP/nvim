@@ -437,7 +437,6 @@ local function mini_sessions_setup()
         vim.v.this_session = ""
         vim.cmd "%bw"
         vim.cmd "cd ~"
-        require("mini.starter").open()
     end, { desc = "Clear current session" })
 end
 
@@ -527,19 +526,6 @@ return {
             mini_pick_setup()
 
             mini_sessions_setup()
-
-            local MiniStarter = require "mini.starter"
-            MiniStarter.setup {
-                items = {
-                    MiniStarter.sections.sessions(),
-                    {
-                        { name = "Edit new buffer", action = "enew | set filetype=text", section = "Actions" },
-                        { name = "Find recent file", action = "Pick oldfiles", section = "Actions" },
-                        { name = "Browse file system", action = "lua MiniFiles.open()", section = "Actions" },
-                        { name = "Quit Neovim", action = "qall", section = "Actions" },
-                    },
-                },
-            }
 
             require("mini.statusline").setup {}
 

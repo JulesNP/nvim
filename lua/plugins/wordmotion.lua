@@ -1,7 +1,6 @@
 return {
     "chaoren/vim-wordmotion",
-    event = "BufRead",
-    ft = "text",
+    event = { "BufRead", "CmdlineEnter", "InsertEnter" },
     init = function()
         vim.g.wordmotion_mappings = {
             w = "<m-w>",

@@ -1,8 +1,7 @@
 return {
     "kevinhwang91/nvim-ufo",
     cond = not vim.g.vscode,
-    event = "BufRead",
-    ft = "text",
+    event = { "BufRead", "CmdlineEnter", "InsertEnter" },
     dependencies = "kevinhwang91/promise-async",
     config = function()
         local handler = function(virtText, lnum, endLnum, width, truncate)

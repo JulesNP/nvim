@@ -1,7 +1,6 @@
 return {
     "nvim-treesitter/nvim-treesitter",
-    event = "BufRead",
-    ft = "text",
+    event = { "BufRead", "CmdlineEnter", "InsertEnter" },
     dependencies = {
         "HiPhish/nvim-ts-rainbow2",
         "andymass/vim-matchup",

@@ -1,8 +1,7 @@
 return {
     "neovim/nvim-lspconfig",
     cond = not vim.g.vscode,
-    event = "BufRead",
-    ft = { "dbui", "text" },
+    event = { "BufRead", "CmdlineEnter", "InsertEnter" },
     cmd = { "Mason" },
     keys = vim.g.vscode and {} or {
         { "<leader>M", "<cmd>Mason<cr>", desc = "Open Mason" },

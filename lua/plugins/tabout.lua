@@ -3,8 +3,5 @@ return {
     cond = not vim.g.vscode,
     event = "InsertEnter",
     dependencies = "nvim-treesitter",
-    opts = {
-        default_tab = "<tab>",
-        exclude = { "fsharp" },
-    },
+    opts = { default_tab = "<tab>" },
 }
