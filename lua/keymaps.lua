@@ -12,7 +12,7 @@ vim.keymap.set("n", "<d-s>", "<cmd>wall<bar>mkview<cr>", { desc = "Save all modi
 vim.keymap.set("n", "<leader>X", "<cmd>bdelete<cr>", { desc = "Close window and buffer" })
 vim.keymap.set("n", "<leader>gf", "<cmd>e <cfile><cr>", { desc = "Create file under cursor" })
 vim.keymap.set("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Open Lazy.nvim" })
-vim.keymap.set("n", "<leader>n", "<cmd>enew<bar>set filetype=text<cr>", { desc = "New buffer" })
+vim.keymap.set("n", "<leader>n", "<cmd>enew<cr>", { desc = "New buffer" })
 vim.keymap.set("n", "<leader>tl", "<cmd>set number! relativenumber!<cr>", { desc = "Toggle line numbers" })
 vim.keymap.set("n", "<leader>ts", "<cmd>windo set scrollbind! cursorbind!<cr>", { desc = "Toggle scroll/cursor sync" })
 vim.keymap.set("n", "<leader>tw", "<cmd>set wrap!<cr>", { desc = "Toggle word wrap" })
