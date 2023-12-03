@@ -8,7 +8,7 @@ return {
         event = { "BufRead", "CmdlineEnter" },
         keys = vim.g.vscode and {} or {
             { "<leader>gP", "<cmd>Git push<cr>", desc = "Push" },
-            { "<leader>gc", "<cmd>Git commit<cr>", desc = "New commit" },
+            { "<leader>gC", "<cmd>Git commit<cr>", desc = "New commit" },
             { "<leader>gp", "<cmd>Git pull<cr>", desc = "Pull" },
         },
     },
