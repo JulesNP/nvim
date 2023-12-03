@@ -1,3 +1,35 @@
+local function confirm_discard_changes(all_buffers)
+    local buf_list = all_buffers == false and { 0 } or vim.api.nvim_list_bufs()
+    local unsaved = vim.tbl_filter(function(buf_id)
+        return vim.bo[buf_id].modified and vim.bo[buf_id].buflisted
+    end, buf_list)
+
+    if #unsaved == 0 then
+        return true
+    end
+
+    for _, buf_id in ipairs(unsaved) do
+        local name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf_id), ":~:.")
+        local result = vim.fn.confirm(
+            string.format('Save changes to "%s"?', name ~= "" and name or "Untitled"),
+            "&Yes\n&No\n&Cancel",
+            1,
+            "Question"
+        )
+
+        if result == 1 then
+            if buf_id ~= 0 then
+                vim.cmd("buffer " .. buf_id)
+            end
+            vim.cmd "update"
+        elseif result == 0 or result == 3 then
+            return false
+        end
+    end
+
+    return true
+end
+
 local function mini_ai_setup()
     local gen_ai_spec = require("mini.extra").gen_ai_spec
     local ts = require("mini.ai").gen_spec.treesitter
@@ -327,7 +359,9 @@ local function mini_pick_setup()
             },
         }
         if selection ~= nil then
-            require("mini.sessions").read(selection.name)
+            if confirm_discard_changes() then
+                require("mini.sessions").read(selection.name, { force = true })
+            end
         end
     end
 
@@ -435,9 +469,11 @@ local function mini_sessions_setup()
         end)
     end, { desc = "Save session" })
     vim.keymap.set("n", "<leader>sx", function()
-        vim.v.this_session = ""
-        vim.cmd "%bw"
-        vim.cmd "cd ~"
+        if confirm_discard_changes() then
+            vim.v.this_session = ""
+            vim.cmd "%bwipeout!"
+            vim.cmd "cd ~"
+        end
     end, { desc = "Clear current session" })
 end
 
@@ -500,7 +536,9 @@ return {
 
             require("mini.bufremove").setup {}
             vim.keymap.set("n", "<leader>x", function()
-                require("mini.bufremove").delete()
+                if confirm_discard_changes(false) then
+                    require("mini.bufremove").delete(0, true)
+                end
             end, { desc = "Close buffer" })
 
             mini_files_setup()
