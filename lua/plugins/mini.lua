@@ -192,6 +192,40 @@ local function mini_files_setup()
             width_preview = 30,
         },
     }
+
+    vim.keymap.set("n", "\\", function()
+        if not MiniFiles.close() then
+            MiniFiles.open()
+        end
+    end, { desc = "Open file browser" })
+    vim.keymap.set("n", "-", function()
+        MiniFiles.open(vim.api.nvim_buf_get_name(0))
+        MiniFiles.reveal_cwd()
+    end, { desc = "Open file browser" })
+end
+
+local function mini_indentscope_setup()
+    require("mini.indentscope").setup {
+        draw = {
+            delay = 20,
+            animation = require("mini.indentscope").gen_animation.none(),
+        },
+        options = { indent_at_cursor = false },
+        symbol = "▏",
+    }
+    vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("IndentScopeDisable", { clear = true }),
+        callback = function()
+            if
+                vim.bo.buftype ~= ""
+                or vim.bo.filetype == "toggleterm"
+                or vim.bo.filetype == "dbout"
+                or vim.bo.filetype == "dbui"
+            then
+                vim.b.miniindentscope_disable = true
+            end
+        end,
+    })
 end
 
 local function mini_map_setup()
@@ -209,6 +243,9 @@ local function mini_map_setup()
             zindex = 30,
         },
     }
+    vim.keymap.set("n", "<leader>tm", function()
+        MiniMap.toggle()
+    end, { desc = "Toggle mini.map" })
     for _, key in ipairs { "n", "N", "*", "#" } do
         vim.keymap.set("n", key, key .. "<cmd>lua MiniMap.refresh({}, {lines = false, scrollbar = false})<cr>")
     end
@@ -292,6 +329,116 @@ local function mini_pick_setup()
             require("mini.sessions").read(selection.name)
         end
     end
+
+    vim.keymap.set("n", "<leader>f<leader>", "<cmd>Pick resume<cr>", { desc = "Resume last search" })
+    vim.keymap.set("n", "<leader>fb", function()
+        MiniPick.builtin.buffers(nil, {
+            mappings = {
+                wipeout = {
+                    char = "<c-x>",
+                    func = function()
+                        local matches = MiniPick.get_picker_matches()
+                        local items = MiniPick.get_picker_items()
+                        if matches == nil or items == nil then
+                            return
+                        end
+                        local removals = matches.marked
+                        local removal_inds = matches.marked_inds
+                        if #removals == 0 then
+                            removals = { matches.current }
+                            removal_inds = { matches.current_ind }
+                        end
+                        for index, item in ipairs(removals) do
+                            vim.api.nvim_buf_delete(item.bufnr, {})
+                            table.remove(items, removal_inds[index])
+                        end
+                        MiniPick.set_picker_items(items)
+                    end,
+                },
+            },
+        })
+    end, { desc = "Find buffers" })
+    vim.keymap.set("n", "<leader>fC", "<cmd>Pick list scope='change'<cr>", { desc = "Find in changelist" })
+    vim.keymap.set("n", "<leader>:", "<cmd>Pick commands<cr>", { desc = "Find commands" })
+    vim.keymap.set("n", "<leader>fe", "<cmd>Pick explorer<cr>", { desc = "Find via file explorer" })
+    vim.keymap.set("n", "<leader>fD", "<cmd>Pick lsp scope='declaration'<cr>", { desc = "Find LSP declaration" })
+    vim.keymap.set("n", "<leader>fd", "<cmd>Pick lsp scope='definition'<cr>", { desc = "Find LSP definition" })
+    vim.keymap.set("n", "<leader>ff", "<cmd>Pick files<cr>", { desc = "Find files" })
+    vim.keymap.set("n", "<leader>gb", "<cmd>Pick git_branches<cr>", { desc = "Find branches" })
+    vim.keymap.set("n", "<leader>gC", "<cmd>Pick git_commits<cr>", { desc = "Find commits" })
+    vim.keymap.set("n", "<leader>gd", "<cmd>Pick git_files scope='deleted'<cr>", { desc = "Find deleted files" })
+    vim.keymap.set("n", "<leader>gf", "<cmd>Pick git_files<cr>", { desc = "Find tracked files" })
+    vim.keymap.set("n", "<leader>gh", "<cmd>Pick git_hunks<cr>", { desc = "Find hunks" })
+    vim.keymap.set("n", "<leader>gi", "<cmd>Pick git_files scope='ignored'<cr>", { desc = "Find ignored files" })
+    vim.keymap.set("n", "<leader>gm", "<cmd>Pick git_files scope='modified'<cr>", { desc = "Find modified files" })
+    vim.keymap.set("n", "<leader>gu", "<cmd>Pick git_files scope='untracked'<cr>", { desc = "Find untracked files" })
+    vim.keymap.set("n", "<leader>fG", "<cmd>Pick grep<cr>", { desc = "Find with grep" })
+    vim.keymap.set("n", "<leader>fg", "<cmd>Pick grep_live<cr>", { desc = "Find with live grep" })
+    vim.keymap.set("n", "<leader>fH", "<cmd>Pick hl_groups<cr>", { desc = "Find highlight groups" })
+    vim.keymap.set("n", "<leader>fh", "<cmd>Pick help<cr>", { desc = "Find help documents" })
+    vim.keymap.set("n", "<leader>fi", "<cmd>Pick diagnostic<cr>", { desc = "Find diagnostics" })
+    vim.keymap.set("n", "<leader>fj", "<cmd>Pick list scope='jump'<cr>", { desc = "Find in jumplist" })
+    vim.keymap.set("n", "<leader>fk", "<cmd>Pick keymaps<cr>", { desc = "Find keymaps" })
+    vim.keymap.set("n", "<leader>fl", "<cmd>Pick buf_lines<cr>", { desc = "Find buffer lines" })
+    vim.keymap.set("n", "<leader>fM", "<cmd>Pick marks<cr>", { desc = "Find marks" })
+    vim.keymap.set("n", "<leader>fo", "<cmd>Pick options<cr>", { desc = "Find Neovim options" })
+    vim.keymap.set("n", "<leader>fo", "<cmd>Pick oldfiles<cr>", { desc = "Find oldfiles" })
+    vim.keymap.set("n", "<leader>fR", "<cmd>Pick registers<cr>", { desc = "Find registers" })
+    vim.keymap.set("n", "<leader>fr", "<cmd>Pick lsp scope='references'<cr>", { desc = "Find LSP references" })
+    vim.keymap.set(
+        "n",
+        "<leader>fS",
+        "<cmd>Pick lsp scope='workspace_symbol'<cr>",
+        { desc = "Find LSP workspace symbol" }
+    )
+    vim.keymap.set(
+        "n",
+        "<leader>fs",
+        "<cmd>Pick lsp scope='document_symbol'<cr>",
+        { desc = "Find LSP document symbol" }
+    )
+    vim.keymap.set("n", "<leader>fT", "<cmd>Pick treesitter<cr>", { desc = "Find treesitter nodes" })
+    vim.keymap.set(
+        "n",
+        "<leader>ft",
+        "<cmd>Pick lsp scope='type_definition'<cr>",
+        { desc = "Find LSP type definition" }
+    )
+    vim.keymap.set("n", "<leader>fq", "<cmd>Pick list scope='quickfix'<cr>", { desc = "Find in quickfix list" })
+    vim.keymap.set("n", "<leader>fw", "<cmd>Pick grep pattern='<cword>'<cr>", { desc = "Find current word" })
+    vim.keymap.set("n", "<leader>fz", "<cmd>Pick spellsuggest<cr>", { desc = "Find spelling suggestions" })
+    vim.keymap.set("n", "z=", function()
+        if vim.v.count > 0 then
+            vim.api.nvim_feedkeys(vim.v.count .. "z=", "n", false)
+        else
+            vim.cmd "Pick spellsuggest"
+        end
+    end, { desc = "Find spelling suggestions" })
+end
+
+local function mini_sessions_setup()
+    local MiniSessions = require "mini.sessions"
+    MiniSessions.setup {}
+    vim.keymap.set("n", "<leader>sd", function()
+        MiniSessions.select "delete"
+    end, { desc = "Delete session" })
+    vim.keymap.set("n", "<leader>ss", "<cmd>Pick sessions<cr>", { desc = "Select session" })
+    vim.keymap.set("n", "<leader>sw", function()
+        vim.ui.input({
+            prompt = "Session Name: ",
+            default = vim.v.this_session ~= "" and vim.v.this_session or vim.fn.fnamemodify(vim.fn.getcwd(), ":t"),
+        }, function(input)
+            if input ~= nil then
+                MiniSessions.write(input, { force = true })
+            end
+        end)
+    end, { desc = "Save session" })
+    vim.keymap.set("n", "<leader>sx", function()
+        vim.v.this_session = ""
+        vim.cmd "%bw"
+        vim.cmd "cd ~"
+        require("mini.starter").open()
+    end, { desc = "Clear current session" })
 end
 
 local function mini_surround_setup()
@@ -316,328 +463,6 @@ end
 return {
     "echasnovski/mini.nvim",
     version = false,
-    event = "VeryLazy",
-    keys = vim.g.vscode and {} or {
-        {
-            "\\",
-            function()
-                local MiniFiles = require "mini.files"
-                if not MiniFiles.close() then
-                    MiniFiles.open()
-                end
-            end,
-            desc = "Open file browser",
-        },
-        {
-            "-",
-            function()
-                local MiniFiles = require "mini.files"
-                MiniFiles.open(vim.api.nvim_buf_get_name(0))
-                MiniFiles.reveal_cwd()
-            end,
-            desc = "Open file browser",
-        },
-        {
-            "<leader>f<leader>",
-            "<cmd>Pick resume<cr>",
-            desc = "Resume last search",
-        },
-        {
-            "<leader>fb",
-            function()
-                local MiniPick = require "mini.pick"
-                MiniPick.builtin.buffers(nil, {
-                    mappings = {
-                        wipeout = {
-                            char = "<c-x>",
-                            func = function()
-                                local matches = MiniPick.get_picker_matches()
-                                local items = MiniPick.get_picker_items()
-                                if matches == nil or items == nil then
-                                    return
-                                end
-
-                                local removals = matches.marked
-                                local removal_inds = matches.marked_inds
-
-                                if #removals == 0 then
-                                    removals = { matches.current }
-                                    removal_inds = { matches.current_ind }
-                                end
-
-                                for index, item in ipairs(removals) do
-                                    vim.api.nvim_buf_delete(item.bufnr, {})
-                                    table.remove(items, removal_inds[index])
-                                end
-
-                                MiniPick.set_picker_items(items)
-                            end,
-                        },
-                    },
-                })
-            end,
-            desc = "Find buffers",
-        },
-        {
-            "<leader>fC",
-            "<cmd>Pick list scope='change'<cr>",
-            desc = "Find in changelist",
-        },
-        {
-            "<leader>:",
-            "<cmd>Pick commands<cr>",
-            desc = "Find commands",
-        },
-        {
-            "<leader>fe",
-            "<cmd>Pick explorer<cr>",
-            desc = "Find via file explorer",
-        },
-        {
-            "<leader>fD",
-            "<cmd>Pick lsp scope='declaration'<cr>",
-            desc = "Find LSP declaration",
-        },
-        {
-            "<leader>fd",
-            "<cmd>Pick lsp scope='definition'<cr>",
-            desc = "Find LSP definition",
-        },
-        {
-            "<leader>ff",
-            "<cmd>Pick files<cr>",
-            desc = "Find files",
-        },
-        {
-            "<leader>gb",
-            "<cmd>Pick git_branches<cr>",
-            desc = "Find branches",
-        },
-        {
-            "<leader>gC",
-            "<cmd>Pick git_commits<cr>",
-            desc = "Find commits",
-        },
-        {
-            "<leader>gd",
-            "<cmd>Pick git_files scope='deleted'<cr>",
-            desc = "Find deleted files",
-        },
-        {
-            "<leader>gf",
-            "<cmd>Pick git_files<cr>",
-            desc = "Find tracked files",
-        },
-        {
-            "<leader>gh",
-            "<cmd>Pick git_hunks<cr>",
-            desc = "Find hunks",
-        },
-        {
-            "<leader>gi",
-            "<cmd>Pick git_files scope='ignored'<cr>",
-            desc = "Find ignored files",
-        },
-        {
-            "<leader>gm",
-            "<cmd>Pick git_files scope='modified'<cr>",
-            desc = "Find modified files",
-        },
-        {
-            "<leader>gu",
-            "<cmd>Pick git_files scope='untracked'<cr>",
-            desc = "Find untracked files",
-        },
-        {
-            "<leader>fG",
-            "<cmd>Pick grep<cr>",
-            desc = "Find with grep",
-        },
-        {
-            "<leader>fg",
-            "<cmd>Pick grep_live<cr>",
-            desc = "Find with live grep",
-        },
-        {
-            "<leader>fH",
-            "<cmd>Pick hl_groups<cr>",
-            desc = "Find highlight groups",
-        },
-        {
-            "<leader>fh",
-            "<cmd>Pick help<cr>",
-            desc = "Find help documents",
-        },
-        {
-            "<leader>fi",
-            "<cmd>Pick diagnostic<cr>",
-            desc = "Find diagnostics",
-        },
-        {
-            "<leader>fj",
-            "<cmd>Pick list scope='jump'<cr>",
-            desc = "Find in jumplist",
-        },
-        {
-            "<leader>fk",
-            "<cmd>Pick keymaps<cr>",
-            desc = "Find keymaps",
-        },
-        {
-            "<leader>fl",
-            "<cmd>Pick buf_lines<cr>",
-            desc = "Find buffer lines",
-        },
-        {
-            "<leader>fM",
-            "<cmd>Pick marks<cr>",
-            desc = "Find marks",
-        },
-        {
-            "<leader>fo",
-            "<cmd>Pick options<cr>",
-            desc = "Find Neovim options",
-        },
-        {
-            "<leader>fo",
-            "<cmd>Pick oldfiles<cr>",
-            desc = "Find oldfiles",
-        },
-        {
-            "<leader>fR",
-            "<cmd>Pick registers<cr>",
-            desc = "Find registers",
-        },
-        {
-            "<leader>fr",
-            "<cmd>Pick lsp scope='references'<cr>",
-            desc = "Find LSP references",
-        },
-        {
-            "<leader>fS",
-            "<cmd>Pick lsp scope='workspace_symbol'<cr>",
-            desc = "Find LSP workspace symbol",
-        },
-        {
-            "<leader>fs",
-            "<cmd>Pick lsp scope='document_symbol'<cr>",
-            desc = "Find LSP document symbol",
-        },
-        {
-            "<leader>fT",
-            "<cmd>Pick treesitter<cr>",
-            desc = "Find treesitter nodes",
-        },
-        {
-            "<leader>ft",
-            "<cmd>Pick lsp scope='type_definition'<cr>",
-            desc = "Find LSP type definition",
-        },
-        {
-            "<leader>fq",
-            "<cmd>Pick list scope='quickfix'<cr>",
-            desc = "Find in quickfix list",
-        },
-        {
-            "<leader>fw",
-            "<cmd>Pick grep pattern='<cword>'<cr>",
-            desc = "Find current word",
-        },
-        {
-            "<leader>fz",
-            "<cmd>Pick spellsuggest<cr>",
-            desc = "Find spelling suggestions",
-        },
-        {
-            "<leader>sd",
-            function()
-                require("mini.sessions").select "delete"
-            end,
-            desc = "Delete session",
-        },
-        {
-            "<leader>ss",
-            "<cmd>Pick sessions<cr>",
-            desc = "Select session",
-        },
-        {
-            "<leader>sw",
-            function()
-                vim.ui.input({
-                    prompt = "Session Name: ",
-                    default = vim.v.this_session ~= "" and vim.v.this_session
-                        or vim.fn.fnamemodify(vim.fn.getcwd(), ":t"),
-                }, function(input)
-                    if input ~= nil then
-                        require("mini.sessions").write(input, { force = true })
-                    end
-                end)
-            end,
-            desc = "Save session",
-        },
-        {
-            "<leader>sx",
-            function()
-                vim.v.this_session = ""
-                vim.cmd "%bw"
-                vim.cmd "cd ~"
-                vim.cmd "Alpha"
-            end,
-            desc = "Clear current session",
-        },
-        {
-            "<leader>tm",
-            function()
-                require("mini.map").toggle()
-            end,
-            desc = "Toggle mini.map",
-        },
-        {
-            "<leader>x",
-            function()
-                require("mini.bufremove").delete()
-            end,
-            desc = "Close buffer",
-        },
-        {
-            "<leader>z",
-            function()
-                require("mini.misc").zoom(0, { width = vim.o.columns, height = vim.o.lines })
-            end,
-            desc = "Zoom current buffer",
-        },
-        {
-            "z=",
-            function()
-                if vim.v.count > 0 then
-                    vim.api.nvim_feedkeys(vim.v.count .. "z=", "n", false)
-                else
-                    vim.cmd "Pick spellsuggest"
-                end
-            end,
-            desc = "Find spelling suggestions",
-        },
-    },
-    init = function()
-        -- Disable mini.indentscope in certain filetypes
-        if vim.g.vscode then
-            vim.g.miniindentscope_disable = true
-        else
-            vim.api.nvim_create_autocmd("FileType", {
-                group = vim.api.nvim_create_augroup("IndentScopeDisable", { clear = true }),
-                callback = function()
-                    if
-                        vim.bo.buftype ~= ""
-                        or vim.bo.filetype == "toggleterm"
-                        or vim.bo.filetype == "dbout"
-                        or vim.bo.filetype == "dbui"
-                    then
-                        vim.b.miniindentscope_disable = true
-                    end
-                end,
-            })
-        end
-    end,
     config = function()
         mini_ai_setup()
 
@@ -652,15 +477,6 @@ return {
         }
 
         require("mini.extra").setup {}
-
-        require("mini.indentscope").setup {
-            draw = {
-                delay = 20,
-                animation = require("mini.indentscope").gen_animation.none(),
-            },
-            options = { indent_at_cursor = false },
-            symbol = "▏",
-        }
 
         require("mini.move").setup {}
 
@@ -685,24 +501,49 @@ return {
             },
         }
 
-        require("mini.sessions").setup {}
-
         mini_surround_setup()
 
         if not vim.g.vscode then
             mini_clue_setup()
 
             require("mini.bufremove").setup {}
+            vim.keymap.set("n", "<leader>x", function()
+                require("mini.bufremove").delete()
+            end, { desc = "Close buffer" })
 
             mini_files_setup()
+
+            mini_indentscope_setup()
 
             mini_map_setup()
 
             local MiniMisc = require "mini.misc"
             MiniMisc.setup {}
             MiniMisc.setup_auto_root()
+            vim.keymap.set("n", "<leader>z", function()
+                MiniMisc.zoom(0, { width = vim.o.columns, height = vim.o.lines })
+            end, { desc = "Zoom current buffer" })
 
             mini_pick_setup()
+
+            mini_sessions_setup()
+
+            local MiniStarter = require "mini.starter"
+            MiniStarter.setup {
+                items = {
+                    MiniStarter.sections.sessions(),
+                    {
+                        { name = "Edit new buffer", action = "enew | set filetype=text", section = "Actions" },
+                        { name = "Find recent file", action = "Pick oldfiles", section = "Actions" },
+                        { name = "Browse file system", action = "lua MiniFiles.open()", section = "Actions" },
+                        { name = "Quit Neovim", action = "qall", section = "Actions" },
+                    },
+                },
+            }
+
+            require("mini.statusline").setup {}
+
+            require("mini.tabline").setup {}
         end
         if not vim.g.vscode and not vim.g.neovide then
             mini_animate_setup()

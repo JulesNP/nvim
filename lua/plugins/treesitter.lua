@@ -16,6 +16,7 @@ return {
     end,
     config = function()
         vim.g.matchup_transmute_enabled = 1
+        vim.g.matchup_matchparen_offscreen = {}
 
         require("nvim-treesitter.configs").setup {
             highlight = {

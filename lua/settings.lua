@@ -17,10 +17,12 @@ vim.o.list = true
 vim.o.mouse = "a"
 vim.o.mousemodel = "popup"
 vim.o.number = true
-vim.o.pumblend = 8
+vim.o.pumblend = 10
+vim.o.pumheight = 10
 vim.o.ruler = false
 vim.o.shellslash = true
 vim.o.shiftwidth = 4
+vim.o.shortmess = "aoOtTcCFS"
 vim.o.showmode = false
 vim.o.signcolumn = "yes:1"
 vim.o.smartcase = true
@@ -34,7 +36,7 @@ vim.o.updatetime = 1000
 vim.o.viewoptions = "folds,cursor"
 vim.o.virtualedit = "block"
 vim.o.whichwrap = "b,s,<,>,[,]"
-vim.o.winblend = 8
+vim.o.winblend = 10
 vim.opt.listchars = { leadmultispace = "▏   ", tab = "> ", trail = "-", nbsp = "+" }
 
 if os.getenv "SSH_CONNECTION" == nil then

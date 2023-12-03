@@ -32,7 +32,20 @@ return {
                     },
                     MatchParen = { bg = dark and palette.dark2 or palette.light2 },
                     MiniIndentscopeSymbol = { fg = dark and palette.dark2 or palette.light2 },
+                    MiniStarterFooter = { link = "Comment" },
+                    MiniTablineFill = { bg = dark and palette.dark1 or palette.light1 },
                     SignColumn = { link = "LineNr" },
+                    StatusLine = {
+                        fg = dark and palette.light1 or palette.dark1,
+                        bg = dark and palette.dark2 or palette.light2,
+                        reverse = false,
+                    },
+                    StatusLineNC = {
+                        fg = dark and palette.light4 or palette.dark4,
+                        bg = dark and palette.dark1 or palette.light1,
+                        reverse = false,
+                    },
+                    TabLineSel = { bg = dark and palette.dark0 or palette.light0 },
                     TreesitterContextLineNumber = {
                         fg = palette.gray,
                         bg = dark and palette.dark1 or palette.light1,
