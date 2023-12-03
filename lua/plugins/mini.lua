@@ -531,6 +531,9 @@ return {
             require("mini.statusline").setup {}
 
             require("mini.tabline").setup {}
+
+            require("mini.visits").setup {}
+            vim.keymap.set("n", "<leader><leader>", "<cmd>Pick visit_paths<cr>", { desc = "Select recent file" })
         end
         if not vim.g.vscode and not vim.g.neovide then
             mini_animate_setup()
