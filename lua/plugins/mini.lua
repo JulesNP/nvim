@@ -480,19 +480,11 @@ return {
 
         require("mini.move").setup {}
 
-        require("mini.operators").setup {
-            exchange = {
-                prefix = "sx",
-            },
-            replace = {
-                prefix = "s",
-            },
-        }
+        local MiniOperators = require "mini.operators"
+        MiniOperators.setup { exchange = { prefix = "" }, replace = { prefix = "s" } }
+        MiniOperators.make_mappings("exchange", { textobject = "sx", line = "sxx", selection = "X" })
         vim.keymap.set("n", "S", "s$", { remap = true })
-        vim.keymap.del("x", "sx")
-        vim.keymap.set("x", "X", function()
-            require("mini.operators").exchange "visual"
-        end)
+        vim.keymap.set("n", "sX", "sx$", { remap = true })
 
         require("mini.splitjoin").setup {
             detect = { separator = "[,;]" },

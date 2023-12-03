@@ -25,14 +25,6 @@ return {
             autotag = {
                 enable = not vim.g.vscode,
             },
-            incremental_selection = {
-                enable = true,
-                keymaps = {
-                    init_selection = "gs",
-                    node_incremental = "<tab>",
-                    node_decremental = "<bs>",
-                },
-            },
             matchup = {
                 enable = not vim.g.vscode,
             },
