@@ -337,7 +337,7 @@ local function mini_pick_setup()
         },
     }
     vim.ui.select = MiniPick.ui_select
-    MiniPick.registry.sessions = function()
+    MiniPick.registry.read_session = function()
         local items = vim.tbl_values(require("mini.sessions").detected)
         local current = vim.fn.fnamemodify(vim.v.this_session, ":t")
         table.sort(items, function(a, b)
@@ -354,7 +354,7 @@ local function mini_pick_setup()
         local selection = MiniPick.start {
             source = {
                 items = items,
-                name = "Sessions",
+                name = "Read Session",
                 choose = function() end,
             },
         }
@@ -457,7 +457,7 @@ local function mini_sessions_setup()
     vim.keymap.set("n", "<leader>sd", function()
         MiniSessions.select "delete"
     end, { desc = "Delete session" })
-    vim.keymap.set("n", "<leader>ss", "<cmd>Pick sessions<cr>", { desc = "Select session" })
+    vim.keymap.set("n", "<leader>ss", "<cmd>Pick read_session<cr>", { desc = "Select session" })
     vim.keymap.set("n", "<leader>sw", function()
         vim.ui.input({
             prompt = "Session Name: ",
