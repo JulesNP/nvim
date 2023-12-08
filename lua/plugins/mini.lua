@@ -364,6 +364,36 @@ local function mini_pick_setup()
             end
         end
     end
+    local MiniFuzzy = require "mini.fuzzy"
+    MiniPick.registry.frecency = function()
+        MiniPick.builtin.files(nil, {
+            source = {
+                match = function(stritems, inds, query)
+                    local prompt = vim.pesc(table.concat(query))
+                    if prompt == "" then
+                        return inds
+                    end
+
+                    local res = {}
+
+                    for _, ind in ipairs(inds) do
+                        local match = MiniFuzzy.match(prompt, stritems[ind])
+                        if match.score >= 0 then
+                            table.insert(res, { ind = ind, score = match.score })
+                        end
+                    end
+
+                    table.sort(res, function(a, b)
+                        return a.score < b.score
+                    end)
+
+                    return vim.tbl_map(function(val)
+                        return val.ind
+                    end, res)
+                end,
+            },
+        })
+    end
 
     vim.keymap.set("n", "<leader>f<leader>", "<cmd>Pick resume<cr>", { desc = "Resume last search" })
     vim.keymap.set("n", "<leader>fb", function()
@@ -514,6 +544,8 @@ return {
 
         require("mini.extra").setup {}
 
+        require("mini.fuzzy").setup {}
+
         require("mini.move").setup {}
 
         local MiniOperators = require "mini.operators"
@@ -561,7 +593,7 @@ return {
             require("mini.statusline").setup {}
 
             require("mini.visits").setup {}
-            vim.keymap.set("n", "<leader><leader>", "<cmd>Pick visit_paths<cr>", { desc = "Select recent file" })
+            vim.keymap.set("n", "<leader><leader>", "<cmd>Pick frecency<cr>", { desc = "Select recent file" })
         end
         if not vim.g.vscode and not vim.g.neovide then
             mini_animate_setup()
