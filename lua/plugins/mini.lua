@@ -371,34 +371,66 @@ local function mini_pick_setup()
         end
     end
     local MiniFuzzy = require "mini.fuzzy"
+    local MiniVisits = require "mini.visits"
     MiniPick.registry.frecency = function()
-        MiniPick.builtin.files(nil, {
-            source = {
-                match = function(stritems, inds, query)
-                    local prompt = vim.pesc(table.concat(query))
-                    if prompt == "" then
-                        return inds
-                    end
+        local visits_index = MiniVisits.get_index()[vim.loop.cwd()]
+        if visits_index == nil then
+            MiniPick.builtin.files()
+        else
+            local current_file = vim.fn.expand "%:p"
+            MiniPick.builtin.files(nil, {
+                source = {
+                    match = function(stritems, indices, query)
+                        local prompt = vim.pesc(table.concat(query))
+                        local res = {}
 
-                    local res = {}
-
-                    for _, ind in ipairs(inds) do
-                        local match = MiniFuzzy.match(prompt, stritems[ind])
-                        if match.score >= 0 then
-                            table.insert(res, { ind = ind, score = match.score })
+                        for _, index in ipairs(indices) do
+                            local path = stritems[index]
+                            local match_score = prompt == "" and 0 or MiniFuzzy.match(prompt, path).score
+                            if match_score >= 0 then
+                                local full_path = vim.fn.fnamemodify(path, ":p")
+                                -- NOTE: Currently doesn't match files with uppercase characters
+                                local visits = visits_index[full_path]
+                                table.insert(res, {
+                                    count = visits == nil and 0 or visits.count,
+                                    index = index,
+                                    latest = visits == nil and 0 or visits.latest,
+                                    score = full_path == current_file and 9999 or match_score, -- Score current file last
+                                })
+                            end
                         end
-                    end
 
-                    table.sort(res, function(a, b)
-                        return a.score < b.score
-                    end)
+                        local function set_rank(key)
+                            local last, ties = -1, 0
+                            for index, item in ipairs(res) do
+                                local value = item[key]
+                                ties = last == value and ties + 1 or 0
+                                last = value
+                                item[key] = index - ties - 1
+                            end
+                        end
 
-                    return vim.tbl_map(function(val)
-                        return val.ind
-                    end, res)
-                end,
-            },
-        })
+                        table.sort(res, function(a, b)
+                            return a.count > b.count
+                        end)
+                        set_rank "count"
+
+                        table.sort(res, function(a, b)
+                            return a.latest > b.latest
+                        end)
+                        set_rank "latest"
+
+                        table.sort(res, function(a, b)
+                            return (a.score + a.count + a.latest) < (b.score + b.count + b.latest)
+                        end)
+
+                        return vim.tbl_map(function(val)
+                            return val.index
+                        end, res)
+                    end,
+                },
+            })
+        end
     end
 
     vim.keymap.set("n", "<leader>f<leader>", "<cmd>Pick resume<cr>", { desc = "Resume last search" })
