@@ -421,7 +421,7 @@ local function mini_pick_setup()
                         set_rank "latest"
 
                         table.sort(res, function(a, b)
-                            return (a.score + a.count + a.latest) < (b.score + b.count + b.latest)
+                            return a.score + (a.count + a.latest) * 6 < b.score + (b.count + b.latest) * 6
                         end)
 
                         return vim.tbl_map(function(val)
