@@ -432,8 +432,8 @@ local function mini_pick_setup()
     vim.keymap.set("n", "<leader>fC", "<cmd>Pick list scope='change'<cr>", { desc = "Find in changelist" })
     vim.keymap.set("n", "<leader>:", "<cmd>Pick commands<cr>", { desc = "Find commands" })
     vim.keymap.set("n", "<leader>fe", "<cmd>Pick explorer<cr>", { desc = "Find via file explorer" })
-    vim.keymap.set("n", "<leader>fD", "<cmd>Pick lsp scope='declaration'<cr>", { desc = "Find LSP declaration" })
-    vim.keymap.set("n", "<leader>fd", "<cmd>Pick lsp scope='definition'<cr>", { desc = "Find LSP definition" })
+    vim.keymap.set("n", "<leader>fD", "m'<cmd>Pick lsp scope='declaration'<cr>", { desc = "Find LSP declaration" })
+    vim.keymap.set("n", "<leader>fd", "m'<cmd>Pick lsp scope='definition'<cr>", { desc = "Find LSP definition" })
     vim.keymap.set("n", "<leader>ff", "<cmd>Pick files<cr>", { desc = "Find files" })
     vim.keymap.set("n", "<leader>gb", "<cmd>Pick git_branches<cr>", { desc = "Find branches" })
     vim.keymap.set("n", "<leader>gc", "<cmd>Pick git_commits<cr>", { desc = "Find commits" })
@@ -455,17 +455,17 @@ local function mini_pick_setup()
     vim.keymap.set("n", "<leader>fo", "<cmd>Pick options<cr>", { desc = "Find Neovim options" })
     vim.keymap.set("n", "<leader>fo", "<cmd>Pick oldfiles<cr>", { desc = "Find oldfiles" })
     vim.keymap.set("n", "<leader>fR", "<cmd>Pick registers<cr>", { desc = "Find registers" })
-    vim.keymap.set("n", "<leader>fr", "<cmd>Pick lsp scope='references'<cr>", { desc = "Find LSP references" })
+    vim.keymap.set("n", "<leader>fr", "m'<cmd>Pick lsp scope='references'<cr>", { desc = "Find LSP references" })
     vim.keymap.set(
         "n",
         "<leader>fS",
-        "<cmd>Pick lsp scope='workspace_symbol'<cr>",
+        "m'<cmd>Pick lsp scope='workspace_symbol'<cr>",
         { desc = "Find LSP workspace symbol" }
     )
     vim.keymap.set(
         "n",
         "<leader>fs",
-        "<cmd>Pick lsp scope='document_symbol'<cr>",
+        "m'<cmd>Pick lsp scope='document_symbol'<cr>",
         { desc = "Find LSP document symbol" }
     )
     vim.keymap.set("n", "<leader>fT", "<cmd>Pick treesitter<cr>", { desc = "Find treesitter nodes" })
