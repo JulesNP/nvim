@@ -294,6 +294,12 @@ local function mini_pick_setup()
     local MiniPick = require "mini.pick"
     MiniPick.setup {
         mappings = {
+            choose_alt = {
+                char = "<nl>",
+                func = function()
+                    vim.api.nvim_input "<cr>"
+                end,
+            },
             mark = "<c-space>",
             mark_and_move_down = {
                 char = "<tab>",
