@@ -373,64 +373,59 @@ local function mini_pick_setup()
     local MiniFuzzy = require "mini.fuzzy"
     local MiniVisits = require "mini.visits"
     MiniPick.registry.frecency = function()
-        local visits_index = MiniVisits.get_index()[vim.loop.cwd()]
-        if visits_index == nil then
-            MiniPick.builtin.files()
-        else
-            local current_file = vim.fn.expand "%:p"
-            MiniPick.builtin.files(nil, {
-                source = {
-                    match = function(stritems, indices, query)
-                        local prompt = vim.pesc(table.concat(query))
-                        local res = {}
+        local visit_paths = MiniVisits.list_paths()
+        local current_file = vim.fn.expand "%"
+        MiniPick.builtin.files(nil, {
+            source = {
+                match = function(stritems, indices, query)
+                    -- Concatenate prompt to a single string
+                    local prompt = vim.pesc(table.concat(query))
 
-                        for _, index in ipairs(indices) do
-                            local path = stritems[index]
-                            local match_score = prompt == "" and 0 or MiniFuzzy.match(prompt, path).score
-                            if match_score >= 0 then
-                                local full_path = vim.fn.fnamemodify(path, ":p")
-                                -- NOTE: Currently doesn't match files with uppercase characters
-                                local visits = visits_index[full_path]
-                                table.insert(res, {
-                                    count = visits == nil and 0 or visits.count,
-                                    index = index,
-                                    latest = visits == nil and 0 or visits.latest,
-                                    score = full_path == current_file and 9999 or match_score, -- Score current file last
-                                })
-                            end
+                    -- If ignorecase is on and there are no uppercase letters in prompt,
+                    -- convert paths to lowercase for matching purposes
+                    local convert_path = function(str)
+                        return str
+                    end
+                    if vim.o.ignorecase and string.find(prompt, "%u") == nil then
+                        convert_path = function(str)
+                            return string.lower(str)
                         end
+                    end
 
-                        local function set_rank(key)
-                            local last, ties = -1, 0
-                            for index, item in ipairs(res) do
-                                local value = item[key]
-                                ties = last == value and ties + 1 or 0
-                                last = value
-                                item[key] = index - ties - 1
-                            end
+                    local current_file_cased = convert_path(current_file)
+                    local paths_length = #visit_paths
+
+                    -- Flip visit_paths so that paths are lookup keys for the index values
+                    local flipped_visits = {}
+                    for index, path in ipairs(visit_paths) do
+                        local key = vim.fn.fnamemodify(path, ":.")
+                        flipped_visits[convert_path(key)] = index - 1
+                    end
+
+                    local result = {}
+                    for _, index in ipairs(indices) do
+                        local path = stritems[index]
+                        local match_score = prompt == "" and 0 or MiniFuzzy.match(prompt, path).score
+                        if match_score >= 0 then
+                            local visit_score = flipped_visits[path] or paths_length
+                            table.insert(result, {
+                                index = index,
+                                -- Give current file high value so it's ranked last
+                                score = path == current_file_cased and 999999 or match_score + visit_score * 10,
+                            })
                         end
+                    end
 
-                        table.sort(res, function(a, b)
-                            return a.count > b.count
-                        end)
-                        set_rank "count"
+                    table.sort(result, function(a, b)
+                        return a.score < b.score
+                    end)
 
-                        table.sort(res, function(a, b)
-                            return a.latest > b.latest
-                        end)
-                        set_rank "latest"
-
-                        table.sort(res, function(a, b)
-                            return a.score + (a.count + a.latest) * 6 < b.score + (b.count + b.latest) * 6
-                        end)
-
-                        return vim.tbl_map(function(val)
-                            return val.index
-                        end, res)
-                    end,
-                },
-            })
-        end
+                    return vim.tbl_map(function(val)
+                        return val.index
+                    end, result)
+                end,
+            },
+        })
     end
 
     vim.keymap.set("n", "<leader>f<leader>", "<cmd>Pick resume<cr>", { desc = "Resume last search" })
