@@ -5,6 +5,7 @@ syntax clear
 
 " reset 'iskeyword' setting
 setl iskeyword&vim
+setl iskeyword+='
 
 " sync from start to avoid paren match errors
 syn sync fromstart
