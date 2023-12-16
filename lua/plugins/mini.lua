@@ -512,6 +512,7 @@ local function mini_pick_setup()
             vim.cmd "Pick spellsuggest"
         end
     end, { desc = "Find spelling suggestions" })
+    vim.keymap.set("x", "<leader>f", 'y<cmd>Pick grep<cr><c-r>"<cr>', { desc = "Find current selection" })
 end
 
 local function mini_sessions_setup()
