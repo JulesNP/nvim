@@ -159,11 +159,19 @@ if not vim.g.vscode then
 
     local indent_guide = vim.api.nvim_create_augroup("IndentGuide", { clear = true })
     local function normal_guide()
-        vim.opt.listchars =
-            { leadmultispace = "▏" .. string.rep(" ", vim.bo.shiftwidth - 1), tab = "> ", trail = "-", nbsp = "+" }
+        if vim.wo.list then
+            vim.opt.listchars = {
+                leadmultispace = "▏" .. string.rep(" ", vim.bo.shiftwidth - 1),
+                tab = "> ",
+                trail = "-",
+                nbsp = "+",
+            }
+        end
     end
     local function insert_guide()
-        vim.opt.listchars = { multispace = "▏" .. string.rep(" ", vim.bo.shiftwidth - 1), tab = "> ", nbsp = "+" }
+        if vim.wo.list then
+            vim.opt.listchars = { multispace = "▏" .. string.rep(" ", vim.bo.shiftwidth - 1), tab = "> ", nbsp = "+" }
+        end
     end
 
     vim.api.nvim_create_autocmd("OptionSet", {
