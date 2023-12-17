@@ -9,9 +9,9 @@ local function confirm_discard_changes(all_buffers)
     end
 
     for _, buf_id in ipairs(unsaved) do
-        local name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf_id), ":~:.")
+        local name = vim.api.nvim_buf_get_name(buf_id)
         local result = vim.fn.confirm(
-            string.format('Save changes to "%s"?', name ~= "" and name or "Untitled"),
+            string.format('Save changes to "%s"?', name ~= "" and vim.fn.fnamemodify(name, ":~:.") or "Untitled"),
             "&Yes\n&No\n&Cancel",
             1,
             "Question"
