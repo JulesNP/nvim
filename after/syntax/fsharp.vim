@@ -73,7 +73,7 @@ syn region fsharpMatchParen transparent matchgroup=fsharpOperator start="{|"  en
 " Comments
 syn match   fsharpComment "//.*$"               contains=@Spell,fsharpTodo
 syn region  fsharpComment start="///" end="$"   contains=@Spell,fsharpTodo keepend oneline
-syn region  fsharpComment start="(\*" end="\*)" contains=@Spell,fsharpTodo
+syn region  fsharpComment start="(\*)\@!" end="\*)" contains=@Spell,fsharpTodo
 syn keyword fsharpTodo contained TODO FIXME XXX NOTE
 
 " Keywords
