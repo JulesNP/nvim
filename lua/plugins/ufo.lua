@@ -38,7 +38,7 @@ return {
         end
         local ufo = require "ufo"
 
-        ufo.setup {
+        ufo.setup { ---@diagnostic disable-line: missing-fields
             enable_get_fold_virt_text = true,
             fold_virt_text_handler = handler,
             open_fold_hl_timeout = 0,

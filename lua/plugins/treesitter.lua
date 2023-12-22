@@ -17,7 +17,7 @@ return {
         vim.g.matchup_transmute_enabled = 1
         vim.g.matchup_matchparen_offscreen = {}
 
-        require("nvim-treesitter.configs").setup {
+        require("nvim-treesitter.configs").setup { ---@diagnostic disable-line: missing-fields
             highlight = {
                 enable = not vim.g.vscode,
             },

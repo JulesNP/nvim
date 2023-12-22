@@ -90,11 +90,11 @@ return {
             nmap("<leader>bx", require("dap").set_exception_breakpoints, "Set exception breakpoints")
 
             if client.server_capabilities.signatureHelpProvider then
-                require("lsp-overloads").setup(client, {
-                    ui = {
+                require("lsp-overloads").setup(client, { ---@diagnostic disable-line: missing-fields
+                    ui = { ---@diagnostic disable-line: missing-fields
                         border = "none",
                     },
-                    keymaps = {
+                    keymaps = { ---@diagnostic disable-line: missing-fields
                         close_signature = "<m-x>",
                     },
                 })
@@ -274,7 +274,7 @@ return {
         end
         null_ls.setup { diagnostics_format = "#{m} [#{s}]", on_attach = on_attach, sources = sources }
 
-        require("mason-null-ls").setup {
+        require("mason-null-ls").setup { ---@diagnostic disable-line: missing-fields
             handlers = {
                 function(source_name, methods)
                     require "mason-null-ls.automatic_setup"(source_name, methods)
@@ -302,8 +302,8 @@ return {
             },
         }
 
-        require("dapui").setup {}
-        require("mason-nvim-dap").setup {
+        require("dapui").setup()
+        require("mason-nvim-dap").setup { ---@diagnostic disable-line: missing-fields
             handlers = {},
         }
     end,

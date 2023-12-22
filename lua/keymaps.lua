@@ -43,9 +43,9 @@ local function putline(action)
         local regType = vim.fn.getregtype(vim.v.register)
         if regType ~= "V" then
             local regValue = vim.fn.getreg(vim.v.register)
-            vim.fn.setreg(vim.v.register, regValue, "V")
+            vim.fn.setreg(vim.v.register, regValue, { "V" })
             vim.cmd('normal! "' .. vim.v.register .. vim.v.count .. action)
-            vim.fn.setreg(vim.v.register, regValue, regType)
+            vim.fn.setreg(vim.v.register, regValue, { regType })
         else
             vim.cmd('normal! "' .. vim.v.register .. vim.v.count .. action)
         end

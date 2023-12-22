@@ -255,7 +255,7 @@ local function mini_indentscope_setup()
                 or vim.bo.filetype == "dbout"
                 or vim.bo.filetype == "dbui"
             then
-                vim.b.miniindentscope_disable = true
+                vim.b.miniindentscope_disable = true ---@diagnostic disable-line: inject-field
             end
         end,
     })
