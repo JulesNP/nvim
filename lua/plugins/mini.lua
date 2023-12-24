@@ -323,7 +323,7 @@ local function mini_pick_setup()
                 end,
             },
             refine = "<c-e>",
-            toggle_info = "<c-/>",
+            toggle_info = "<c-o>",
             toggle_preview = "<c-k>",
             quickfix = {
                 char = "<c-q>",
@@ -436,21 +436,22 @@ local function mini_pick_setup()
                     char = "<c-x>",
                     func = function()
                         local matches = MiniPick.get_picker_matches()
-                        local items = MiniPick.get_picker_items()
-                        if matches == nil or items == nil then
+                        if matches == nil then
                             return
                         end
                         local removals = matches.marked
-                        local removal_inds = matches.marked_inds
                         if #removals == 0 then
                             removals = { matches.current }
-                            removal_inds = { matches.current_ind }
                         end
-                        for index, item in ipairs(removals) do
-                            vim.api.nvim_buf_delete(item.bufnr, {})
-                            table.remove(items, removal_inds[index])
+                        local result = {}
+                        for _, item in ipairs(matches.all) do
+                            if vim.tbl_contains(removals, item) then
+                                vim.api.nvim_buf_delete(item.bufnr, {})
+                            else
+                                table.insert(result, item)
+                            end
                         end
-                        MiniPick.set_picker_items(items)
+                        MiniPick.set_picker_items(result, { do_match = true })
                     end,
                 },
             },
