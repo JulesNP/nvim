@@ -96,12 +96,7 @@ return {
 
             require("rainbow-delimiters.setup").setup { blacklist = { "comment" } }
 
-            -- vim.keymap.set(
-            --     "n",
-            --     "<leader>tk",
-            --     "<cmd>TSHighlightCapturesUnderCursor<cr>",
-            --     { desc = "View treesitter highlights" }
-            -- )
+            -- vim.keymap.set( "n", "<leader>tk", "<cmd>TSHighlightCapturesUnderCursor<cr>", { desc = "View treesitter highlights" })
             -- vim.keymap.set("n", "<leader>tn", "<cmd>TSNodeUnderCursor<cr>", { desc = "View treesitter node" })
             -- vim.keymap.set("n", "<leader>tp", "<cmd>TSPlaygroundToggle<cr>", { desc = "Toggle treesitter playground" })
         end

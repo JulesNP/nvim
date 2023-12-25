@@ -32,6 +32,13 @@ return {
                     },
                     MatchParen = { bg = dark and palette.dark2 or palette.light2 },
                     MiniIndentscopeSymbol = { fg = dark and palette.dark2 or palette.light2 },
+                    RainbowDelimiterBlue = { link = "GruvboxBlue" },
+                    RainbowDelimiterCyan = { link = "GruvboxAqua" },
+                    RainbowDelimiterGreen = { link = "GruvboxGreen" },
+                    RainbowDelimiterOrange = { link = "GruvboxOrange" },
+                    RainbowDelimiterRed = { link = "GruvboxRed" },
+                    RainbowDelimiterViolet = { link = "GruvboxPurple" },
+                    RainbowDelimiterYellow = { link = "GruvboxYellow" },
                     SignColumn = { link = "LineNr" },
                     StatusLine = {
                         fg = dark and palette.light1 or palette.dark1,
