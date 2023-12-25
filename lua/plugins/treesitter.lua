@@ -2,7 +2,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     event = { "BufRead", "CmdlineEnter", "InsertEnter" },
     dependencies = {
-        "HiPhish/nvim-ts-rainbow2",
+        "HiPhish/rainbow-delimiters.nvim",
         "andymass/vim-matchup",
         "nvim-treesitter/nvim-treesitter-context",
         "nvim-treesitter/nvim-treesitter-textobjects",
@@ -51,9 +51,6 @@ return {
             --     use_virtual_text = true,
             --     lint_events = { "BufWrite", "CursorHold" },
             -- },
-            rainbow = {
-                enable = not vim.g.vscode,
-            },
             textobjects = {
                 lsp_interop = {
                     enable = true,
@@ -97,14 +94,16 @@ return {
                 trim_scope = "inner",
             }
 
-            vim.keymap.set(
-                "n",
-                "<leader>tk",
-                "<cmd>TSHighlightCapturesUnderCursor<cr>",
-                { desc = "View treesitter highlights" }
-            )
-            vim.keymap.set("n", "<leader>tn", "<cmd>TSNodeUnderCursor<cr>", { desc = "View treesitter node" })
-            vim.keymap.set("n", "<leader>tp", "<cmd>TSPlaygroundToggle<cr>", { desc = "Toggle treesitter playground" })
+            require("rainbow-delimiters.setup").setup { blacklist = { "comment" } }
+
+            -- vim.keymap.set(
+            --     "n",
+            --     "<leader>tk",
+            --     "<cmd>TSHighlightCapturesUnderCursor<cr>",
+            --     { desc = "View treesitter highlights" }
+            -- )
+            -- vim.keymap.set("n", "<leader>tn", "<cmd>TSNodeUnderCursor<cr>", { desc = "View treesitter node" })
+            -- vim.keymap.set("n", "<leader>tp", "<cmd>TSPlaygroundToggle<cr>", { desc = "Toggle treesitter playground" })
         end
     end,
 }
