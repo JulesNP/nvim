@@ -19,6 +19,11 @@ return {
                 overrides = {
                     CursorLine = { bg = dark and palette.dark0_hard or palette.light0_hard },
                     CursorLineNr = { bg = dark and palette.dark0 or palette.light0 },
+                    DiagnosticVirtualTextError = { link = "GruvboxRedSign" },
+                    DiagnosticVirtualTextHint = { link = "GruvboxAquaSign" },
+                    DiagnosticVirtualTextInfo = { link = "GruvboxBlueSign" },
+                    DiagnosticVirtualTextOk = { link = "GruvboxGreenSign" },
+                    DiagnosticVirtualTextWarn = { link = "GruvboxYellowSign" },
                     EyelinerPrimary = { bold = true, underline = true },
                     EyelinerSecondary = { bold = true },
                     IlluminatedWordRead = { bg = dark and palette.dark2 or palette.light2 },

@@ -45,6 +45,8 @@ return {
         sign("DiagnosticSignWarn", "")
         sign("DiagnosticSignError", "")
 
+        vim.diagnostic.config { virtual_text = { prefix = " " } }
+
         vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(require "hover", {
             border = "none",
         })
