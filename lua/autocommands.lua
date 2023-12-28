@@ -160,7 +160,7 @@ if not vim.g.vscode then
     local indent_guide = vim.api.nvim_create_augroup("IndentGuide", { clear = true })
     local function normal_guide()
         if vim.wo.list then
-            vim.opt.listchars = {
+            vim.opt_local.listchars = {
                 leadmultispace = "▏" .. string.rep(" ", vim.bo.shiftwidth - 1),
                 tab = "> ",
                 trail = "-",
@@ -170,7 +170,8 @@ if not vim.g.vscode then
     end
     local function insert_guide()
         if vim.wo.list then
-            vim.opt.listchars = { multispace = "▏" .. string.rep(" ", vim.bo.shiftwidth - 1), tab = "> ", nbsp = "+" }
+            vim.opt_local.listchars =
+                { multispace = "▏" .. string.rep(" ", vim.bo.shiftwidth - 1), tab = "> ", nbsp = "+" }
         end
     end
 
