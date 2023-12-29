@@ -41,6 +41,8 @@ o.winblend = 10
 o.writebackup = false
 vim.opt.listchars = { leadmultispace = "▏   ", tab = "> ", trail = "-", nbsp = "+" }
 
+vim.diagnostic.config { virtual_text = { prefix = " " } }
+
 if os.getenv "SSH_CONNECTION" == nil then
     o.title = true
 end
