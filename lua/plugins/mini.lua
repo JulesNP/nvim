@@ -1,3 +1,6 @@
+---Check if buffers are unsaved and prompt to save changes, continue without saving, or cancel operation
+---@param all_buffers? boolean Check all buffers, or only current. Defaults to `true`
+---@return boolean proceed `true` if OK to continue with action, `false` if user cancelled
 local function confirm_discard_changes(all_buffers)
     local buf_list = all_buffers == false and { 0 } or vim.api.nvim_list_bufs()
     local unsaved = vim.tbl_filter(function(buf_id)
