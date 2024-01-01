@@ -12,29 +12,90 @@ return {
         "folke/neodev.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/nvim-cmp",
-        { "JulesNP/Ionide-vim", branch = "indent" },
         "jay-babu/mason-null-ls.nvim",
         "jay-babu/mason-nvim-dap.nvim",
         "joechrisellis/lsp-format-modifications.nvim",
-        "nvimtools/none-ls.nvim",
         "jose-elias-alvarez/typescript.nvim",
-        { "kosayoda/nvim-lightbulb", opts = { autocmd = { enabled = true } } },
         "kevinhwang91/nvim-ufo",
         "mfussenegger/nvim-dap",
         "nvim-lua/plenary.nvim",
+        "nvimdev/lspsaga.nvim",
+        "nvimtools/none-ls.nvim",
         "rcarriga/nvim-dap-ui",
         "williamboman/mason-lspconfig.nvim",
         "williamboman/mason.nvim",
+        { "JulesNP/Ionide-vim", branch = "indent" },
     },
     init = function()
         -- Prevent auto setup of Ionide
         vim.g["fsharp#lsp_auto_setup"] = 0
     end,
     config = function()
+        require("lspsaga").setup {
+            ui = { border = "single" },
+            diagnostic = { extend_relatedInformation = true },
+            code_action = {
+                show_server_name = true,
+                extend_gitsigns = true,
+                only_in_cursor = false,
+                keys = {
+                    quit = { "<esc>", "q" },
+                    exec = "<cr>",
+                },
+            },
+            lightbulb = { virtual_text = false },
+            finder = {
+                keys = {
+                    shuttle = "<c-w><c-w>",
+                    toggle_or_open = "<cr>",
+                    vsplit = "<c-v>",
+                    split = "<c-s>",
+                    tabe = "<c-t>",
+                    tabnew = "<c-s-t>",
+                    quit = "q",
+                    close = "<c-q>",
+                },
+            },
+            definition = {
+                keys = {
+                    edit = "<c-i>",
+                    vsplit = "<c-v>",
+                    split = "<c-s>",
+                    tabe = "<c-t>",
+                    tabnew = "<c-s-t>",
+                    quit = "q",
+                    close = "<c-q>",
+                },
+            },
+            symbol_in_winbar = { enable = false },
+            outline = {
+                layout = "float",
+                max_height = 0.7,
+                keys = {
+                    toggle_or_jump = "<tab>",
+                    quit = { "<c-q>", "q" },
+                    jump = "<cr>",
+                },
+            },
+            callhierarchy = {
+                keys = {
+                    edit = "<cr>",
+                    vsplit = "<c-v>",
+                    split = "<c-s>",
+                    tabe = "<c-t>",
+                    close = "<c-q>",
+                    quit = "q",
+                    shuttle = "<c-w><c-w>",
+                    toggle_or_req = "<tab>",
+                },
+            },
+            beacon = { enable = false },
+        }
+
         vim.keymap.set("n", "<leader>i", vim.diagnostic.open_float, { desc = "View diagnostic info" })
         vim.keymap.set("n", "<leader>q", vim.diagnostic.setqflist, { desc = "List diagnostics" })
-        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
-        vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
+        vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", { desc = "Previous diagnostic" })
+        vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<cr>", { desc = "Next diagnostic" })
 
         local function sign(name, icon)
             vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
@@ -57,8 +118,8 @@ return {
                 vim.keymap.set("n", key, func, { desc = desc, buffer = bufnr })
             end
             nmap("<leader>=", vim.lsp.codelens.refresh, "Refresh codelens")
-            nmap("<leader>D", vim.lsp.buf.type_definition, "Type definition")
-            nmap("<leader>ca", vim.lsp.buf.code_action, "Code action")
+            nmap("<leader>D", vim.lsp.buf.declaration, "Go to declaration")
+            nmap("<leader>ca", "<cmd>Lspsaga code_action<cr>", "Code action")
             nmap("<leader>la", vim.lsp.buf.add_workspace_folder, "Add workspace folder")
             nmap("<leader>lr", vim.lsp.buf.remove_workspace_folder, "Remove workspace folder")
             nmap("<leader>lw", function()
@@ -71,10 +132,17 @@ return {
                     vim.lsp.buf.hover()
                 end
             end, "LSP hover info")
-            nmap("gD", vim.lsp.buf.declaration, "Go to declaration")
             nmap("gI", vim.lsp.buf.implementation, "Go to implementation")
-            nmap("gd", vim.lsp.buf.definition, "Go to definition")
             nmap("gr", vim.lsp.buf.references, "Go to references")
+
+            -- Use builtin 'Go to definition' for omnisharp, since Lspsaga isn't compatible with omnisharp_extended
+            if client == "omnisharp" then
+                nmap("gD", vim.lsp.buf.type_definition, "Type definition")
+                nmap("gd", vim.lsp.buf.definition, "Go to definition")
+            else
+                nmap("gD", "<cmd>Lspsaga peek_type_definition<cr>", "Type definition")
+                nmap("gd", "<cmd>Lspsaga peek_definition<cr>", "Go to definition")
+            end
 
             nmap("<leader>bO", require("dap").step_out, "Step out")
             nmap("<leader>bb", require("dap").toggle_breakpoint, "Toggle breakpoint")
@@ -85,6 +153,9 @@ return {
             nmap("<leader>bq", require("dap").list_breakpoints, "List breakpoints")
             nmap("<leader>bt", require("dapui").toggle, "Toggle debug UI")
             nmap("<leader>bx", require("dap").set_exception_breakpoints, "Set exception breakpoints")
+
+            nmap("<leader>lf", "<cmd>Lspsaga finder<cr>", "Find LSP references and implementation")
+            nmap("<leader>lo", "<cmd>Lspsaga outline<cr>", "Outline of LSP codepoints in current file")
 
             if client.server_capabilities.signatureHelpProvider then
                 require("lsp-overloads").setup(client, { ---@diagnostic disable-line: missing-fields
