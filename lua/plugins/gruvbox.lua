@@ -35,6 +35,15 @@ return {
                         fg = palette.light0_hard,
                         bg = dark and palette.faded_red or palette.bright_red,
                     },
+                    FloatBorder = {
+                        fg = dark and palette.dark3 or palette.light3,
+                        bg = dark and palette.dark1 or palette.light1,
+                    },
+                    FloatTitle = {
+                        bold = true,
+                        fg = dark and palette.bright_green or palette.faded_green,
+                        bg = dark and palette.dark1 or palette.light1,
+                    },
                     MatchParen = { bg = dark and palette.dark2 or palette.light2 },
                     MiniIndentscopeSymbol = { fg = dark and palette.dark2 or palette.light2 },
                     RainbowDelimiterBlue = { link = "GruvboxBlue" },
