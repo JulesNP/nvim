@@ -46,10 +46,7 @@ return {
         sign("DiagnosticSignError", "")
 
         vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(require "hover", {
-            border = "none",
-        })
-        vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-            border = "none",
+            border = "single",
         })
 
         local function on_attach(client, bufnr)
@@ -92,7 +89,7 @@ return {
             if client.server_capabilities.signatureHelpProvider then
                 require("lsp-overloads").setup(client, { ---@diagnostic disable-line: missing-fields
                     ui = { ---@diagnostic disable-line: missing-fields
-                        border = "none",
+                        border = "single",
                     },
                     keymaps = { ---@diagnostic disable-line: missing-fields
                         close_signature = "<m-x>",
