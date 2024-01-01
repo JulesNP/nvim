@@ -50,6 +50,8 @@ return {
                 },
                 mappings = {
                     close = "q",
+                    scrollB = "<c-b>",
+                    scrollF = "<c-f>",
                     scrollE = "<c-e>",
                     scrollY = "<c-y>",
                     switch = "K",
