@@ -136,7 +136,7 @@ return {
             nmap("gr", vim.lsp.buf.references, "Go to references")
 
             -- Use builtin 'Go to definition' for omnisharp, since Lspsaga isn't compatible with omnisharp_extended
-            if client == "omnisharp" then
+            if vim.bo.filetype == "cs" then
                 nmap("gD", vim.lsp.buf.type_definition, "Type definition")
                 nmap("gd", vim.lsp.buf.definition, "Go to definition")
             else
