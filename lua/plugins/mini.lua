@@ -624,8 +624,6 @@ return {
                 MiniMisc.zoom(0, { width = vim.o.columns, height = vim.o.lines })
             end, { desc = "Zoom current buffer" })
 
-            require("mini.notify").setup {}
-
             mini_pick_setup()
 
             mini_sessions_setup()
