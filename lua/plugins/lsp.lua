@@ -64,7 +64,7 @@ return {
                     tabe = "<c-t>",
                     tabnew = "<c-s-t>",
                     quit = "q",
-                    close = "<c-q>",
+                    close = { "<c-o>", "<c-q>" },
                 },
             },
             symbol_in_winbar = { enable = false },
