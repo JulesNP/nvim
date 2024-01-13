@@ -155,7 +155,7 @@ local function mini_files_setup()
                 MiniFiles.set_target_window(new_target_window)
             end
 
-            MiniFiles.go_in()
+            MiniFiles.go_in {}
         end
 
         local desc = "Split " .. direction
@@ -189,7 +189,7 @@ local function mini_files_setup()
             vim.keymap.set("n", "<cr>", function()
                 local fs_entry = MiniFiles.get_fs_entry()
                 local is_at_file = fs_entry ~= nil and fs_entry.fs_type == "file"
-                MiniFiles.go_in()
+                MiniFiles.go_in {}
                 if is_at_file then
                     MiniFiles.close()
                 end
@@ -510,8 +510,8 @@ local function mini_pick_setup()
     vim.keymap.set("n", "<leader>fw", "<cmd>Pick grep pattern='<cword>'<cr>", { desc = "Find current word" })
     vim.keymap.set("n", "<leader>fz", "<cmd>Pick spellsuggest<cr>", { desc = "Find spelling suggestions" })
     vim.keymap.set("n", "z=", function()
-        if vim.v.count > 0 then
-            vim.api.nvim_feedkeys(vim.v.count .. "z=", "n", false)
+        if vim.v.count > 0 then ---@diagnostic disable-line: undefined-field
+            vim.api.nvim_feedkeys(vim.v.count .. "z=", "n", false) ---@diagnostic disable-line: undefined-field
         else
             vim.cmd "Pick spellsuggest"
         end
@@ -538,7 +538,7 @@ local function mini_sessions_setup()
     end, { desc = "Save session" })
     vim.keymap.set("n", "<leader>sx", function()
         if confirm_discard_changes() then
-            vim.v.this_session = ""
+            vim.v.this_session = "" ---@diagnostic disable-line: inject-field
             vim.cmd "%bwipeout!"
             vim.cmd "cd ~"
         end
@@ -601,7 +601,7 @@ return {
 
         mini_surround_setup()
 
-        if not vim.g.vscode then
+        if not vim.g.vscode then ---@diagnostic disable-line: undefined-field
             mini_clue_setup()
 
             require("mini.bufremove").setup {}
@@ -633,7 +633,7 @@ return {
             require("mini.visits").setup {}
             vim.keymap.set("n", "<leader><leader>", "<cmd>Pick frecency<cr>", { desc = "Select recent file" })
         end
-        if not vim.g.vscode and not vim.g.neovide then
+        if not vim.g.vscode and not vim.g.neovide then ---@diagnostic disable-line: undefined-field
             mini_animate_setup()
         end
     end,

@@ -1,9 +1,9 @@
 return {
     "neovim/nvim-lspconfig",
-    cond = not vim.g.vscode,
+    cond = not vim.g.vscode, ---@diagnostic disable-line: undefined-field
     event = { "BufRead", "CmdlineEnter", "InsertEnter" },
     cmd = { "Mason" },
-    keys = vim.g.vscode and {} or {
+    keys = vim.g.vscode and {} or { ---@diagnostic disable-line: undefined-field
         { "<leader>m", "<cmd>Mason<cr>", desc = "Open Mason" },
     },
     dependencies = {
