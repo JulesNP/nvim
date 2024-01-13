@@ -14,7 +14,6 @@ o.ignorecase = true
 o.inccommand = "split"
 o.infercase = true
 o.linebreak = true
-o.list = true
 o.mouse = "a"
 o.mousemodel = "popup"
 o.number = true
@@ -39,7 +38,6 @@ o.virtualedit = "block"
 o.whichwrap = "b,s,<,>,[,]"
 o.winblend = 10
 o.writebackup = false
-vim.opt.listchars = { leadmultispace = "▏   ", tab = "> ", trail = "-", nbsp = "+" }
 
 vim.diagnostic.config { virtual_text = { prefix = " " } }
 

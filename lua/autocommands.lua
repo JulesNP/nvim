@@ -156,40 +156,4 @@ if not vim.g.vscode then
             end
         end,
     })
-
-    local indent_guide = vim.api.nvim_create_augroup("IndentGuide", { clear = true })
-    local function normal_guide()
-        if vim.wo.list then
-            vim.opt_local.listchars = {
-                leadmultispace = "▏" .. string.rep(" ", vim.bo.shiftwidth - 1),
-                tab = "> ",
-                trail = "-",
-                nbsp = "+",
-            }
-        end
-    end
-    local function insert_guide()
-        if vim.wo.list then
-            vim.opt_local.listchars =
-                { multispace = "▏" .. string.rep(" ", vim.bo.shiftwidth - 1), tab = "> ", nbsp = "+" }
-        end
-    end
-
-    vim.api.nvim_create_autocmd("OptionSet", {
-        group = indent_guide,
-        pattern = "shiftwidth",
-        callback = normal_guide,
-    })
-
-    vim.api.nvim_create_autocmd("InsertEnter", {
-        group = indent_guide,
-        pattern = "*",
-        callback = insert_guide,
-    })
-
-    vim.api.nvim_create_autocmd({ "InsertLeave", "BufWinEnter" }, {
-        group = indent_guide,
-        pattern = "*",
-        callback = normal_guide,
-    })
 end

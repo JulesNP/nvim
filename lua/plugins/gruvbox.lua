@@ -26,9 +26,6 @@ return {
                     DiagnosticVirtualTextWarn = { link = "GruvboxYellowSign" },
                     EyelinerPrimary = { bold = true, underline = true },
                     EyelinerSecondary = { bold = true },
-                    IlluminatedWordRead = { bg = dark and palette.dark2 or palette.light2 },
-                    IlluminatedWordText = { bg = dark and palette.dark2 or palette.light2 },
-                    IlluminatedWordWrite = { bg = dark and palette.faded_orange or palette.bright_orange },
                     FlashLabel = {
                         nocombine = true,
                         bold = true,
@@ -44,6 +41,10 @@ return {
                         fg = dark and palette.bright_green or palette.faded_green,
                         bg = dark and palette.dark1 or palette.light1,
                     },
+                    IlluminatedWordRead = { bg = dark and palette.dark2 or palette.light2 },
+                    IlluminatedWordText = { bg = dark and palette.dark2 or palette.light2 },
+                    IlluminatedWordWrite = { bg = dark and palette.faded_orange or palette.bright_orange },
+                    IndentBlankLine = { fg = dark and palette.dark0_soft or palette.light0_soft },
                     MatchParen = { bg = dark and palette.dark2 or palette.light2 },
                     MiniIndentscopeSymbol = { fg = dark and palette.dark2 or palette.light2 },
                     RainbowDelimiterBlue = { link = "GruvboxBlue" },
@@ -65,11 +66,7 @@ return {
                         reverse = false,
                     },
                     TabLineSel = { bg = dark and palette.dark0 or palette.light0 },
-                    TreesitterContextLineNumber = {
-                        fg = palette.gray,
-                        bg = dark and palette.dark1 or palette.light1,
-                    },
-                    Whitespace = { fg = dark and palette.dark1 or palette.light1 },
+                    TreesitterContextLineNumber = { fg = palette.gray, bg = dark and palette.dark1 or palette.light1 },
                 },
             }
             vim.cmd.colorscheme "gruvbox"
