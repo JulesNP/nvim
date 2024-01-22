@@ -1,5 +1,6 @@
 return {
-    "ellisonleao/gruvbox.nvim",
+    "JulesNP/gruvbox.nvim",
+    branch = "tsfix",
     cond = not vim.g.vscode,
     priority = 1000,
     config = function()
