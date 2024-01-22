@@ -45,6 +45,8 @@ return {
                     IlluminatedWordText = { bg = dark and palette.dark2 or palette.light2 },
                     IlluminatedWordWrite = { bg = dark and palette.faded_orange or palette.bright_orange },
                     IndentBlankLine = { fg = dark and palette.dark0_soft or palette.light0_soft },
+                    LspCodeLens = { fg = palette.gray, bg = dark and palette.dark1 or palette.light1 },
+                    LspCodeLensSeparator = { fg = dark and palette.dark2 or palette.light2 },
                     MatchParen = { bg = dark and palette.dark2 or palette.light2 },
                     MiniIndentscopeSymbol = { fg = dark and palette.dark2 or palette.light2 },
                     RainbowDelimiterBlue = { link = "GruvboxBlue" },

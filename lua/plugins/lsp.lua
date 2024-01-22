@@ -29,6 +29,7 @@ return {
     init = function()
         -- Prevent auto setup of Ionide
         vim.g["fsharp#lsp_auto_setup"] = 0
+        vim.g["fsharp#lsp_recommended_colorscheme"] = 0
     end,
     config = function()
         require("lspsaga").setup {
