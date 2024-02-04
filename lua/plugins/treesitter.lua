@@ -7,16 +7,22 @@ return {
         "nvim-treesitter/nvim-treesitter-context",
         "nvim-treesitter/nvim-treesitter-textobjects",
         -- "nvim-treesitter/playground",
+        "wellle/context.vim",
         "windwp/nvim-ts-autotag",
     },
     build = function()
         local ts_update = require("nvim-treesitter.install").update { with_sync = true }
         ts_update()
     end,
-    config = function()
+    init = function()
+        vim.g.context_enabled = 0
+        vim.g.context_add_mappings = 0
+        vim.g.context_highlight_normal = "NormalFloat"
+        vim.g.context_highlight_border = "<hide>"
         vim.g.matchup_transmute_enabled = 1
         vim.g.matchup_matchparen_offscreen = {}
-
+    end,
+    config = function()
         require("nvim-treesitter.configs").setup { ---@diagnostic disable-line: missing-fields
             highlight = {
                 enable = not vim.g.vscode,
@@ -93,6 +99,19 @@ return {
             require("treesitter-context").setup {
                 trim_scope = "inner",
             }
+
+            vim.api.nvim_create_autocmd("BufWinEnter", {
+                group = vim.api.nvim_create_augroup("ToggleContext", { clear = true }),
+                callback = function()
+                    if
+                        require("nvim-treesitter.parsers").has_parser(require("nvim-treesitter.parsers").get_buf_lang())
+                    then
+                        vim.cmd.ContextDisableWindow()
+                    else
+                        vim.cmd.ContextEnableWindow()
+                    end
+                end,
+            })
 
             require("rainbow-delimiters.setup").setup { blacklist = { "comment" } }
 
