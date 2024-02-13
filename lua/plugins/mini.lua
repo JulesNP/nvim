@@ -53,7 +53,7 @@ local function mini_ai_setup()
                 i = { "@conditional.inner", "@loop.inner" },
             },
         },
-        n_lines = 100,
+        n_lines = 300,
     }
 end
 
