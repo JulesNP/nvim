@@ -624,6 +624,16 @@ return {
                 MiniMisc.zoom(0, { width = vim.o.columns, height = vim.o.lines })
             end, { desc = "Zoom current buffer" })
 
+            require("mini.pairs").setup {
+                mappings = {
+                    [" "] = { action = "closeopen", pair = "  ", neigh_pattern = "[([{#%<|]+[)%]}>]?" },
+                    ["#"] = { action = "closeopen", pair = "##", neigh_pattern = "[([{][)%]}]" },
+                    ["%"] = { action = "closeopen", pair = "%%", neigh_pattern = "[([{][)%]}]" },
+                    ["<"] = { action = "open", pair = "<>", neigh_pattern = "[([{][)%]}]" },
+                    ["|"] = { action = "closeopen", pair = "||", neigh_pattern = "[([{][)%]}]" },
+                },
+            }
+
             mini_pick_setup()
 
             mini_sessions_setup()
