@@ -104,7 +104,10 @@ return {
                 group = vim.api.nvim_create_augroup("ToggleContext", { clear = true }),
                 callback = function()
                     if
-                        require("nvim-treesitter.parsers").has_parser(require("nvim-treesitter.parsers").get_buf_lang())
+                        vim.bo.buftype ~= ""
+                        or require("nvim-treesitter.parsers").has_parser(
+                            require("nvim-treesitter.parsers").get_buf_lang()
+                        )
                     then
                         vim.cmd.ContextDisableWindow()
                     else
