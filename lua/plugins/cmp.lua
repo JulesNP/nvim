@@ -9,7 +9,6 @@ return {
         "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-emoji",
         "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-nvim-lua",
         "lukas-reineke/cmp-rg",
         "petertriho/cmp-git",
         "saadparwaiz1/cmp_luasnip",
@@ -58,11 +57,10 @@ return {
                 ["<down>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
                 ["<up>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
             },
-            sources = cmp.config.sources({
+            sources = cmp.config.sources {
                 { name = "luasnip" },
                 { name = "orgmode" },
                 { name = "nvim_lsp" },
-                { name = "nvim_lua" },
                 { name = "git" },
                 { name = "async_path" },
                 { name = "calc" },
@@ -79,14 +77,13 @@ return {
                         end,
                     },
                 },
-            }, {
                 {
                     name = "rg",
                     option = {
-                        additional_arguments = "--max-depth 6 --one-file-system",
+                        additional_arguments = "--max-depth 4 --one-file-system --smart-case",
                     },
                 },
-            }),
+            },
         }
 
         require("cmp_git").setup {
@@ -97,7 +94,7 @@ return {
             sources = {
                 { name = "luasnip" },
                 { name = "nvim_lsp" },
-                { name = "path" },
+                { name = "async_path" },
                 { name = "calc" },
                 {
                     name = "buffer",
@@ -124,9 +121,17 @@ return {
         cmp.setup.cmdline(":", {
             mapping = cmp.mapping.preset.cmdline(),
             sources = cmp.config.sources {
-                { name = "path" },
+                { name = "async_path" },
                 { name = "cmdline" },
             },
         })
+
+        -- If completion item is Method or Function, add parens
+        cmp.event:on("confirm_done", function(ev)
+            local item = ev.entry:get_completion_item()
+            if item.kind == 2 or item.kind == 3 then
+                vim.api.nvim_feedkeys("(", "t", true)
+            end
+        end)
     end,
 }
