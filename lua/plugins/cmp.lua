@@ -66,6 +66,15 @@ return {
                 { name = "calc" },
                 { name = "emoji" },
                 {
+                    name = "rg",
+                    entry_filter = function(entry, _)
+                        return not (entry.exact and string.len(entry.completion_item.label) < 4)
+                    end,
+                    option = {
+                        additional_arguments = "--max-depth 4 --one-file-system --smart-case",
+                    },
+                },
+                {
                     name = "buffer",
                     option = {
                         get_bufnrs = function()
@@ -75,12 +84,6 @@ return {
                             end
                             return vim.tbl_keys(bufs)
                         end,
-                    },
-                },
-                {
-                    name = "rg",
-                    option = {
-                        additional_arguments = "--max-depth 4 --one-file-system --smart-case",
                     },
                 },
             },
