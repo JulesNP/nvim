@@ -268,7 +268,12 @@ return {
                     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
                 end, opts "List workspace folders")
                 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts "Rename")
-                vim.keymap.set("n", "K", vim.lsp.buf.hover, opts "Hover")
+                vim.keymap.set("n", "K", function()
+                    local peek = require("ufo").peekFoldedLinesUnderCursor()
+                    if not peek then
+                        vim.lsp.buf.hover()
+                    end
+                end, opts "Hover")
                 vim.keymap.set("n", "gI", vim.lsp.buf.implementation, opts "Go to implementation")
                 vim.keymap.set("n", "gr", vim.lsp.buf.references, opts "Go to references")
                 vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<cr>", opts "Code action")
