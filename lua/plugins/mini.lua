@@ -293,6 +293,31 @@ local function mini_map_setup()
     )
 end
 
+local function mini_pairs_setup()
+    require("mini.pairs").setup {
+        mappings = {
+            ["("] = { action = "open", pair = "()", neigh_pattern = "[^\\]%s" },
+            ["["] = { action = "open", pair = "[]", neigh_pattern = "[^\\]%s" },
+            ["{"] = { action = "open", pair = "{}", neigh_pattern = "[^\\]%s" },
+
+            ['"'] = { action = "closeopen", pair = '""', neigh_pattern = "[^\\]%s", register = { cr = false } },
+            ["'"] = {
+                action = "closeopen",
+                pair = "''",
+                neigh_pattern = "[^%a\\]%s",
+                register = { cr = false },
+            },
+            ["`"] = { action = "closeopen", pair = "``", neigh_pattern = "[^\\]%s", register = { cr = false } },
+
+            [" "] = { action = "closeopen", pair = "  ", neigh_pattern = "[([{#%%<|]+[)%]}>]?" },
+            ["#"] = { action = "closeopen", pair = "##", neigh_pattern = "[([{][)%]}]" },
+            ["%"] = { action = "closeopen", pair = "%%", neigh_pattern = "[([{][)%]}]" },
+            ["<"] = { action = "open", pair = "<>", neigh_pattern = "[([{][)%]}]" },
+            ["|"] = { action = "closeopen", pair = "||", neigh_pattern = "[([{][)%]}]" },
+        },
+    }
+end
+
 local function mini_pick_setup()
     local MiniPick = require "mini.pick"
     MiniPick.setup {
@@ -624,28 +649,7 @@ return {
                 MiniMisc.zoom(0, { width = vim.o.columns, height = vim.o.lines })
             end, { desc = "Zoom current buffer" })
 
-            require("mini.pairs").setup {
-                mappings = {
-                    ["("] = { action = "open", pair = "()", neigh_pattern = "[^\\]%s" },
-                    ["["] = { action = "open", pair = "[]", neigh_pattern = "[^\\]%s" },
-                    ["{"] = { action = "open", pair = "{}", neigh_pattern = "[^\\]%s" },
-
-                    ['"'] = { action = "closeopen", pair = '""', neigh_pattern = "[^\\]%s", register = { cr = false } },
-                    ["'"] = {
-                        action = "closeopen",
-                        pair = "''",
-                        neigh_pattern = "[^%a\\]%s",
-                        register = { cr = false },
-                    },
-                    ["`"] = { action = "closeopen", pair = "``", neigh_pattern = "[^\\]%s", register = { cr = false } },
-
-                    [" "] = { action = "closeopen", pair = "  ", neigh_pattern = "[([{#%%<|]+[)%]}>]?" },
-                    ["#"] = { action = "closeopen", pair = "##", neigh_pattern = "[([{][)%]}]" },
-                    ["%"] = { action = "closeopen", pair = "%%", neigh_pattern = "[([{][)%]}]" },
-                    ["<"] = { action = "open", pair = "<>", neigh_pattern = "[([{][)%]}]" },
-                    ["|"] = { action = "closeopen", pair = "||", neigh_pattern = "[([{][)%]}]" },
-                },
-            }
+            mini_pairs_setup()
 
             mini_pick_setup()
 
