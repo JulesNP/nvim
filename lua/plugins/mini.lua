@@ -309,10 +309,11 @@ local function mini_pairs_setup()
             },
             ["`"] = { action = "closeopen", pair = "``", neigh_pattern = "[^\\]%s", register = { cr = false } },
 
-            [" "] = { action = "closeopen", pair = "  ", neigh_pattern = "[([{#%%<|]+[)%]}>]?" },
+            [" "] = { action = "open", pair = "  ", neigh_pattern = "[([{#%%<|][)%]}#%%>|]" },
             ["#"] = { action = "closeopen", pair = "##", neigh_pattern = "[([{][)%]}]" },
             ["%"] = { action = "closeopen", pair = "%%", neigh_pattern = "[([{][)%]}]" },
             ["<"] = { action = "open", pair = "<>", neigh_pattern = "[([{][)%]}]" },
+            [">"] = { action = "close", pair = "<>", neigh_pattern = ".>" },
             ["|"] = { action = "closeopen", pair = "||", neigh_pattern = "[([{][)%]}]" },
         },
     }
