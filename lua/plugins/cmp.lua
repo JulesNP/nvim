@@ -67,6 +67,7 @@ return {
                 { name = "emoji" },
                 {
                     name = "rg",
+                    priority = -1000,
                     entry_filter = function(entry, _)
                         return not (entry.exact and string.len(entry.completion_item.label) < 4)
                     end,
@@ -76,6 +77,7 @@ return {
                 },
                 {
                     name = "buffer",
+                    priority = -1000,
                     option = {
                         get_bufnrs = function()
                             local bufs = {}
