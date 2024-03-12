@@ -133,6 +133,13 @@ return {
 
         -- If completion item is Method or Function, add parens
         cmp.event:on("confirm_done", function(ev)
+            -- Some LSPs automatically add parens
+            local col = vim.api.nvim_win_get_cursor(0)[2]
+            local char = vim.api.nvim_get_current_line():sub(col, col)
+            if char == "(" then
+                return
+            end
+
             local item = ev.entry:get_completion_item()
             if item.kind == 2 or item.kind == 3 then
                 vim.api.nvim_feedkeys("(", "t", true)
