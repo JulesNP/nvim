@@ -113,6 +113,10 @@ return {
         if vim.fn.executable "ccls" == 1 then
             lspconfig.ccls.setup { capabilities = capabilities }
         end
+        -- Check for local install of gleam, due to issues with Mason version
+        if vim.fn.executable "gleam" == 1 then
+            lspconfig.gleam.setup { capabilities = capabilities }
+        end
 
         local null_ls = require "null-ls"
         local builtins = null_ls.builtins
