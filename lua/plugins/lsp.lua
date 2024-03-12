@@ -142,9 +142,6 @@ return {
                 clang_format = function()
                     null_ls.register(builtins.formatting.clang_format.with { disabled_filetypes = { "cs" } })
                 end,
-                luacheck = function()
-                    null_ls.register(builtins.diagnostics.luacheck.with { extra_args = { "--globals", "vim" } })
-                end,
                 sqlfmt = function()
                     -- Custom config of sqlfmt using stdin, since base config only works with .sql files,
                     -- and Dadbod UI creates/saves queries without any extensions
