@@ -1,3 +1,9 @@
+local function match_at_cursor(pattern)
+    local col = vim.api.nvim_win_get_cursor(0)[2]
+    local text = vim.api.nvim_get_current_line():sub(col, col - 1 + pattern:len())
+    return text == pattern
+end
+
 return {
     "hrsh7th/nvim-cmp",
     cond = not vim.g.vscode,
@@ -53,7 +59,15 @@ return {
                 ["<c-space>"] = cmp.mapping.complete {},
                 ["<d-x>"] = cmp.mapping.abort(),
                 ["<m-x>"] = cmp.mapping.abort(),
-                ["<cr>"] = cmp.mapping.confirm { select = false },
+                ["<cr>"] = cmp.mapping(function(fallback)
+                    if not cmp.confirm { select = false } then
+                        fallback()
+                        if match_at_cursor "></" then
+                            local keys = vim.api.nvim_replace_termcodes("<c-o>O", true, true, true)
+                            vim.api.nvim_feedkeys(keys, "n", false)
+                        end
+                    end
+                end),
                 ["<down>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
                 ["<up>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
             },
@@ -134,9 +148,7 @@ return {
         -- If completion item is Method or Function, add parens
         cmp.event:on("confirm_done", function(ev)
             -- Some LSPs automatically add parens
-            local col = vim.api.nvim_win_get_cursor(0)[2]
-            local char = vim.api.nvim_get_current_line():sub(col, col)
-            if char == "(" then
+            if match_at_cursor "(" then
                 return
             end
 

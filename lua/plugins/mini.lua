@@ -315,9 +315,6 @@ local function mini_pairs_setup()
             ["<"] = { action = "open", pair = "<>", neigh_pattern = "[([{][)%]}]" },
             [">"] = { action = "close", pair = "<>", neigh_pattern = ".>" },
             ["|"] = { action = "closeopen", pair = "||", neigh_pattern = "[([{][)%]}]" },
-
-            -- Untypeable trigger chacter to make mini.pairs recognize two tags <div></div> and add extra line between on enter key
-            ["😄"] = { action = "close", pair = "><", neigh_pattern = "><", register = { bs = false } },
         },
     }
 end
