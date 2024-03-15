@@ -67,12 +67,6 @@ return {
             function(server_name)
                 lspconfig[server_name].setup { capabilities = capabilities }
             end,
-            omnisharp = function()
-                lspconfig.omnisharp.setup {
-                    capabilities = capabilities,
-                    handlers = { ["textDocument/definition"] = require("omnisharp_extended").handler },
-                }
-            end,
             fsautocomplete = function()
                 vim.g["fsharp#external_autocomplete"] = 1
                 vim.g["fsharp#simplify_name_analyzer"] = 1
@@ -275,8 +269,6 @@ return {
                         vim.lsp.buf.hover()
                     end
                 end, opts "Hover")
-                vim.keymap.set("n", "gI", vim.lsp.buf.implementation, opts "Go to implementation")
-                vim.keymap.set("n", "gr", vim.lsp.buf.references, opts "Go to references")
                 vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<cr>", opts "Code action")
                 vim.keymap.set("n", "<leader>lf", "<cmd>Lspsaga finder<cr>", opts "Find LSP references")
                 vim.keymap.set("n", "<leader>lo", "<cmd>Lspsaga outline<cr>", opts "LSP outline")
@@ -284,20 +276,15 @@ return {
                 if vim.bo.filetype ~= "cs" then
                     vim.keymap.set("n", "gD", "<cmd>Lspsaga peek_type_definition<cr>", opts "Go to type definition")
                     vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<cr>", opts "Go to definition")
+                    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts "Go to references")
+                    vim.keymap.set("n", "gI", vim.lsp.buf.implementation, opts "Go to implementation")
                 else -- omnisharp-specific settings
-                    local function toSnakeCase(str)
-                        return string.gsub(str, "%s*[- ]%s*", "_")
-                    end
-                    local tokenModifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
-                    for i, v in ipairs(tokenModifiers) do
-                        tokenModifiers[i] = toSnakeCase(v)
-                    end
-                    local tokenTypes = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
-                    for i, v in ipairs(tokenTypes) do
-                        tokenTypes[i] = toSnakeCase(v)
-                    end
+                    local omni_ex = require "omnisharp_extended"
+
                     vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, opts "Go to type definition")
-                    vim.keymap.set("n", "gd", require("omnisharp_extended").lsp_definitions, opts "Go to definition")
+                    vim.keymap.set("n", "gd", omni_ex.lsp_definitions, opts "Go to definition")
+                    vim.keymap.set("n", "gr", omni_ex.lsp_references, opts "Go to references")
+                    vim.keymap.set("n", "gI", omni_ex.lsp_implementation, opts "Go to implementation")
                 end
 
                 vim.keymap.set("n", "<leader>bO", require("dap").step_out, opts "Step out")
