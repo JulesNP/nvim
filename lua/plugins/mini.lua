@@ -40,7 +40,6 @@ local function mini_ai_setup()
         custom_textobjects = {
             A = ts { a = "@assignment.lhs", i = "@assignment.rhs" },
             C = ts { a = "@class.outer", i = "@class.inner" },
-            F = ts { a = "@function.outer", i = "@function.inner" },
             N = gen_ai_spec.number(),
             a = require("mini.ai").gen_spec.argument { separator = "[,;]" },
             c = ts { a = "@comment.outer", i = "@comment.inner" },
@@ -48,10 +47,8 @@ local function mini_ai_setup()
             g = gen_ai_spec.buffer(),
             k = ts { a = "@block.outer", i = "@block.inner" },
             m = ts { a = "@function.outer", i = "@function.inner" },
-            o = ts {
-                a = { "@conditional.outer", "@loop.outer" },
-                i = { "@conditional.inner", "@loop.inner" },
-            },
+            o = ts { a = { "@conditional.outer", "@loop.outer" }, i = { "@conditional.inner", "@loop.inner" } },
+            t = ts { a = "@function.outer", i = "@function.inner" },
         },
         n_lines = 300,
     }
