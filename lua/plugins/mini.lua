@@ -226,13 +226,21 @@ local function mini_files_setup()
         },
     }
 
+    local function dynamic_open(path)
+        MiniFiles.open(
+            path,
+            true,
+            { windows = { width_preview = 30 + math.max(0, math.min(50, vim.o.columns - 120)) } }
+        )
+    end
+
     vim.keymap.set("n", "\\", function()
         if not MiniFiles.close() then
-            MiniFiles.open()
+            dynamic_open "."
         end
     end, { desc = "Open file browser" })
     vim.keymap.set("n", "-", function()
-        MiniFiles.open(vim.api.nvim_buf_get_name(0))
+        dynamic_open(vim.api.nvim_buf_get_name(0))
         MiniFiles.reveal_cwd()
     end, { desc = "Open file browser" })
 end
