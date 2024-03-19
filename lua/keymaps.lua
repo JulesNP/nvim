@@ -23,6 +23,8 @@ vim.keymap.set("n", "gb", "<cmd>bnext<cr>", { desc = "Go to next buffer" })
 
 vim.keymap.set({ "i", "n", "x" }, "<c-s>", "<cmd>mkview<bar>update<cr><esc>", { desc = "Save if modified" })
 
+vim.keymap.set("i", "<c-s-v>", "<c-r>+", { desc = "Paste from clipboard" })
+
 vim.keymap.set("t", "<c-h>", "<cmd>wincmd h<cr>", { desc = "Go to the left window" })
 vim.keymap.set("t", "<c-j>", "<cmd>wincmd j<cr>", { desc = "Go to the down window" })
 vim.keymap.set("t", "<c-k>", "<cmd>wincmd k<cr>", { desc = "Go to the up window" })
