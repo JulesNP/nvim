@@ -19,6 +19,7 @@ return {
         "kevinhwang91/nvim-ufo",
         "mfussenegger/nvim-dap",
         "nvim-lua/plenary.nvim",
+        "nvim-neotest/nvim-nio",
         "nvimdev/lspsaga.nvim",
         "nvimtools/none-ls.nvim",
         "rcarriga/nvim-dap-ui",
