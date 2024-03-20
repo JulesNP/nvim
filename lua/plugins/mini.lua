@@ -69,9 +69,9 @@ local function mini_clue_setup()
     local MiniClue = require "mini.clue"
     MiniClue.setup {
         triggers = {
-            { mode = "c", keys = "<C-r>" },
-            { mode = "i", keys = "<C-r>" },
-            { mode = "i", keys = "<C-x>" },
+            -- { mode = "c", keys = "<C-r>" },
+            -- { mode = "i", keys = "<C-r>" },
+            -- { mode = "i", keys = "<C-x>" },
             { mode = "n", keys = "'" },
             { mode = "n", keys = "<C-w>" },
             { mode = "n", keys = "<Leader>" },
