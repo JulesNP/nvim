@@ -42,14 +42,15 @@ vim.keymap.set("x", "Y", "Ygv<esc>", { desc = "Yank selection linewise" })
 
 local function putline(action)
     return function()
-        local regType = vim.fn.getregtype(vim.v.register)
+        local regName = vim.v.register
+        local regType = vim.fn.getregtype(regName)
         if regType ~= "V" then
-            local regValue = vim.fn.getreg(vim.v.register)
-            vim.fn.setreg(vim.v.register, regValue, "V") ---@diagnostic disable-line: param-type-mismatch
-            vim.cmd('normal! "' .. vim.v.register .. vim.v.count .. action)
-            vim.fn.setreg(vim.v.register, regValue, regType) ---@diagnostic disable-line: param-type-mismatch
+            local regValue = vim.fn.getreg(regName)
+            vim.fn.setreg(regName, regValue, "V") ---@diagnostic disable-line: param-type-mismatch
+            vim.cmd("normal! " .. vim.v.count .. '"' .. regName .. action)
+            vim.fn.setreg(regName, regValue, regType) ---@diagnostic disable-line: param-type-mismatch
         else
-            vim.cmd('normal! "' .. vim.v.register .. vim.v.count .. action)
+            vim.cmd("normal! " .. vim.v.count .. '"' .. regName .. action)
         end
     end
 end
