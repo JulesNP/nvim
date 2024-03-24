@@ -37,6 +37,7 @@ o.viewoptions = "folds,cursor"
 o.virtualedit = "block"
 o.whichwrap = "b,s,<,>,[,]"
 o.winblend = 10
+o.wrap = false
 o.writebackup = false
 
 vim.diagnostic.config { virtual_text = { prefix = " " } }
