@@ -321,7 +321,7 @@ local function mini_pairs_setup()
             ["'"] = {
                 action = "closeopen",
                 pair = "''",
-                neigh_pattern = "[^\\][%s)%]}]",
+                neigh_pattern = "[^\\%a][%s)%]}]",
                 register = { cr = false },
             },
             ["`"] = { action = "closeopen", pair = "``", neigh_pattern = "[^\\][%s)%]}]", register = { cr = false } },
