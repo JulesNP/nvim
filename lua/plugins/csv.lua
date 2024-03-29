@@ -5,6 +5,7 @@ return {
     init = function()
         vim.g.rbql_backend_language = "js" ---@diagnostic disable-line: inject-field
 
+        vim.keymap.set("n", "<F5>", "get(b:, 'rbcsv', 0) == 1 ? ':RainbowQuery<cr>' : '<F5>'", { expr = true })
         vim.keymap.set(
             "n",
             "<c-left>",
