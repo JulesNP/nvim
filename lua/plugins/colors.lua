@@ -8,7 +8,6 @@ return {
     config = function()
         local ccc = require "ccc"
         ccc.setup {
-            default_color = "#808080",
             highlighter = { auto_enable = true, lsp = true },
             inputs = {
                 ccc.input.okhsl,
