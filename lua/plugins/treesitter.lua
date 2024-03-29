@@ -27,7 +27,7 @@ return {
             highlight = {
                 enable = not vim.g.vscode,
             },
-            auto_install = true,
+            auto_install = vim.fn.executable "tree-sitter" == 1,
             ignore_install = { "csv" }, -- Conflicts with rainbow_csv
             autotag = {
                 enable = not vim.g.vscode,
