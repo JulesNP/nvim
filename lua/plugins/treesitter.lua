@@ -28,6 +28,7 @@ return {
                 enable = not vim.g.vscode,
             },
             auto_install = true,
+            ignore_install = { "csv" }, -- Conflicts with rainbow_csv
             autotag = {
                 enable = not vim.g.vscode,
             },
