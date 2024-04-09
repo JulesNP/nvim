@@ -15,13 +15,13 @@ return {
         "jay-babu/mason-null-ls.nvim",
         "jay-babu/mason-nvim-dap.nvim",
         "joechrisellis/lsp-format-modifications.nvim",
-        "jose-elias-alvarez/typescript.nvim",
         "kevinhwang91/nvim-ufo",
         "mfussenegger/nvim-dap",
         "nvim-lua/plenary.nvim",
         "nvim-neotest/nvim-nio",
         "nvimdev/lspsaga.nvim",
         "nvimtools/none-ls.nvim",
+        "pmizio/typescript-tools.nvim",
         "rcarriga/nvim-dap-ui",
         "williamboman/mason-lspconfig.nvim",
         "williamboman/mason.nvim",
@@ -83,19 +83,9 @@ return {
             end,
             lua_ls = lua_setup,
             tsserver = function()
-                local inlay = {
-                    includeInlayParameterNameHints = "all",
-                    includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                    includeInlayFunctionParameterTypeHints = true,
-                    includeInlayVariableTypeHints = true,
-                    includeInlayPropertyDeclarationTypeHints = true,
-                    includeInlayFunctionLikeReturnTypeHints = true,
-                    includeInlayEnumMemberValueHints = true,
-                }
-                require("typescript").setup {
-                    server = {
-                        capabilities = capabilities,
-                        settings = { typescript = { inlayHints = inlay }, javascript = { inlayHints = inlay } },
+                require("typescript-tools").setup {
+                    settings = {
+                        expose_as_code_action = "all",
                     },
                 }
             end,
@@ -118,7 +108,6 @@ return {
         local sources = {
             builtins.code_actions.gitrebase,
             builtins.hover.dictionary,
-            require "typescript.extensions.null-ls.code-actions",
         }
         local optional = {
             prettier = { builtins.formatting.prettier.with { extra_filetypes = { "pug" } } },
