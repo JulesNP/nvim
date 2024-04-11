@@ -18,7 +18,7 @@ return {
         "lukas-reineke/cmp-rg",
         "petertriho/cmp-git",
         "saadparwaiz1/cmp_luasnip",
-        { "L3MON4D3/LuaSnip", dependencies = { "rafamadriz/friendly-snippets" } },
+        { "L3MON4D3/LuaSnip", dependencies = { "rafamadriz/friendly-snippets" }, build = "make install_jsregexp" },
         { "kristijanhusak/vim-dadbod-completion", dependencies = { "tpope/vim-dadbod" } },
     },
     config = function()
