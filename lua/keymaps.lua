@@ -66,11 +66,15 @@ vim.keymap.set("n", "<P", putline "[p<']", { desc = "Put text before cursor at l
 vim.keymap.set("n", "=p", putline "]p=']", { desc = "Put text after cursor and reformat" })
 vim.keymap.set("n", "=P", putline "[p=']", { desc = "Put text before cursor and reformat" })
 
+local function tcode(str)
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
 vim.keymap.set("n", "] ", function()
-    vim.cmd("normal! m`" .. vim.v.count .. "o``")
+    vim.cmd("normal! m`" .. vim.v.count .. tcode "o<esc>``")
 end, { desc = "Add blank line below" })
 vim.keymap.set("n", "[ ", function()
-    vim.cmd("normal! m`" .. vim.v.count .. "O``")
+    vim.cmd("normal! m`" .. vim.v.count .. tcode "O<esc>``")
 end, { desc = "Add blank line above" })
 
 vim.keymap.set({ "n", "x" }, "j", function()
@@ -79,7 +83,7 @@ end, { desc = "Down", expr = true })
 
 vim.keymap.set({ "n", "x" }, "k", function()
     if vim.v.count == 0 and vim.fn.reg_recording() == "" and vim.fn.winline() <= vim.o.scrolloff + 1 then
-        return "gk"
+        return tcode "<c-y>gk"
     else
         return vim.v.count > 0 and "k" or "gk"
     end

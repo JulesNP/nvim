@@ -554,12 +554,12 @@ local function mini_pick_setup()
     vim.keymap.set("n", "<leader>fw", "<cmd>Pick grep pattern='<cword>'<cr>", { desc = "Find current word" })
     vim.keymap.set("n", "<leader>fz", "<cmd>Pick spellsuggest<cr>", { desc = "Find spelling suggestions" })
     vim.keymap.set("n", "z=", function()
-        if vim.v.count > 0 then ---@diagnostic disable-line: undefined-field
-            vim.api.nvim_feedkeys(vim.v.count .. "z=", "n", false) ---@diagnostic disable-line: undefined-field
+        if vim.v.count > 0 then
+            return vim.v.count .. "z="
         else
-            vim.cmd "Pick spellsuggest"
+            return "<cmd>Pick spellsuggest<cr>"
         end
-    end, { desc = "Find spelling suggestions" })
+    end, { desc = "Find spelling suggestions", expr = true })
     vim.keymap.set("x", "<leader>f", 'y<cmd>Pick grep<cr><c-r>"<cr>', { desc = "Find current selection" })
 end
 
