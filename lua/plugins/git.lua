@@ -66,7 +66,7 @@ return {
                 map("x", "ih", ":<c-u>Gitsigns select_hunk<CR>", "Select hunk")
             end,
             preview_config = {
-                border = "none",
+                border = "rounded",
                 row = 1,
             },
         },

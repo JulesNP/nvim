@@ -103,6 +103,11 @@ return {
                     },
                 },
             },
+            window = {
+                documentation = {
+                    border = "rounded",
+                },
+            },
         }
 
         require("cmp_git").setup {

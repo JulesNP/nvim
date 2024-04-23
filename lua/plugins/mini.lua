@@ -214,6 +214,15 @@ local function mini_files_setup()
         end,
     })
 
+    vim.api.nvim_create_autocmd("User", {
+        group = minifiles_triggers,
+        pattern = "MiniFilesWindowOpen",
+        callback = function(args)
+            local win_id = args.data.win_id
+            vim.api.nvim_win_set_config(win_id, { border = "rounded" })
+        end,
+    })
+
     MiniFiles.setup {
         content = {
             filter = filter_hide,
@@ -385,6 +394,11 @@ local function mini_pick_setup()
                     end
                     MiniPick.stop()
                 end,
+            },
+        },
+        window = {
+            config = {
+                border = "rounded",
             },
         },
     }

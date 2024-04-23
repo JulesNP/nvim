@@ -61,7 +61,7 @@ return {
             textobjects = {
                 lsp_interop = {
                     enable = true,
-                    border = "none",
+                    border = "rounded",
                     peek_definition_code = {
                         ["<leader>k"] = "@function.outer",
                     },

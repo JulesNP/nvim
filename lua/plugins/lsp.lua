@@ -33,7 +33,11 @@ return {
         vim.g["fsharp#lsp_recommended_colorscheme"] = 0
     end,
     config = function()
-        require("mason").setup {}
+        require("mason").setup {
+            ui = {
+                border = "rounded",
+            },
+        }
         local lspconfig = require "lspconfig"
         local mason_lsp = require "mason-lspconfig"
         mason_lsp.setup {}
@@ -153,7 +157,7 @@ return {
         }
 
         require("lspsaga").setup {
-            ui = { border = "single" },
+            ui = { border = "rounded" },
             diagnostic = { extend_relatedInformation = true },
             code_action = {
                 show_server_name = true,
@@ -222,7 +226,7 @@ return {
         sign("DiagnosticSignError", "")
 
         vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(require "hover", {
-            border = "single",
+            border = "rounded",
         })
 
         vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", { desc = "Previous diagnostic" })
@@ -330,7 +334,7 @@ return {
                 if client.server_capabilities.signatureHelpProvider then
                     require("lsp-overloads").setup(client, { ---@diagnostic disable-line: missing-fields
                         ui = { ---@diagnostic disable-line: missing-fields
-                            border = "single",
+                            border = "rounded",
                         },
                         keymaps = { ---@diagnostic disable-line: missing-fields
                             close_signature = "<m-x>",
