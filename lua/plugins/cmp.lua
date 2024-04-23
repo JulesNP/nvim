@@ -52,13 +52,15 @@ return {
                         fallback()
                     end
                 end, { "i", "s", "x" }),
-                ["<c-b>"] = cmp.mapping.scroll_docs(-4),
-                ["<c-f>"] = cmp.mapping.scroll_docs(4),
+                ["<c-d>"] = cmp.mapping.scroll_docs(-4),
+                ["<c-u>"] = cmp.mapping.scroll_docs(4),
                 ["<c-n>"] = cmp.mapping.select_next_item(),
                 ["<c-p>"] = cmp.mapping.select_prev_item(),
                 ["<c-space>"] = cmp.mapping.complete {},
+                ["<c-e>"] = cmp.mapping.abort(),
                 ["<d-x>"] = cmp.mapping.abort(),
                 ["<m-x>"] = cmp.mapping.abort(),
+                ["<c-y>"] = cmp.mapping.confirm { select = true },
                 ["<cr>"] = cmp.mapping(function(fallback)
                     if not cmp.confirm { select = false } then
                         fallback()
