@@ -17,15 +17,7 @@ return {
             vim.g.db_ui_force_echo_notifications = 1
         end,
     },
-    {
-        "tpope/vim-abolish",
-        init = function()
-            vim.g.abolish_no_mappings = 1
-        end,
-        config = function()
-            vim.keymap.set("n", "co", "<plug>(abolish-coerce-word)", { desc = "Coerce word case" })
-        end,
-    },
+    { "tpope/vim-abolish", event = { "BufRead", "CmdlineEnter", "InsertEnter" } },
     { "tpope/vim-repeat", event = { "BufRead", "CmdlineEnter", "InsertEnter" } },
     { "tpope/vim-speeddating", event = { "BufRead", "CmdlineEnter", "InsertEnter" } },
     { "tpope/vim-rsi", cond = not vim.g.vscode, event = { "BufRead", "CmdlineEnter", "InsertEnter" } },
