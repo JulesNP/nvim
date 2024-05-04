@@ -24,12 +24,15 @@ return {
     end,
     config = function()
         require("nvim-treesitter.configs").setup { ---@diagnostic disable-line: missing-fields
-            highlight = {
+            auto_install = vim.fn.executable "tree-sitter" == 1,
+            autotag = {
                 enable = not vim.g.vscode,
             },
-            auto_install = vim.fn.executable "tree-sitter" == 1,
-            ignore_install = { "csv" }, -- Conflicts with rainbow_csv
-            autotag = {
+            highlight = {
+                enable = not vim.g.vscode,
+                disable = { "csv" }, -- Conflicts with rainbow_csv
+            },
+            indent = {
                 enable = not vim.g.vscode,
             },
             matchup = {
