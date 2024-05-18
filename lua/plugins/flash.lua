@@ -11,6 +11,7 @@ return {
         },
         modes = {
             search = {
+                enabled = true,
                 jump = { register = false },
             },
             char = {
