@@ -634,9 +634,9 @@ return {
             indent = { suffix = "" },
         }
 
-        require("mini.comment").setup {
-            mappings = { textobject = "ac" },
-        }
+        if vim.fn.has("nvim-0.10") ~= 1 then
+            require("mini.comment").setup {}
+        end
 
         require("mini.extra").setup {}
 
