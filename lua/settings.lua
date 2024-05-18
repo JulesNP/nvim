@@ -9,7 +9,7 @@ o.confirm = true
 o.expandtab = true
 o.foldlevel = 99
 o.foldlevelstart = 99
-o.guifont = "IosevkaTerm Nerd Font"
+o.guifont = "Iosevka Nerd Font"
 o.ignorecase = true
 o.inccommand = "split"
 o.infercase = true
@@ -47,7 +47,7 @@ if os.getenv "SSH_CONNECTION" == nil then
 end
 
 if vim.g.neovide then
-    vim.g.neovide_input_macos_alt_is_meta = true
+    vim.g.neovide_input_macos_opt_is_meta = true
     vim.keymap.set("n", "<leader>tf", function()
         vim.g.neovide_fullscreen = vim.g.neovide_fullscreen == 1 and 0 or 1
     end, { desc = "Toggle fullscreen" })
