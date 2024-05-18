@@ -90,6 +90,16 @@ return {
                 require("typescript-tools").setup {
                     settings = {
                         expose_as_code_action = "all",
+                        tsserver_file_preferences = {
+                            includeInlayParameterNameHints = "all",
+                            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                            includeInlayFunctionParameterTypeHints = true,
+                            includeInlayVariableTypeHints = true,
+                            includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+                            includeInlayPropertyDeclarationTypeHints = true,
+                            includeInlayFunctionLikeReturnTypeHints = true,
+                            includeInlayEnumMemberValueHints = true,
+                        },
                     },
                 }
             end,
@@ -239,11 +249,15 @@ return {
             callback = function(args)
                 local bufnr = args.buf
                 local client = vim.lsp.get_client_by_id(args.data.client_id)
+                ---@diagnostic disable: need-check-nil
                 if client.server_capabilities.completionProvider then
                     vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
                 end
                 if client.server_capabilities.definitionProvider then
                     vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
+                end
+                if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+                    vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
                 end
 
                 local function opts(desc)
@@ -321,7 +335,7 @@ return {
                     end, opts "Format and save if modified")
                     vim.keymap.set("n", "<leader>fm", format, opts "Format buffer")
                     if client.supports_method "textDocument/rangeFormatting" then
-                        vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+                        vim.bo[bufnr].formatexpr = "v:lua.vim.lsp.formatexpr()"
                         require("lsp-format-modifications").attach(client, bufnr, {
                             format_callback = format,
                             format_on_save = false,
