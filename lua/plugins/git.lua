@@ -14,6 +14,7 @@ return {
     },
     {
         "NeogitOrg/neogit",
+        tag = vim.fn.has "nvim-0.10" and nil or "v0.0.1",
         cond = not vim.g.vscode,
         keys = vim.g.vscode and {} or {
             { "<leader>gg", "<cmd>Neogit<cr>", desc = "Open Neogit" },
