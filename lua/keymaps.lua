@@ -49,9 +49,9 @@ local function putline(action)
         local regType = vim.fn.getregtype(regName)
         if regType ~= "V" then
             local regValue = vim.fn.getreg(regName)
-            vim.fn.setreg(regName, regValue, "V") ---@diagnostic disable-line: param-type-mismatch
+            vim.fn.setreg(regName, regValue, "V")
             vim.cmd("normal! " .. vim.v.count .. '"' .. regName .. action)
-            vim.fn.setreg(regName, regValue, regType) ---@diagnostic disable-line: param-type-mismatch
+            vim.fn.setreg(regName, regValue, regType)
         else
             vim.cmd("normal! " .. vim.v.count .. '"' .. regName .. action)
         end

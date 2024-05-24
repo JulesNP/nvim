@@ -1,9 +1,9 @@
 return {
     "neovim/nvim-lspconfig",
-    cond = not vim.g.vscode, ---@diagnostic disable-line: undefined-field
+    cond = not vim.g.vscode,
     event = { "BufRead", "CmdlineEnter", "InsertEnter" },
     cmd = { "Mason" },
-    keys = vim.g.vscode and {} or { ---@diagnostic disable-line: undefined-field
+    keys = vim.g.vscode and {} or {
         { "<leader>m", "<cmd>Mason<cr>", desc = "Open Mason" },
     },
     dependencies = {
@@ -248,17 +248,6 @@ return {
             group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
             callback = function(args)
                 local bufnr = args.buf
-                local client = vim.lsp.get_client_by_id(args.data.client_id)
-                ---@diagnostic disable: need-check-nil
-                if client.server_capabilities.completionProvider then
-                    vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-                end
-                if client.server_capabilities.definitionProvider then
-                    vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
-                end
-                if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-                    vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
-                end
 
                 local function opts(desc)
                     return { buffer = bufnr, desc = desc }
@@ -309,6 +298,21 @@ return {
                     require("dap").set_exception_breakpoints,
                     opts "Set exception breakpoints"
                 )
+
+                local client = vim.lsp.get_client_by_id(args.data.client_id)
+                if client == nil then
+                    return
+                end
+
+                if client.server_capabilities.completionProvider then
+                    vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+                end
+                if client.server_capabilities.definitionProvider then
+                    vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
+                end
+                if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+                    vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+                end
 
                 if client.supports_method "textDocument/formatting" then
                     local function format()

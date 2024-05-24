@@ -4,7 +4,7 @@ return {
     cond = not vim.g.vscode,
     ft = { "csv", "csv_pipe", "csv_semicolon", "csv_whitespace", "tsv" },
     config = function()
-        vim.g.rbql_backend_language = "js" ---@diagnostic disable-line: inject-field
+        vim.g.rbql_backend_language = "js"
 
         vim.keymap.set("n", "<F5>", "<cmd>RainbowQuery<cr>", { desc = "RBQL Query" })
         vim.keymap.set("n", "<c-left>", function()

@@ -284,7 +284,7 @@ local function mini_indentscope_setup()
                 or vim.bo.filetype == "dbout"
                 or vim.bo.filetype == "dbui"
             then
-                vim.b.miniindentscope_disable = true ---@diagnostic disable-line: inject-field
+                vim.b.miniindentscope_disable = true
             end
         end,
     })
@@ -596,7 +596,7 @@ local function mini_sessions_setup()
     end, { desc = "Save session" })
     vim.keymap.set("n", "<leader>sx", function()
         if confirm_discard_changes() then
-            vim.v.this_session = "" ---@diagnostic disable-line: inject-field
+            vim.v.this_session = ""
             vim.cmd "%bwipeout!"
             vim.cmd "cd ~"
         end
@@ -634,7 +634,7 @@ return {
             indent = { suffix = "" },
         }
 
-        if vim.fn.has("nvim-0.10") ~= 1 then
+        if vim.fn.has "nvim-0.10" ~= 1 then
             require("mini.comment").setup {}
         end
 
@@ -659,7 +659,7 @@ return {
 
         mini_surround_setup()
 
-        if not vim.g.vscode then ---@diagnostic disable-line: undefined-field
+        if not vim.g.vscode then
             mini_clue_setup()
 
             require("mini.bufremove").setup {}
@@ -693,7 +693,7 @@ return {
             require("mini.visits").setup {}
             vim.keymap.set("n", "<leader><leader>", "<cmd>Pick frecency<cr>", { desc = "Select recent file" })
         end
-        if not vim.g.vscode and not vim.g.neovide then ---@diagnostic disable-line: undefined-field
+        if not vim.g.vscode and not vim.g.neovide then
             mini_animate_setup()
         end
     end,
