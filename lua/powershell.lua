@@ -1,4 +1,5 @@
 if vim.loop.os_uname().sysname == "Windows_NT" then
+    vim.o.shellslash = true
     vim.cmd [[
         let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
         let &shellcmdflag = '-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues[''Out-File:Encoding'']=''utf8'';Remove-Alias -Force -ErrorAction SilentlyContinue tee;'

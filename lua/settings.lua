@@ -21,7 +21,6 @@ o.number = true
 o.pumblend = 10
 o.pumheight = 10
 o.ruler = false
--- o.shellslash = true
 o.shiftwidth = 4
 o.shortmess = "filmnrxoOtTcCFS"
 o.showmode = false
