@@ -310,7 +310,7 @@ return {
                 if client.server_capabilities.definitionProvider then
                     vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
                 end
-                if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+                if vim.g.show_inlay_hints and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
                     vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
                 end
 
