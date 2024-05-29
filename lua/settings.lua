@@ -1,4 +1,4 @@
-vim.g.show_inlay_hints = true
+vim.g.show_inlay_hints = false
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 local o = vim.o
