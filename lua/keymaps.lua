@@ -18,6 +18,7 @@ vim.keymap.set("n", "<leader>th", function()
     vim.g.show_inlay_hints = not vim.g.show_inlay_hints
     vim.lsp.inlay_hint.enable(vim.g.show_inlay_hints)
 end, { desc = "Toggle inlay hints" })
+vim.keymap.set("n", "<leader>tr", "<cmd>set relativenumber!<cr>", { desc = "Toggle relative line numbers" })
 vim.keymap.set("n", "<leader>ts", "<cmd>windo set scrollbind! cursorbind!<cr>", { desc = "Toggle scroll/cursor sync" })
 vim.keymap.set("n", "<leader>tw", "<cmd>set wrap!<cr>", { desc = "Toggle word wrap" })
 vim.keymap.set("n", "<m-a>", "ga", { desc = "Show ASCII value" })

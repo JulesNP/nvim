@@ -55,30 +55,6 @@ if not vim.g.vscode then
         end,
     })
 
-    local relative_number_toggle = vim.api.nvim_create_augroup("RelativeNumberToggle", { clear = true })
-
-    -- Remove relative numbers via remap of `:` instead of CmdlineEnter to avoid clearing visual selection
-    vim.api.nvim_set_keymap("", ":", "<cmd>set nornu<cr>:", { noremap = true, desc = "Enter command-line mode" })
-
-    vim.api.nvim_create_autocmd({ "FocusLost", "InsertEnter", "WinLeave" }, {
-        group = relative_number_toggle,
-        callback = function()
-            if vim.wo.number then
-                vim.wo.relativenumber = false
-                vim.cmd.redraw()
-            end
-        end,
-    })
-
-    vim.api.nvim_create_autocmd({ "CmdlineLeave", "FocusGained", "InsertLeave", "WinEnter" }, {
-        group = relative_number_toggle,
-        callback = function()
-            if vim.wo.number then
-                vim.wo.relativenumber = true
-            end
-        end,
-    })
-
     local cursor_line_toggle = vim.api.nvim_create_augroup("CursorLineToggle", { clear = true })
 
     vim.api.nvim_create_autocmd({ "WinLeave" }, {
