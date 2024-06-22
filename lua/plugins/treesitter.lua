@@ -7,7 +7,6 @@ return {
         "nvim-treesitter/nvim-treesitter-context",
         "nvim-treesitter/nvim-treesitter-textobjects",
         -- "nvim-treesitter/playground",
-        "wellle/context.vim",
         "windwp/nvim-ts-autotag",
     },
     build = function()
@@ -15,14 +14,20 @@ return {
         ts_update()
     end,
     init = function()
-        vim.g.context_enabled = 0
-        vim.g.context_add_mappings = 0
-        vim.g.context_highlight_normal = "NormalFloat"
-        vim.g.context_highlight_border = "<hide>"
         vim.g.matchup_transmute_enabled = 1
         vim.g.matchup_matchparen_offscreen = {}
     end,
     config = function()
+        local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+        parser_config.fsharp = { ---@diagnostic disable-line: inject-field
+            install_info = {
+                url = "https://github.com/ionide/tree-sitter-fsharp",
+                branch = "main",
+                files = { "src/scanner.c", "src/parser.c" },
+            },
+            filetype = "fsharp",
+        }
+
         require("nvim-treesitter.configs").setup { ---@diagnostic disable-line: missing-fields
             auto_install = vim.fn.executable "tree-sitter" == 1,
             autotag = {
@@ -103,22 +108,6 @@ return {
             require("treesitter-context").setup {
                 trim_scope = "inner",
             }
-
-            vim.api.nvim_create_autocmd("BufWinEnter", {
-                group = vim.api.nvim_create_augroup("ToggleContext", { clear = true }),
-                callback = function()
-                    if
-                        vim.bo.buftype ~= ""
-                        or require("nvim-treesitter.parsers").has_parser(
-                            require("nvim-treesitter.parsers").get_buf_lang()
-                        )
-                    then
-                        vim.cmd.ContextDisableWindow()
-                    else
-                        vim.cmd.ContextEnableWindow()
-                    end
-                end,
-            })
 
             require("rainbow-delimiters.setup").setup { blacklist = { "comment" } }
 
