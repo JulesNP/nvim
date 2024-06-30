@@ -98,7 +98,7 @@ if not vim.g.vscode then
     end
     local function count_essential(layout)
         if layout[1] == "leaf" then
-            local ft = vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(layout[2]), "filetype")
+            local ft = vim.api.nvim_get_option_value("filetype", { buf = vim.api.nvim_win_get_buf(layout[2]) })
             return is_essential(ft) and 1 or 0, ft == "toggleterm" and 1 or 0
         end
 
