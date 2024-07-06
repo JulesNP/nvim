@@ -10,7 +10,7 @@ return {
         { "<leader>do", "<cmd>DiffviewOpen origin/HEAD<cr>", desc = "Diffview from origin" },
         { "<leader>d", ":DiffviewFileHistory<cr>", desc = "View selection history", mode = "x" },
     },
-    dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
+    dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
         enhanced_diff_hl = true,
         keymaps = {

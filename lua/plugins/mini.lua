@@ -671,6 +671,10 @@ return {
 
             mini_files_setup()
 
+            local MiniIcons = require "mini.icons"
+            MiniIcons.setup {}
+            MiniIcons.mock_nvim_web_devicons()
+
             mini_indentscope_setup()
 
             mini_map_setup()
