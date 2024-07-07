@@ -26,6 +26,19 @@ return {
         "williamboman/mason-lspconfig.nvim",
         "williamboman/mason.nvim",
         { "JulesNP/Ionide-vim", branch = "indent" },
+        {
+            "SmiteshP/nvim-navbuddy",
+            dependencies = {
+                "MunifTanjim/nui.nvim",
+                "SmiteshP/nvim-navic",
+            },
+            opts = {
+                window = {
+                    border = "rounded",
+                },
+                lsp = { auto_attach = true },
+            },
+        },
     },
     init = function()
         -- Prevent auto setup of Ionide
@@ -267,7 +280,8 @@ return {
                     end
                 end, opts "Hover")
                 vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<cr>", opts "Code action")
-                vim.keymap.set("n", "<leader>lf", "<cmd>Lspsaga finder<cr>", opts "Find LSP references")
+                vim.keymap.set("n", "<leader>lf", "<cmd>Navbuddy<cr>", opts "LSP Navbuddy finder")
+                vim.keymap.set("n", "<leader>lr", "<cmd>Lspsaga finder<cr>", opts "Find LSP references")
                 vim.keymap.set("n", "<leader>lo", "<cmd>Lspsaga outline<cr>", opts "LSP outline")
 
                 if vim.bo.filetype ~= "cs" then
