@@ -30,9 +30,6 @@ return {
 
         require("nvim-treesitter.configs").setup { ---@diagnostic disable-line: missing-fields
             auto_install = vim.fn.executable "tree-sitter" == 1,
-            autotag = {
-                enable = not vim.g.vscode,
-            },
             highlight = {
                 enable = not vim.g.vscode,
                 disable = { "csv" }, -- Conflicts with rainbow_csv
@@ -105,6 +102,8 @@ return {
         }
 
         if not vim.g.vscode then
+            require("nvim-ts-autotag").setup {}
+
             require("treesitter-context").setup {
                 trim_scope = "inner",
             }
