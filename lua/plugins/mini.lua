@@ -644,8 +644,6 @@ return {
         vim.keymap.set("v", "<leader>hr", "gH", { remap = true, desc = "Reset selection" })
         vim.keymap.set("v", "<leader>hs", "gh", { remap = true, desc = "Stage selection" })
 
-        require("mini.git").setup {}
-
         require("mini.extra").setup {}
 
         require("mini.fuzzy").setup {}
@@ -678,6 +676,11 @@ return {
             end, { desc = "Close buffer" })
 
             mini_files_setup()
+
+            require("mini.git").setup {}
+            vim.keymap.set({ "n", "x" }, "<leader>gs", function()
+                MiniGit.show_at_cursor()
+            end, { desc = "Git show details" })
 
             local MiniIcons = require "mini.icons"
             MiniIcons.setup {}
