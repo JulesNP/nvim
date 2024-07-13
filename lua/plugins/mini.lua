@@ -302,6 +302,8 @@ local function mini_map_setup()
             encode = MiniMap.gen_encode_symbols.dot "4x2",
         },
         window = {
+            width = 8,
+            winblend = 50,
             zindex = 30,
         },
     }
