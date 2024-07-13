@@ -681,6 +681,8 @@ return {
             vim.keymap.set({ "n", "x" }, "<leader>gs", function()
                 MiniGit.show_at_cursor()
             end, { desc = "Git show details" })
+            vim.keymap.set("n", "<leader>gz", "<cmd>Git stash push<cr>", { desc = "Git stash push" })
+            vim.keymap.set("n", "<leader>gZ", "<cmd>Git stash pop<cr>", { desc = "Git stash pop" })
 
             local MiniIcons = require "mini.icons"
             MiniIcons.setup {}
