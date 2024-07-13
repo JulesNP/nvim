@@ -54,17 +54,6 @@ local function mini_ai_setup()
     }
 end
 
-local function mini_animate_setup()
-    local animate = require "mini.animate"
-    animate.setup {
-        cursor = { timing = animate.gen_timing.linear { duration = 50, unit = "total" } },
-        scroll = { timing = animate.gen_timing.linear { duration = 50, unit = "total" } },
-        resize = { enable = false },
-        open = { enable = false },
-        close = { enable = false },
-    }
-end
-
 local function mini_clue_setup()
     local MiniClue = require "mini.clue"
     MiniClue.setup {
@@ -698,9 +687,6 @@ return {
 
             require("mini.visits").setup {}
             vim.keymap.set("n", "<leader><leader>", "<cmd>Pick frecency<cr>", { desc = "Select recent file" })
-        end
-        if not vim.g.vscode and not vim.g.neovide then
-            mini_animate_setup()
         end
     end,
 }
