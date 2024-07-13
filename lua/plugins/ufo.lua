@@ -58,7 +58,10 @@ return {
                     trace = "<cr>",
                 },
             },
-            provider_selector = function()
+            provider_selector = function(_, filetype)
+                if filetype == "git" or filetype == "diff" then
+                    return ""
+                end
                 return { "treesitter", "indent" }
             end,
         }
