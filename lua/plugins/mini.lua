@@ -629,6 +629,23 @@ return {
             require("mini.comment").setup {}
         end
 
+        require("mini.diff").setup {
+            mappings = { textobject = "ih" },
+        }
+        vim.keymap.set("n", "<leader>hR", function()
+            MiniDiff.do_hunks(0, "reset")
+        end, { remap = true, desc = "Reset all buffer hunks" })
+        vim.keymap.set("n", "<leader>hS", function()
+            MiniDiff.do_hunks(0, "apply")
+        end, { remap = true, desc = "Stage all buffer hunks" })
+        vim.keymap.set("n", "<leader>ho", MiniDiff.toggle_overlay, { desc = "Toggle diff overlay" })
+        vim.keymap.set("n", "<leader>hr", "gHih", { remap = true, desc = "Reset hunk" })
+        vim.keymap.set("n", "<leader>hs", "ghih", { remap = true, desc = "Stage hunk" })
+        vim.keymap.set("v", "<leader>hr", "gH", { remap = true, desc = "Reset selection" })
+        vim.keymap.set("v", "<leader>hs", "gh", { remap = true, desc = "Stage selection" })
+
+        require("mini.git").setup {}
+
         require("mini.extra").setup {}
 
         require("mini.fuzzy").setup {}
@@ -638,8 +655,8 @@ return {
         local MiniOperators = require "mini.operators"
         MiniOperators.setup { exchange = { prefix = "" }, replace = { prefix = "s" } }
         MiniOperators.make_mappings("exchange", { textobject = "sx", line = "sxx", selection = "X" })
-        vim.keymap.set("n", "S", "s$", { remap = true })
-        vim.keymap.set("n", "sX", "sx$", { remap = true })
+        vim.keymap.set("n", "S", "s$", { remap = true, desc = "Substite to end of line" })
+        vim.keymap.set("n", "sX", "sx$", { remap = true, desc = "Exchange to end of line" })
 
         require("mini.splitjoin").setup {
             detect = { separator = "[,;]" },

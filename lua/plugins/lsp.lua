@@ -239,15 +239,6 @@ return {
             beacon = { enable = false },
         }
 
-        local function sign(name, icon)
-            vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
-        end
-
-        sign("DiagnosticSignHint", "󰌵")
-        sign("DiagnosticSignInfo", "󰋼")
-        sign("DiagnosticSignWarn", "")
-        sign("DiagnosticSignError", "")
-
         vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(require "hover", {
             border = "rounded",
         })
