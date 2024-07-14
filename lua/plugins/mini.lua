@@ -647,6 +647,7 @@ return {
 
         require("mini.diff").setup {
             mappings = { textobject = "ih" },
+            options = { wrap_goto = true },
         }
         vim.keymap.set("n", "<leader>hR", function()
             MiniDiff.do_hunks(0, "reset")
