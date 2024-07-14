@@ -1,4 +1,5 @@
 vim.g.show_inlay_hints = false
+vim.g.show_mini_map = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 local o = vim.o

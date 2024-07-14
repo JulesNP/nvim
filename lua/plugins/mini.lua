@@ -281,24 +281,40 @@ end
 
 local function mini_map_setup()
     local MiniMap = require "mini.map"
-    MiniMap.setup {
+    require("mini.map").setup {
         integrations = {
             MiniMap.gen_integration.builtin_search(),
-            MiniMap.gen_integration.gitsigns(),
             MiniMap.gen_integration.diagnostic(),
+            MiniMap.gen_integration.diff(),
         },
         symbols = {
             encode = MiniMap.gen_encode_symbols.dot "4x2",
         },
-        window = {
-            width = 8,
-            winblend = 50,
-            zindex = 30,
-        },
+        window = { zindex = 30 },
     }
+
+    vim.api.nvim_create_autocmd({ "SessionLoadPost", "TabEnter", "VimEnter" }, {
+        group = vim.api.nvim_create_augroup("MiniMapShow", { clear = true }),
+        callback = function()
+            if vim.g.show_mini_map then
+                MiniMap.open()
+            else
+                MiniMap.close()
+            end
+        end,
+    })
+
     vim.keymap.set("n", "<leader>tm", function()
-        MiniMap.toggle()
+        vim.g.show_mini_map = not vim.g.show_mini_map
+        if vim.g.show_mini_map then
+            MiniMap.open()
+        else
+            MiniMap.close()
+        end
     end, { desc = "Toggle mini.map" })
+
+    vim.keymap.set("n", "<leader>tj", MiniMap.toggle_focus, { desc = "Jump to mini.map" })
+
     for _, key in ipairs { "n", "N", "*", "#" } do
         vim.keymap.set("n", key, key .. "<cmd>lua MiniMap.refresh({}, {lines = false, scrollbar = false})<cr>")
     end
