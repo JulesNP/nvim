@@ -49,7 +49,7 @@ if os.getenv "SSH_CONNECTION" == nil then
 end
 
 if vim.g.neovide then
-    vim.g.neovide_input_macos_opt_is_meta = true
+    vim.g.neovide_input_macos_option_key_is_meta = "both"
     vim.keymap.set("n", "<leader>tf", function()
         vim.g.neovide_fullscreen = vim.g.neovide_fullscreen == 1 and 0 or 1
     end, { desc = "Toggle fullscreen" })
