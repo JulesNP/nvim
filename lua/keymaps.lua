@@ -104,3 +104,8 @@ vim.keymap.set({ "n", "o", "x" }, "L", function()
     vim.o.scrolloff = 0
     vim.api.nvim_feedkeys(vim.v.count > 0 and vim.v.count .. "L" or "L", "n", false)
 end, { desc = "Last line of window" })
+
+if not vim.g.neovide then
+    vim.keymap.set("n", "<c-d>", "<c-d>zz", { desc = "Scroll downwards" })
+    vim.keymap.set("n", "<c-u>", "<c-u>zz", { desc = "Scroll upwards" })
+end
