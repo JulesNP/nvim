@@ -23,6 +23,7 @@ o.pumheight = 10
 o.relativenumber = true
 o.ruler = false
 o.shiftwidth = 4
+o.shiftround = true
 o.shortmess = "filmnrxoOtTcCFS"
 o.showmode = false
 o.signcolumn = "no"
