@@ -3,7 +3,6 @@ vim.g.show_mini_map = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 local o = vim.o
-o.backup = false
 o.clipboard = "unnamedplus"
 o.completeopt = "menuone,noinsert,noselect"
 o.conceallevel = 2
@@ -40,7 +39,6 @@ o.virtualedit = "block"
 o.whichwrap = "b,s,<,>,[,]"
 o.winblend = 10
 o.wrap = false
-o.writebackup = false
 
 vim.diagnostic.config { virtual_text = { prefix = " " } }
 
