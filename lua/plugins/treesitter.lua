@@ -25,6 +25,7 @@ return {
                 branch = "main",
                 files = { "src/scanner.c", "src/parser.c" },
             },
+            requires_generate_from_grammar = false,
             filetype = "fsharp",
         }
 
