@@ -4,11 +4,12 @@ return {
     event = { "BufRead", "CmdlineEnter" },
     ft = { "NeogitStatus", "lazy" },
     keys = vim.g.vscode and {} or {
-        { "<leader>dd", "<cmd>DiffviewOpen<cr>", desc = "Open diffview" },
-        { "<leader>df", "<cmd>DiffviewFileHistory %<cr>", desc = "Current file history" },
-        { "<leader>dh", "<cmd>DiffviewFileHistory<cr>", desc = "Repository history" },
-        { "<leader>do", "<cmd>DiffviewOpen origin/HEAD<cr>", desc = "Diffview from origin" },
-        { "<leader>d", ":DiffviewFileHistory<cr>", desc = "View selection history", mode = "x" },
+        { "<leader>dc", "<cmd>DiffviewOpen --cached<cr>", desc = "Diff of index from HEAD" },
+        { "<leader>dd", "<cmd>DiffviewOpen<cr>", desc = "Diff of working tree from index" },
+        { "<leader>df", "<cmd>DiffviewFileHistory %<cr>", desc = "Diff history of current file" },
+        { "<leader>dh", "<cmd>DiffviewFileHistory<cr>", desc = "Diff history of repository" },
+        { "<leader>do", "<cmd>DiffviewOpen origin/HEAD<cr>", desc = "Diff of working tree from origin" },
+        { "<leader>d", ":DiffviewFileHistory<cr>", desc = "Diff history of current selection", mode = "x" },
     },
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
