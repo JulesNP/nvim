@@ -3,5 +3,6 @@ return {
     event = "VeryLazy",
     opts = {
         highlight_on_key = true,
+        disable_buftypes = { "nofile" },
     },
 }
