@@ -632,6 +632,7 @@ end
 return {
     "echasnovski/mini.nvim",
     version = false,
+    priority = 100,
     config = function()
         mini_ai_setup()
 
