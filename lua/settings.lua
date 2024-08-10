@@ -1,5 +1,5 @@
 vim.g.show_inlay_hints = false
-vim.g.show_mini_map = vim.o.columns > 120
+vim.g.show_mini_map = false
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 local o = vim.o
