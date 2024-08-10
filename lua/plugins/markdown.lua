@@ -16,7 +16,6 @@ return {
             "nvim-treesitter/nvim-treesitter",
         },
         opts = {
-            hybrid_modes = { "n" },
             headings = {
                 shift_width = 1,
                 heading_1 = { sign = "" },
