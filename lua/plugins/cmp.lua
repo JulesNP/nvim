@@ -24,6 +24,7 @@ return {
     config = function()
         local cmp = require "cmp"
         local luasnip = require "luasnip"
+        local types = require "cmp.types"
 
         require("luasnip.loaders.from_vscode").lazy_load()
 
@@ -54,8 +55,8 @@ return {
                 end, { "i", "s", "x" }),
                 ["<c-d>"] = cmp.mapping.scroll_docs(-4),
                 ["<c-u>"] = cmp.mapping.scroll_docs(4),
-                ["<c-n>"] = cmp.mapping.select_next_item(),
-                ["<c-p>"] = cmp.mapping.select_prev_item(),
+                ["<c-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
+                ["<c-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
                 ["<c-space>"] = cmp.mapping.complete {},
                 ["<c-e>"] = cmp.mapping.abort(),
                 ["<d-x>"] = cmp.mapping.abort(),
@@ -75,8 +76,8 @@ return {
             },
             sources = cmp.config.sources {
                 { name = "luasnip" },
-                { name = "orgmode" },
                 { name = "nvim_lsp" },
+                { name = "orgmode" },
                 { name = "git" },
                 { name = "async_path" },
                 { name = "calc" },
@@ -103,6 +104,43 @@ return {
                             return vim.tbl_keys(bufs)
                         end,
                     },
+                },
+            },
+            sorting = {
+                priority_weight = 1,
+                comparators = {
+                    cmp.config.compare.offset,
+                    cmp.config.compare.exact,
+                    cmp.config.compare.score,
+                    cmp.config.compare.recently_used,
+                    cmp.config.compare.locality,
+                    function(entry1, entry2)
+                        local kind1 = entry1:get_kind() --- @type lsp.CompletionItemKind | number
+                        local kind2 = entry2:get_kind() --- @type lsp.CompletionItemKind | number
+                        kind1 = kind1 == types.lsp.CompletionItemKind.Text and 100
+                            or kind1 == types.lsp.CompletionItemKind.Value and 5
+                            or kind1
+                        kind2 = kind2 == types.lsp.CompletionItemKind.Text and 100
+                            or kind2 == types.lsp.CompletionItemKind.Value and 5
+                            or kind2
+                        if kind1 ~= kind2 then
+                            if kind1 == types.lsp.CompletionItemKind.Snippet then
+                                return true
+                            end
+                            if kind2 == types.lsp.CompletionItemKind.Snippet then
+                                return false
+                            end
+                            local diff = kind1 - kind2
+                            if diff < 0 then
+                                return true
+                            elseif diff > 0 then
+                                return false
+                            end
+                        end
+                        return nil
+                    end,
+                    cmp.config.compare.length,
+                    cmp.config.compare.order,
                 },
             },
             window = {
