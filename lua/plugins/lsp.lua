@@ -354,7 +354,7 @@ return {
                     end
                 end
 
-                if client.server_capabilities.signatureHelpProvider then
+                if client.server_capabilities.signatureHelpProvider and vim.bo.filetype ~= "css" then
                     require("lsp-overloads").setup(client, { ---@diagnostic disable-line: missing-fields
                         ui = { ---@diagnostic disable-line: missing-fields
                             border = "rounded",
