@@ -48,6 +48,7 @@ if os.getenv "SSH_CONNECTION" == nil then
 end
 
 if vim.g.neovide then
+    o.inccommand = "nosplit"
     vim.g.neovide_input_macos_option_key_is_meta = "both"
     vim.keymap.set("n", "<leader>tf", function()
         vim.g.neovide_fullscreen = vim.g.neovide_fullscreen == 1 and 0 or 1
