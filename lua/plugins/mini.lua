@@ -136,7 +136,11 @@ local function mini_files_setup()
     local files_set_cwd = function()
         local cur_entry_path = MiniFiles.get_fs_entry().path
         local cur_directory = vim.fs.dirname(cur_entry_path)
-        vim.fn.chdir(cur_directory)
+        if vim.fn.chdir(cur_directory) ~= "" then
+            print("Current directory set to " .. cur_directory)
+        else
+            print "Unable to set current directory"
+        end
     end
 
     local map_split = function(buf_id, lhs, direction)
@@ -162,7 +166,11 @@ local function mini_files_setup()
 
     local yank_relative_path = function()
         local path = MiniFiles.get_fs_entry().path
-        vim.fn.setreg('"', vim.fn.fnamemodify(path, ":."))
+        vim.fn.setreg(vim.v.register, vim.fn.fnamemodify(path, ":."))
+    end
+
+    local yank_full_path = function()
+        vim.fn.setreg(vim.v.register, MiniFiles.get_fs_entry().path)
     end
 
     local minifiles_triggers = vim.api.nvim_create_augroup("MiniFilesMappings", { clear = true })
@@ -198,6 +206,7 @@ local function mini_files_setup()
             vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id, desc = "Toggle hidden files" })
             vim.keymap.set("n", "gh", "h", { buffer = buf_id, desc = "Left" })
             vim.keymap.set("n", "gl", "l", { buffer = buf_id, desc = "Right" })
+            vim.keymap.set("n", "gY", yank_full_path, { buffer = buf_id, desc = "Yank full path" })
             vim.keymap.set("n", "gy", yank_relative_path, { buffer = buf_id, desc = "Yank relative path" })
             vim.keymap.set("n", "g~", files_set_cwd, { buffer = buf_id, desc = "Set CWD" })
         end,
