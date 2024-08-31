@@ -9,7 +9,6 @@ return {
     dependencies = {
         "Hoffs/omnisharp-extended-lsp.nvim",
         "Issafalcon/lsp-overloads.nvim",
-        "folke/neodev.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/nvim-cmp",
         "jay-babu/mason-null-ls.nvim",
@@ -61,10 +60,6 @@ return {
             lineFoldingOnly = true,
         }
 
-        local lua_server_installed = vim.fn.executable "lua-language-server" == 1
-        if lua_server_installed then
-            require("neodev").setup {}
-        end
         local function lua_setup()
             lspconfig.lua_ls.setup {
                 capabilities = capabilities,
@@ -118,7 +113,10 @@ return {
             end,
         }
         -- Mason's install of lua-language-server doesn't work on Termux, so use globally installed version if available
-        if not require("mason-registry").is_installed "lua-language-server" and lua_server_installed then
+        if
+            not require("mason-registry").is_installed "lua-language-server"
+            and vim.fn.executable "lua-language-server" == 1
+        then
             lua_setup()
         end
         -- Set up ccls separately, since it isn't available through Mason

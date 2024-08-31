@@ -10,6 +10,7 @@ return {
     event = { "CmdlineEnter", "InsertEnter" },
     dependencies = {
         "FelipeLema/cmp-async-path",
+        { "folke/lazydev.nvim", ft = "lua", opts = {} },
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-calc",
         "hrsh7th/cmp-cmdline",
@@ -104,6 +105,10 @@ return {
                             return vim.tbl_keys(bufs)
                         end,
                     },
+                },
+                {
+                    name = "lazydev",
+                    group_index = 0,
                 },
             },
             sorting = {
