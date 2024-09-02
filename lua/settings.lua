@@ -36,7 +36,6 @@ o.termguicolors = true
 o.undofile = true
 o.updatetime = 1000
 o.viewoptions = "folds,cursor"
-o.virtualedit = "block"
 o.whichwrap = "b,s,<,>,[,]"
 o.winblend = 10
 o.wrap = false
