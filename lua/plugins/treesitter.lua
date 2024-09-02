@@ -37,6 +37,7 @@ return {
             },
             indent = {
                 enable = not vim.g.vscode,
+                disable = { "fsharp" },
             },
             matchup = {
                 enable = not vim.g.vscode,
