@@ -10,7 +10,7 @@ o.confirm = true
 o.expandtab = true
 o.foldlevel = 99
 o.foldlevelstart = 99
-o.guifont = "IosevkaTerm Nerd Font"
+o.guifont = "Iosevka Nerd Font:h15"
 o.ignorecase = true
 o.inccommand = "split"
 o.infercase = true
@@ -39,8 +39,6 @@ o.viewoptions = "folds,cursor"
 o.whichwrap = "b,s,<,>,[,]"
 o.winblend = 10
 o.wrap = false
-
-vim.diagnostic.config { virtual_text = { prefix = " " } }
 
 if os.getenv "SSH_CONNECTION" == nil then
     o.title = true

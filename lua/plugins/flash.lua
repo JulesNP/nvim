@@ -1,24 +1,6 @@
 return {
     "folke/flash.nvim",
     event = "VeryLazy",
-    opts = {
-        labels = "fjdkslaruvmgheicwoxqptybnzFJDKSLARUVMGHEICWOXQPTYBNZ",
-        label = {
-            uppercase = false,
-        },
-        search = {
-            incremental = true,
-        },
-        modes = {
-            search = {
-                enabled = true,
-                jump = { register = false },
-            },
-            char = {
-                enabled = false,
-            },
-        },
-    },
     keys = {
         {
             "<cr>",
@@ -45,4 +27,25 @@ return {
             desc = "Toggle Flash Search",
         },
     },
+    config = function()
+        require("flash").setup {
+            labels = "fjdkslaruvmgheicwoxqptybnzFJDKSLARUVMGHEICWOXQPTYBNZ",
+            label = {
+                uppercase = false,
+            },
+            search = {
+                incremental = true,
+            },
+            modes = {
+                search = {
+                    enabled = true,
+                    jump = { register = false },
+                },
+                char = {
+                    enabled = false,
+                },
+            },
+        }
+        vim.api.nvim_set_hl(0, "FlashLabel", { link = "RedrawDebugRecompose" })
+    end,
 }

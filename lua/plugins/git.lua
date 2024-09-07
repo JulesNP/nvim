@@ -9,12 +9,18 @@ return {
             "nvim-lua/plenary.nvim",
             "sindrets/diffview.nvim",
         },
-        opts = {
-            disable_commit_confirmation = true,
-            disable_insert_on_commit = false,
-            integrations = {
-                diffview = true,
-            },
-        },
+        config = function()
+            require("neogit").setup {
+                disable_commit_confirmation = true,
+                disable_insert_on_commit = false,
+                integrations = {
+                    diffview = true,
+                },
+            }
+            vim.api.nvim_set_hl(0, "NeogitDiffAdd", { link = "DiffAdd" })
+            vim.api.nvim_set_hl(0, "NeogitDiffAddHighlight", { link = "DiffAdd" })
+            vim.api.nvim_set_hl(0, "NeogitDiffDelete", { link = "DiffDelete" })
+            vim.api.nvim_set_hl(0, "NeogitDiffDeleteHighlight", { link = "DiffDelete" })
+        end,
     },
 }

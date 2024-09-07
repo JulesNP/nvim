@@ -103,6 +103,27 @@ local function mini_clue_setup()
     }
 end
 
+local function mini_diff_setup()
+    require("mini.diff").setup {
+        mappings = { textobject = "ih" },
+        options = { wrap_goto = true },
+    }
+    vim.keymap.set("n", "<leader>hR", function()
+        MiniDiff.do_hunks(0, "reset")
+    end, { remap = true, desc = "Reset all buffer hunks" })
+    vim.keymap.set("n", "<leader>hS", function()
+        MiniDiff.do_hunks(0, "apply")
+    end, { remap = true, desc = "Stage all buffer hunks" })
+    vim.keymap.set("n", "<leader>ho", MiniDiff.toggle_overlay, { desc = "Toggle diff overlay" })
+    vim.keymap.set("n", "<leader>hr", "gHih", { remap = true, desc = "Reset hunk" })
+    vim.keymap.set("n", "<leader>hs", "ghih", { remap = true, desc = "Stage hunk" })
+    vim.keymap.set("v", "<leader>hr", "gH", { remap = true, desc = "Reset selection" })
+    vim.keymap.set("v", "<leader>hs", "gh", { remap = true, desc = "Stage selection" })
+    vim.api.nvim_set_hl(0, "MiniDiffSignAdd", { link = "DiffAdd" })
+    vim.api.nvim_set_hl(0, "MiniDiffSignChange", { link = "DiffChange" })
+    vim.api.nvim_set_hl(0, "MiniDiffSignDelete", { link = "DiffDelete" })
+end
+
 local function mini_files_setup()
     local MiniFiles = require "mini.files"
     local show_dotfiles = false
@@ -643,21 +664,7 @@ return {
             require("mini.comment").setup {}
         end
 
-        require("mini.diff").setup {
-            mappings = { textobject = "ih" },
-            options = { wrap_goto = true },
-        }
-        vim.keymap.set("n", "<leader>hR", function()
-            MiniDiff.do_hunks(0, "reset")
-        end, { remap = true, desc = "Reset all buffer hunks" })
-        vim.keymap.set("n", "<leader>hS", function()
-            MiniDiff.do_hunks(0, "apply")
-        end, { remap = true, desc = "Stage all buffer hunks" })
-        vim.keymap.set("n", "<leader>ho", MiniDiff.toggle_overlay, { desc = "Toggle diff overlay" })
-        vim.keymap.set("n", "<leader>hr", "gHih", { remap = true, desc = "Reset hunk" })
-        vim.keymap.set("n", "<leader>hs", "ghih", { remap = true, desc = "Stage hunk" })
-        vim.keymap.set("v", "<leader>hr", "gH", { remap = true, desc = "Reset selection" })
-        vim.keymap.set("v", "<leader>hs", "gh", { remap = true, desc = "Stage selection" })
+        mini_diff_setup()
 
         require("mini.extra").setup {}
 

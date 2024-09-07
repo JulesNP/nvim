@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-field
 local filetype_settings = vim.api.nvim_create_augroup("FileTypeSettings", { clear = true })
 
 vim.api.nvim_create_autocmd("FileType", {
@@ -24,6 +25,46 @@ vim.api.nvim_create_autocmd("FileType", {
     callback = function()
         vim.keymap.set("n", "<c-j>", "<c-w>j", { desc = "Go to the down window", buffer = 0 })
         vim.keymap.set("n", "<c-k>", "<c-w>k", { desc = "Go to the up window", buffer = 0 })
+    end,
+})
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+    group = vim.api.nvim_create_augroup("ColorScheme", { clear = true }),
+    callback = function()
+        local function hl_from_name(hl_name)
+            local hl_info = vim.api.nvim_get_hl(0, { name = hl_name })
+            return {
+                link = hl_info.link,
+                bg = hl_info.bg,
+                fg = hl_info.fg,
+                bold = hl_info.bold,
+                italic = hl_info.italic,
+                underline = hl_info.underline,
+                ctermbg = hl_info.ctermbg,
+                ctermfg = hl_info.ctermfg,
+            }
+        end
+
+        vim.api.nvim_set_hl(0, "FloatBorder", { link = "PmenuExtra" })
+
+        local pmenu = vim.api.nvim_get_hl(0, { name = "Pmenu" })
+
+        local title = hl_from_name "Title"
+        title.bg = pmenu.bg
+        vim.api.nvim_set_hl(0, "FloatFooter", title)
+        vim.api.nvim_set_hl(0, "FloatTitle", title)
+
+        local line_nr = hl_from_name "LineNr"
+        line_nr.bg = pmenu.bg
+        vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", line_nr)
+
+        local comment = hl_from_name "Comment"
+        comment.italic = true
+        vim.api.nvim_set_hl(0, "Comment", comment)
+
+        local match_paren = hl_from_name "MatchParen"
+        match_paren.underline = nil
+        vim.api.nvim_set_hl(0, "MatchParen", match_paren)
     end,
 })
 
