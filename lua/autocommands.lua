@@ -41,13 +41,10 @@ vim.api.nvim_create_autocmd("ColorScheme", {
                 bold = hl.bold,
                 italic = hl.italic,
                 underline = hl.underline,
+                reverse = hl.reverse,
             }
         end
 
-        local cursor_line = hl_from_name "CursorLine"
-        vim.api.nvim_set_hl(0, "Visual", cursor_line)
-
-        vim.api.nvim_set_hl(0, "CursorLine", { link = "ColorColumn" })
         vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { link = "DiagnosticFloatingError" })
         vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { link = "DiagnosticFloatingHint" })
         vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { link = "DiagnosticFloatingInfo" })
@@ -79,6 +76,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
         local function diff_bg(name)
             local hl = hl_from_name(name)
+            hl.reverse = nil
             if hl.bg == normal.bg then
                 hl.bg = normal_float.bg
             end
@@ -94,9 +92,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.api.nvim_set_hl(0, "FloatFooter", title)
         vim.api.nvim_set_hl(0, "FloatTitle", title)
 
-        local color_column = hl_from_name "ColorColumn"
         local cursor_line_nr = hl_from_name "CursorLineNr"
-        cursor_line_nr.bg = color_column.bg
+        cursor_line_nr.bg = line_nr.bg
         vim.api.nvim_set_hl(0, "CursorLineNr", cursor_line_nr)
 
         line_nr.bg = normal_float.bg
@@ -111,6 +108,21 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.api.nvim_set_hl(0, "MatchParen", match_paren)
         match_paren.underline = true
         vim.api.nvim_set_hl(0, "IlluminatedWordWrite", match_paren)
+
+        local function unreverse(name)
+            local hl = hl_from_name(name)
+            if hl.reverse then
+                hl.reverse = nil
+                local swap = hl.fg
+                hl.fg = hl.bg
+                hl.bg = swap
+                vim.api.nvim_set_hl(0, name, hl)
+            end
+        end
+
+        unreverse "DiffAdd"
+        unreverse "DiffChange"
+        unreverse "DiffDelete"
     end,
 })
 
