@@ -28,7 +28,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("ColorScheme", {
-    group = vim.api.nvim_create_augroup("ColorScheme", { clear = true }),
+    group = vim.api.nvim_create_augroup("ColorSchemeSettings", { clear = true }),
     callback = function()
         local function hl_from_name(name)
             local hl = vim.api.nvim_get_hl(0, { name = name })
