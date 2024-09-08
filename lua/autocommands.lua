@@ -70,7 +70,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.api.nvim_set_hl(0, "RainbowDelimiterViolet", { fg = vim.g.terminal_color_13 })
         vim.api.nvim_set_hl(0, "RainbowDelimiterYellow", { fg = vim.g.terminal_color_11 })
 
-        local line_nr = hl_from_name "LineNr"
         local normal = hl_from_name "Normal"
         local normal_float = hl_from_name "NormalFloat"
 
@@ -92,10 +91,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.api.nvim_set_hl(0, "FloatFooter", title)
         vim.api.nvim_set_hl(0, "FloatTitle", title)
 
-        local cursor_line_nr = hl_from_name "CursorLineNr"
-        cursor_line_nr.bg = line_nr.bg
-        vim.api.nvim_set_hl(0, "CursorLineNr", cursor_line_nr)
-
+        local line_nr = hl_from_name "LineNr"
         line_nr.bg = normal_float.bg
         vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", line_nr)
 
