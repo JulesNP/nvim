@@ -26,29 +26,29 @@ return {
             "hrsh7th/cmp-nvim-lsp",
             "lukas-reineke/cmp-rg",
             "petertriho/cmp-git",
+            "saadparwaiz1/cmp_luasnip",
+            { "L3MON4D3/LuaSnip", dependencies = { "rafamadriz/friendly-snippets" }, build = "make install_jsregexp" },
             { "kristijanhusak/vim-dadbod-completion", dependencies = { "tpope/vim-dadbod" } },
-            {
-                "garymjr/nvim-snippets",
-                dependencies = { "rafamadriz/friendly-snippets" },
-                opts = { friendly_snippets = true },
-            },
         },
         config = function()
             local cmp = require "cmp"
+            local luasnip = require "luasnip"
             local types = require "cmp.types"
+
+            require("luasnip.loaders.from_vscode").lazy_load()
 
             cmp.setup {
                 snippet = {
                     expand = function(args)
-                        vim.snippet.expand(args.body)
+                        luasnip.lsp_expand(args.body)
                     end,
                 },
                 mapping = {
                     ["<tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_next_item()
-                        elseif vim.snippet.active { direction = 1 } then
-                            vim.snippet.jump(1)
+                        elseif luasnip.expand_or_locally_jumpable() then
+                            luasnip.expand_or_jump()
                         else
                             fallback()
                         end
@@ -56,8 +56,8 @@ return {
                     ["<s-tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_prev_item()
-                        elseif vim.snippet.active { direction = -1 } then
-                            vim.snippet.jump(-1)
+                        elseif luasnip.jumpable(-1) then
+                            luasnip.jump(-1)
                         else
                             fallback()
                         end
@@ -84,7 +84,7 @@ return {
                     ["<up>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
                 },
                 sources = cmp.config.sources {
-                    { name = "snippets" },
+                    { name = "luasnip" },
                     { name = "nvim_lsp" },
                     { name = "orgmode" },
                     { name = "git" },
@@ -169,7 +169,7 @@ return {
 
             cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
                 sources = {
-                    { name = "snippets" },
+                    { name = "luasnip" },
                     { name = "nvim_lsp" },
                     { name = "async_path" },
                     { name = "calc" },
