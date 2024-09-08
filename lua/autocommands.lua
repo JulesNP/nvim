@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-field
 local filetype_settings = vim.api.nvim_create_augroup("FileTypeSettings", { clear = true })
 
 vim.api.nvim_create_autocmd("FileType", {
@@ -33,17 +32,20 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()
         local function hl_from_name(hl_name)
             local hl_info = vim.api.nvim_get_hl(0, { name = hl_name })
+            while hl_info.link ~= nil do
+                hl_info = vim.api.nvim_get_hl(0, { name = hl_info.link })
+            end
             return {
-                link = hl_info.link,
                 bg = hl_info.bg,
                 fg = hl_info.fg,
                 bold = hl_info.bold,
                 italic = hl_info.italic,
                 underline = hl_info.underline,
-                ctermbg = hl_info.ctermbg,
-                ctermfg = hl_info.ctermfg,
             }
         end
+
+        local cursor_line = hl_from_name "CursorLine"
+        vim.api.nvim_set_hl(0, "Visual", cursor_line)
 
         vim.api.nvim_set_hl(0, "CursorLine", { link = "ColorColumn" })
         vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { link = "DiagnosticFloatingError" })
@@ -58,28 +60,37 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "MatchWord" })
         vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "MatchWord" })
         vim.api.nvim_set_hl(0, "NeogitDiffAdd", { link = "Added" })
-        vim.api.nvim_set_hl(0, "NeogitDiffAddCursor", { link = "Removed" })
+        vim.api.nvim_set_hl(0, "NeogitDiffAddCursor", { link = "Added" })
         vim.api.nvim_set_hl(0, "NeogitDiffAddHighlight", { link = "DiffAdd" })
         vim.api.nvim_set_hl(0, "NeogitDiffDelete", { link = "Removed" })
         vim.api.nvim_set_hl(0, "NeogitDiffDeleteCursor", { link = "Removed" })
         vim.api.nvim_set_hl(0, "NeogitDiffDeleteHighlight", { link = "DiffDelete" })
+        vim.api.nvim_set_hl(0, "RainbowDelimiterBlue", { fg = vim.g.terminal_color_12 })
+        vim.api.nvim_set_hl(0, "RainbowDelimiterCyan", { fg = vim.g.terminal_color_14 })
+        vim.api.nvim_set_hl(0, "RainbowDelimiterGreen", { fg = vim.g.terminal_color_10 })
+        vim.api.nvim_set_hl(0, "RainbowDelimiterOrange", { fg = vim.g.terminal_color_2 })
+        vim.api.nvim_set_hl(0, "RainbowDelimiterRed", { fg = vim.g.terminal_color_9 })
+        vim.api.nvim_set_hl(0, "RainbowDelimiterViolet", { fg = vim.g.terminal_color_13 })
+        vim.api.nvim_set_hl(0, "RainbowDelimiterYellow", { fg = vim.g.terminal_color_11 })
 
-        local pmenu = vim.api.nvim_get_hl(0, { name = "Pmenu" })
+        local line_nr = hl_from_name "LineNr"
+        local normal = hl_from_name "Normal"
+        local normal_float = hl_from_name "NormalFloat"
 
-        local diff_add = hl_from_name "DiffAdd"
-        diff_add.bg = pmenu.bg
-        vim.api.nvim_set_hl(0, "Added", diff_add)
+        local function diff_bg(hl_name)
+            local hl_info = hl_from_name(hl_name)
+            if hl_info.bg == normal.bg then
+                hl_info.bg = normal_float.bg
+            end
+            return hl_info
+        end
 
-        local diff_change = hl_from_name "DiffChange"
-        diff_change.bg = pmenu.bg
-        vim.api.nvim_set_hl(0, "Changed", diff_change)
-
-        local diff_delete = hl_from_name "DiffDelete"
-        diff_delete.bg = pmenu.bg
-        vim.api.nvim_set_hl(0, "Removed", diff_delete)
+        vim.api.nvim_set_hl(0, "Added", diff_bg "DiffAdd")
+        vim.api.nvim_set_hl(0, "Changed", diff_bg "DiffChange")
+        vim.api.nvim_set_hl(0, "Removed", hl_from_name "DiffDelete")
 
         local title = hl_from_name "Title"
-        title.bg = pmenu.bg
+        title.bg = normal_float.bg
         vim.api.nvim_set_hl(0, "FloatFooter", title)
         vim.api.nvim_set_hl(0, "FloatTitle", title)
 
@@ -88,8 +99,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         cursor_line_nr.bg = color_column.bg
         vim.api.nvim_set_hl(0, "CursorLineNr", cursor_line_nr)
 
-        local line_nr = hl_from_name "LineNr"
-        line_nr.bg = pmenu.bg
+        line_nr.bg = normal_float.bg
         vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", line_nr)
 
         local comment = hl_from_name "Comment"
@@ -97,11 +107,12 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.api.nvim_set_hl(0, "Comment", comment)
 
         local match_paren = hl_from_name "MatchParen"
-        vim.api.nvim_set_hl(0, "IlluminatedWordWrite", match_paren)
         match_paren.underline = nil
         vim.api.nvim_set_hl(0, "MatchParen", match_paren)
-        match_paren.bold = nil
-        vim.api.nvim_set_hl(0, "Visual", match_paren)
+
+        local match_word = hl_from_name "MatchWord"
+        match_word.underline = true
+        vim.api.nvim_set_hl(0, "IlluminatedWordWrite", match_word)
     end,
 })
 
