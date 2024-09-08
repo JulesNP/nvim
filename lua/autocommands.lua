@@ -123,6 +123,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         unreverse "DiffAdd"
         unreverse "DiffChange"
         unreverse "DiffDelete"
+        unreverse "DiffText"
     end,
 })
 
