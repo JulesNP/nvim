@@ -20,7 +20,6 @@ o.mousemodel = "popup"
 o.number = true
 o.pumblend = 10
 o.pumheight = 10
-o.relativenumber = true
 o.ruler = false
 o.shiftwidth = 4
 o.shiftround = true
