@@ -119,9 +119,6 @@ local function mini_diff_setup()
     vim.keymap.set("n", "<leader>hs", "ghih", { remap = true, desc = "Stage hunk" })
     vim.keymap.set("v", "<leader>hr", "gH", { remap = true, desc = "Reset selection" })
     vim.keymap.set("v", "<leader>hs", "gh", { remap = true, desc = "Stage selection" })
-    vim.api.nvim_set_hl(0, "MiniDiffSignAdd", { link = "DiffAdd" })
-    vim.api.nvim_set_hl(0, "MiniDiffSignChange", { link = "DiffChange" })
-    vim.api.nvim_set_hl(0, "MiniDiffSignDelete", { link = "DiffDelete" })
 end
 
 local function mini_files_setup()
@@ -274,27 +271,10 @@ local function mini_files_setup()
 end
 
 local function mini_indentscope_setup()
+    vim.g.miniindentscope_disable = true
     require("mini.indentscope").setup {
-        draw = {
-            delay = 20,
-            animation = require("mini.indentscope").gen_animation.none(),
-        },
         options = { indent_at_cursor = false },
-        symbol = "▏",
     }
-    vim.api.nvim_create_autocmd("FileType", {
-        group = vim.api.nvim_create_augroup("IndentScopeDisable", { clear = true }),
-        callback = function()
-            if
-                vim.bo.buftype ~= ""
-                or vim.bo.filetype == "toggleterm"
-                or vim.bo.filetype == "dbout"
-                or vim.bo.filetype == "dbui"
-            then
-                vim.b.miniindentscope_disable = true
-            end
-        end,
-    })
 end
 
 local function mini_map_setup()

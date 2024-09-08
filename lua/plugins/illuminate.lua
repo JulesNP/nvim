@@ -26,8 +26,5 @@ return {
             },
             min_count_to_highlight = 2,
         }
-        vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "MatchWord" })
-        vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "MatchWord" })
-        vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Search" })
     end,
 }

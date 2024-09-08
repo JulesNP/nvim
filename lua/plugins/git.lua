@@ -17,10 +17,6 @@ return {
                     diffview = true,
                 },
             }
-            vim.api.nvim_set_hl(0, "NeogitDiffAdd", { link = "DiffAdd" })
-            vim.api.nvim_set_hl(0, "NeogitDiffAddHighlight", { link = "DiffAdd" })
-            vim.api.nvim_set_hl(0, "NeogitDiffDelete", { link = "DiffDelete" })
-            vim.api.nvim_set_hl(0, "NeogitDiffDeleteHighlight", { link = "DiffDelete" })
         end,
     },
 }
