@@ -18,7 +18,6 @@ return {
         "mfussenegger/nvim-dap",
         "nvim-lua/plenary.nvim",
         "nvim-neotest/nvim-nio",
-        "nvimdev/lspsaga.nvim",
         "nvimtools/none-ls.nvim",
         "pmizio/typescript-tools.nvim",
         "rcarriga/nvim-dap-ui",
@@ -177,72 +176,10 @@ return {
             handlers = {},
         }
 
-        require("lspsaga").setup {
-            ui = { border = "rounded" },
-            diagnostic = { extend_relatedInformation = true },
-            code_action = {
-                show_server_name = true,
-                only_in_cursor = false,
-                keys = {
-                    quit = { "<esc>", "q" },
-                    exec = "<cr>",
-                },
-            },
-            lightbulb = { virtual_text = false },
-            finder = {
-                keys = {
-                    shuttle = "<c-w><c-w>",
-                    toggle_or_open = "<cr>",
-                    vsplit = "<c-v>",
-                    split = "<c-s>",
-                    tabe = "<c-t>",
-                    tabnew = "<c-s-t>",
-                    quit = "q",
-                    close = "<c-q>",
-                },
-            },
-            definition = {
-                keys = {
-                    edit = "<c-i>",
-                    vsplit = "<c-v>",
-                    split = "<c-s>",
-                    tabe = "<c-t>",
-                    tabnew = "<c-s-t>",
-                    quit = "q",
-                    close = { "<c-o>", "<c-q>" },
-                },
-            },
-            symbol_in_winbar = { enable = false },
-            outline = {
-                layout = "float",
-                max_height = 0.7,
-                keys = {
-                    toggle_or_jump = "<tab>",
-                    quit = { "<c-q>", "q" },
-                    jump = "<cr>",
-                },
-            },
-            callhierarchy = {
-                keys = {
-                    edit = "<cr>",
-                    vsplit = "<c-v>",
-                    split = "<c-s>",
-                    tabe = "<c-t>",
-                    close = "<c-q>",
-                    quit = "q",
-                    shuttle = "<c-w><c-w>",
-                    toggle_or_req = "<tab>",
-                },
-            },
-            beacon = { enable = false },
-        }
-
         vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(require "hover", {
             border = "rounded",
         })
 
-        vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", { desc = "Previous diagnostic" })
-        vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<cr>", { desc = "Next diagnostic" })
         vim.keymap.set("n", "<leader>i", vim.diagnostic.open_float, { desc = "View diagnostic info" })
         vim.keymap.set("n", "<leader>q", vim.diagnostic.setqflist, { desc = "List diagnostics" })
 
@@ -272,16 +209,15 @@ return {
                 vim.keymap.set("n", "<leader>j", "<cmd>Navbuddy<cr>", opts "LSP Navbuddy finder")
                 vim.keymap.set("n", "<leader>lf", "<cmd>Lspsaga finder<cr>", opts "Find LSP references")
                 vim.keymap.set("n", "<leader>lo", "<cmd>Lspsaga outline<cr>", opts "LSP outline")
+                vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, opts "Go to type definition")
 
                 if vim.bo.filetype ~= "cs" then
-                    vim.keymap.set("n", "gD", "<cmd>Lspsaga peek_type_definition<cr>", opts "Go to type definition")
-                    vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<cr>", opts "Go to definition")
-                    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts "Go to references")
-                    vim.keymap.set("n", "gI", vim.lsp.buf.implementation, opts "Go to implementation")
+                    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts "Go to type definition")
+                    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts "Go to type definition")
+                    vim.keymap.set("n", "gI", vim.lsp.buf.implementation, opts "Go to type definition")
                 else -- omnisharp-specific settings
                     local omni_ex = require "omnisharp_extended"
 
-                    vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, opts "Go to type definition")
                     vim.keymap.set("n", "gd", omni_ex.lsp_definitions, opts "Go to definition")
                     vim.keymap.set("n", "gr", omni_ex.lsp_references, opts "Go to references")
                     vim.keymap.set("n", "gI", omni_ex.lsp_implementation, opts "Go to implementation")
