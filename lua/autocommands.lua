@@ -30,17 +30,17 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("ColorScheme", {
     group = vim.api.nvim_create_augroup("ColorScheme", { clear = true }),
     callback = function()
-        local function hl_from_name(hl_name)
-            local hl_info = vim.api.nvim_get_hl(0, { name = hl_name })
-            while hl_info.link ~= nil do
-                hl_info = vim.api.nvim_get_hl(0, { name = hl_info.link })
+        local function hl_from_name(name)
+            local hl = vim.api.nvim_get_hl(0, { name = name })
+            while hl.link ~= nil do
+                hl = vim.api.nvim_get_hl(0, { name = hl.link })
             end
             return {
-                bg = hl_info.bg,
-                fg = hl_info.fg,
-                bold = hl_info.bold,
-                italic = hl_info.italic,
-                underline = hl_info.underline,
+                bg = hl.bg,
+                fg = hl.fg,
+                bold = hl.bold,
+                italic = hl.italic,
+                underline = hl.underline,
             }
         end
 
@@ -77,17 +77,17 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         local normal = hl_from_name "Normal"
         local normal_float = hl_from_name "NormalFloat"
 
-        local function diff_bg(hl_name)
-            local hl_info = hl_from_name(hl_name)
-            if hl_info.bg == normal.bg then
-                hl_info.bg = normal_float.bg
+        local function diff_bg(name)
+            local hl = hl_from_name(name)
+            if hl.bg == normal.bg then
+                hl.bg = normal_float.bg
             end
-            return hl_info
+            return hl
         end
 
         vim.api.nvim_set_hl(0, "Added", diff_bg "DiffAdd")
         vim.api.nvim_set_hl(0, "Changed", diff_bg "DiffChange")
-        vim.api.nvim_set_hl(0, "Removed", hl_from_name "DiffDelete")
+        vim.api.nvim_set_hl(0, "Removed", diff_bg "DiffDelete")
 
         local title = hl_from_name "Title"
         title.bg = normal_float.bg
@@ -109,10 +109,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         local match_paren = hl_from_name "MatchParen"
         match_paren.underline = nil
         vim.api.nvim_set_hl(0, "MatchParen", match_paren)
-
-        local match_word = hl_from_name "MatchWord"
-        match_word.underline = true
-        vim.api.nvim_set_hl(0, "IlluminatedWordWrite", match_word)
+        match_paren.underline = true
+        vim.api.nvim_set_hl(0, "IlluminatedWordWrite", match_paren)
     end,
 })
 
