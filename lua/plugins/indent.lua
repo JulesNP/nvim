@@ -21,6 +21,7 @@ return {
                     "help",
                     "lspinfo",
                     "man",
+                    "markdown",
                 },
             },
         },

@@ -45,6 +45,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
             }
         end
 
+        vim.api.nvim_set_hl(0, "Bold", { bold = true })
         vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { link = "DiagnosticFloatingError" })
         vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { link = "DiagnosticFloatingHint" })
         vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { link = "DiagnosticFloatingInfo" })
@@ -56,6 +57,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.api.nvim_set_hl(0, "FloatBorder", { link = "PmenuExtra" })
         vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "MatchWord" })
         vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "MatchWord" })
+        vim.api.nvim_set_hl(0, "Italic", { italic = true })
         vim.api.nvim_set_hl(0, "NeogitDiffAdd", { link = "Added" })
         vim.api.nvim_set_hl(0, "NeogitDiffAddCursor", { link = "Added" })
         vim.api.nvim_set_hl(0, "NeogitDiffAddHighlight", { link = "DiffAdd" })
@@ -96,6 +98,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", line_nr)
 
         local comment = hl_from_name "Comment"
+        vim.api.nvim_set_hl(0, "@markup.raw", comment)
         comment.italic = true
         vim.api.nvim_set_hl(0, "Comment", comment)
 
