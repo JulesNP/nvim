@@ -93,11 +93,11 @@ return {
                 }
             end,
             lua_ls = lua_setup,
-            tsserver = function()
+            ts_ls = function()
                 require("typescript-tools").setup {
                     settings = {
                         expose_as_code_action = "all",
-                        tsserver_file_preferences = {
+                        ts_ls_file_preferences = {
                             includeInlayParameterNameHints = "all",
                             includeInlayParameterNameHintsWhenArgumentMatchesName = false,
                             includeInlayFunctionParameterTypeHints = true,
@@ -171,10 +171,10 @@ return {
             },
         }
 
-        -- require("dapui").setup()
-        -- require("mason-nvim-dap").setup { ---@diagnostic disable-line: missing-fields
-        --     handlers = {},
-        -- }
+        require("dapui").setup()
+        require("mason-nvim-dap").setup { ---@diagnostic disable-line: missing-fields
+            handlers = {},
+        }
 
         vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(require "hover", {
             border = "rounded",
@@ -223,20 +223,20 @@ return {
                     vim.keymap.set("n", "gI", omni_ex.lsp_implementation, opts "Go to implementation")
                 end
 
-                -- vim.keymap.set("n", "<leader>bO", require("dap").step_out, opts "Step out")
-                -- vim.keymap.set("n", "<leader>bb", require("dap").toggle_breakpoint, opts "Toggle breakpoint")
-                -- vim.keymap.set("n", "<leader>bc", require("dap").continue, opts "Continue")
-                -- vim.keymap.set("n", "<leader>bi", require("dap").step_into, opts "Step into")
-                -- vim.keymap.set("n", "<leader>bo", require("dap").step_over, opts "Step over")
-                -- vim.keymap.set("n", "<leader>bp", require("dap.ui.widgets").preview, opts "Preview value")
-                -- vim.keymap.set("n", "<leader>bq", require("dap").list_breakpoints, opts "List breakpoints")
-                -- vim.keymap.set("n", "<leader>bt", require("dapui").toggle, opts "Toggle debug UI")
-                -- vim.keymap.set(
-                --     "n",
-                --     "<leader>bx",
-                --     require("dap").set_exception_breakpoints,
-                --     opts "Set exception breakpoints"
-                -- )
+                vim.keymap.set("n", "<leader>bO", require("dap").step_out, opts "Step out")
+                vim.keymap.set("n", "<leader>bb", require("dap").toggle_breakpoint, opts "Toggle breakpoint")
+                vim.keymap.set("n", "<leader>bc", require("dap").continue, opts "Continue")
+                vim.keymap.set("n", "<leader>bi", require("dap").step_into, opts "Step into")
+                vim.keymap.set("n", "<leader>bo", require("dap").step_over, opts "Step over")
+                vim.keymap.set("n", "<leader>bp", require("dap.ui.widgets").preview, opts "Preview value")
+                vim.keymap.set("n", "<leader>bq", require("dap").list_breakpoints, opts "List breakpoints")
+                vim.keymap.set("n", "<leader>bt", require("dapui").toggle, opts "Toggle debug UI")
+                vim.keymap.set(
+                    "n",
+                    "<leader>bx",
+                    require("dap").set_exception_breakpoints,
+                    opts "Set exception breakpoints"
+                )
 
                 local client = vim.lsp.get_client_by_id(args.data.client_id)
                 if client == nil then
