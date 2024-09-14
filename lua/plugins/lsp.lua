@@ -205,10 +205,8 @@ return {
                         vim.lsp.buf.hover()
                     end
                 end, opts "Hover")
-                vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<cr>", opts "Code action")
+                vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts "Code action")
                 vim.keymap.set("n", "<leader>j", "<cmd>Navbuddy<cr>", opts "LSP Navbuddy finder")
-                vim.keymap.set("n", "<leader>lf", "<cmd>Lspsaga finder<cr>", opts "Find LSP references")
-                vim.keymap.set("n", "<leader>lo", "<cmd>Lspsaga outline<cr>", opts "LSP outline")
                 vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, opts "Go to type definition")
 
                 if vim.bo.filetype ~= "cs" then
