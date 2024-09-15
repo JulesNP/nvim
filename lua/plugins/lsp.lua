@@ -290,11 +290,17 @@ return {
                     require("lsp-overloads").setup(client, { ---@diagnostic disable-line: missing-fields
                         ui = { ---@diagnostic disable-line: missing-fields
                             border = "rounded",
+                            floating_window_above_cur_line = true,
                         },
-                        keymaps = { ---@diagnostic disable-line: missing-fields
-                            close_signature = "<m-x>",
+                        keymaps = {
+                            close_signature = "<m-s>",
+                            next_parameter = "<m-l>",
+                            next_signature = "<m-j>",
+                            previous_parameter = "<m-h>",
+                            previous_signature = "<m-k>",
                         },
                     })
+                    vim.keymap.set("i", "<m-s>", "<cmd>LspOverloadsSignature<cr>", opts "Signature help")
                 end
             end,
         })
