@@ -46,6 +46,11 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         end
 
         vim.api.nvim_set_hl(0, "Bold", { bold = true })
+        vim.api.nvim_set_hl(0, "DiagnosticError", { fg = vim.g.terminal_color_9 })
+        vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = vim.g.terminal_color_8 })
+        vim.api.nvim_set_hl(0, "DiagnosticInfo", { fg = vim.g.terminal_color_12 })
+        vim.api.nvim_set_hl(0, "DiagnosticOk", { fg = vim.g.terminal_color_10 })
+        vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = vim.g.terminal_color_2 })
         vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { link = "DiagnosticFloatingError" })
         vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { link = "DiagnosticFloatingHint" })
         vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { link = "DiagnosticFloatingInfo" })
