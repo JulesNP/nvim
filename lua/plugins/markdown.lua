@@ -10,18 +10,18 @@ return {
         end,
     },
     {
-        "OXY2DEV/markview.nvim",
-        lazy = false,
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-        },
+        "MeanderingProgrammer/render-markdown.nvim",
         opts = {
-            headings = {
-                shift_width = 1,
-                heading_1 = { sign = "" },
-                heading_2 = { sign = "" },
+            heading = {
+                width = "block",
             },
-            code_blocks = { sign = false },
+            code = {
+                width = "block",
+            },
+            sign = {
+                enabled = false,
+            },
         },
+        dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" },
     },
 }
