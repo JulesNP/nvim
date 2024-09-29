@@ -18,19 +18,6 @@ return {
         vim.g.matchup_matchparen_offscreen = {}
     end,
     config = function()
-        local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-        ---@diagnostic disable-next-line: inject-field
-        parser_config.fsharp = {
-            install_info = {
-                url = "https://github.com/ionide/tree-sitter-fsharp",
-                branch = "main",
-                files = { "src/scanner.c", "src/parser.c" },
-                location = "fsharp",
-            },
-            requires_generate_from_grammar = false,
-            filetype = "fsharp",
-        }
-
         require("nvim-treesitter.configs").setup { ---@diagnostic disable-line: missing-fields
             auto_install = vim.fn.executable "tree-sitter" == 1,
             highlight = {
