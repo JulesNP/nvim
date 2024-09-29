@@ -63,6 +63,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "MatchWord" })
         vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "MatchWord" })
         vim.api.nvim_set_hl(0, "Italic", { italic = true })
+        vim.api.nvim_set_hl(0, "NeogitChangeDeleted", { link = "NeogitChangeUpdated" })
         vim.api.nvim_set_hl(0, "NeogitDiffAdd", { link = "Added" })
         vim.api.nvim_set_hl(0, "NeogitDiffAddCursor", { link = "Added" })
         vim.api.nvim_set_hl(0, "NeogitDiffAddHighlight", { link = "DiffAdd" })
