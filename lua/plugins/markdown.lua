@@ -16,7 +16,9 @@ return {
                 width = "block",
             },
             code = {
+                position = "right",
                 width = "block",
+                right_pad = 1,
             },
             sign = {
                 enabled = false,
