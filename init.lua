@@ -19,8 +19,6 @@ require "autocommands" -- Autocommands
 require "powershell" -- Use PowerShell on Windows
 require "keymaps" -- Load keymaps
 
-vim.cmd "colorscheme retrobox"
-
 require("lazy").setup {
     spec = { import = "plugins" },
     ui = {
