@@ -17,6 +17,7 @@ return {
             },
             code = {
                 position = "right",
+                language_pad = 1,
                 width = "block",
                 right_pad = 1,
             },
