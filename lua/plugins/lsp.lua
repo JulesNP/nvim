@@ -10,7 +10,6 @@ return {
         "Hoffs/omnisharp-extended-lsp.nvim",
         "Issafalcon/lsp-overloads.nvim",
         "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/nvim-cmp",
         "jay-babu/mason-null-ls.nvim",
         "jay-babu/mason-nvim-dap.nvim",
         "joechrisellis/lsp-format-modifications.nvim",
