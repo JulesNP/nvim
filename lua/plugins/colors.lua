@@ -40,6 +40,8 @@ return {
                         MiniDiffSignAdd = { link = "DiffAdd" },
                         MiniDiffSignChange = { link = "DiffChange" },
                         MiniDiffSignDelete = { link = "DiffDelete" },
+                        RenderMarkdownCode = { bg = dark and palette.dark0_soft or palette.light0_soft },
+                        RenderMarkdownCodeInline = { bg = dark and palette.dark0_soft or palette.light0_soft },
                         TabLineSel = { bg = dark and palette.dark0 or palette.light0 },
                         TreesitterContextLineNumber = {
                             fg = palette.gray,
