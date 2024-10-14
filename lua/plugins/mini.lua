@@ -170,13 +170,30 @@ local function mini_files_setup()
         vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
     end
 
+    local open_terminal = function()
+        local path = vim.fn.fnamemodify(MiniFiles.get_fs_entry().path, ":h")
+        local term = require("toggleterm.terminal").Terminal:new {
+            direction = "tab",
+            dir = path,
+            on_open = function(term)
+                vim.keymap.set({ "n", "t" }, "<c-\\>", function()
+                    term:shutdown()
+                end, { buffer = 0 })
+            end,
+        }
+        term:toggle()
+    end
+
     local yank_relative_path = function()
-        local path = MiniFiles.get_fs_entry().path
-        vim.fn.setreg(vim.v.register, vim.fn.fnamemodify(path, ":."))
+        local path = vim.fn.fnamemodify(MiniFiles.get_fs_entry().path, ":.")
+        vim.fn.setreg(vim.v.register, path)
+        print("Yanked relative path " .. path)
     end
 
     local yank_full_path = function()
-        vim.fn.setreg(vim.v.register, MiniFiles.get_fs_entry().path)
+        local path = MiniFiles.get_fs_entry().path
+        vim.fn.setreg(vim.v.register, path)
+        print("Yanked full path " .. path)
     end
 
     local minifiles_triggers = vim.api.nvim_create_augroup("MiniFilesMappings", { clear = true })
@@ -191,6 +208,7 @@ local function mini_files_setup()
             vim.keymap.set("n", "-", function()
                 MiniFiles.go_out()
             end, { buffer = buf_id, desc = "Go out of directory" })
+            vim.keymap.set("n", "<c-\\>", open_terminal, { buffer = buf_id, desc = "Open folder in terminal" })
             vim.keymap.set("n", "<c-h>", toggle_dotfiles, { buffer = buf_id, desc = "Toggle hidden files" })
             vim.keymap.set("n", "<c-j>", "<c-j>", { buffer = buf_id, desc = "Down" })
             vim.keymap.set("n", "<c-k>", "k", { buffer = buf_id, desc = "Up" })
@@ -209,12 +227,11 @@ local function mini_files_setup()
             vim.keymap.set("n", "<esc>", function()
                 MiniFiles.close()
             end, { buffer = buf_id, desc = "Close" })
-            vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id, desc = "Toggle hidden files" })
+            vim.keymap.set("n", "g.", files_set_cwd, { buffer = buf_id, desc = "Set CWD" })
+            vim.keymap.set("n", "gY", yank_full_path, { buffer = buf_id, desc = "Yank full path" })
             vim.keymap.set("n", "gh", "h", { buffer = buf_id, desc = "Left" })
             vim.keymap.set("n", "gl", "l", { buffer = buf_id, desc = "Right" })
-            vim.keymap.set("n", "gY", yank_full_path, { buffer = buf_id, desc = "Yank full path" })
             vim.keymap.set("n", "gy", yank_relative_path, { buffer = buf_id, desc = "Yank relative path" })
-            vim.keymap.set("n", "g~", files_set_cwd, { buffer = buf_id, desc = "Set CWD" })
         end,
     })
 

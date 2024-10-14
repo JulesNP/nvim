@@ -68,7 +68,5 @@ return {
             desc = "Open ToggleTerm",
         },
     },
-    opts = {
-        autochdir = true,
-    },
+    opts = {},
 }
