@@ -71,6 +71,20 @@ if not vim.g.vscode then
         end,
     })
 
+    vim.api.nvim_create_autocmd({ "WinNew" }, {
+        group = vim.api.nvim_create_augroup("SplitSort", { clear = true }),
+        callback = function()
+            vim.api.nvim_create_autocmd("BufEnter", {
+                once = true,
+                callback = function()
+                    if (vim.bo.buftype == "" or vim.bo.buftype == "help") and vim.api.nvim_win_get_width(0) > 160 then
+                        vim.cmd.wincmd "H"
+                    end
+                end,
+            })
+        end,
+    })
+
     vim.api.nvim_create_autocmd({ "CursorMoved", "WinScrolled" }, {
         group = vim.api.nvim_create_augroup("ToggleScrolloff", { clear = true }),
         callback = function()
