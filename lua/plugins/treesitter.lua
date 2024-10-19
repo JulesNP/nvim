@@ -96,6 +96,7 @@ return {
             require("nvim-ts-autotag").setup {}
 
             require("treesitter-context").setup {
+                multiwindow = true,
                 trim_scope = "inner",
             }
 
