@@ -155,12 +155,12 @@ local function mini_files_setup()
             local is_at_file = fs_entry ~= nil and fs_entry.fs_type == "file"
 
             if is_at_file then
-                local new_target_window
-                vim.api.nvim_win_call(MiniFiles.get_target_window() or 0, function()
+                local cur_target = MiniFiles.get_explorer_state().target_window
+                local new_target = vim.api.nvim_win_call(cur_target, function()
                     vim.cmd(direction .. " split")
-                    new_target_window = vim.api.nvim_get_current_win()
+                    return vim.api.nvim_get_current_win()
                 end)
-                MiniFiles.set_target_window(new_target_window)
+                MiniFiles.set_target_window(new_target)
             end
 
             MiniFiles.go_in {}
