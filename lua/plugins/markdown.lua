@@ -1,13 +1,13 @@
 return {
     {
-        "iamcco/markdown-preview.nvim",
-        cond = not vim.g.vscode,
-        keys = vim.g.vscode and {} or {
-            { "<leader>p", "<Plug>MarkdownPreviewToggle", desc = "Toggle Markdown Preview" },
+        "brianhuster/live-preview.nvim",
+        keys = {
+            { "<leader>lp", "<cmd>LivePreview<cr>", desc = "Enable live preview" },
+            { "<leader>lx", "<cmd>StopPreview<cr>", desc = "Stop live preview" },
         },
-        build = function()
-            vim.fn["mkdp#util#install"]()
-        end,
+        opts = {
+            sync_scroll = true,
+        },
     },
     {
         "MeanderingProgrammer/render-markdown.nvim",
