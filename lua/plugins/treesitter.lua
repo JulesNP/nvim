@@ -23,6 +23,7 @@ return {
             highlight = {
                 enable = not vim.g.vscode,
                 disable = { "csv" }, -- Conflicts with rainbow_csv
+                additional_vim_regex_highlighting = { "sql" },
             },
             indent = {
                 enable = not vim.g.vscode,

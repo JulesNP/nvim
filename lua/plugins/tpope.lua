@@ -2,7 +2,10 @@ return {
     {
         "kristijanhusak/vim-dadbod-ui",
         cond = not vim.g.vscode,
-        dependencies = "tpope/vim-dadbod",
+        dependencies = {
+            "lifepillar/pgsql.vim",
+            "tpope/vim-dadbod",
+        },
         event = { "BufRead", "CmdlineEnter", "InsertEnter" },
         ft = { "dbui", "dbout", "sql", "mysql", "plsql", "psql" },
         keys = vim.g.vscode and {} or {
@@ -15,6 +18,7 @@ return {
         init = function()
             vim.g.db_ui_use_nerd_fonts = 1
             vim.g.db_ui_force_echo_notifications = 1
+            vim.g.sql_type_default = "pgsql"
         end,
     },
     { "tpope/vim-abolish", event = { "BufRead", "CmdlineEnter", "InsertEnter" } },
