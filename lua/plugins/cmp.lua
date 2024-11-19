@@ -14,7 +14,7 @@ return {
     },
     { "Bilal2453/luvit-meta", lazy = true },
     {
-        "iguanacucumber/magazine.nvim",
+        "hrsh7th/nvim-cmp",
         cond = not vim.g.vscode,
         event = { "CmdlineEnter", "InsertEnter" },
         dependencies = {
