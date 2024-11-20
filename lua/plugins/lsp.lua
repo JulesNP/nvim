@@ -8,8 +8,7 @@ return {
     },
     dependencies = {
         "Hoffs/omnisharp-extended-lsp.nvim",
-        "Issafalcon/lsp-overloads.nvim",
-        "hrsh7th/cmp-nvim-lsp",
+        "saghen/blink.cmp",
         "jay-babu/mason-null-ls.nvim",
         "jay-babu/mason-nvim-dap.nvim",
         "joechrisellis/lsp-format-modifications.nvim",
@@ -52,7 +51,7 @@ return {
         local mason_lsp = require "mason-lspconfig"
         mason_lsp.setup {}
 
-        local capabilities = require("cmp_nvim_lsp").default_capabilities()
+        local capabilities = require("blink.cmp").get_lsp_capabilities()
         capabilities.textDocument.foldingRange = {
             dynamicRegistration = false,
             lineFoldingOnly = true,
@@ -283,23 +282,6 @@ return {
                         })
                         vim.keymap.set("n", "<leader>fc", "<cmd>FormatModifications<cr>", opts "Format changes")
                     end
-                end
-
-                if client.server_capabilities.signatureHelpProvider and vim.bo.filetype ~= "css" then
-                    require("lsp-overloads").setup(client, { ---@diagnostic disable-line: missing-fields
-                        ui = { ---@diagnostic disable-line: missing-fields
-                            border = "rounded",
-                            floating_window_above_cur_line = true,
-                        },
-                        keymaps = {
-                            close_signature = "<m-s>",
-                            next_parameter = "<m-l>",
-                            next_signature = "<m-j>",
-                            previous_parameter = "<m-h>",
-                            previous_signature = "<m-k>",
-                        },
-                    })
-                    vim.keymap.set("i", "<m-s>", "<cmd>LspOverloadsSignature<cr>", opts "Signature help")
                 end
             end,
         })
