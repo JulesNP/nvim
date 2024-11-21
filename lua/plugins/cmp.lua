@@ -1,9 +1,3 @@
-local function match_at_cursor(pattern)
-    local col = vim.api.nvim_win_get_cursor(0)[2]
-    local text = vim.api.nvim_get_current_line():sub(col, col - 1 + pattern:len())
-    return text == pattern
-end
-
 return {
     {
         "folke/lazydev.nvim",
@@ -16,36 +10,56 @@ return {
     {
         "saghen/blink.cmp",
         lazy = false,
-        dependencies = "rafamadriz/friendly-snippets",
-        version = "v0.*",
-        ---@module 'blink.cmp'
-        ---@type blink.cmp.Config
-        opts = {
-            -- 'default' for mappings similar to built-in completion
-            -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
-            -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
-            -- see the "default configuration" section below for full documentation on how to define
-            -- your own keymap.
-            keymap = { preset = "default" },
-
-            highlight = {
-                -- sets the fallback highlight groups to nvim-cmp's highlight groups
-                -- useful for when your theme doesn't support blink.cmp
-                -- will be removed in a future release, assuming themes add support
-                use_nvim_cmp_as_default = true,
-            },
-            -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-            -- adjusts spacing to ensure icons are aligned
-            nerd_font_variant = "mono",
-
-            -- experimental auto-brackets support
-            accept = { auto_brackets = { enabled = true } },
-
-            -- experimental signature help support
-            trigger = { signature_help = { enabled = true } },
+        dependencies = {
+            "rafamadriz/friendly-snippets",
+            { "kristijanhusak/vim-dadbod-completion", dependencies = { "tpope/vim-dadbod" } },
+            "mikavilpas/blink-ripgrep.nvim",
         },
-        -- allows extending the enabled_providers array elsewhere in your config
-        -- without having to redefining it
-        opts_extend = { "sources.completion.enabled_providers" },
+        version = "v0.*",
+        config = function()
+            require("blink.cmp").setup {
+                keymap = {
+                    ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+                    ["<C-e>"] = { "hide", "fallback" },
+                    ["<C-y>"] = { "select_and_accept", "fallback" },
+                    ["<CR>"] = { "accept", "fallback" },
+                    ["<C-p>"] = { "select_prev", "fallback" },
+                    ["<C-n>"] = { "select_next", "fallback" },
+                    ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+                    ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+                    ["<Tab>"] = { "snippet_forward", "select_next", "fallback" },
+                    ["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
+                },
+                highlight = {
+                    use_nvim_cmp_as_default = true,
+                },
+                nerd_font_variant = "mono",
+                accept = {
+                    auto_brackets = { enabled = true },
+                },
+                trigger = { signature_help = { enabled = true } },
+                sources = {
+                    completion = {
+                        enabled_providers = { "buffer", "dadbod", "lazydev", "lsp", "path", "ripgrep", "snippets" },
+                    },
+                    providers = {
+                        buffer = { score_offset = -10, fallback_for = {} },
+                        dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+                        lazydev = { name = "LazyDev", module = "lazydev.integrations.blink" },
+                        lsp = { fallback_for = { "lazydev" } },
+                        ripgrep = {
+                            name = "Ripgrep",
+                            module = "blink-ripgrep",
+                            score_offset = -30,
+                            opts = { context_size = 3 },
+                        },
+                    },
+                },
+                windows = {
+                    autocomplete = { selection = "manual" },
+                    documentation = { auto_show = true },
+                },
+            }
+        end,
     },
 }
