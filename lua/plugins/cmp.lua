@@ -15,7 +15,7 @@ return {
             { "kristijanhusak/vim-dadbod-completion", dependencies = { "tpope/vim-dadbod" } },
             "mikavilpas/blink-ripgrep.nvim",
         },
-        version = "v0.*",
+        build = "cargo build --release",
         config = function()
             require("blink.cmp").setup {
                 keymap = {
@@ -56,7 +56,7 @@ return {
                     },
                 },
                 windows = {
-                    autocomplete = { selection = "manual" },
+                    autocomplete = { selection = "auto_insert" },
                     documentation = { auto_show = true },
                 },
             }
