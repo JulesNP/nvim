@@ -10,6 +10,7 @@ return {
                 local Gruvbox = require "gruvbox"
                 local palette = Gruvbox.palette
 
+                ---@diagnostic disable-next-line: missing-fields
                 Gruvbox.setup {
                     italic = {
                         comments = true,
@@ -35,13 +36,13 @@ return {
                             bold = true,
                             underline = true,
                         },
-                        IblIndent = { fg = dark and palette.dark0_soft or palette.light0_soft },
                         LspCodeLens = { italic = true, fg = palette.gray },
                         MiniDiffSignAdd = { link = "DiffAdd" },
                         MiniDiffSignChange = { link = "DiffChange" },
                         MiniDiffSignDelete = { link = "DiffDelete" },
                         RenderMarkdownCode = { bg = dark and palette.dark0_soft or palette.light0_soft },
                         RenderMarkdownCodeInline = { bg = dark and palette.dark0_soft or palette.light0_soft },
+                        SnacksIndent = { fg = dark and palette.dark0_soft or palette.light0_soft },
                         TabLineSel = { bg = dark and palette.dark0 or palette.light0 },
                         TreesitterContextLineNumber = {
                             fg = palette.gray,

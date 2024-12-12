@@ -4,6 +4,14 @@ return {
     lazy = false,
     opts = {
         bigfile = { enabled = true },
+        indent = {
+            indent = {
+                char = "▏",
+            },
+            scope = {
+                enabled = false,
+            },
+        },
         quickfile = { enabled = true },
     },
 }
