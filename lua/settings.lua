@@ -3,7 +3,6 @@ vim.g.show_mini_map = false
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 local o = vim.o
-o.clipboard = "unnamedplus"
 o.completeopt = "menuone,noinsert,noselect"
 o.conceallevel = 2
 o.confirm = true

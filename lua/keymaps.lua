@@ -26,7 +26,11 @@ vim.keymap.set("n", "<m-s>", "<cmd>mkview<bar>wall<cr>", { desc = "Save all modi
 vim.keymap.set("n", "gB", "<cmd>bprevious<cr>", { desc = "Go to previous buffer" })
 vim.keymap.set("n", "gb", "<cmd>bnext<cr>", { desc = "Go to next buffer" })
 
-vim.keymap.set({ "i", "n", "x" }, "<c-s>", "<cmd>mkview<bar>update<cr><esc>", { desc = "Save if modified" })
+vim.keymap.set({ "n", "x" }, "<c-s>", "<cmd>mkview<bar>update<cr><esc>", { desc = "Save if modified" })
+vim.keymap.set({ "n", "x" }, "gp", '"+p', { desc = "Clipboard put after cursor" })
+vim.keymap.set({ "n", "x" }, "gP", '"+P', { desc = "Clipboard put before cursor" })
+vim.keymap.set({ "n", "x" }, "gy", '"+y', { desc = "Clipboard yank" })
+vim.keymap.set("n", "gY", '"+y$', { desc = "Clipboard yank to end of line" })
 
 vim.keymap.set("i", "<c-s-v>", "<c-r>+", { desc = "Paste from clipboard" })
 

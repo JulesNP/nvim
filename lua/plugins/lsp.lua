@@ -191,33 +191,33 @@ return {
                     return { buffer = bufnr, desc = desc }
                 end
                 vim.keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, opts "Signature help")
-                vim.keymap.set("n", "<leader>D", vim.lsp.buf.declaration, opts "Go to declaration")
+                vim.keymap.set("n", "grd", vim.lsp.buf.declaration, opts "Go to declaration")
                 vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts "Add workspace folder")
                 vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
                 vim.keymap.set("n", "<leader>wl", function()
                     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
                 end, opts "List workspace folders")
-                vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts "Rename")
+                vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts "Rename")
                 vim.keymap.set("n", "K", function()
                     local peek = require("ufo").peekFoldedLinesUnderCursor()
                     if not peek then
                         vim.lsp.buf.hover()
                     end
                 end, opts "Hover")
-                vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts "Code action")
+                vim.keymap.set({ "n", "v" }, "gra", vim.lsp.buf.code_action, opts "Code action")
                 vim.keymap.set("n", "<leader>j", "<cmd>Navbuddy<cr>", opts "LSP Navbuddy finder")
-                vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, opts "Go to type definition")
+                vim.keymap.set("n", "grt", vim.lsp.buf.type_definition, opts "Go to type definition")
 
                 if vim.bo.filetype ~= "cs" then
-                    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts "Go to type definition")
-                    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts "Go to type definition")
-                    vim.keymap.set("n", "gI", vim.lsp.buf.implementation, opts "Go to type definition")
+                    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
+                    vim.keymap.set("n", "grr", vim.lsp.buf.references, opts "Go to references")
+                    vim.keymap.set("n", "gri", vim.lsp.buf.implementation, opts "Go to implementation")
                 else -- omnisharp-specific settings
                     local omni_ex = require "omnisharp_extended"
 
                     vim.keymap.set("n", "gd", omni_ex.lsp_definitions, opts "Go to definition")
-                    vim.keymap.set("n", "gr", omni_ex.lsp_references, opts "Go to references")
-                    vim.keymap.set("n", "gI", omni_ex.lsp_implementation, opts "Go to implementation")
+                    vim.keymap.set("n", "grr", omni_ex.lsp_references, opts "Go to references")
+                    vim.keymap.set("n", "gri", omni_ex.lsp_implementation, opts "Go to implementation")
                 end
 
                 vim.keymap.set("n", "<leader>bO", require("dap").step_out, opts "Step out")
@@ -292,14 +292,14 @@ return {
                             floating_window_above_cur_line = true,
                         },
                         keymaps = {
-                            close_signature = "<m-s>",
+                            close_signature = "<c-s>",
                             next_parameter = "<m-l>",
                             next_signature = "<m-j>",
                             previous_parameter = "<m-h>",
                             previous_signature = "<m-k>",
                         },
                     })
-                    vim.keymap.set("i", "<m-s>", "<cmd>LspOverloadsSignature<cr>", opts "Signature help")
+                    vim.keymap.set("i", "<c-s>", "<cmd>LspOverloadsSignature<cr>", opts "Signature help")
                 end
             end,
         })

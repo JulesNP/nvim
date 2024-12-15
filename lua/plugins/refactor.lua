@@ -10,7 +10,9 @@ return {
     config = function()
         local re = require "refactoring"
 
-        re.setup {}
+        re.setup {
+            show_success_message = true,
+        }
 
         vim.api.nvim_create_autocmd("FileType", {
             group = vim.api.nvim_create_augroup("RefactoringSetup", { clear = true }),
@@ -22,13 +24,13 @@ return {
                     end, { desc = desc, buffer = opts.buf })
                 end
 
-                map("x", "<leader>rf", "Extract Function")
-                map("x", "<leader>rF", "Extract Function To File")
-                map("x", "<leader>rv", "Extract Variable")
-                map("n", "<leader>rI", "Inline Function")
-                map({ "n", "x" }, "<leader>ri", "Inline Variable")
-                map("n", "<leader>rb", "Extract Block")
-                map("n", "<leader>rB", "Extract Block To File")
+                map("x", "grm", "Extract Function")
+                map("x", "grf", "Extract Function To File")
+                map("x", "grv", "Extract Variable")
+                map("n", "grM", "Inline Function")
+                map({ "n", "x" }, "grV", "Inline Variable")
+                map("n", "grb", "Extract Block")
+                map("n", "grf", "Extract Block To File")
             end,
         })
     end,
