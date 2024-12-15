@@ -15,6 +15,7 @@ return {
             integrations = {
                 diffview = true,
             },
+            use_per_project_settings = false,
         },
     },
 }
