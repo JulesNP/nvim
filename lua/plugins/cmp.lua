@@ -14,16 +14,17 @@ return {
     },
     { "Bilal2453/luvit-meta", lazy = true },
     {
-        "hrsh7th/nvim-cmp",
+        "iguanacucumber/magazine.nvim",
+        name = "nvim-cmp", -- Otherwise highlighting gets messed up
         cond = not vim.g.vscode,
         event = { "CmdlineEnter", "InsertEnter" },
         dependencies = {
-            "FelipeLema/cmp-async-path",
-            "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-calc",
-            "hrsh7th/cmp-cmdline",
             "hrsh7th/cmp-emoji",
-            "hrsh7th/cmp-nvim-lsp",
+            "https://codeberg.org/FelipeLema/cmp-async-path",
+            { "iguanacucumber/mag-nvim-lsp", name = "cmp-nvim-lsp", opts = {} },
+            { "iguanacucumber/mag-buffer", name = "cmp-buffer" },
+            { "iguanacucumber/mag-cmdline", name = "cmp-cmdline" },
             "lukas-reineke/cmp-rg",
             "petertriho/cmp-git",
             "saadparwaiz1/cmp_luasnip",
