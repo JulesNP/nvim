@@ -1,4 +1,4 @@
-local filetypes = { "c", "cpp", "go", "java", "javascript", "lua", "php", "python", "ruby", "typescript" }
+local filetypes = { "c", "cpp", "cs", "go", "java", "javascript", "lua", "php", "python", "ruby", "typescript" }
 return {
     "ThePrimeagen/refactoring.nvim",
     cond = not vim.g.vscode,
@@ -11,6 +11,18 @@ return {
         local re = require "refactoring"
 
         re.setup {
+            prompt_func_return_type = {
+                go = true,
+                cpp = true,
+                c = true,
+                java = true,
+            },
+            prompt_func_param_type = {
+                go = true,
+                cpp = true,
+                c = true,
+                java = true,
+            },
             show_success_message = true,
         }
 
