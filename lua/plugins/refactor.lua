@@ -8,9 +8,9 @@ return {
         "nvim-treesitter/nvim-treesitter",
     },
     config = function()
-        local re = require "refactoring"
+        local refactoring = require "refactoring"
 
-        re.setup {
+        refactoring.setup {
             prompt_func_return_type = {
                 go = true,
                 cpp = true,
@@ -29,20 +29,10 @@ return {
         vim.api.nvim_create_autocmd("FileType", {
             group = vim.api.nvim_create_augroup("RefactoringSetup", { clear = true }),
             pattern = filetypes,
-            callback = function(opts)
-                local function map(mode, key, desc)
-                    vim.keymap.set(mode, key, function()
-                        re.refactor(desc)
-                    end, { desc = desc, buffer = opts.buf })
-                end
-
-                map("x", "grm", "Extract Function")
-                map("x", "grf", "Extract Function To File")
-                map("x", "grv", "Extract Variable")
-                map("n", "grM", "Inline Function")
-                map({ "n", "x" }, "grV", "Inline Variable")
-                map("n", "grb", "Extract Block")
-                map("n", "grf", "Extract Block To File")
+            callback = function()
+                vim.keymap.set({ "n", "x" }, "grf", function()
+                    refactoring.select_refactor {}
+                end)
             end,
         })
     end,

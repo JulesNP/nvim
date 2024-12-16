@@ -13,7 +13,6 @@ vim.keymap.set("n", "<leader>X", "<cmd>bdelete<cr>", { desc = "Close window and 
 vim.keymap.set("n", "<leader>gf", "<cmd>e <cfile><cr>", { desc = "Create file under cursor" })
 vim.keymap.set("n", "<leader>ll", "<cmd>Lazy<cr>", { desc = "Open Lazy.nvim" })
 vim.keymap.set("n", "<leader>n", "<cmd>enew<cr>", { desc = "New buffer" })
-vim.keymap.set("n", "<leader>tl", "<cmd>set number! relativenumber!<cr>", { desc = "Toggle line numbers" })
 vim.keymap.set("n", "<leader>th", function()
     vim.g.show_inlay_hints = not vim.g.show_inlay_hints
     vim.lsp.inlay_hint.enable(vim.g.show_inlay_hints)

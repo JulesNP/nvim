@@ -1,8 +1,24 @@
 return {
     "barklan/capslock.nvim",
     keys = {
-        { "<c-g>c", "<plug>CapsLockToggle", mode = { "c", "i", "n" }, desc = "Toggle soft caps lock" },
-        { "<c-l>", "<plug>CapsLockToggle", mode = "i", desc = "Toggle soft caps lock" },
+        {
+            "<leader>tl",
+            "<plug>CapsLockToggle<cmd>=require('capslock').status_string()<cr>",
+            mode = "n",
+            desc = "Toggle soft caps lock",
+        },
+        {
+            "<c-l>",
+            "<plug>CapsLockToggle<cmd>=require('capslock').status_string()<cr>",
+            mode = "i",
+            desc = "Toggle soft caps lock",
+        },
+        {
+            "<c-l>",
+            "<plug>CapsLockToggle",
+            mode = "c",
+            desc = "Toggle soft caps lock",
+        },
     },
     opts = {},
 }
