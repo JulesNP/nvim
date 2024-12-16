@@ -32,7 +32,7 @@ return {
             callback = function()
                 vim.keymap.set({ "n", "x" }, "grf", function()
                     refactoring.select_refactor {}
-                end)
+                end, { desc = "Refactor" })
             end,
         })
     end,

@@ -88,17 +88,13 @@ local function mini_clue_setup()
             MiniClue.gen_clues.z(),
             { mode = "n", keys = "<leader>b", desc = "+debug" },
             { mode = "n", keys = "<leader>d", desc = "+diffview" },
-            { mode = "n", keys = "<leader>e", desc = "+rest" },
             { mode = "n", keys = "<leader>f", desc = "+find" },
             { mode = "n", keys = "<leader>g", desc = "+git" },
             { mode = "n", keys = "<leader>h", desc = "+hunk" },
             { mode = "n", keys = "<leader>l", desc = "+lsp" },
             { mode = "n", keys = "<leader>o", desc = "+orgmode" },
-            { mode = "n", keys = "<leader>r", desc = "+refactor" },
             { mode = "n", keys = "<leader>s", desc = "+session" },
             { mode = "n", keys = "<leader>t", desc = "+toggle" },
-            { mode = "x", keys = "<leader>h", desc = "+hunk" },
-            { mode = "x", keys = "<leader>r", desc = "+refactor" },
         },
     }
 end
