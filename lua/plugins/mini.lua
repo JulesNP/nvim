@@ -54,6 +54,36 @@ local function mini_ai_setup()
     }
 end
 
+local function mini_bracketed_setup()
+    require("mini.bracketed").setup {
+        indent = { suffix = "" },
+    }
+    vim.keymap.set(
+        "n",
+        "[e",
+        "<cmd>lua MiniBracketed.diagnostic('backward', { severity = vim.diagnostic.severity.ERROR })<cr>",
+        { desc = "Error backward" }
+    )
+    vim.keymap.set(
+        "n",
+        "]e",
+        "<cmd>lua MiniBracketed.diagnostic('forward', { severity = vim.diagnostic.severity.ERROR })<cr>",
+        { desc = "Error forward" }
+    )
+    vim.keymap.set(
+        "n",
+        "[E",
+        "<cmd>lua MiniBracketed.diagnostic('first', { severity = vim.diagnostic.severity.ERROR })<cr>",
+        { desc = "Error first" }
+    )
+    vim.keymap.set(
+        "n",
+        "]E",
+        "<cmd>lua MiniBracketed.diagnostic('last', { severity = vim.diagnostic.severity.ERROR })<cr>",
+        { desc = "Error last" }
+    )
+end
+
 local function mini_clue_setup()
     local MiniClue = require "mini.clue"
     MiniClue.setup {
@@ -675,33 +705,7 @@ return {
 
         require("mini.align").setup {}
 
-        require("mini.bracketed").setup {
-            indent = { suffix = "" },
-        }
-        vim.keymap.set(
-            "n",
-            "[e",
-            "<cmd>lua MiniBracketed.diagnostic('backward', { severity = vim.diagnostic.severity.ERROR })<cr>",
-            { desc = "Error backward" }
-        )
-        vim.keymap.set(
-            "n",
-            "]e",
-            "<cmd>lua MiniBracketed.diagnostic('forward', { severity = vim.diagnostic.severity.ERROR })<cr>",
-            { desc = "Error forward" }
-        )
-        vim.keymap.set(
-            "n",
-            "[E",
-            "<cmd>lua MiniBracketed.diagnostic('first', { severity = vim.diagnostic.severity.ERROR })<cr>",
-            { desc = "Error first" }
-        )
-        vim.keymap.set(
-            "n",
-            "]E",
-            "<cmd>lua MiniBracketed.diagnostic('last', { severity = vim.diagnostic.severity.ERROR })<cr>",
-            { desc = "Error last" }
-        )
+        mini_bracketed_setup()
 
         if vim.fn.has "nvim-0.10" ~= 1 then
             require("mini.comment").setup {}
