@@ -18,7 +18,6 @@ o.linebreak = true
 o.mouse = "a"
 o.mousemodel = "popup"
 o.number = true
-o.pumblend = 10
 o.pumheight = 10
 o.ruler = false
 o.shiftwidth = 4
@@ -36,7 +35,6 @@ o.undofile = true
 o.updatetime = 1000
 o.viewoptions = "folds,cursor"
 o.whichwrap = "b,s,<,>,[,]"
-o.winblend = 10
 o.wrap = false
 
 if os.getenv "SSH_CONNECTION" == nil then
@@ -45,6 +43,8 @@ end
 
 if vim.g.neovide then
     o.inccommand = "nosplit"
+    o.pumblend = 10
+    o.winblend = 10
     vim.g.neovide_input_macos_option_key_is_meta = "both"
     vim.keymap.set("n", "<leader>tf", function()
         vim.g.neovide_fullscreen = vim.g.neovide_fullscreen == 1 and 0 or 1
