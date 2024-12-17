@@ -156,7 +156,7 @@ local function mini_files_setup()
     end
 
     local filter_hide = function(fs_entry)
-        return not vim.startswith(fs_entry.name, ".")
+        return not vim.startswith(fs_entry.name, ".") and not vim.endswith(fs_entry.name, "__virtual.html")
     end
 
     local toggle_dotfiles = function()

@@ -1,3 +1,76 @@
+local function setup_roslyn(capabilities, include_rzls)
+    local config = {
+        capabilities = capabilities,
+        settings = {
+            ["csharp|completion"] = {
+                dotnet_provide_regex_completions = true,
+                dotnet_show_completion_items_from_unimported_namespaces = true,
+                dotnet_show_name_completion_suggestions = true,
+            },
+            ["csharp|inlay_hints"] = {
+                csharp_enable_inlay_hints_for_implicit_object_creation = true,
+                csharp_enable_inlay_hints_for_implicit_variable_types = true,
+                csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+                csharp_enable_inlay_hints_for_types = true,
+                dotnet_enable_inlay_hints_for_indexer_parameters = true,
+                dotnet_enable_inlay_hints_for_literal_parameters = true,
+                dotnet_enable_inlay_hints_for_object_creation_parameters = true,
+                dotnet_enable_inlay_hints_for_other_parameters = true,
+                dotnet_enable_inlay_hints_for_parameters = true,
+                dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = true,
+                dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = true,
+                dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = true,
+            },
+            ["csharp|code_lens"] = {
+                dotnet_enable_references_code_lens = true,
+            },
+        },
+    }
+
+    if include_rzls then
+        config.handlers = require "rzls.roslyn_handlers"
+
+        require("roslyn").setup {
+            args = {
+                "--logLevel=Information",
+                "--extensionLogDirectory=" .. vim.fs.dirname(vim.lsp.get_log_path()),
+                "--razorSourceGenerator=" .. vim.fs.joinpath(
+                    vim.fn.stdpath "data" --[[@as string]],
+                    "mason",
+                    "packages",
+                    "roslyn",
+                    "libexec",
+                    "Microsoft.CodeAnalysis.Razor.Compiler.dll"
+                ),
+                "--razorDesignTimePath=" .. vim.fs.joinpath(
+                    vim.fn.stdpath "data" --[[@as string]],
+                    "mason",
+                    "packages",
+                    "rzls",
+                    "libexec",
+                    "Targets",
+                    "Microsoft.NET.Sdk.Razor.DesignTime.targets"
+                ),
+            },
+            config = config,
+        }
+
+        ---@diagnostic disable-next-line: missing-fields
+        require("rzls").setup {
+            capabilities = capabilities,
+        }
+        vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+            group = vim.api.nvim_create_augroup("RazorFiletype", { clear = true }),
+            pattern = "*.cshtml",
+            callback = function()
+                vim.bo.filetype = "razor"
+            end,
+        })
+    else
+        require("roslyn").setup { config = config }
+    end
+end
+
 return {
     "neovim/nvim-lspconfig",
     cond = not vim.g.vscode,
@@ -7,7 +80,6 @@ return {
         { "<leader>m", "<cmd>Mason<cr>", desc = "Open Mason" },
     },
     dependencies = {
-        "Hoffs/omnisharp-extended-lsp.nvim",
         "Issafalcon/lsp-overloads.nvim",
         "hrsh7th/cmp-nvim-lsp",
         "jay-babu/mason-null-ls.nvim",
@@ -20,6 +92,8 @@ return {
         "nvimtools/none-ls.nvim",
         "pmizio/typescript-tools.nvim",
         "rcarriga/nvim-dap-ui",
+        "seblj/roslyn.nvim",
+        "tris203/rzls.nvim",
         "williamboman/mason-lspconfig.nvim",
         "williamboman/mason.nvim",
         { "JulesNP/Ionide-vim", branch = "indent" },
@@ -44,6 +118,10 @@ return {
     end,
     config = function()
         require("mason").setup {
+            registries = {
+                "github:mason-org/mason-registry",
+                "github:crashdummyy/mason-registry",
+            },
             ui = {
                 border = "rounded",
             },
@@ -125,6 +203,9 @@ return {
         if vim.fn.executable "gleam" == 1 then
             lspconfig.gleam.setup { capabilities = capabilities }
         end
+        if vim.fn.executable "roslyn" == 1 then
+            setup_roslyn(capabilities, vim.fn.executable "rzls" == 1)
+        end
 
         local null_ls = require "null-ls"
         local builtins = null_ls.builtins
@@ -190,36 +271,26 @@ return {
                 local function opts(desc)
                     return { buffer = bufnr, desc = desc }
                 end
+                vim.keymap.set("n", "<leader>j", "<cmd>Navbuddy<cr>", opts "LSP Navbuddy finder")
                 vim.keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, opts "Signature help")
-                vim.keymap.set("n", "grd", vim.lsp.buf.declaration, opts "Go to declaration")
                 vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts "Add workspace folder")
-                vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
                 vim.keymap.set("n", "<leader>wl", function()
                     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
                 end, opts "List workspace folders")
-                vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts "Rename")
+                vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
                 vim.keymap.set("n", "K", function()
                     local peek = require("ufo").peekFoldedLinesUnderCursor()
                     if not peek then
                         vim.lsp.buf.hover()
                     end
                 end, opts "Hover")
+                vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
                 vim.keymap.set({ "n", "v" }, "gra", vim.lsp.buf.code_action, opts "Code action")
-                vim.keymap.set("n", "<leader>j", "<cmd>Navbuddy<cr>", opts "LSP Navbuddy finder")
+                vim.keymap.set("n", "grd", vim.lsp.buf.declaration, opts "Go to declaration")
+                vim.keymap.set("n", "gri", vim.lsp.buf.implementation, opts "Go to implementation")
+                vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts "Rename")
+                vim.keymap.set("n", "grr", vim.lsp.buf.references, opts "Go to references")
                 vim.keymap.set("n", "grt", vim.lsp.buf.type_definition, opts "Go to type definition")
-
-                if vim.bo.filetype ~= "cs" then
-                    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
-                    vim.keymap.set("n", "grr", vim.lsp.buf.references, opts "Go to references")
-                    vim.keymap.set("n", "gri", vim.lsp.buf.implementation, opts "Go to implementation")
-                else -- omnisharp-specific settings
-                    local omni_ex = require "omnisharp_extended"
-
-                    vim.keymap.set("n", "gd", omni_ex.lsp_definitions, opts "Go to definition")
-                    vim.keymap.set("n", "grr", omni_ex.lsp_references, opts "Go to references")
-                    vim.keymap.set("n", "gri", omni_ex.lsp_implementation, opts "Go to implementation")
-                end
-
                 vim.keymap.set("n", "<leader>bO", require("dap").step_out, opts "Step out")
                 vim.keymap.set("n", "<leader>bb", require("dap").toggle_breakpoint, opts "Toggle breakpoint")
                 vim.keymap.set("n", "<leader>bc", require("dap").continue, opts "Continue")
