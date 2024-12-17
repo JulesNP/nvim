@@ -256,9 +256,9 @@ return {
             handlers = {},
         }
 
-        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(require "hover", {
-            border = "rounded",
-        })
+        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(require "hover", { border = "rounded" })
+        vim.lsp.handlers["textDocument/signatureHelp"] =
+            vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
         vim.keymap.set("n", "<leader>i", vim.diagnostic.open_float, { desc = "View diagnostic info" })
         vim.keymap.set("n", "<leader>q", vim.diagnostic.setqflist, { desc = "List diagnostics" })
