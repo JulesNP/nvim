@@ -23,6 +23,7 @@ local function setup_roslyn(capabilities, include_rzls)
             },
             ["csharp|code_lens"] = {
                 dotnet_enable_references_code_lens = true,
+                dotnet_enable_tests_code_lens = true,
             },
         },
     }
