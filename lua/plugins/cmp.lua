@@ -38,6 +38,20 @@ return {
 
             require("luasnip.loaders.from_vscode").lazy_load()
 
+            local buffer_source = {
+                name = "buffer",
+                priority = -1000,
+                option = {
+                    get_bufnrs = function()
+                        local bufs = {}
+                        for _, win in ipairs(vim.api.nvim_list_wins()) do
+                            bufs[vim.api.nvim_win_get_buf(win)] = true
+                        end
+                        return vim.tbl_keys(bufs)
+                    end,
+                },
+            }
+
             cmp.setup {
                 snippet = {
                     expand = function(args)
@@ -102,19 +116,7 @@ return {
                             additional_arguments = "--max-depth 4 --one-file-system --smart-case",
                         },
                     },
-                    {
-                        name = "buffer",
-                        priority = -1000,
-                        option = {
-                            get_bufnrs = function()
-                                local bufs = {}
-                                for _, win in ipairs(vim.api.nvim_list_wins()) do
-                                    bufs[vim.api.nvim_win_get_buf(win)] = true
-                                end
-                                return vim.tbl_keys(bufs)
-                            end,
-                        },
-                    },
+                    buffer_source,
                     {
                         name = "lazydev",
                         group_index = 0,
@@ -174,18 +176,7 @@ return {
                     { name = "nvim_lsp" },
                     { name = "async_path" },
                     { name = "calc" },
-                    {
-                        name = "buffer",
-                        option = {
-                            get_bufnrs = function()
-                                local bufs = {}
-                                for _, win in ipairs(vim.api.nvim_list_wins()) do
-                                    bufs[vim.api.nvim_win_get_buf(win)] = true
-                                end
-                                return vim.tbl_keys(bufs)
-                            end,
-                        },
-                    },
+                    buffer_source,
                     { name = "vim-dadbod-completion" },
                 },
             })
