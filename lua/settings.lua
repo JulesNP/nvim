@@ -10,7 +10,6 @@ o.confirm = true
 o.expandtab = true
 o.foldlevel = 99
 o.foldlevelstart = 99
-o.guifont = "Iosevka Nerd Font:h15"
 o.ignorecase = true
 o.inccommand = "split"
 o.infercase = true
