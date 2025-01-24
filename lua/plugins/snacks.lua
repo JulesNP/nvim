@@ -21,6 +21,7 @@ return {
                 enabled = false,
             },
         },
+        scroll = not vim.g.neovide and {} or nil,
         quickfile = { enabled = true },
     },
 }
