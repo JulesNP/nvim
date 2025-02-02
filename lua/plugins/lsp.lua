@@ -215,7 +215,7 @@ return {
             builtins.hover.dictionary,
         }
         local optional = {
-            prettier = { builtins.formatting.prettier.with { extra_filetypes = { "pug" } } },
+            prettier = { builtins.formatting.prettier.with { extra_filetypes = { "astro", "pug" } } },
             stylua = { builtins.formatting.stylua },
         }
         for key, values in pairs(optional) do
