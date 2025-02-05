@@ -7,6 +7,7 @@ o.clipboard = "unnamedplus"
 o.completeopt = "menuone,noinsert,noselect"
 o.conceallevel = 2
 o.confirm = true
+o.diffopt = "internal,filler,closeoff,linematch:60,algorithm:histogram"
 o.expandtab = true
 o.foldlevel = 99
 o.foldlevelstart = 99
