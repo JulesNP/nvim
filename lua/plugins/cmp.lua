@@ -10,6 +10,8 @@ return {
     },
     {
         "saghen/blink.cmp",
+        cond = not vim.g.vscode,
+        event = { "CmdlineEnter", "InsertEnter" },
         dependencies = {
             { "Kaiser-Yang/blink-cmp-git", dependencies = { "nvim-lua/plenary.nvim" } },
             "rafamadriz/friendly-snippets",
