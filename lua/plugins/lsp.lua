@@ -128,13 +128,13 @@ return {
         }
         local lspconfig = require "lspconfig"
         local mason_lsp = require "mason-lspconfig"
-        mason_lsp.setup {}
+        mason_lsp.setup()
 
         local capabilities = require("blink.cmp").get_lsp_capabilities()
-        -- capabilities.textDocument.foldingRange = {
-        --     dynamicRegistration = false,
-        --     lineFoldingOnly = true,
-        -- }
+        capabilities.textDocument.foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true,
+        }
 
         local function lua_setup()
             lspconfig.lua_ls.setup {
