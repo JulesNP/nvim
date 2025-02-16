@@ -8,6 +8,18 @@ return {
         },
         search = {
             incremental = true,
+            exclude = {
+                "blink-cmp-menu",
+                "blink-cmp-documentation",
+                "blink-cmp-signature",
+                "notify",
+                "cmp_menu",
+                "noice",
+                "flash_prompt",
+                function(win)
+                    return not vim.api.nvim_win_get_config(win).focusable
+                end,
+            },
         },
         modes = {
             search = {
