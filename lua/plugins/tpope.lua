@@ -4,9 +4,15 @@ return {
         cond = not vim.g.vscode,
         dependencies = {
             "lifepillar/pgsql.vim",
-            "tpope/vim-dadbod",
+            { "tpope/vim-dadbod", lazy = true },
+            { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
         },
-        event = { "BufRead", "CmdlineEnter", "InsertEnter" },
+        cmd = {
+            "DBUI",
+            "DBUIToggle",
+            "DBUIAddConnection",
+            "DBUIFindBuffer",
+        },
         ft = { "dbui", "dbout", "sql", "mysql", "plsql", "psql" },
         keys = vim.g.vscode and {} or {
             {

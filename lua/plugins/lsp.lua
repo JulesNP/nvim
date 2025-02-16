@@ -81,8 +81,7 @@ return {
         { "<leader>m", "<cmd>Mason<cr>", desc = "Open Mason" },
     },
     dependencies = {
-        "Issafalcon/lsp-overloads.nvim",
-        "hrsh7th/cmp-nvim-lsp",
+        "saghen/blink.cmp",
         "jay-babu/mason-null-ls.nvim",
         "jay-babu/mason-nvim-dap.nvim",
         "joechrisellis/lsp-format-modifications.nvim",
@@ -131,11 +130,11 @@ return {
         local mason_lsp = require "mason-lspconfig"
         mason_lsp.setup {}
 
-        local capabilities = require("cmp_nvim_lsp").default_capabilities()
-        capabilities.textDocument.foldingRange = {
-            dynamicRegistration = false,
-            lineFoldingOnly = true,
-        }
+        local capabilities = require("blink.cmp").get_lsp_capabilities()
+        -- capabilities.textDocument.foldingRange = {
+        --     dynamicRegistration = false,
+        --     lineFoldingOnly = true,
+        -- }
 
         local function lua_setup()
             lspconfig.lua_ls.setup {
@@ -155,7 +154,9 @@ return {
 
         mason_lsp.setup_handlers {
             function(server_name)
-                lspconfig[server_name].setup { capabilities = capabilities }
+                lspconfig[server_name].setup {
+                    capabilities = capabilities,
+                }
             end,
             fsautocomplete = function()
                 vim.g["fsharp#external_autocomplete"] = 1
@@ -198,11 +199,9 @@ return {
         end
         -- Set up ccls separately, since it isn't available through Mason
         if vim.fn.executable "ccls" == 1 then
-            lspconfig.ccls.setup { capabilities = capabilities }
-        end
-        -- Check for local install of gleam, due to issues with Mason version
-        if vim.fn.executable "gleam" == 1 then
-            lspconfig.gleam.setup { capabilities = capabilities }
+            lspconfig.ccls.setup {
+                capabilities = capabilities,
+            }
         end
         if vim.fn.executable "roslyn" == 1 then
             setup_roslyn(capabilities, vim.fn.executable "rzls" == 1)
@@ -355,23 +354,6 @@ return {
                         })
                         vim.keymap.set("n", "<leader>fc", "<cmd>FormatModifications<cr>", opts "Format changes")
                     end
-                end
-
-                if client.server_capabilities.signatureHelpProvider and vim.bo.filetype ~= "css" then
-                    require("lsp-overloads").setup(client, { ---@diagnostic disable-line: missing-fields
-                        ui = { ---@diagnostic disable-line: missing-fields
-                            border = "rounded",
-                            floating_window_above_cur_line = true,
-                        },
-                        keymaps = {
-                            close_signature = "<c-s>",
-                            next_parameter = "<m-l>",
-                            next_signature = "<m-j>",
-                            previous_parameter = "<m-h>",
-                            previous_signature = "<m-k>",
-                        },
-                    })
-                    vim.keymap.set("i", "<c-s>", "<cmd>LspOverloadsSignature<cr>", opts "Signature help")
                 end
             end,
         })

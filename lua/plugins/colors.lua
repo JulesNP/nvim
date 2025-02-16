@@ -20,6 +20,7 @@ return {
                         strings = false,
                     },
                     overrides = {
+                        BlinkCmpGhostText = { link = "Comment" },
                         EyelinerPrimary = { bold = true, underline = true },
                         EyelinerSecondary = { bold = true },
                         FlashLabel = {
