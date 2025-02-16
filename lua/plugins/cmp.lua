@@ -84,6 +84,11 @@ return {
                         name = "Ripgrep",
                         module = "blink-ripgrep",
                         score_offset = -5,
+                        opts = {
+                            project_root_fallback = false,
+                            search_casing = "--smart-case",
+                            additional_arguments = { "--max-depth 4", "--one-file-system" },
+                        },
                     },
                 },
             },
