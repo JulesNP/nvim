@@ -1,7 +1,7 @@
 {
   "Ionide-vim": { "branch": "indent", "commit": "77df81bed74e1b3f624c15e977a0d91501b23732" },
   "Vim-Jinja2-Syntax": { "branch": "master", "commit": "2c17843b074b06a835f88587e1023ceff7e2c7d1" },
-  "blink-cmp-git": { "branch": "master", "commit": "9dcee73cbd6f1c622a3c2ec8631f5aeb59b4ecdd" },
+  "blink-emoji.nvim": { "branch": "master", "commit": "a77aebc092ebece1eed108f301452ae774d6b67a" },
   "blink-ripgrep.nvim": { "branch": "main", "commit": "9bdbf9af7d78f20ab8a58430f11fdc1a65e9de4a" },
   "blink.cmp": { "branch": "main", "commit": "cc2f10e9d8b6420324d4743a4d9a428de427e2cf" },
   "capslock.nvim": { "branch": "main", "commit": "35b560dd5585cd60e45a2367ad6ff9873f4c21a2" },

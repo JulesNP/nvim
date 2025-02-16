@@ -13,10 +13,10 @@ return {
         cond = not vim.g.vscode,
         event = { "CmdlineEnter", "InsertEnter" },
         dependencies = {
-            { "Kaiser-Yang/blink-cmp-git", dependencies = { "nvim-lua/plenary.nvim" } },
-            "rafamadriz/friendly-snippets",
             "kristijanhusak/vim-dadbod-ui",
             "mikavilpas/blink-ripgrep.nvim",
+            "moyiz/blink-emoji.nvim",
+            "rafamadriz/friendly-snippets",
         },
         version = "*",
         opts = {
@@ -54,7 +54,16 @@ return {
                 },
             },
             sources = {
-                default = { "lazydev", "git", "lsp", "path", "snippets", "buffer", "dadbod", "ripgrep" },
+                default = {
+                    "lazydev",
+                    "lsp",
+                    "path",
+                    "snippets",
+                    "buffer",
+                    "dadbod",
+                    "emoji",
+                    "ripgrep",
+                },
                 providers = {
                     buffer = {
                         opts = {
@@ -69,9 +78,10 @@ return {
                         name = "Dadbod",
                         module = "vim_dadbod_completion.blink",
                     },
-                    git = {
-                        module = "blink-cmp-git",
-                        name = "Git",
+                    emoji = {
+                        module = "blink-emoji",
+                        name = "Emoji",
+                        score_offset = 15,
                     },
                     lazydev = {
                         name = "LazyDev",
