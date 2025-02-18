@@ -115,6 +115,12 @@ return {
         -- Prevent auto setup of Ionide
         vim.g["fsharp#lsp_auto_setup"] = 0
         vim.g["fsharp#lsp_recommended_colorscheme"] = 0
+
+        _G.code_action_repeat = false
+        _G.code_action = function()
+            vim.lsp.buf.code_action { apply = _G.code_action_repeat }
+            _G.code_action_repeat = true
+        end
     end,
     config = function()
         require("mason").setup {
@@ -285,7 +291,11 @@ return {
                     end
                 end, opts "Hover")
                 vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
-                vim.keymap.set({ "n", "v" }, "gra", vim.lsp.buf.code_action, opts "Code action")
+                vim.keymap.set({ "n", "v" }, "gra", function()
+                    _G.code_action_repeat = false
+                    vim.o.operatorfunc = "v:lua.code_action"
+                    return "g@l"
+                end, { expr = true, buffer = bufnr, desc = "Code action" })
                 vim.keymap.set("n", "grd", vim.lsp.buf.declaration, opts "Go to declaration")
                 vim.keymap.set("n", "gri", vim.lsp.buf.implementation, opts "Go to implementation")
                 vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts "Rename")
