@@ -66,6 +66,9 @@ return {
                     "ripgrep",
                 },
                 providers = {
+                    buffer = {
+                        score_offset = -5,
+                    },
                     dadbod = {
                         name = "Dadbod",
                         module = "vim_dadbod_completion.blink",
