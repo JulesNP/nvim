@@ -7,7 +7,14 @@ o.clipboard = "unnamedplus"
 o.completeopt = "menuone,noinsert,noselect"
 o.conceallevel = 2
 o.confirm = true
-o.diffopt = "internal,filler,closeoff,linematch:60,algorithm:histogram"
+vim.opt.diffopt = {
+    "algorithm:histogram",
+    "closeoff",
+    "filler",
+    "indent-heuristic",
+    "internal",
+    "linematch:60",
+}
 o.expandtab = true
 o.foldlevel = 99
 o.foldlevelstart = 99
