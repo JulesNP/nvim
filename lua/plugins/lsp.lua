@@ -1,6 +1,7 @@
 local function setup_roslyn(capabilities, include_rzls)
     local config = {
         capabilities = capabilities,
+        handlers = require "rzls.roslyn_handlers",
         settings = {
             ["csharp|completion"] = {
                 dotnet_provide_regex_completions = true,
@@ -33,6 +34,7 @@ local function setup_roslyn(capabilities, include_rzls)
 
         require("roslyn").setup {
             args = {
+                "--stdio",
                 "--logLevel=Information",
                 "--extensionLogDirectory=" .. vim.fs.dirname(vim.lsp.get_log_path()),
                 "--razorSourceGenerator=" .. vim.fs.joinpath(
@@ -92,7 +94,7 @@ return {
         "nvimtools/none-ls.nvim",
         "pmizio/typescript-tools.nvim",
         "rcarriga/nvim-dap-ui",
-        "seblj/roslyn.nvim",
+        "seblyng/roslyn.nvim",
         "tris203/rzls.nvim",
         "williamboman/mason-lspconfig.nvim",
         "williamboman/mason.nvim",
