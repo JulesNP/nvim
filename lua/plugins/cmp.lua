@@ -56,7 +56,6 @@ return {
             },
             sources = {
                 default = {
-                    "lazydev",
                     "lsp",
                     "path",
                     "snippets",
@@ -65,9 +64,20 @@ return {
                     "emoji",
                     "ripgrep",
                 },
+                per_filetype = {
+                    lua = {
+                        "lazydev",
+                        "lsp",
+                        "path",
+                        "snippets",
+                        "buffer",
+                        "emoji",
+                        "ripgrep",
+                    },
+                },
                 providers = {
                     buffer = {
-                        score_offset = -5,
+                        score_offset = -8,
                     },
                     dadbod = {
                         name = "Dadbod",
@@ -76,17 +86,17 @@ return {
                     emoji = {
                         module = "blink-emoji",
                         name = "Emoji",
-                        score_offset = 15,
+                        score_offset = 16,
                     },
                     lazydev = {
                         name = "LazyDev",
                         module = "lazydev.integrations.blink",
-                        score_offset = 100,
+                        score_offset = 128,
                     },
                     ripgrep = {
                         name = "Ripgrep",
                         module = "blink-ripgrep",
-                        score_offset = -5,
+                        score_offset = -8,
                         opts = {
                             project_root_fallback = false,
                             search_casing = "--smart-case",
