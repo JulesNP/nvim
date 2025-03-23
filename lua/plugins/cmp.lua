@@ -78,6 +78,9 @@ return {
                 providers = {
                     buffer = {
                         score_offset = -8,
+                        opts = {
+                            get_bufnrs = vim.api.nvim_list_bufs,
+                        },
                     },
                     dadbod = {
                         name = "Dadbod",
