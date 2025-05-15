@@ -115,8 +115,9 @@ return {
     },
     init = function()
         -- Prevent auto setup of Ionide
-        vim.g["fsharp#lsp_auto_setup"] = 0
-        vim.g["fsharp#lsp_recommended_colorscheme"] = 0
+        vim.g["fsharp#external_autocomplete"] = 1
+        vim.g["fsharp#simplify_name_analyzer"] = 1
+        vim.g["fsharp#lsp_codelens"] = 0
 
         _G.code_action_repeat = false
         _G.code_action = function()
@@ -136,7 +137,14 @@ return {
         }
         local lspconfig = require "lspconfig"
         local mason_lsp = require "mason-lspconfig"
-        mason_lsp.setup()
+        ---@diagnostic disable-next-line: missing-fields
+        mason_lsp.setup {
+            automatic_enable = {
+                exclude = {
+                    "fsautocomplete",
+                },
+            },
+        }
 
         local capabilities = require("blink.cmp").get_lsp_capabilities()
         capabilities.textDocument.foldingRange = {
@@ -160,44 +168,33 @@ return {
             }
         end
 
-        mason_lsp.setup_handlers {
-            function(server_name)
-                lspconfig[server_name].setup {
-                    capabilities = capabilities,
-                }
-            end,
-            fsautocomplete = function()
-                vim.g["fsharp#external_autocomplete"] = 1
-                vim.g["fsharp#simplify_name_analyzer"] = 1
-                vim.g["fsharp#fsi_keymap"] = "custom"
-                vim.g["fsharp#fsi_keymap_send"] = "<leader><cr>"
-                vim.g["fsharp#fsi_keymap_toggle"] = "<m-\\>"
-                vim.g["fsharp#lsp_codelens"] = 0
-
-                require("ionide").setup {
-                    autostart = true,
-                    capabilities = capabilities,
-                }
-            end,
-            lua_ls = lua_setup,
-            ts_ls = function()
-                require("typescript-tools").setup {
-                    settings = {
-                        expose_as_code_action = "all",
-                        ts_ls_file_preferences = {
-                            includeInlayParameterNameHints = "all",
-                            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                            includeInlayFunctionParameterTypeHints = true,
-                            includeInlayVariableTypeHints = true,
-                            includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-                            includeInlayPropertyDeclarationTypeHints = true,
-                            includeInlayFunctionLikeReturnTypeHints = true,
-                            includeInlayEnumMemberValueHints = true,
-                        },
-                    },
-                }
-            end,
-        }
+        -- mason_lsp.setup_handlers {
+        --     function(server_name)
+        --         lspconfig[server_name].setup {
+        --             capabilities = capabilities,
+        --         }
+        --     end,
+        --     fsautocomplete = function()
+        --     end,
+        --     lua_ls = lua_setup,
+        --     ts_ls = function()
+        --         require("typescript-tools").setup {
+        --             settings = {
+        --                 expose_as_code_action = "all",
+        --                 ts_ls_file_preferences = {
+        --                     includeInlayParameterNameHints = "all",
+        --                     includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        --                     includeInlayFunctionParameterTypeHints = true,
+        --                     includeInlayVariableTypeHints = true,
+        --                     includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+        --                     includeInlayPropertyDeclarationTypeHints = true,
+        --                     includeInlayFunctionLikeReturnTypeHints = true,
+        --                     includeInlayEnumMemberValueHints = true,
+        --                 },
+        --             },
+        --         }
+        --     end,
+        -- }
         -- Mason's install of lua-language-server doesn't work on Termux, so use globally installed version if available
         if
             not require("mason-registry").is_installed "lua-language-server"
@@ -213,6 +210,12 @@ return {
         end
         if vim.fn.executable "roslyn" == 1 then
             setup_roslyn(capabilities, vim.fn.executable "rzls" == 1)
+        end
+        if vim.fn.executable "fsautocomplete" == 1 then
+            require("ionide").setup {
+                autostart = true,
+                capabilities = capabilities,
+            }
         end
 
         local null_ls = require "null-ls"
