@@ -42,6 +42,9 @@ return {
                 nerd_font_variant = "mono",
             },
             completion = {
+                menu = {
+                    border = "none",
+                },
                 list = {
                     selection = {
                         preselect = false,

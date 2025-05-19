@@ -42,6 +42,7 @@ o.undofile = true
 o.updatetime = 1000
 o.viewoptions = "folds,cursor"
 o.whichwrap = "b,s,<,>,[,]"
+o.winborder = "rounded"
 o.wrap = false
 
 if os.getenv "SSH_CONNECTION" == nil then
