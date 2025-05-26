@@ -1,5 +1,6 @@
 return {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master",
     event = { "BufRead", "CmdlineEnter", "InsertEnter" },
     dependencies = {
         "HiPhish/rainbow-delimiters.nvim",
