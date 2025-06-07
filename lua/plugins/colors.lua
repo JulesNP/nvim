@@ -1,5 +1,4 @@
 return {
-    { "Glench/Vim-Jinja2-Syntax", event = { "BufRead", "CmdlineEnter", "InsertEnter" } },
     {
         "ellisonleao/gruvbox.nvim",
         cond = not vim.g.vscode,
