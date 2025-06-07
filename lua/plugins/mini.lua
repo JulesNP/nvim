@@ -639,7 +639,7 @@ end
 
 local function mini_sessions_setup()
     local MiniSessions = require "mini.sessions"
-    MiniSessions.setup {}
+    MiniSessions.setup { autowrite = true }
     vim.keymap.set("n", "<leader>sd", function()
         MiniSessions.select "delete"
     end, { desc = "Delete session" })
