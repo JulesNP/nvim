@@ -27,6 +27,24 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+local clipboard_focus = vim.api.nvim_create_augroup("ClipboardFocus", { clear = true })
+
+vim.api.nvim_create_autocmd("FocusLost", {
+    group = clipboard_focus,
+    desc = "Copy to clipboard on FocusLost",
+    callback = function()
+        vim.fn.setreg("+", vim.fn.getreg "0")
+    end,
+})
+
+vim.api.nvim_create_autocmd("FocusGained", {
+    group = clipboard_focus,
+    desc = "Copy from clipboard on FocusGained",
+    callback = function()
+        vim.fn.setreg("", vim.fn.getreg "+")
+    end,
+})
+
 vim.api.nvim_create_autocmd("TextYankPost", {
     group = vim.api.nvim_create_augroup("HighlightYank", { clear = true }),
     callback = function()
