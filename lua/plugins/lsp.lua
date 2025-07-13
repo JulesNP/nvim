@@ -354,12 +354,9 @@ return {
                     vim.keymap.set("n", "<leader>fm", format, opts "Format buffer")
                     if client.supports_method "textDocument/rangeFormatting" then
                         vim.bo[bufnr].formatexpr = "v:lua.vim.lsp.formatexpr()"
-                        require("lsp-format-modifications").attach(client, bufnr, {
-                            format_callback = format,
-                            format_on_save = false,
-                            experimental_empty_line_handling = true,
-                        })
-                        vim.keymap.set("n", "<leader>fc", "<cmd>FormatModifications<cr>", opts "Format changes")
+                        vim.keymap.set("n", "<leader>fc", function()
+                            require("lsp-format-modifications").format_modifications(client, bufnr)
+                        end, opts "Format changes")
                     end
                 end
             end,
