@@ -33,17 +33,40 @@ return {
                 ["<c-y>"] = { "select_and_accept", "fallback" },
                 ["<cr>"] = { "accept", "fallback" },
                 ["<down>"] = { "select_next", "fallback" },
-                ["<s-tab>"] = { "snippet_backward", "select_prev", "fallback" },
-                ["<tab>"] = { "snippet_forward", "select_next", "fallback" },
+                ["<s-tab>"] = { "select_prev", "snippet_backward", "fallback" },
+                ["<tab>"] = { "select_next", "snippet_forward", "fallback" },
                 ["<up>"] = { "select_prev", "fallback" },
             },
             appearance = {
                 use_nvim_cmp_as_default = true,
                 nerd_font_variant = "mono",
             },
+            cmdline = {
+                keymap = {
+                    ["<c-space>"] = { "show", "hide", "fallback" },
+                    ["<s-tab>"] = { "show_and_insert", "select_prev", "fallback" },
+                    ["<tab>"] = { "show_and_insert", "select_next", "fallback" },
+                },
+                completion = {
+                    menu = {
+                        auto_show = function()
+                            return vim.fn.getcmdtype() == ":"
+                        end,
+                    },
+                    list = {
+                        selection = {
+                            preselect = false,
+                        },
+                    },
+                },
+            },
             completion = {
                 menu = {
                     border = "none",
+                    draw = {
+                        treesitter = { "lsp" },
+                        columns = { { "kind_icon" }, { "label", "label_description", gap = 1 }, { "kind", gap = 1 } },
+                    },
                 },
                 list = {
                     selection = {
