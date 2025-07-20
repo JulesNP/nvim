@@ -27,6 +27,14 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+    group = filetype_settings,
+    pattern = "*.njk",
+    callback = function()
+        vim.bo.filetype = "htmldjango"
+    end,
+})
+
 local clipboard_focus = vim.api.nvim_create_augroup("ClipboardFocus", { clear = true })
 
 vim.api.nvim_create_autocmd("FocusLost", {
