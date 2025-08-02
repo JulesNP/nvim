@@ -127,9 +127,11 @@ return {
                         module = "blink-ripgrep",
                         score_offset = -8,
                         opts = {
-                            project_root_fallback = false,
-                            search_casing = "--smart-case",
-                            additional_arguments = { "--max-depth 4", "--one-file-system" },
+                            backend = {
+                                project_root_fallback = false,
+                                search_casing = "--smart-case",
+                                additional_rg_options = { "--max-depth 4", "--one-file-system" },
+                            },
                         },
                     },
                 },
