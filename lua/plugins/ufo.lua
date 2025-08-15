@@ -3,6 +3,9 @@ return {
     cond = not vim.g.vscode,
     event = { "BufRead", "CmdlineEnter", "InsertEnter" },
     dependencies = "kevinhwang91/promise-async",
+    keys = vim.g.vscode and {} or {
+        { "<leader>u", "<cmd>UfoDisableFold<cr><cmd>UfoEnableFold<cr>", "Reset folds in document" },
+    },
     config = function()
         local handler = function(virtText, lnum, endLnum, width, truncate)
             local newVirtText = {}
