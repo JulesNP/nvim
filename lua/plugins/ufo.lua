@@ -61,6 +61,8 @@ return {
             provider_selector = function(_, filetype)
                 if filetype == "git" or filetype == "diff" then
                     return ""
+                elseif filetype == "fsharp" then
+                    return "indent"
                 end
                 return { "treesitter", "indent" }
             end,
