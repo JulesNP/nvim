@@ -16,8 +16,12 @@ vim.opt.diffopt = {
     "linematch:60",
 }
 o.expandtab = true
+vim.opt.fillchars:append({fold = " "})
+o.foldcolumn = "0"
+o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 o.foldlevel = 99
-o.foldlevelstart = 99
+o.foldmethod = "expr"
+o.foldtext = ""
 o.ignorecase = true
 o.inccommand = "split"
 o.infercase = true

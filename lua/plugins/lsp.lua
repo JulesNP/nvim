@@ -87,7 +87,6 @@ return {
         "jay-babu/mason-null-ls.nvim",
         "jay-babu/mason-nvim-dap.nvim",
         "joechrisellis/lsp-format-modifications.nvim",
-        "kevinhwang91/nvim-ufo",
         "mfussenegger/nvim-dap",
         "nvim-lua/plenary.nvim",
         "nvim-neotest/nvim-nio",
@@ -281,12 +280,7 @@ return {
                     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
                 end, opts "List workspace folders")
                 vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
-                vim.keymap.set("n", "K", function()
-                    local peek = require("ufo").peekFoldedLinesUnderCursor()
-                    if not peek then
-                        vim.lsp.buf.hover()
-                    end
-                end, opts "Hover")
+                vim.keymap.set("n", "K", vim.lsp.buf.hover, opts "Hover")
                 vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
                 vim.keymap.set({ "n", "v" }, "gra", function()
                     _G.code_action_repeat = false
