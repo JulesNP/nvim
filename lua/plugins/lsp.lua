@@ -322,7 +322,10 @@ return {
                     vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
                 end
 
-                if client.supports_method "textDocument/formatting" then
+                if client:supports_method "textDocument/foldingRange" then
+                    vim.wo[0][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
+                end
+                if client:supports_method "textDocument/formatting" then
                     local function format()
                         -- Only use LSP formatting if null-ls formatter is unavailable
                         local generators = require("null-ls.generators").get_available(
