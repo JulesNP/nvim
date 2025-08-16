@@ -10,6 +10,30 @@ return {
         },
     },
     {
+        "saghen/blink.nvim",
+        keys = {
+            {
+                "<leader>;",
+                function()
+                    require("blink.chartoggle").toggle_char_eol ";"
+                end,
+                mode = { "n", "v" },
+                desc = "Toggle ; at EOL",
+            },
+            {
+                "<leader>,",
+                function()
+                    require("blink.chartoggle").toggle_char_eol ","
+                end,
+                mode = { "n", "v" },
+                desc = "Toggle , at EOL",
+            },
+        },
+        opts = {
+            chartoggle = { enabled = true },
+        },
+    },
+    {
         "saghen/blink.cmp",
         cond = not vim.g.vscode,
         event = { "CmdlineEnter", "InsertEnter" },
