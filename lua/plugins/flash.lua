@@ -2,7 +2,7 @@ return {
     "folke/flash.nvim",
     event = "VeryLazy",
     opts = {
-        labels = "fjdkslaruvmgheicwoxqptybnzFJDKSLARUVMGHEICWOXQPTYBNZ",
+        labels = "FJDKSLARUVMGHEICWOXQPTYBNZ",
         label = {
             uppercase = false,
         },
