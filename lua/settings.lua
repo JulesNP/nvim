@@ -1,3 +1,4 @@
+vim.g.have_nerd_font = true
 vim.g.show_inlay_hints = false
 vim.g.show_mini_map = false
 vim.g.mapleader = " "
@@ -47,7 +48,6 @@ o.updatetime = 1000
 o.viewoptions = "folds,cursor"
 o.whichwrap = "b,s,<,>,[,]"
 o.winborder = "rounded"
-o.wrap = false
 
 if os.getenv "SSH_CONNECTION" == nil then
     o.title = true
