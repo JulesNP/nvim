@@ -83,6 +83,7 @@ return {
         { "<leader>m", "<cmd>Mason<cr>", desc = "Open Mason" },
     },
     dependencies = {
+        "GustavEikaas/easy-dotnet.nvim",
         "saghen/blink.cmp",
         "jay-babu/mason-null-ls.nvim",
         "jay-babu/mason-nvim-dap.nvim",
@@ -97,7 +98,6 @@ return {
         "tris203/rzls.nvim",
         "williamboman/mason-lspconfig.nvim",
         "williamboman/mason.nvim",
-        { "JulesNP/Ionide-vim", branch = "indent" },
         {
             "hasansujon786/nvim-navbuddy",
             dependencies = {
@@ -110,11 +110,6 @@ return {
         },
     },
     init = function()
-        -- Prevent auto setup of Ionide
-        vim.g["fsharp#external_autocomplete"] = 1
-        vim.g["fsharp#simplify_name_analyzer"] = 1
-        vim.g["fsharp#lsp_codelens"] = 0
-
         _G.code_action_repeat = false
         _G.code_action = function()
             vim.lsp.buf.code_action { apply = _G.code_action_repeat }
@@ -131,13 +126,7 @@ return {
         local lspconfig = require "lspconfig"
         local mason_lsp = require "mason-lspconfig"
         ---@diagnostic disable-next-line: missing-fields
-        mason_lsp.setup {
-            automatic_enable = {
-                exclude = {
-                    "fsautocomplete",
-                },
-            },
-        }
+        mason_lsp.setup {}
 
         local capabilities = require("blink.cmp").get_lsp_capabilities()
         capabilities.textDocument.foldingRange = {
@@ -161,34 +150,6 @@ return {
             }
         end
 
-        -- mason_lsp.setup_handlers {
-        --     function(server_name)
-        --         lspconfig[server_name].setup {
-        --             capabilities = capabilities,
-        --         }
-        --     end,
-        --     fsautocomplete = function()
-        --     end,
-        --     lua_ls = lua_setup,
-        --     ts_ls = function()
-        --         require("typescript-tools").setup {
-        --             settings = {
-        --                 expose_as_code_action = "all",
-        --                 ts_ls_file_preferences = {
-        --                     includeInlayParameterNameHints = "all",
-        --                     includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-        --                     includeInlayFunctionParameterTypeHints = true,
-        --                     includeInlayVariableTypeHints = true,
-        --                     includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-        --                     includeInlayPropertyDeclarationTypeHints = true,
-        --                     includeInlayFunctionLikeReturnTypeHints = true,
-        --                     includeInlayEnumMemberValueHints = true,
-        --                 },
-        --             },
-        --         }
-        --     end,
-        -- }
-        -- Mason's install of lua-language-server doesn't work on Termux, so use globally installed version if available
         if
             not require("mason-registry").is_installed "lua-language-server"
             and vim.fn.executable "lua-language-server" == 1
@@ -203,12 +164,6 @@ return {
         end
         if vim.fn.executable "roslyn" == 1 then
             setup_roslyn(capabilities, vim.fn.executable "rzls" == 1)
-        end
-        if vim.fn.executable "fsautocomplete" == 1 then
-            require("ionide").setup {
-                autostart = true,
-                capabilities = capabilities,
-            }
         end
 
         local null_ls = require "null-ls"
@@ -259,6 +214,8 @@ return {
         require("mason-nvim-dap").setup { ---@diagnostic disable-line: missing-fields
             handlers = {},
         }
+
+        require("easy-dotnet").setup {}
 
         vim.lsp.handlers["textDocument/hover"] = require "hover"
 
