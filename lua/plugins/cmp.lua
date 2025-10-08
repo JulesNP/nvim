@@ -39,6 +39,7 @@ return {
         event = { "CmdlineEnter", "InsertEnter" },
         dependencies = {
             "kristijanhusak/vim-dadbod-ui",
+            "joelazar/blink-calc",
             "mikavilpas/blink-ripgrep.nvim",
             "moyiz/blink-emoji.nvim",
             "rafamadriz/friendly-snippets",
@@ -112,6 +113,7 @@ return {
                     "buffer",
                     "dadbod",
                     "emoji",
+                    "calc",
                     "ripgrep",
                 },
                 per_filetype = {
@@ -122,10 +124,15 @@ return {
                         "snippets",
                         "buffer",
                         "emoji",
+                        "calc",
                         "ripgrep",
                     },
                 },
                 providers = {
+                    calc = {
+                        name = "Calc",
+                        module = "blink-calc",
+                    },
                     buffer = {
                         score_offset = -8,
                         opts = {
