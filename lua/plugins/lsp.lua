@@ -215,7 +215,12 @@ return {
             handlers = {},
         }
 
-        require("easy-dotnet").setup {}
+        require("easy-dotnet").setup {
+            debugger = {
+                bin_path = "netcoredbg",
+            },
+        }
+        vim.keymap.set("n", "<leader>dn", ":Dotnet ", { desc = "Use dotnet commands" })
 
         vim.lsp.handlers["textDocument/hover"] = require "hover"
 
