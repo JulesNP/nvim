@@ -323,10 +323,12 @@ local function mini_git_setup()
     vim.keymap.set({ "n", "x" }, "<leader>gs", function()
         MiniGit.show_at_cursor()
     end, { desc = "Git show details" })
+    vim.keymap.set("n", "<leader>G", ":Git ", { desc = "Git command" })
+    vim.keymap.set("n", "<leader>g-", "<cmd>Git checkout -<cr>", { desc = "Git checkout -" })
     vim.keymap.set("n", "<leader>gC", "<cmd>Git commit<cr>", { desc = "Git commit" })
     vim.keymap.set("n", "<leader>gP", "<cmd>Git push<cr>", { desc = "Git push" })
-    vim.keymap.set("n", "<leader>gp", "<cmd>Git pull<cr>", { desc = "Git pull" })
     vim.keymap.set("n", "<leader>gZ", "<cmd>Git stash push<cr>", { desc = "Git stash push" })
+    vim.keymap.set("n", "<leader>gp", "<cmd>Git pull<cr>", { desc = "Git pull" })
     vim.keymap.set("n", "<leader>gz", "<cmd>Git stash pop<cr>", { desc = "Git stash pop" })
 end
 
