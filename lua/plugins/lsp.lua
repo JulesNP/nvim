@@ -238,17 +238,11 @@ return {
                 end, opts "List workspace folders")
                 vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
                 vim.keymap.set("n", "K", vim.lsp.buf.hover, opts "Hover")
-                vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
                 vim.keymap.set({ "n", "v" }, "gra", function()
                     _G.code_action_repeat = false
                     vim.o.operatorfunc = "v:lua.code_action"
                     return "g@l"
                 end, { expr = true, buffer = bufnr, desc = "Code action" })
-                vim.keymap.set("n", "grd", vim.lsp.buf.declaration, opts "Go to declaration")
-                vim.keymap.set("n", "gri", vim.lsp.buf.implementation, opts "Go to implementation")
-                vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts "Rename")
-                vim.keymap.set("n", "grr", vim.lsp.buf.references, opts "Go to references")
-                vim.keymap.set("n", "grt", vim.lsp.buf.type_definition, opts "Go to type definition")
                 vim.keymap.set("n", "<leader>bO", require("dap").step_out, opts "Step out")
                 vim.keymap.set("n", "<leader>bb", require("dap").toggle_breakpoint, opts "Toggle breakpoint")
                 vim.keymap.set("n", "<leader>bc", require("dap").continue, opts "Continue")
