@@ -71,7 +71,7 @@ return {
     },
     opts = {
         bigfile = { enabled = true },
-        image = {},
+        image = { convert = { notify = false } },
         indent = {
             indent = {
                 char = "▏",
