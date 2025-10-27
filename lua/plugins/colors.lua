@@ -42,6 +42,7 @@ return {
                         MiniDiffSignDelete = { link = "DiffDelete" },
                         RenderMarkdownCode = { bg = dark and palette.dark0_soft or palette.light0_soft },
                         RenderMarkdownCodeInline = { bg = dark and palette.dark0_soft or palette.light0_soft },
+                        SnacksPickerBorder = { link = "FloatBorder" },
                         SnacksIndent = { fg = dark and palette.dark0_soft or palette.light0_soft },
                         TabLineSel = { bg = dark and palette.dark0 or palette.light0 },
                         TreesitterContextLineNumber = {

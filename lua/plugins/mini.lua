@@ -384,240 +384,40 @@ local function mini_map_setup()
     )
 end
 
-local function mini_pick_setup()
-    local MiniPick = require "mini.pick"
-    MiniPick.setup {
-        mappings = {
-            choose_alt = {
-                char = "<nl>",
-                func = function()
-                    vim.api.nvim_input "<cr>"
-                end,
-            },
-            mark = "<c-space>",
-            mark_and_move_down = {
-                char = "<tab>",
-                func = function()
-                    local mappings = MiniPick.get_picker_opts().mappings
-                    vim.api.nvim_input(mappings.mark .. mappings.move_down)
-                end,
-            },
-            mark_and_move_up = {
-                char = "<s-tab>",
-                func = function()
-                    local mappings = MiniPick.get_picker_opts().mappings
-                    vim.api.nvim_input(mappings.mark .. mappings.move_up)
-                end,
-            },
-            move_down_alt = {
-                char = "<c-j>",
-                func = function()
-                    local mappings = MiniPick.get_picker_opts().mappings
-                    vim.api.nvim_input(mappings.move_down)
-                end,
-            },
-            refine = "<c-e>",
-            toggle_info = "<c-o>",
-            toggle_preview = "<c-k>",
-            quickfix = {
-                char = "<c-q>",
-                func = function()
-                    local items = MiniPick.get_picker_matches()
-                    if items == nil then
-                        return
-                    end
-                    if #items.marked > 0 then
-                        MiniPick.default_choose_marked(items.marked)
-                    else
-                        MiniPick.default_choose_marked(items.all)
-                    end
-                    MiniPick.stop()
-                end,
-            },
-        },
-    }
-    vim.ui.select = MiniPick.ui_select
-    MiniPick.registry.read_session = function()
-        local items = vim.tbl_values(require("mini.sessions").detected)
-        local current = vim.fn.fnamemodify(vim.v.this_session, ":t")
-        table.sort(items, function(a, b)
-            if a.name == current then
-                return false
-            elseif b.name == current then
-                return true
-            end
-            return a.modify_time > b.modify_time
-        end)
-        for _, value in pairs(items) do
-            value.text = value.name .. " (" .. value.type .. ")"
-        end
-        local selection = MiniPick.start {
-            source = {
-                items = items,
-                name = "Read Session",
-                choose = function() end,
-            },
-        }
-        if selection ~= nil then
-            if confirm_discard_changes() then
-                require("mini.sessions").read(selection.name, { force = true })
-            end
-        end
-    end
-    local MiniFuzzy = require "mini.fuzzy"
-    local MiniVisits = require "mini.visits"
-    MiniPick.registry.frecency = function()
-        local visit_paths = MiniVisits.list_paths()
-        local current_file = vim.fn.expand "%"
-        MiniPick.builtin.files(nil, {
-            source = {
-                match = function(stritems, indices, query)
-                    -- Concatenate prompt to a single string
-                    local prompt = vim.pesc(table.concat(query))
-
-                    -- If ignorecase is on and there are no uppercase letters in prompt,
-                    -- convert paths to lowercase for matching purposes
-                    local convert_path = function(str)
-                        return str
-                    end
-                    if vim.o.ignorecase and string.find(prompt, "%u") == nil then
-                        convert_path = function(str)
-                            return string.lower(str)
-                        end
-                    end
-
-                    local current_file_cased = convert_path(current_file)
-                    local paths_length = #visit_paths
-
-                    -- Flip visit_paths so that paths are lookup keys for the index values
-                    local flipped_visits = {}
-                    for index, path in ipairs(visit_paths) do
-                        local key = vim.fn.fnamemodify(path, ":.")
-                        flipped_visits[convert_path(key)] = index - 1
-                    end
-
-                    local result = {}
-                    for _, index in ipairs(indices) do
-                        local path = stritems[index]
-                        local match_score = prompt == "" and 0 or MiniFuzzy.match(prompt, path).score
-                        if match_score >= 0 then
-                            local visit_score = flipped_visits[path] or paths_length
-                            table.insert(result, {
-                                index = index,
-                                -- Give current file high value so it's ranked last
-                                score = path == current_file_cased and 999999 or match_score + visit_score * 10,
-                            })
-                        end
-                    end
-
-                    table.sort(result, function(a, b)
-                        return a.score < b.score
-                    end)
-
-                    return vim.tbl_map(function(val)
-                        return val.index
-                    end, result)
-                end,
-            },
-        })
-    end
-
-    vim.keymap.set("n", "<leader>f<leader>", "<cmd>Pick resume<cr>", { desc = "Resume last search" })
-    vim.keymap.set("n", "<leader>fb", function()
-        MiniPick.builtin.buffers(nil, {
-            mappings = {
-                wipeout = {
-                    char = "<c-x>",
-                    func = function()
-                        local matches = MiniPick.get_picker_matches()
-                        if matches == nil then
-                            return
-                        end
-                        local removals = matches.marked
-                        if #removals == 0 then
-                            removals = { matches.current }
-                        end
-                        local result = {}
-                        for _, item in ipairs(matches.all) do
-                            if vim.tbl_contains(removals, item) then
-                                vim.api.nvim_buf_delete(item.bufnr, {})
-                            else
-                                table.insert(result, item)
-                            end
-                        end
-                        MiniPick.set_picker_items(result, { do_match = true })
-                    end,
-                },
-            },
-        })
-    end, { desc = "Find buffers" })
-    vim.keymap.set("n", "<leader>fC", "<cmd>Pick list scope='change'<cr>", { desc = "Find in changelist" })
-    vim.keymap.set("n", "<leader>:", "<cmd>Pick commands<cr>", { desc = "Find commands" })
-    vim.keymap.set("n", "<leader>fe", "<cmd>Pick explorer<cr>", { desc = "Find via file explorer" })
-    vim.keymap.set("n", "<leader>fD", "m'<cmd>Pick lsp scope='declaration'<cr>", { desc = "Find LSP declaration" })
-    vim.keymap.set("n", "<leader>fd", "m'<cmd>Pick lsp scope='definition'<cr>", { desc = "Find LSP definition" })
-    vim.keymap.set("n", "<leader>ff", "<cmd>Pick files<cr>", { desc = "Find files" })
-    vim.keymap.set("n", "<leader>gb", "<cmd>Pick git_branches<cr>", { desc = "Find branches" })
-    vim.keymap.set("n", "<leader>gc", "<cmd>Pick git_commits<cr>", { desc = "Find commits" })
-    vim.keymap.set("n", "<leader>gd", "<cmd>Pick git_files scope='deleted'<cr>", { desc = "Find deleted files" })
-    vim.keymap.set("n", "<leader>gf", "<cmd>Pick git_files<cr>", { desc = "Find tracked files" })
-    vim.keymap.set("n", "<leader>gh", "<cmd>Pick git_hunks<cr>", { desc = "Find hunks" })
-    vim.keymap.set("n", "<leader>gi", "<cmd>Pick git_files scope='ignored'<cr>", { desc = "Find ignored files" })
-    vim.keymap.set("n", "<leader>gm", "<cmd>Pick git_files scope='modified'<cr>", { desc = "Find modified files" })
-    vim.keymap.set("n", "<leader>gu", "<cmd>Pick git_files scope='untracked'<cr>", { desc = "Find untracked files" })
-    vim.keymap.set("n", "<leader>fG", "<cmd>Pick grep<cr>", { desc = "Find with grep" })
-    vim.keymap.set("n", "<leader>fg", "<cmd>Pick grep_live<cr>", { desc = "Find with live grep" })
-    vim.keymap.set("n", "<leader>fH", "<cmd>Pick hl_groups<cr>", { desc = "Find highlight groups" })
-    vim.keymap.set("n", "<leader>fh", "<cmd>Pick help<cr>", { desc = "Find help documents" })
-    vim.keymap.set("n", "<leader>fi", "<cmd>Pick diagnostic<cr>", { desc = "Find diagnostics" })
-    vim.keymap.set("n", "<leader>fj", "<cmd>Pick list scope='jump'<cr>", { desc = "Find in jumplist" })
-    vim.keymap.set("n", "<leader>fk", "<cmd>Pick keymaps<cr>", { desc = "Find keymaps" })
-    vim.keymap.set("n", "<leader>fl", "<cmd>Pick buf_lines scope='current'<cr>", { desc = "Find current buffer lines" })
-    vim.keymap.set("n", "<leader>fL", "<cmd>Pick buf_lines<cr>", { desc = "Find all buffer lines" })
-    vim.keymap.set("n", "<leader>fM", "<cmd>Pick marks<cr>", { desc = "Find marks" })
-    vim.keymap.set("n", "<leader>fo", "<cmd>Pick options<cr>", { desc = "Find Neovim options" })
-    vim.keymap.set("n", "<leader>fo", "<cmd>Pick oldfiles<cr>", { desc = "Find oldfiles" })
-    vim.keymap.set("n", "<leader>fR", "<cmd>Pick registers<cr>", { desc = "Find registers" })
-    vim.keymap.set("n", "<leader>fr", "m'<cmd>Pick lsp scope='references'<cr>", { desc = "Find LSP references" })
-    vim.keymap.set(
-        "n",
-        "<leader>fS",
-        "m'<cmd>Pick lsp scope='workspace_symbol'<cr>",
-        { desc = "Find LSP workspace symbol" }
-    )
-    vim.keymap.set(
-        "n",
-        "<leader>fs",
-        "m'<cmd>Pick lsp scope='document_symbol'<cr>",
-        { desc = "Find LSP document symbol" }
-    )
-    vim.keymap.set("n", "<leader>fT", "<cmd>Pick treesitter<cr>", { desc = "Find treesitter nodes" })
-    vim.keymap.set(
-        "n",
-        "<leader>ft",
-        "<cmd>Pick lsp scope='type_definition'<cr>",
-        { desc = "Find LSP type definition" }
-    )
-    vim.keymap.set("n", "<leader>fq", "<cmd>Pick list scope='quickfix'<cr>", { desc = "Find in quickfix list" })
-    vim.keymap.set("n", "<leader>fw", "<cmd>Pick grep pattern='<cword>'<cr>", { desc = "Find current word" })
-    vim.keymap.set("n", "<leader>fz", "<cmd>Pick spellsuggest<cr>", { desc = "Find spelling suggestions" })
-    vim.keymap.set("n", "z=", function()
-        if vim.v.count > 0 then
-            return vim.v.count .. "z="
-        else
-            return "<cmd>Pick spellsuggest<cr>"
-        end
-    end, { desc = "Find spelling suggestions", expr = true })
-    vim.keymap.set("x", "<leader>f", 'y<cmd>Pick grep<cr><c-r>"<cr>', { desc = "Find current selection" })
-end
-
 local function mini_sessions_setup()
     local MiniSessions = require "mini.sessions"
     MiniSessions.setup { autowrite = true }
     vim.keymap.set("n", "<leader>sd", function()
         MiniSessions.select "delete"
     end, { desc = "Delete session" })
-    vim.keymap.set("n", "<leader>ss", "<cmd>Pick read_session<cr>", { desc = "Select session" })
+    -- MiniPick.registry.read_session = function()
+    --     local items = vim.tbl_values(require("mini.sessions").detected)
+    --     local current = vim.fn.fnamemodify(vim.v.this_session, ":t")
+    --     table.sort(items, function(a, b)
+    --         if a.name == current then
+    --             return false
+    --         elseif b.name == current then
+    --             return true
+    --         end
+    --         return a.modify_time > b.modify_time
+    --     end)
+    --     for _, value in pairs(items) do
+    --         value.text = value.name .. " (" .. value.type .. ")"
+    --     end
+    --     local selection = MiniPick.start {
+    --         source = {
+    --             items = items,
+    --             name = "Read Session",
+    --             choose = function() end,
+    --         },
+    --     }
+    --     if selection ~= nil then
+    --         if confirm_discard_changes() then
+    --             require("mini.sessions").read(selection.name, { force = true })
+    --         end
+    --     end
+    -- end
+    vim.keymap.set("n", "<leader>ss", MiniSessions.select, { desc = "Select session" })
     vim.keymap.set("n", "<leader>sw", function()
         vim.ui.input({
             prompt = "Session Name: ",
@@ -723,14 +523,9 @@ return {
                 MiniMisc.zoom(0, { width = vim.o.columns, height = vim.o.lines })
             end, { desc = "Zoom current buffer" })
 
-            mini_pick_setup()
-
             mini_sessions_setup()
 
             require("mini.statusline").setup {}
-
-            require("mini.visits").setup {}
-            vim.keymap.set("n", "<leader><leader>", "<cmd>Pick frecency<cr>", { desc = "Select recent file" })
         end
     end,
 }
