@@ -3,9 +3,10 @@ return {
     priority = 1000,
     lazy = false,
     keys = {
+        { '<leader>"', "<cmd>lua Snacks.picker.registers()<cr>", desc = "Registers" },
         { "<leader>/", "<cmd>lua Snacks.picker.search_history()<cr>", desc = "Search History" },
         { "<leader>:", "<cmd>lua Snacks.picker.command_history()<cr>", desc = "Command History" },
-        { "<leader><leader>", "<cmd>lua Snacks.picker.recent()<cr>", desc = "Recent" },
+        { "<leader><leader>", "<cmd>lua Snacks.picker.smart()<cr>", desc = "Smart Find Files" },
         { "<leader>f:", "<cmd>lua Snacks.picker.commands()<cr>", desc = "Commands" },
         { "<leader>f<leader>", "<cmd>lua Snacks.picker.resume()<cr>", desc = "Resume" },
         { "<leader>fB", "<cmd>lua Snacks.picker.grep_buffers()<cr>", desc = "Grep Open Buffers" },
@@ -33,9 +34,8 @@ return {
             desc = "Find Config File",
         },
         { "<leader>fp", "<cmd>lua Snacks.picker.projects()<cr>", desc = "Projects" },
+        { "<leader>fr", "<cmd>lua Snacks.picker.recent()<cr>", desc = "Recent" },
         { "<leader>fq", "<cmd>lua Snacks.picker.qflist()<cr>", desc = "Quickfix List" },
-        { "<leader>fr", "<cmd>lua Snacks.picker.registers()<cr>", desc = "Registers" },
-        { "<leader>fs", "<cmd>lua Snacks.picker.smart()<cr>", desc = "Smart Find Files" },
         { "<leader>fu", "<cmd>lua Snacks.picker.undo()<cr>", desc = "Undo History" },
         {
             "<leader>fw",
