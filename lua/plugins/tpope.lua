@@ -29,6 +29,6 @@ return {
     },
     { "tpope/vim-abolish", event = { "BufRead", "CmdlineEnter", "InsertEnter" } },
     { "tpope/vim-repeat", event = { "BufRead", "CmdlineEnter", "InsertEnter" } },
-    { "tpope/vim-speeddating", event = { "BufRead", "CmdlineEnter", "InsertEnter" } },
+    { "tpope/vim-speeddating" },
     { "tpope/vim-rsi", cond = not vim.g.vscode, event = { "BufRead", "CmdlineEnter", "InsertEnter" } },
 }

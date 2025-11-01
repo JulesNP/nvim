@@ -3,14 +3,14 @@ return {
     event = { "BufRead", "CmdlineLeave", "InsertEnter" },
     keys = vim.g.vscode and {} or {
         {
-            "<d-n>",
+            "<m-n>",
             function()
                 require("illuminate").goto_next_reference(true)
             end,
             desc = "Go to next reference",
         },
         {
-            "<d-p>",
+            "<m-p>",
             function()
                 require("illuminate").goto_prev_reference(true)
             end,
