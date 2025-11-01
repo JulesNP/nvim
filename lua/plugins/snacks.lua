@@ -58,7 +58,7 @@ return {
         { "gW", "<cmd>lua Snacks.picker.lsp_workspace_symbols()<cr>", desc = "LSP Workspace Symbols" },
         { "grD", "<cmd>lua Snacks.picker.lsp_declarations()<cr>", desc = "Goto Declaration" },
         { "grI", "<cmd>lua Snacks.picker.lsp_implementations()<cr>", desc = "Goto Implementation" },
-        { "grd", "<cmd>lua Snacks.picker.lsp_definitions()<cr>", desc = "Goto Definition" },
+        { "gd", "<cmd>lua Snacks.picker.lsp_definitions()<cr>", desc = "Goto Definition" },
         { "gri", "<cmd>lua Snacks.picker.lsp_incoming_calls()<cr>", desc = "C[a]lls Incoming" },
         { "gro", "<cmd>lua Snacks.picker.lsp_outgoing_calls()<cr>", desc = "C[a]lls Outgoing" },
         { "grr", "<cmd>lua Snacks.picker.lsp_references()<cr>", desc = "References" },
