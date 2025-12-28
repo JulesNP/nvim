@@ -1,5 +1,5 @@
 return {
-    "Exafunction/codeium.vim",
+    "Exafunction/windsurf.vim",
     cond = not vim.g.vscode,
     keys = vim.g.vscode and {} or {
         {
