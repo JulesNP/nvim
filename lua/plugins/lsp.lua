@@ -1,7 +1,6 @@
 local function setup_roslyn(capabilities, include_rzls)
     local config = {
         capabilities = capabilities,
-        handlers = require "rzls.roslyn_handlers",
         settings = {
             ["csharp|completion"] = {
                 dotnet_provide_regex_completions = true,
@@ -29,49 +28,7 @@ local function setup_roslyn(capabilities, include_rzls)
         },
     }
 
-    if include_rzls then
-        config.handlers = require "rzls.roslyn_handlers"
-
-        require("roslyn").setup {
-            args = {
-                "--stdio",
-                "--logLevel=Information",
-                "--extensionLogDirectory=" .. vim.fs.dirname(vim.lsp.get_log_path()),
-                "--razorSourceGenerator=" .. vim.fs.joinpath(
-                    vim.fn.stdpath "data" --[[@as string]],
-                    "mason",
-                    "packages",
-                    "roslyn",
-                    "libexec",
-                    "Microsoft.CodeAnalysis.Razor.Compiler.dll"
-                ),
-                "--razorDesignTimePath=" .. vim.fs.joinpath(
-                    vim.fn.stdpath "data" --[[@as string]],
-                    "mason",
-                    "packages",
-                    "rzls",
-                    "libexec",
-                    "Targets",
-                    "Microsoft.NET.Sdk.Razor.DesignTime.targets"
-                ),
-            },
-            config = config,
-        }
-
-        ---@diagnostic disable-next-line: missing-fields
-        require("rzls").setup {
-            capabilities = capabilities,
-        }
-        vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-            group = vim.api.nvim_create_augroup("RazorFiletype", { clear = true }),
-            pattern = "*.cshtml",
-            callback = function()
-                vim.bo.filetype = "razor"
-            end,
-        })
-    else
-        require("roslyn").setup { config = config }
-    end
+    require("roslyn").setup { config = config }
 end
 
 return {
@@ -95,7 +52,6 @@ return {
         "pmizio/typescript-tools.nvim",
         "rcarriga/nvim-dap-ui",
         "seblyng/roslyn.nvim",
-        "tris203/rzls.nvim",
         "williamboman/mason-lspconfig.nvim",
         "williamboman/mason.nvim",
         {
