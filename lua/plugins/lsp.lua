@@ -90,8 +90,107 @@ return {
             lineFoldingOnly = true,
         }
 
+        if vim.fn.executable "fsautocomplete" == 1 then
+            vim.lsp.config("fsautocomplete", {
+                capabilities = capabilities,
+                settings = {
+                    FSharp = {
+                        keywordsAutocomplete = true,
+                        ExternalAutocomplete = true,
+                        Linter = true,
+                        UnionCaseStubGeneration = true,
+                        UnionCaseStubGenerationBody = 'failwith "Not Implemented"',
+                        RecordStubGeneration = true,
+                        RecordStubGenerationBody = 'failwith "Not Implemented"',
+                        InterfaceStubGeneration = true,
+                        InterfaceStubGenerationObjectIdentifier = "this",
+                        InterfaceStubGenerationMethodBody = 'failwith "Not Implemented"',
+                        UnusedOpensAnalyzer = true,
+                        UnusedDeclarationsAnalyzer = true,
+                        UseSdkScripts = true,
+                        SimplifyNameAnalyzer = true,
+                        ResolveNamespaces = true,
+                        EnableReferenceCodeLens = true,
+                    },
+                },
+            })
+            vim.lsp.enable "fsautocomplete"
+        end
+
+        if vim.fn.executable "tailwindcss-language-server" == 1 then
+            vim.lsp.config("tailwindcss", {
+                capabilities = capabilities,
+                filetypes = {
+                    "aspnetcorerazor",
+                    "astro",
+                    "astro-markdown",
+                    "blade",
+                    "clojure",
+                    "django-html",
+                    "htmldjango",
+                    "edge",
+                    "eelixir",
+                    "elixir",
+                    "ejs",
+                    "erb",
+                    "eruby",
+                    "gohtml",
+                    "gohtmltmpl",
+                    "haml",
+                    "handlebars",
+                    "hbs",
+                    "html",
+                    "htmlangular",
+                    "html-eex",
+                    "heex",
+                    "jade",
+                    "leaf",
+                    "liquid",
+                    "markdown",
+                    "mdx",
+                    "mustache",
+                    "njk",
+                    "nunjucks",
+                    "php",
+                    "razor",
+                    "slim",
+                    "twig",
+                    "css",
+                    "less",
+                    "postcss",
+                    "sass",
+                    "scss",
+                    "stylus",
+                    "sugarss",
+                    "javascript",
+                    "javascriptreact",
+                    "reason",
+                    "rescript",
+                    "typescript",
+                    "typescriptreact",
+                    "vue",
+                    "svelte",
+                    "templ",
+                    "fsharp", -- Custom
+                },
+                settings = {
+                    tailwindCSS = {
+                        experimental = {
+                            classRegex = {
+                                [["([^"]+)"]],
+                            },
+                        },
+                        includeLanguages = {
+                            fsharp = "html",
+                        },
+                    },
+                },
+            })
+            vim.lsp.enable "tailwindcss"
+        end
+
         local function lua_setup()
-            lspconfig.lua_ls.setup {
+            vim.lsp.config("lua_ls", {
                 capabilities = capabilities,
                 settings = {
                     Lua = {
@@ -103,7 +202,8 @@ return {
                         },
                     },
                 },
-            }
+            })
+            vim.lsp.enable "lua_ls"
         end
 
         if
@@ -114,9 +214,10 @@ return {
         end
         -- Set up ccls separately, since it isn't available through Mason
         if vim.fn.executable "ccls" == 1 then
-            lspconfig.ccls.setup {
+            vim.lsp.config("ccls", {
                 capabilities = capabilities,
-            }
+            })
+            vim.lsp.enable "ccls"
         end
         if vim.fn.executable "roslyn" == 1 then
             setup_roslyn(capabilities, vim.fn.executable "rzls" == 1)
