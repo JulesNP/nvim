@@ -6,6 +6,7 @@ return {
         { "[|", "|]", fly = true, dosuround = true, newline = true, space = true },
         { "(|", "|)", fly = true, dosuround = true, newline = true, space = true, disable_end = true },
         { "{|", "|}", fly = true, dosuround = true, newline = true, space = true },
+        { "[<", ">]", fly = true, dosuround = true, newline = true, space = true },
         { ">", "<", newline = true, disable_start = true, disable_end = true },
         {
             "'",

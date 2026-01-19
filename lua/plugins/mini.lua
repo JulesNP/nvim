@@ -487,10 +487,14 @@ return {
         vim.keymap.set("n", "S", "s$", { remap = true, desc = "Substite to end of line" })
         vim.keymap.set("n", "sX", "sx$", { remap = true, desc = "Exchange to end of line" })
 
-        require("mini.splitjoin").setup {
-            detect = { separator = "[,;]" },
+        local MiniSplitjoin = require "mini.splitjoin"
+        MiniSplitjoin.setup {
+            detect = {
+                brackets = { "%b||", "%b()", "%b[]", "%b{}" },
+                separator = "[,;]",
+            },
             join = {
-                hooks_post = { require("mini.splitjoin").gen_hook.pad_brackets { brackets = { "%b[]", "%b{}" } } },
+                hooks_post = { MiniSplitjoin.gen_hook.pad_brackets { brackets = { "%b||", "%b[]", "%b{}" } } },
             },
         }
 
