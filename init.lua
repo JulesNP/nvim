@@ -59,8 +59,16 @@ local Snacks = require "snacks"
 Snacks.setup {
     bigfile = { enabled = true },
     terminal = { enabled = true },
+    picker = { enabled = true },
 }
 vim.keymap.set({ "n", "t" }, "<c-\\>", Snacks.terminal.toggle, { desc = "Toggle terminal" })
+vim.keymap.set("n", "<leader><leader>", Snacks.picker.recent, { desc = "Find recent file" })
+vim.keymap.set("n", "<leader>f<leader>", Snacks.picker.resume, { desc = "Resume last find" })
+vim.keymap.set("n", "<leader>ff", Snacks.picker.files, { desc = "Find files" })
+vim.keymap.set("n", "<leader>fb", Snacks.picker.buffers, { desc = "Find buffers" })
+vim.keymap.set("n", "<leader>fg", Snacks.picker.grep, { desc = "Find with grep" })
+vim.keymap.set("n", "<leader>fh", Snacks.picker.help, { desc = "Find help" })
+vim.keymap.set({ "n", "x" }, "<leader>fw", Snacks.picker.grep_word, { desc = "Find <word>" })
 
 vim.api.nvim_create_autocmd("FileType", {
     callback = function(ev)
