@@ -1,18 +1,19 @@
 vim.pack.add {
     "https://github.com/nvim-lua/plenary.nvim",
+    "https://github.com/rafamadriz/friendly-snippets",
     "https://github.com/nvim-treesitter/nvim-treesitter",
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/stevearc/conform.nvim",
     "https://github.com/nvim-mini/mini.nvim",
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range "1.x" },
     "https://github.com/neogitorg/neogit",
-    "https://github.com/folke/snacks.nvim"
+    "https://github.com/folke/snacks.nvim",
 }
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.o.clipboard = "unnamedplus"
--- vim.o.completeopt = "fuzzy,menuone,noinsert,noselect"
+vim.o.completeopt = "fuzzy,menuone,noinsert,noselect"
 vim.o.conceallevel = 2
 vim.o.confirm = true
 vim.opt.diffopt:append { algorithm = "histogram" }
@@ -43,35 +44,44 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
     ]]
 end
 
+vim.keymap.set("i", "<c-s>", vim.lsp.buf.signature_help, { desc = "Signature help" })
+
 require("mini.basics").setup {
     options = {
-        extra_ui = true
-    }
+        extra_ui = true,
+        win_borders = "single",
+    },
 }
 
 require("mini.icons").setup {}
 
-local Snacks = require("snacks")
+local Snacks = require "snacks"
 Snacks.setup {
     bigfile = { enabled = true },
-    terminal = { enabled = true }
+    terminal = { enabled = true },
 }
 vim.keymap.set({ "n", "t" }, "<c-\\>", Snacks.terminal.toggle, { desc = "Toggle terminal" })
 
-vim.api.nvim_create_autocmd('FileType', {
+vim.api.nvim_create_autocmd("FileType", {
     callback = function(ev)
-        if ev.match == "c" or ev.match == "lua" or ev.match == "markdown"
-            or ev.match == "vim" or ev.match == "vimdoc" or ev.match == "query"
-            or vim.tbl_contains(require("nvim-treesitter").get_installed(), ev.match) then
+        if
+            ev.match == "c"
+            or ev.match == "lua"
+            or ev.match == "markdown"
+            or ev.match == "vim"
+            or ev.match == "vimdoc"
+            or ev.match == "query"
+            or vim.tbl_contains(require("nvim-treesitter").get_installed(), ev.match)
+        then
             vim.treesitter.start()
             vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
             vim.wo.foldmethod = "expr"
         end
-    end
+    end,
 })
 
-local gen_ai_spec = require('mini.extra').gen_ai_spec
-require('mini.ai').setup({
+local gen_ai_spec = require("mini.extra").gen_ai_spec
+require("mini.ai").setup {
     custom_textobjects = {
         B = gen_ai_spec.buffer(),
         D = gen_ai_spec.diagnostic(),
@@ -79,26 +89,26 @@ require('mini.ai').setup({
         L = gen_ai_spec.line(),
         N = gen_ai_spec.number(),
     },
-})
+}
 
 require("mini.align").setup {}
 
 require("mini.surround").setup {}
 
-local MiniClue = require('mini.clue')
-MiniClue.setup({
+local MiniClue = require "mini.clue"
+MiniClue.setup {
     triggers = {
-        { mode = { 'n', 'x' }, keys = '<leader>' },
-        { mode = 'n',          keys = '[' },
-        { mode = 'n',          keys = ']' },
-        { mode = 'i',          keys = '<C-x>' },
-        { mode = { 'n', 'x' }, keys = 'g' },
-        { mode = { 'n', 'x' }, keys = "'" },
-        { mode = { 'n', 'x' }, keys = '`' },
-        { mode = { 'n', 'x' }, keys = '"' },
-        { mode = { 'i', 'c' }, keys = '<C-r>' },
-        { mode = 'n',          keys = '<C-w>' },
-        { mode = { 'n', 'x' }, keys = 'z' },
+        { mode = { "n", "x" }, keys = "<leader>" },
+        { mode = "n", keys = "[" },
+        { mode = "n", keys = "]" },
+        { mode = "i", keys = "<C-x>" },
+        { mode = { "n", "x" }, keys = "g" },
+        { mode = { "n", "x" }, keys = "'" },
+        { mode = { "n", "x" }, keys = "`" },
+        { mode = { "n", "x" }, keys = '"' },
+        { mode = { "i", "c" }, keys = "<C-r>" },
+        { mode = "n", keys = "<C-w>" },
+        { mode = { "n", "x" }, keys = "z" },
     },
     clues = {
         MiniClue.gen_clues.square_brackets(),
@@ -109,11 +119,11 @@ MiniClue.setup({
         MiniClue.gen_clues.windows(),
         MiniClue.gen_clues.z(),
     },
-})
+}
 
-require("mini.cmdline").setup {}
+-- require("mini.cmdline").setup {}
 
-local MiniFiles = require("mini.files")
+local MiniFiles = require "mini.files"
 MiniFiles.setup {}
 vim.keymap.set("n", "-", MiniFiles.open, { desc = "Open Mini Files" })
 vim.api.nvim_create_autocmd("User", {
@@ -123,27 +133,45 @@ vim.api.nvim_create_autocmd("User", {
     end,
 })
 
-local cmp = require("blink.cmp")
-cmp.setup {}
-
+local cmp = require "blink.cmp"
+cmp.setup {
+    keymap = { preset = "enter" },
+    completion = { documentation = { auto_show = true } },
+    signature = { enabled = true },
+    sources = {
+        providers = {
+            buffer = {
+                opts = {
+                    get_bufnrs = vim.api.nvim_list_bufs,
+                },
+            },
+        },
+    },
+}
 local capabilities = cmp.get_lsp_capabilities()
+
 vim.lsp.config("*", { capabilities = capabilities })
 vim.lsp.config("lua_ls", {
     capabilities = capabilities,
+    root_markers = { { ".luarc.json", ".luarc.jsonc" }, ".git" },
     settings = {
         Lua = {
             hint = {
                 enable = true,
             },
+            runtime = {
+                version = "LuaJIT",
+            },
             workspace = {
                 checkThirdParty = false,
+                library = { vim.env.VIMRUNTIME },
             },
         },
     },
 })
 vim.lsp.enable "lua_ls"
 
-require("conform").setup({
+require("conform").setup {
     formatters_by_ft = {
         fsharp = { "fantomas" },
         javascript = { "prettierd", "prettier", stop_after_first = true },
@@ -153,6 +181,6 @@ require("conform").setup({
         timeout_ms = 500,
         lsp_format = "fallback",
     },
-})
+}
 
 vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit UI" })
