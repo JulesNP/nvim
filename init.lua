@@ -1,10 +1,33 @@
 vim.pack.add {
     "https://github.com/nvim-lua/plenary.nvim",
-    "https://github.com/neogitorg/neogit",
+    "https://github.com/nvim-treesitter/nvim-treesitter",
+    "https://github.com/neovim/nvim-lspconfig",
+    "https://github.com/stevearc/conform.nvim",
     "https://github.com/nvim-mini/mini.nvim",
-    "https://github.com/neovim/nvim-lspconfig"
+    { src = "https://github.com/saghen/blink.cmp", version = vim.version.range "1.x" },
+    "https://github.com/neogitorg/neogit",
+    "https://github.com/folke/snacks.nvim"
 }
 
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+vim.o.clipboard = "unnamedplus"
+-- vim.o.completeopt = "fuzzy,menuone,noinsert,noselect"
+vim.o.conceallevel = 2
+vim.o.confirm = true
+vim.opt.diffopt:append { algorithm = "histogram" }
+vim.o.expandtab = true
+vim.o.foldlevel = 99
+vim.o.foldtext = ""
+vim.o.inccommand = "split"
+vim.o.shiftwidth = 4
+-- vim.o.shiftround = true
+-- vim.o.shortmess = "filmnrxoOtTcCFS"
+-- vim.o.signcolumn = "number"
+vim.o.spelllang = "en_ca,en"
+vim.o.spelloptions = "camel,noplainbuffer"
+vim.o.startofline = true
+vim.o.whichwrap = "b,s,<,>,[,]"
 if vim.loop.os_uname().sysname == "Windows_NT" then
     vim.o.shellslash = true
     vim.cmd [[
@@ -20,15 +43,116 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
     ]]
 end
 
-vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit UI" })
-
-require("mini.basics").setup{
+require("mini.basics").setup {
     options = {
         extra_ui = true
     }
 }
 
-require("mini.files").setup{}
-vim.keymap.set("n", "-", MiniFiles.open, { desc = "Open Mini Files" })
+require("mini.icons").setup {}
 
+local Snacks = require("snacks")
+Snacks.setup {
+    bigfile = { enabled = true },
+    terminal = { enabled = true }
+}
+vim.keymap.set({ "n", "t" }, "<c-\\>", Snacks.terminal.toggle, { desc = "Toggle terminal" })
+
+vim.api.nvim_create_autocmd('FileType', {
+    callback = function(ev)
+        if ev.match == "c" or ev.match == "lua" or ev.match == "markdown"
+            or ev.match == "vim" or ev.match == "vimdoc" or ev.match == "query"
+            or vim.tbl_contains(require("nvim-treesitter").get_installed(), ev.match) then
+            vim.treesitter.start()
+            vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+            vim.wo.foldmethod = "expr"
+        end
+    end
+})
+
+local gen_ai_spec = require('mini.extra').gen_ai_spec
+require('mini.ai').setup({
+    custom_textobjects = {
+        B = gen_ai_spec.buffer(),
+        D = gen_ai_spec.diagnostic(),
+        I = gen_ai_spec.indent(),
+        L = gen_ai_spec.line(),
+        N = gen_ai_spec.number(),
+    },
+})
+
+require("mini.align").setup {}
+
+require("mini.surround").setup {}
+
+local MiniClue = require('mini.clue')
+MiniClue.setup({
+    triggers = {
+        { mode = { 'n', 'x' }, keys = '<leader>' },
+        { mode = 'n',          keys = '[' },
+        { mode = 'n',          keys = ']' },
+        { mode = 'i',          keys = '<C-x>' },
+        { mode = { 'n', 'x' }, keys = 'g' },
+        { mode = { 'n', 'x' }, keys = "'" },
+        { mode = { 'n', 'x' }, keys = '`' },
+        { mode = { 'n', 'x' }, keys = '"' },
+        { mode = { 'i', 'c' }, keys = '<C-r>' },
+        { mode = 'n',          keys = '<C-w>' },
+        { mode = { 'n', 'x' }, keys = 'z' },
+    },
+    clues = {
+        MiniClue.gen_clues.square_brackets(),
+        MiniClue.gen_clues.builtin_completion(),
+        MiniClue.gen_clues.g(),
+        MiniClue.gen_clues.marks(),
+        MiniClue.gen_clues.registers(),
+        MiniClue.gen_clues.windows(),
+        MiniClue.gen_clues.z(),
+    },
+})
+
+require("mini.cmdline").setup {}
+
+local MiniFiles = require("mini.files")
+MiniFiles.setup {}
+vim.keymap.set("n", "-", MiniFiles.open, { desc = "Open Mini Files" })
+vim.api.nvim_create_autocmd("User", {
+    pattern = "MiniFilesActionRename",
+    callback = function(event)
+        Snacks.rename.on_rename_file(event.data.from, event.data.to)
+    end,
+})
+
+local cmp = require("blink.cmp")
+cmp.setup {}
+
+local capabilities = cmp.get_lsp_capabilities()
+vim.lsp.config("*", { capabilities = capabilities })
+vim.lsp.config("lua_ls", {
+    capabilities = capabilities,
+    settings = {
+        Lua = {
+            hint = {
+                enable = true,
+            },
+            workspace = {
+                checkThirdParty = false,
+            },
+        },
+    },
+})
 vim.lsp.enable "lua_ls"
+
+require("conform").setup({
+    formatters_by_ft = {
+        fsharp = { "fantomas" },
+        javascript = { "prettierd", "prettier", stop_after_first = true },
+        lua = { "stylua" },
+    },
+    format_on_save = {
+        timeout_ms = 500,
+        lsp_format = "fallback",
+    },
+})
+
+vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit UI" })
