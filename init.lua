@@ -8,12 +8,13 @@ vim.pack.add {
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range "1.x" },
     "https://github.com/neogitorg/neogit",
     "https://github.com/folke/snacks.nvim",
+    "https://github.com/mechatroner/rainbow_csv",
 }
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.o.clipboard = "unnamedplus"
-vim.o.completeopt = "fuzzy,menuone,noinsert,noselect"
+vim.o.completeopt = "fuzzy,menuone,noselect,popup"
 vim.o.conceallevel = 2
 vim.o.confirm = true
 vim.opt.diffopt:append { algorithm = "histogram" }
@@ -71,15 +72,15 @@ vim.keymap.set("n", "<leader>fh", Snacks.picker.help, { desc = "Find help" })
 vim.keymap.set({ "n", "x" }, "<leader>fw", Snacks.picker.grep_word, { desc = "Find <word>" })
 
 vim.api.nvim_create_autocmd("FileType", {
-    callback = function(ev)
+    callback = function(event)
         if
-            ev.match == "c"
-            or ev.match == "lua"
-            or ev.match == "markdown"
-            or ev.match == "vim"
-            or ev.match == "vimdoc"
-            or ev.match == "query"
-            or vim.tbl_contains(require("nvim-treesitter").get_installed(), ev.match)
+            event.match == "c"
+            or event.match == "lua"
+            or event.match == "markdown"
+            or event.match == "vim"
+            or event.match == "vimdoc"
+            or event.match == "query"
+            or vim.tbl_contains(require("nvim-treesitter").get_installed(), event.match)
         then
             vim.treesitter.start()
             vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
@@ -143,7 +144,21 @@ vim.api.nvim_create_autocmd("User", {
 
 local cmp = require "blink.cmp"
 cmp.setup {
-    keymap = { preset = "enter" },
+    keymap = {
+        preset = "none",
+        ["<c-space>"] = { "show", "show_documentation", "hide_documentation" },
+        ["<c-e>"] = { "hide", "fallback" },
+        ["<c-y>"] = { "select_and_accept", "fallback" },
+        ["<up>"] = { "select_prev", "fallback" },
+        ["<down>"] = { "select_next", "fallback" },
+        ["<c-p>"] = { "select_prev", "fallback_to_mappings" },
+        ["<c-n>"] = { "select_next", "fallback_to_mappings" },
+        ["<c-b>"] = { "scroll_documentation_up", "fallback" },
+        ["<c-f>"] = { "scroll_documentation_down", "fallback" },
+        ["<tab>"] = { "snippet_forward", "select_next", "fallback" },
+        ["<s-tab>"] = { "snippet_backward", "select_prev", "fallback" },
+        ["<c-s>"] = { "show_signature", "hide_signature", "fallback" },
+    },
     completion = { documentation = { auto_show = true } },
     signature = { enabled = true },
     sources = {
