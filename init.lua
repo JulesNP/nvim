@@ -53,7 +53,6 @@ vim.keymap.set("t", "<c-j>", "<c-\\><c-n><c-w><c-j>")
 vim.keymap.set("t", "<c-k>", "<c-\\><c-n><c-w><c-k>")
 vim.keymap.set("t", "<c-l>", "<c-\\><c-n><c-w><c-l>")
 
-vim.keymap.set("i", "<c-s>", vim.lsp.buf.signature_help, { desc = "Signature help" })
 require("mini.basics").setup {
     mappings = { windows = true },
     autocommands = { relnum_in_visual_mode = true },
@@ -244,11 +243,16 @@ cmp.setup {
     keymap = {
         preset = "none",
         ["<c-d>"] = { "scroll_documentation_down", "fallback" },
-        ["<c-e>"] = { "cancel", "fallback" },
-        ["<c-n>"] = { "select_next", "fallback" },
-        ["<c-p>"] = { "select_prev", "fallback" },
-        ["<c-s>"] = { "show_signature", "hide_signature", "fallback" },
-        ["<c-space>"] = { "show", "hide", "fallback" },
+        ["<c-e>"] = { "hide", "fallback" },
+        ["<c-n>"] = { "select_next", "fallback_to_mappings" },
+        ["<c-p>"] = { "select_prev", "fallback_to_mappings" },
+        ["<c-s>"] = {
+            function(cmp)
+                cmp.hide_signature()
+                vim.lsp.buf.signature_help()
+            end,
+        },
+        ["<c-space>"] = { "show", "show_documentation", "hide_documentation" },
         ["<c-u>"] = { "scroll_documentation_up", "fallback" },
         ["<c-y>"] = { "select_and_accept", "fallback" },
         ["<cr>"] = { "accept", "fallback" },
@@ -273,12 +277,13 @@ cmp.setup {
         },
     },
     completion = {
+        accept = { auto_brackets = { enabled = true } },
         list = { selection = { preselect = false } },
         documentation = { auto_show = true },
         ghost_text = { enabled = true },
     },
-    signature = { enabled = true },
     sources = { providers = { buffer = { opts = { get_bufnrs = vim.api.nvim_list_bufs } } } },
+    signature = { enabled = true },
 }
 local capabilities = cmp.get_lsp_capabilities()
 
