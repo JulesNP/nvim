@@ -49,7 +49,6 @@ vim.keymap.set("i", "<c-s>", vim.lsp.buf.signature_help, { desc = "Signature hel
 
 require("mini.basics").setup {
     options = {
-        extra_ui = true,
         win_borders = "single",
     },
 }
@@ -65,10 +64,11 @@ Snacks.setup {
 vim.keymap.set({ "n", "t" }, "<c-\\>", Snacks.terminal.toggle, { desc = "Toggle terminal" })
 vim.keymap.set("n", "<leader><leader>", Snacks.picker.recent, { desc = "Find recent file" })
 vim.keymap.set("n", "<leader>f<leader>", Snacks.picker.resume, { desc = "Resume last find" })
-vim.keymap.set("n", "<leader>ff", Snacks.picker.files, { desc = "Find files" })
-vim.keymap.set("n", "<leader>fb", Snacks.picker.buffers, { desc = "Find buffers" })
+vim.keymap.set("n", "<leader>ff", Snacks.picker.files, { desc = "Find file" })
+vim.keymap.set("n", "<leader>fb", Snacks.picker.buffers, { desc = "Find buffer" })
 vim.keymap.set("n", "<leader>fg", Snacks.picker.grep, { desc = "Find with grep" })
 vim.keymap.set("n", "<leader>fh", Snacks.picker.help, { desc = "Find help" })
+vim.keymap.set("n", "<leader>fp", Snacks.picker.projects, { desc = "Find project" })
 vim.keymap.set({ "n", "x" }, "<leader>fw", Snacks.picker.grep_word, { desc = "Find <word>" })
 
 vim.api.nvim_create_autocmd("FileType", {
@@ -88,6 +88,18 @@ vim.api.nvim_create_autocmd("FileType", {
         end
     end,
 })
+vim.api.nvim_create_autocmd("BufWinLeave", {
+    pattern = "*",
+    callback = function()
+        vim.cmd.mkview()
+    end,
+})
+vim.api.nvim_create_autocmd("BufWinEnter", {
+    pattern = "*",
+    callback = function()
+        vim.cmd "silent! loadview"
+    end,
+})
 
 local gen_ai_spec = require("mini.extra").gen_ai_spec
 require("mini.ai").setup {
@@ -101,7 +113,7 @@ require("mini.ai").setup {
 }
 
 require("mini.align").setup {}
-
+require("mini.sessions").setup {}
 require("mini.surround").setup {}
 
 local MiniClue = require "mini.clue"
