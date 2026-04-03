@@ -146,20 +146,52 @@ local cmp = require "blink.cmp"
 cmp.setup {
     keymap = {
         preset = "none",
-        ["<c-space>"] = { "show", "show_documentation", "hide_documentation" },
-        ["<c-e>"] = { "hide", "fallback" },
-        ["<c-y>"] = { "select_and_accept", "fallback" },
-        ["<up>"] = { "select_prev", "fallback" },
-        ["<down>"] = { "select_next", "fallback" },
-        ["<c-p>"] = { "select_prev", "fallback_to_mappings" },
-        ["<c-n>"] = { "select_next", "fallback_to_mappings" },
-        ["<c-b>"] = { "scroll_documentation_up", "fallback" },
-        ["<c-f>"] = { "scroll_documentation_down", "fallback" },
-        ["<tab>"] = { "snippet_forward", "select_next", "fallback" },
-        ["<s-tab>"] = { "snippet_backward", "select_prev", "fallback" },
+        ["<c-d>"] = { "scroll_documentation_down", "fallback" },
+        ["<c-e>"] = { "cancel", "fallback" },
+        ["<c-n>"] = { "select_next", "fallback" },
+        ["<c-p>"] = { "select_prev", "fallback" },
         ["<c-s>"] = { "show_signature", "hide_signature", "fallback" },
+        ["<c-space>"] = { "show", "hide", "fallback" },
+        ["<c-u>"] = { "scroll_documentation_up", "fallback" },
+        ["<c-y>"] = { "select_and_accept", "fallback" },
+        ["<cr>"] = { "accept", "fallback" },
+        ["<down>"] = { "select_next", "fallback" },
+        ["<s-tab>"] = { "select_prev", "snippet_backward", "fallback" },
+        ["<tab>"] = { "select_next", "snippet_forward", "fallback" },
+        ["<up>"] = { "select_prev", "fallback" },
     },
-    completion = { documentation = { auto_show = true } },
+    cmdline = {
+        keymap = {
+            ["<c-space>"] = { "show", "hide", "fallback" },
+            ["<s-tab>"] = { "show_and_insert", "select_prev", "fallback" },
+            ["<tab>"] = { "show_and_insert", "select_next", "fallback" },
+        },
+        completion = {
+            menu = {
+                auto_show = function()
+                    return vim.fn.getcmdtype() == ":"
+                end,
+            },
+            list = {
+                selection = {
+                    preselect = false,
+                },
+            },
+        },
+    },
+    completion = {
+        list = {
+            selection = {
+                preselect = false,
+            },
+        },
+        documentation = {
+            auto_show = true,
+        },
+        ghost_text = {
+            enabled = true,
+        },
+    },
     signature = { enabled = true },
     sources = {
         providers = {
