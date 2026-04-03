@@ -48,6 +48,7 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
 end
 
 vim.keymap.set("n", "<esc>", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { desc = ":help CTRL-L-default" })
+vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic" })
 vim.keymap.set("t", "<c-h>", "<c-\\><c-n><c-w><c-h>")
 vim.keymap.set("t", "<c-j>", "<c-\\><c-n><c-w><c-j>")
 vim.keymap.set("t", "<c-k>", "<c-\\><c-n><c-w><c-k>")
@@ -71,6 +72,7 @@ vim.keymap.set({ "n", "t" }, "<c-\\>", Snacks.terminal.toggle, { desc = "Toggle 
 vim.keymap.set("n", "<leader><leader>", Snacks.picker.smart, { desc = "Find recent file" })
 vim.keymap.set("n", "<leader>f<leader>", Snacks.picker.resume, { desc = "Resume last find" })
 vim.keymap.set("n", "<leader>fc", Snacks.picker.colorschemes, { desc = "Find colorscheme" })
+vim.keymap.set("n", "<leader>fd", Snacks.picker.diagnostics, { desc = "Find diagnostic" })
 vim.keymap.set("n", "<leader>ff", Snacks.picker.files, { desc = "Find file" })
 vim.keymap.set("n", "<leader>fb", Snacks.picker.buffers, { desc = "Find buffer" })
 vim.keymap.set("n", "<leader>fg", Snacks.picker.grep, { desc = "Find with grep" })
@@ -247,8 +249,8 @@ cmp.setup {
         ["<c-n>"] = { "select_next", "fallback_to_mappings" },
         ["<c-p>"] = { "select_prev", "fallback_to_mappings" },
         ["<c-s>"] = {
-            function(cmp)
-                cmp.hide_signature()
+            function(_cmp)
+                _cmp.hide_signature()
                 vim.lsp.buf.signature_help()
             end,
         },
