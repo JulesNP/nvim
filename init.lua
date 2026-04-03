@@ -54,6 +54,7 @@ vim.keymap.set("n", "<c-s>", function()
     vim.cmd "mkview"
     vim.cmd "update"
 end, { desc = "Format & save" })
+vim.keymap.set("n", "<m-s>", "<cmd>mkview<bar>wall<cr>", { desc = "Save all buffers" })
 vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set("x", "g/", "<esc>/\\%V", { silent = false, desc = "Search inside visual selection" })
@@ -168,15 +169,15 @@ MiniClue.setup {
     triggers = {
         { mode = { "n", "x" }, keys = "<leader>" },
         { mode = { "n", "x" }, keys = "\\" },
-        { mode = "n", keys = "[" },
-        { mode = "n", keys = "]" },
-        { mode = "i", keys = "<C-x>" },
+        { mode = "n",          keys = "[" },
+        { mode = "n",          keys = "]" },
+        { mode = "i",          keys = "<C-x>" },
         { mode = { "n", "x" }, keys = "g" },
         { mode = { "n", "x" }, keys = "'" },
         { mode = { "n", "x" }, keys = "`" },
         { mode = { "n", "x" }, keys = '"' },
         { mode = { "i", "c" }, keys = "<C-r>" },
-        { mode = "n", keys = "<C-w>" },
+        { mode = "n",          keys = "<C-w>" },
         { mode = { "n", "x" }, keys = "z" },
     },
     clues = {
