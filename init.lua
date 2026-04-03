@@ -7,6 +7,7 @@ vim.pack.add {
     "https://github.com/mason-org/mason.nvim",
     "https://github.com/mason-org/mason-lspconfig.nvim",
     "https://github.com/zapling/mason-conform.nvim",
+    "https://github.com/tpope/vim-rsi",
     "https://github.com/nvim-mini/mini.nvim",
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range "1.x" },
     "https://github.com/neogitorg/neogit",
@@ -17,7 +18,6 @@ vim.pack.add {
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.o.clipboard = "unnamedplus"
-vim.o.completeopt = "fuzzy,menuone,noselect,popup"
 vim.o.conceallevel = 2
 vim.o.confirm = true
 vim.opt.diffopt:append { algorithm = "histogram" }
@@ -47,24 +47,37 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
     ]]
 end
 
-vim.keymap.set("i", "<c-s>", vim.lsp.buf.signature_help, { desc = "Signature help" })
+vim.keymap.set("n", "<esc>", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { desc = ":help CTRL-L-default" })
+vim.keymap.set("t", "<c-h>", "<c-\\><c-n><c-w><c-h>")
+vim.keymap.set("t", "<c-j>", "<c-\\><c-n><c-w><c-j>")
+vim.keymap.set("t", "<c-k>", "<c-\\><c-n><c-w><c-k>")
+vim.keymap.set("t", "<c-l>", "<c-\\><c-n><c-w><c-l>")
 
-require("mini.basics").setup {}
+vim.keymap.set("i", "<c-s>", vim.lsp.buf.signature_help, { desc = "Signature help" })
+require("mini.basics").setup {
+    mappings = { windows = true },
+    autocommands = { relnum_in_visual_mode = true },
+}
 require("mini.icons").setup {}
 
 local Snacks = require "snacks"
 Snacks.setup {
     bigfile = { enabled = true },
-    terminal = { enabled = true },
     picker = { enabled = true },
+    quickfile = { enabled = true },
+    scroll = { enabled = true },
+    terminal = { enabled = true },
 }
 vim.keymap.set({ "n", "t" }, "<c-\\>", Snacks.terminal.toggle, { desc = "Toggle terminal" })
-vim.keymap.set("n", "<leader><leader>", Snacks.picker.recent, { desc = "Find recent file" })
+vim.keymap.set("n", "<leader><leader>", Snacks.picker.smart, { desc = "Find recent file" })
 vim.keymap.set("n", "<leader>f<leader>", Snacks.picker.resume, { desc = "Resume last find" })
+vim.keymap.set("n", "<leader>fc", Snacks.picker.colorschemes, { desc = "Find colorscheme" })
 vim.keymap.set("n", "<leader>ff", Snacks.picker.files, { desc = "Find file" })
 vim.keymap.set("n", "<leader>fb", Snacks.picker.buffers, { desc = "Find buffer" })
 vim.keymap.set("n", "<leader>fg", Snacks.picker.grep, { desc = "Find with grep" })
 vim.keymap.set("n", "<leader>fh", Snacks.picker.help, { desc = "Find help" })
+vim.keymap.set("n", "<leader>fH", Snacks.picker.highlights, { desc = "Find highlight" })
+vim.keymap.set("n", "<leader>fk", Snacks.picker.keymaps, { desc = "Find keymap" })
 vim.keymap.set("n", "<leader>fp", Snacks.picker.projects, { desc = "Find project" })
 vim.keymap.set({ "n", "x" }, "<leader>fw", Snacks.picker.grep_word, { desc = "Find <word>" })
 
@@ -98,25 +111,51 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     end,
 })
 
-local gen_ai_spec = require("mini.extra").gen_ai_spec
+local gen_extra = require("mini.extra").gen_ai_spec
 require("mini.ai").setup {
     custom_textobjects = {
-        B = gen_ai_spec.buffer(),
-        D = gen_ai_spec.diagnostic(),
-        I = gen_ai_spec.indent(),
-        L = gen_ai_spec.line(),
-        N = gen_ai_spec.number(),
+        a = require("mini.ai").gen_spec.argument { separator = "[,;]" },
+        N = gen_extra.number(),
+        d = gen_extra.diagnostic(),
+        g = gen_extra.buffer(),
     },
 }
+vim.keymap.set({ "x", "o" }, "<cr>", function()
+    if vim.treesitter.get_parser(nil, nil, { error = false }) then
+        require("vim.treesitter._select").select_parent(vim.v.count1)
+    else
+        vim.lsp.buf.selection_range(vim.v.count1)
+    end
+end, { desc = "Select parent (outer) node" })
+vim.keymap.set({ "x", "o" }, "<bs>", function()
+    if vim.treesitter.get_parser(nil, nil, { error = false }) then
+        require("vim.treesitter._select").select_child(vim.v.count1)
+    else
+        vim.lsp.buf.selection_range(-vim.v.count1)
+    end
+end, { desc = "Select child (inner) node" })
+
+require("mini.indentscope").setup {
+    draw = { animation = require("mini.indentscope").gen_animation.none() },
+    options = { indent_at_cursor = false },
+    symbol = "▏",
+}
+Snacks.util.set_hl { MiniIndentscopeSymbol = { link = "NonText" } }
+
+require("mini.diff").setup {}
+vim.keymap.set("n", "\\o", require("mini.diff").toggle_overlay, { desc = "Tooggle diff overlay" })
 
 require("mini.align").setup {}
+require("mini.move").setup { options = { reindent_linewise = false } }
 require("mini.sessions").setup {}
+require("mini.splitjoin").setup {}
 require("mini.surround").setup {}
 
 local MiniClue = require "mini.clue"
 MiniClue.setup {
     triggers = {
         { mode = { "n", "x" }, keys = "<leader>" },
+        { mode = { "n", "x" }, keys = "\\" },
         { mode = "n", keys = "[" },
         { mode = "n", keys = "]" },
         { mode = "i", keys = "<C-x>" },
@@ -139,17 +178,62 @@ MiniClue.setup {
     },
 }
 
--- require("mini.cmdline").setup {}
-
 local MiniFiles = require "mini.files"
-MiniFiles.setup {}
+MiniFiles.setup {
+    mappings = {
+        go_in = "<tab>",
+        go_in_plus = "l",
+        go_out_plus = "",
+        synchronize = "<c-s>",
+    },
+}
 vim.keymap.set("n", "-", function()
-    MiniFiles.open(vim.api.nvim_buf_get_name(0))
+    if vim.bo.buftype == "" then
+        MiniFiles.open(vim.fn.expand "%")
+    else
+        MiniFiles.open(vim.fn.expand "%:h")
+    end
 end, { desc = "Open Mini Files" })
 vim.api.nvim_create_autocmd("User", {
     pattern = "MiniFilesActionRename",
     callback = function(event)
         Snacks.rename.on_rename_file(event.data.from, event.data.to)
+    end,
+})
+vim.api.nvim_create_autocmd("User", {
+    pattern = "MiniFilesBufferCreate",
+    callback = function(args)
+        local buf_id = args.data.buf_id
+        vim.keymap.set("n", "<esc>", MiniFiles.close, { buffer = buf_id, desc = "Close" })
+        vim.keymap.set("n", "-", MiniFiles.go_out, { buffer = buf_id, desc = "Go out of directory" })
+        vim.keymap.set("n", "gh", "h", { buffer = buf_id, desc = "Left" })
+        vim.keymap.set("n", "gl", "l", { buffer = buf_id, desc = "Right" })
+        vim.keymap.set("n", "<c-\\>", function()
+            local fs_entry = MiniFiles.get_fs_entry()
+            Snacks.terminal.open(nil, { cwd = vim.fs.dirname(fs_entry.path) })
+        end, { buffer = buf_id, desc = "Open location in terminal" })
+        vim.keymap.set("n", "<cr>", function()
+            local fs_entry = MiniFiles.get_fs_entry()
+            local is_at_file = fs_entry ~= nil and fs_entry.fs_type == "file"
+            MiniFiles.go_in {}
+            if is_at_file then
+                MiniFiles.close()
+            end
+        end, { buffer = buf_id, desc = "Go in entry" })
+        vim.keymap.set("n", "g.", function()
+            local cwd = vim.fs.dirname(MiniFiles.get_fs_entry().path)
+            vim.fn.chdir(cwd)
+            vim.notify("CWD set to: " .. cwd)
+        end, { buffer = buf_id, desc = "Set CWD" })
+        vim.keymap.set("n", "gx", function()
+            local path = MiniFiles.get_fs_entry().path
+            vim.ui.open(path)
+        end, { buffer = buf_id, desc = "Open filepath with system handler" })
+        vim.keymap.set("n", "gy", function()
+            local path = MiniFiles.get_fs_entry().path
+            vim.fn.setreg(vim.v.register, path)
+            vim.notify("Yanked to " .. vim.v.register .. " register: " .. path)
+        end, { buffer = buf_id, desc = "Yank filepath" })
     end,
 })
 
@@ -220,10 +304,8 @@ vim.lsp.config("lua_ls", {
 vim.lsp.enable "lua_ls"
 
 require("conform").setup {
-    format_on_save = {
-        timeout_ms = 500,
-        lsp_format = "fallback",
-    },
+    default_format_opts = { lsp_format = "fallback" },
+    format_on_save = { timeout_ms = 500 },
 }
 
 require("mason-lspconfig").setup {}
