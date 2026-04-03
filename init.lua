@@ -4,6 +4,9 @@ vim.pack.add {
     "https://github.com/nvim-treesitter/nvim-treesitter",
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/stevearc/conform.nvim",
+    "https://github.com/mason-org/mason.nvim",
+    "https://github.com/mason-org/mason-lspconfig.nvim",
+    "https://github.com/zapling/mason-conform.nvim",
     "https://github.com/nvim-mini/mini.nvim",
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range "1.x" },
     "https://github.com/neogitorg/neogit",
@@ -23,9 +26,7 @@ vim.o.foldlevel = 99
 vim.o.foldtext = ""
 vim.o.inccommand = "split"
 vim.o.shiftwidth = 4
--- vim.o.shiftround = true
--- vim.o.shortmess = "filmnrxoOtTcCFS"
--- vim.o.signcolumn = "number"
+vim.o.signcolumn = "number"
 vim.o.spelllang = "en_ca,en"
 vim.o.spelloptions = "camel,noplainbuffer"
 vim.o.startofline = true
@@ -33,26 +34,22 @@ vim.o.whichwrap = "b,s,<,>,[,]"
 if vim.loop.os_uname().sysname == "Windows_NT" then
     vim.o.shellslash = true
     vim.cmd [[
-        set noshelltemp
-        let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command '
-        let &shellcmdflag .= '[Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();'
-        let &shellcmdflag .= '$PSDefaultParameterValues[''Out-File:Encoding'']=''utf8'';'
-        let &shellpipe  = '> %s 2>&1'
-        set shellquote= shellxquote=
-        let &shellcmdflag .= '$PSStyle.OutputRendering = ''PlainText'';'
-        " Workaround (may not be needed in future version of pwsh):
-        let $__SuppressAnsiEscapeSequences = 1
+       set noshelltemp
+       let &shell = 'pwsh'
+       let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command '
+       let &shellcmdflag .= '[Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();'
+       let &shellcmdflag .= '$PSDefaultParameterValues[''Out-File:Encoding'']=''utf8'';'
+       let &shellpipe  = '> %s 2>&1'
+       set shellquote= shellxquote=
+       let &shellcmdflag .= '$PSStyle.OutputRendering = ''PlainText'';'
+       " Workaround (may not be needed in future version of pwsh):
+       let $__SuppressAnsiEscapeSequences = 1
     ]]
 end
 
 vim.keymap.set("i", "<c-s>", vim.lsp.buf.signature_help, { desc = "Signature help" })
 
-require("mini.basics").setup {
-    options = {
-        win_borders = "single",
-    },
-}
-
+require("mini.basics").setup {}
 require("mini.icons").setup {}
 
 local Snacks = require "snacks"
@@ -89,13 +86,13 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 vim.api.nvim_create_autocmd("BufWinLeave", {
-    pattern = "*",
+    pattern = "*.*",
     callback = function()
-        vim.cmd.mkview()
+        vim.cmd "silent! mkview"
     end,
 })
 vim.api.nvim_create_autocmd("BufWinEnter", {
-    pattern = "*",
+    pattern = "*.*",
     callback = function()
         vim.cmd "silent! loadview"
     end,
@@ -146,13 +143,17 @@ MiniClue.setup {
 
 local MiniFiles = require "mini.files"
 MiniFiles.setup {}
-vim.keymap.set("n", "-", MiniFiles.open, { desc = "Open Mini Files" })
+vim.keymap.set("n", "-", function()
+    MiniFiles.open(vim.api.nvim_buf_get_name(0))
+end, { desc = "Open Mini Files" })
 vim.api.nvim_create_autocmd("User", {
     pattern = "MiniFilesActionRename",
     callback = function(event)
         Snacks.rename.on_rename_file(event.data.from, event.data.to)
     end,
 })
+
+require("mason").setup {}
 
 local cmp = require "blink.cmp"
 cmp.setup {
@@ -184,36 +185,16 @@ cmp.setup {
                     return vim.fn.getcmdtype() == ":"
                 end,
             },
-            list = {
-                selection = {
-                    preselect = false,
-                },
-            },
+            list = { selection = { preselect = false } },
         },
     },
     completion = {
-        list = {
-            selection = {
-                preselect = false,
-            },
-        },
-        documentation = {
-            auto_show = true,
-        },
-        ghost_text = {
-            enabled = true,
-        },
+        list = { selection = { preselect = false } },
+        documentation = { auto_show = true },
+        ghost_text = { enabled = true },
     },
     signature = { enabled = true },
-    sources = {
-        providers = {
-            buffer = {
-                opts = {
-                    get_bufnrs = vim.api.nvim_list_bufs,
-                },
-            },
-        },
-    },
+    sources = { providers = { buffer = { opts = { get_bufnrs = vim.api.nvim_list_bufs } } } },
 }
 local capabilities = cmp.get_lsp_capabilities()
 
@@ -239,15 +220,13 @@ vim.lsp.config("lua_ls", {
 vim.lsp.enable "lua_ls"
 
 require("conform").setup {
-    formatters_by_ft = {
-        fsharp = { "fantomas" },
-        javascript = { "prettierd", "prettier", stop_after_first = true },
-        lua = { "stylua" },
-    },
     format_on_save = {
         timeout_ms = 500,
         lsp_format = "fallback",
     },
 }
+
+require("mason-lspconfig").setup {}
+require("mason-conform").setup {}
 
 vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit UI" })
