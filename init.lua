@@ -7,6 +7,7 @@ vim.pack.add {
     "https://github.com/mason-org/mason.nvim",
     "https://github.com/mason-org/mason-lspconfig.nvim",
     "https://github.com/zapling/mason-conform.nvim",
+    "https://github.com/seblyng/roslyn.nvim",
     "https://github.com/tpope/vim-rsi",
     "https://github.com/nvim-mini/mini.nvim",
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range "1.x" },
@@ -47,7 +48,15 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
     ]]
 end
 
-vim.keymap.set("n", "<esc>", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { desc = ":help CTRL-L-default" })
+vim.keymap.set("n", "<esc>", "<cmd>nohlsearch<bar>diffupdate<bar>normal! <c-l><cr>", { desc = ":help CTRL-L-default" })
+vim.keymap.set("n", "<c-s>", function()
+    require("conform").format()
+    vim.cmd "mkview"
+    vim.cmd "update"
+end, { desc = "Format & save" })
+vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
+vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
+vim.keymap.set("x", "g/", "<esc>/\\%V", { silent = false, desc = "Search inside visual selection" })
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic" })
 vim.keymap.set("t", "<c-h>", "<c-\\><c-n><c-w><c-h>")
 vim.keymap.set("t", "<c-j>", "<c-\\><c-n><c-w><c-j>")
@@ -55,7 +64,7 @@ vim.keymap.set("t", "<c-k>", "<c-\\><c-n><c-w><c-k>")
 vim.keymap.set("t", "<c-l>", "<c-\\><c-n><c-w><c-l>")
 
 require("mini.basics").setup {
-    mappings = { windows = true },
+    mappings = { basic = false, windows = true },
     autocommands = { relnum_in_visual_mode = true },
 }
 require("mini.icons").setup {}
@@ -69,6 +78,8 @@ Snacks.setup {
     terminal = { enabled = true },
 }
 vim.keymap.set({ "n", "t" }, "<c-\\>", Snacks.terminal.toggle, { desc = "Toggle terminal" })
+vim.keymap.set("n", "go", Snacks.picker.lsp_symbols, { desc = "Document symbols" })
+vim.keymap.set("n", "gO", Snacks.picker.lsp_workspace_symbols, { desc = "Document symbols" })
 vim.keymap.set("n", "<leader><leader>", Snacks.picker.smart, { desc = "Find recent file" })
 vim.keymap.set("n", "<leader>f<leader>", Snacks.picker.resume, { desc = "Resume last find" })
 vim.keymap.set("n", "<leader>fc", Snacks.picker.colorschemes, { desc = "Find colorscheme" })
@@ -238,7 +249,12 @@ vim.api.nvim_create_autocmd("User", {
     end,
 })
 
-require("mason").setup {}
+require("mason").setup {
+    registries = {
+        "github:mason-org/mason-registry",
+        "github:Crashdummyy/mason-registry",
+    },
+}
 
 local cmp = require "blink.cmp"
 cmp.setup {
@@ -310,11 +326,7 @@ vim.lsp.config("lua_ls", {
 })
 vim.lsp.enable "lua_ls"
 
-require("conform").setup {
-    default_format_opts = { lsp_format = "fallback" },
-    format_on_save = { timeout_ms = 500 },
-}
-
+require("conform").setup { default_format_opts = { lsp_format = "fallback" } }
 require("mason-lspconfig").setup {}
 require("mason-conform").setup {}
 

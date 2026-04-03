@@ -49,6 +49,10 @@
       "rev": "3dbbfd7d17536aebfb80f571255548495574c32b",
       "src": "https://github.com/mechatroner/rainbow_csv"
     },
+    "roslyn.nvim": {
+      "rev": "ff43201090361b8936e008a006473b59ef2c0ca6",
+      "src": "https://github.com/seblyng/roslyn.nvim"
+    },
     "snacks.nvim": {
       "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
       "src": "https://github.com/folke/snacks.nvim"
