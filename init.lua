@@ -11,6 +11,7 @@ vim.pack.add {
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/nvim-treesitter/nvim-treesitter",
     "https://github.com/nvim-lua/plenary.nvim",
+    "https://github.com/stevearc/quicker.nvim",
     "https://github.com/mechatroner/rainbow_csv",
     "https://github.com/seblyng/roslyn.nvim",
     "https://github.com/folke/snacks.nvim",
@@ -74,6 +75,15 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
         vim.cmd "silent! loadview"
     end,
 })
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "qf",
+    callback = function()
+        vim.keymap.set("n", "<tab>", "<cr><c-w>p", { buffer = 0, desc = "Open but stay in quickfix list" })
+        vim.keymap.set("n", "{", "<cmd>cpfile<cr><c-w>p", { buffer = 0, desc = "Move to previous file" })
+        vim.keymap.set("n", "}", "<cmd>cnfile<cr><c-w>p", { buffer = 0, desc = "Move to next file" })
+        vim.keymap.set("n", "o", "<cr><cmd>cclose<cr>", { buffer = 0, desc = "Open and close quickfix list" })
+    end,
+})
 -- }}}
 
 -- Keymaps {{{
@@ -122,15 +132,22 @@ vim.keymap.set("n", "go", Snacks.picker.lsp_symbols, { desc = "Document symbols"
 vim.keymap.set("n", "gO", Snacks.picker.lsp_workspace_symbols, { desc = "Document symbols" })
 vim.keymap.set("n", "<leader><leader>", Snacks.picker.smart, { desc = "Find recent file" })
 vim.keymap.set("n", "<leader>f<leader>", Snacks.picker.resume, { desc = "Resume last find" })
+vim.keymap.set("n", "<leader>fb", Snacks.picker.buffers, { desc = "Find buffer" })
 vim.keymap.set("n", "<leader>fc", Snacks.picker.colorschemes, { desc = "Find colorscheme" })
 vim.keymap.set("n", "<leader>fd", Snacks.picker.diagnostics, { desc = "Find diagnostic" })
+vim.keymap.set("n", "<leader>fe", function()
+    Snacks.picker.diagnostics { severity = vim.diagnostic.severity.ERROR }
+end, { desc = "Find error" })
 vim.keymap.set("n", "<leader>ff", Snacks.picker.files, { desc = "Find file" })
-vim.keymap.set("n", "<leader>fb", Snacks.picker.buffers, { desc = "Find buffer" })
 vim.keymap.set("n", "<leader>fg", Snacks.picker.grep, { desc = "Find with grep" })
 vim.keymap.set("n", "<leader>fh", Snacks.picker.help, { desc = "Find help" })
 vim.keymap.set("n", "<leader>fH", Snacks.picker.highlights, { desc = "Find highlight" })
+vim.keymap.set("n", "<leader>fj", Snacks.picker.jumps, { desc = "Find jump" })
 vim.keymap.set("n", "<leader>fk", Snacks.picker.keymaps, { desc = "Find keymap" })
+vim.keymap.set("n", "<leader>fm", Snacks.picker.marks, { desc = "Find mark" })
+vim.keymap.set("n", "<leader>fo", Snacks.picker.recent, { desc = "Find in :oldfiles" })
 vim.keymap.set("n", "<leader>fp", Snacks.picker.projects, { desc = "Find project" })
+vim.keymap.set("n", "<leader>fr", Snacks.picker.registers, { desc = "Find register" })
 vim.keymap.set({ "n", "x" }, "<leader>fw", Snacks.picker.grep_word, { desc = "Find <word>" })
 vim.keymap.set("n", "<leader>x", "<cmd>lua Snacks.bufdelete()<cr>", { desc = "Delete buffer" })
 -- }}}
@@ -191,6 +208,8 @@ MiniClue.setup {
         MiniClue.gen_clues.registers(),
         MiniClue.gen_clues.windows(),
         MiniClue.gen_clues.z(),
+        { mode = "n", keys = "<leader>f", desc = "+Find" },
+        { mode = "n", keys = "<leader>g", desc = "+Git" },
     },
 }
 
@@ -355,14 +374,16 @@ cmp.setup {
 local capabilities = cmp.get_lsp_capabilities()
 -- }}}
 
--- Neogit {{{
+-- Miscellaneous plugins {{{
 vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit UI" })
 vim.keymap.set("n", "<leader>gc", "<cmd>Neogit commit<cr>", { desc = "Git commit" })
 vim.keymap.set("n", "<leader>gl", "<cmd>Neogit log<cr>", { desc = "Git log" })
 vim.keymap.set("n", "<leader>gp", "<cmd>Neogit pull<cr>", { desc = "Git pull" })
--- }}}
+vim.keymap.set("n", "<leader>gP", "<cmd>Neogit push<cr>", { desc = "Git push" })
+vim.keymap.set("n", "<leader>gz", "<cmd>Neogit stash<cr>", { desc = "Git stash" })
 
--- Ultimate Autopair {{{
+require("quicker").setup {}
+
 require("ultimate-autopair").setup {
     { "[|", "|]", fly = true, dosuround = true, newline = true, space = true },
     { "(|", "|)", fly = true, dosuround = true, newline = true, space = true, disable_end = true },
@@ -427,9 +448,7 @@ vim.lsp.config("fsautocomplete", {
     },
 })
 vim.lsp.enable "fsautocomplete"
--- }}}
 
--- Mason & Conform {{{
 require("mason").setup {
     registries = {
         "github:mason-org/mason-registry",

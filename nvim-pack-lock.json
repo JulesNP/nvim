@@ -45,6 +45,10 @@
       "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
+    "quicker.nvim": {
+      "rev": "063cc44da1eef8681bbd653b29d3bc961780886a",
+      "src": "https://github.com/stevearc/quicker.nvim"
+    },
     "rainbow_csv": {
       "rev": "3dbbfd7d17536aebfb80f571255548495574c32b",
       "src": "https://github.com/mechatroner/rainbow_csv"
