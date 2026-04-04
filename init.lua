@@ -55,11 +55,16 @@ end
 
 -- Autocommands {{{
 vim.api.nvim_create_autocmd("FileType", {
-    callback = function()
+    callback = function(event)
         local success, _ = pcall(vim.treesitter.start)
         if success then
             vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
             vim.wo.foldmethod = "expr"
+        end
+        if event.match == "fsharp" then
+            vim.bo.commentstring = "// %s"
+        elseif event.match == "sql" then
+            vim.bo.commentstring = "-- %s"
         end
     end,
 })
