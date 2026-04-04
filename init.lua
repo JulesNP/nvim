@@ -151,6 +151,20 @@ require("mini.basics").setup {
     autocommands = { relnum_in_visual_mode = true },
 }
 
+require("mini.bracketed").setup { indent = { suffix = "" } }
+local function set_error_keymap(map, direction)
+    vim.keymap.set(
+        "n",
+        map,
+        "<cmd>lua MiniBracketed.diagnostic('" .. direction .. "', { severity = vim.diagnostic.severity.ERROR })<cr>",
+        { desc = "Error " .. direction }
+    )
+end
+set_error_keymap("[e", "backward")
+set_error_keymap("]e", "forward")
+set_error_keymap("[E", "first")
+set_error_keymap("]E", "last")
+
 local MiniClue = require "mini.clue"
 MiniClue.setup {
     triggers = {
@@ -249,10 +263,43 @@ require("mini.indentscope").setup {
 }
 Snacks.util.set_hl { MiniIndentscopeSymbol = { link = "NonText" } }
 
+vim.keymap.set("n", "<leader>z", require("mini.misc").zoom, { desc = "Zoom buffer" })
+
 require("mini.move").setup { options = { reindent_linewise = false } }
+
+local MiniOperators = require "mini.operators"
+MiniOperators.setup { exchange = { prefix = "" }, replace = { prefix = "s" } }
+MiniOperators.make_mappings("exchange", { textobject = "sx", line = "sxx", selection = "X" })
+vim.keymap.set("n", "S", "s$", { remap = true, desc = "Substite to end of line" })
+vim.keymap.set("n", "sX", "sx$", { remap = true, desc = "Exchange to end of line" })
+
 require("mini.sessions").setup {}
-require("mini.splitjoin").setup {}
-require("mini.surround").setup {}
+
+local MiniSplitjoin = require "mini.splitjoin"
+MiniSplitjoin.setup {
+    detect = {
+        brackets = { "%b||", "%b()", "%b[]", "%b{}" },
+        separator = "[,;]",
+    },
+    join = {
+        hooks_post = { MiniSplitjoin.gen_hook.pad_brackets { brackets = { "%b||", "%b[]", "%b{}" } } },
+    },
+}
+
+require("mini.surround").setup {
+    mappings = {
+        add = "ys",
+        delete = "ds",
+        find = "",
+        find_left = "",
+        highlight = "",
+        replace = "cs",
+    },
+    search_method = "cover_or_next",
+}
+vim.keymap.del("x", "ys")
+vim.keymap.set("x", "S", ":<C-u>lua MiniSurround.add('visual')<CR>", { silent = true })
+vim.keymap.set("n", "yss", "ys_", { remap = true })
 -- }}}
 
 -- blink.cmp {{{
