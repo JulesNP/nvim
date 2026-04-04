@@ -1,6 +1,6 @@
 -- Plugins {{{
 vim.pack.add {
-    { src = "https://github.com/saghen/blink.cmp", version = vim.version.range "1.x" },
+    { src = "https://github.com/saghen/blink.cmp",               version = vim.version.range "1.x" },
     "https://github.com/stevearc/conform.nvim",
     "https://github.com/rafamadriz/friendly-snippets",
     "https://github.com/zapling/mason-conform.nvim",
@@ -98,10 +98,10 @@ vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set("x", "g/", "<esc>/\\%V", { silent = false, desc = "Search inside visual selection" })
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic" })
-vim.keymap.set("t", "<c-h>", "<c-\\><c-n><c-w><c-h>")
-vim.keymap.set("t", "<c-j>", "<c-\\><c-n><c-w><c-j>")
-vim.keymap.set("t", "<c-k>", "<c-\\><c-n><c-w><c-k>")
-vim.keymap.set("t", "<c-l>", "<c-\\><c-n><c-w><c-l>")
+vim.keymap.set("t", "<c-h>", "<cmd>wincmd h<cr>")
+vim.keymap.set("t", "<c-j>", "<cmd>wincmd j<cr>")
+vim.keymap.set("t", "<c-k>", "<cmd>wincmd k<cr>")
+vim.keymap.set("t", "<c-l>", "<cmd>wincmd l<cr>")
 vim.keymap.set({ "x", "o" }, "<cr>", function()
     if vim.treesitter.get_parser(nil, nil, { error = false }) then
         require("vim.treesitter._select").select_parent(vim.v.count1)
@@ -116,6 +116,31 @@ vim.keymap.set({ "x", "o" }, "<bs>", function()
         vim.lsp.buf.selection_range(-vim.v.count1)
     end
 end, { desc = "Select child (inner) node" })
+
+local function putline(action)
+    return function()
+        local regName = vim.v.register
+        local regType = vim.fn.getregtype(regName)
+        if regType ~= "V" then
+            local regValue = vim.fn.getreg(regName)
+            vim.fn.setreg(regName, regValue, "V")
+            vim.cmd("normal! " .. vim.v.count .. '"' .. regName .. action)
+            vim.fn.setreg(regName, regValue, regType)
+        else
+            vim.cmd("normal! " .. vim.v.count .. '"' .. regName .. action)
+        end
+    end
+end
+vim.keymap.set("n", "]p", putline "]p", { desc = "Put text after cursor at current indent" })
+vim.keymap.set("n", "]P", putline "]P", { desc = "Put text after cursor at current indent" })
+vim.keymap.set("n", "[p", putline "[p", { desc = "Put text before cursor at current indent" })
+vim.keymap.set("n", "[P", putline "[P", { desc = "Put text before cursor at current indent" })
+vim.keymap.set("n", ">p", putline "]p>']", { desc = "Put text after cursor at higher indent" })
+vim.keymap.set("n", ">P", putline "[p>']", { desc = "Put text before cursor at higher indent" })
+vim.keymap.set("n", "<p", putline "]p<']", { desc = "Put text after cursor at lower indent" })
+vim.keymap.set("n", "<P", putline "[p<']", { desc = "Put text before cursor at lower indent" })
+vim.keymap.set("n", "=p", putline "]p=']", { desc = "Put text after cursor and reformat" })
+vim.keymap.set("n", "=P", putline "[p=']", { desc = "Put text before cursor and reformat" })
 -- }}}
 
 -- Snacks {{{
@@ -189,15 +214,15 @@ MiniClue.setup {
     triggers = {
         { mode = { "n", "x" }, keys = "<leader>" },
         { mode = { "n", "x" }, keys = "\\" },
-        { mode = "n", keys = "[" },
-        { mode = "n", keys = "]" },
-        { mode = "i", keys = "<C-x>" },
+        { mode = "n",          keys = "[" },
+        { mode = "n",          keys = "]" },
+        { mode = "i",          keys = "<C-x>" },
         { mode = { "n", "x" }, keys = "g" },
         { mode = { "n", "x" }, keys = "'" },
         { mode = { "n", "x" }, keys = "`" },
         { mode = { "n", "x" }, keys = '"' },
         { mode = { "i", "c" }, keys = "<C-r>" },
-        { mode = "n", keys = "<C-w>" },
+        { mode = "n",          keys = "<C-w>" },
         { mode = { "n", "x" }, keys = "z" },
     },
     clues = {
@@ -385,11 +410,11 @@ vim.keymap.set("n", "<leader>gz", "<cmd>Neogit stash<cr>", { desc = "Git stash" 
 require("quicker").setup {}
 
 require("ultimate-autopair").setup {
-    { "[|", "|]", fly = true, dosuround = true, newline = true, space = true },
-    { "(|", "|)", fly = true, dosuround = true, newline = true, space = true, disable_end = true },
-    { "{|", "|}", fly = true, dosuround = true, newline = true, space = true },
-    { "[<", ">]", fly = true, dosuround = true, newline = true, space = true },
-    { ">", "<", newline = true, disable_start = true, disable_end = true },
+    { "[|", "|]", fly = true,     dosuround = true,     newline = true,    space = true },
+    { "(|", "|)", fly = true,     dosuround = true,     newline = true,    space = true, disable_end = true },
+    { "{|", "|}", fly = true,     dosuround = true,     newline = true,    space = true },
+    { "[<", ">]", fly = true,     dosuround = true,     newline = true,    space = true },
+    { ">",  "<",  newline = true, disable_start = true, disable_end = true },
     {
         "'",
         "'",
