@@ -1,6 +1,6 @@
 -- Plugins {{{
 vim.pack.add {
-    { src = "https://github.com/saghen/blink.cmp",               version = vim.version.range "1.x" },
+    { src = "https://github.com/saghen/blink.cmp", version = vim.version.range "1.x" },
     "https://github.com/stevearc/conform.nvim",
     "https://github.com/rafamadriz/friendly-snippets",
     "https://github.com/zapling/mason-conform.nvim",
@@ -248,15 +248,15 @@ MiniClue.setup {
     triggers = {
         { mode = { "n", "x" }, keys = "<leader>" },
         { mode = { "n", "x" }, keys = "\\" },
-        { mode = "n",          keys = "[" },
-        { mode = "n",          keys = "]" },
-        { mode = "i",          keys = "<C-x>" },
+        { mode = "n", keys = "[" },
+        { mode = "n", keys = "]" },
+        { mode = "i", keys = "<C-x>" },
         { mode = { "n", "x" }, keys = "g" },
         { mode = { "n", "x" }, keys = "'" },
         { mode = { "n", "x" }, keys = "`" },
         { mode = { "n", "x" }, keys = '"' },
         { mode = { "i", "c" }, keys = "<C-r>" },
-        { mode = "n",          keys = "<C-w>" },
+        { mode = "n", keys = "<C-w>" },
         { mode = { "n", "x" }, keys = "z" },
     },
     clues = {
@@ -444,11 +444,11 @@ vim.keymap.set("n", "<leader>gz", "<cmd>Neogit stash<cr>", { desc = "Git stash" 
 require("quicker").setup {}
 
 require("ultimate-autopair").setup {
-    { "[|", "|]", fly = true,     dosuround = true,     newline = true,    space = true },
-    { "(|", "|)", fly = true,     dosuround = true,     newline = true,    space = true, disable_end = true },
-    { "{|", "|}", fly = true,     dosuround = true,     newline = true,    space = true },
-    { "[<", ">]", fly = true,     dosuround = true,     newline = true,    space = true },
-    { ">",  "<",  newline = true, disable_start = true, disable_end = true },
+    { "[|", "|]", fly = true, dosuround = true, newline = true, space = true },
+    { "(|", "|)", fly = true, dosuround = true, newline = true, space = true, disable_end = true },
+    { "{|", "|}", fly = true, dosuround = true, newline = true, space = true },
+    { "[<", ">]", fly = true, dosuround = true, newline = true, space = true },
+    { ">", "<", newline = true, disable_start = true, disable_end = true },
     {
         "'",
         "'",
