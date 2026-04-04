@@ -93,7 +93,6 @@ vim.keymap.set("n", "<leader>fH", Snacks.picker.highlights, { desc = "Find highl
 vim.keymap.set("n", "<leader>fk", Snacks.picker.keymaps, { desc = "Find keymap" })
 vim.keymap.set("n", "<leader>fp", Snacks.picker.projects, { desc = "Find project" })
 vim.keymap.set({ "n", "x" }, "<leader>fw", Snacks.picker.grep_word, { desc = "Find <word>" })
-
 vim.api.nvim_create_autocmd("FileType", {
     callback = function(event)
         if
@@ -169,15 +168,15 @@ MiniClue.setup {
     triggers = {
         { mode = { "n", "x" }, keys = "<leader>" },
         { mode = { "n", "x" }, keys = "\\" },
-        { mode = "n",          keys = "[" },
-        { mode = "n",          keys = "]" },
-        { mode = "i",          keys = "<C-x>" },
+        { mode = "n", keys = "[" },
+        { mode = "n", keys = "]" },
+        { mode = "i", keys = "<C-x>" },
         { mode = { "n", "x" }, keys = "g" },
         { mode = { "n", "x" }, keys = "'" },
         { mode = { "n", "x" }, keys = "`" },
         { mode = { "n", "x" }, keys = '"' },
         { mode = { "i", "c" }, keys = "<C-r>" },
-        { mode = "n",          keys = "<C-w>" },
+        { mode = "n", keys = "<C-w>" },
         { mode = { "n", "x" }, keys = "z" },
     },
     clues = {
@@ -326,9 +325,25 @@ vim.lsp.config("lua_ls", {
     },
 })
 vim.lsp.enable "lua_ls"
+vim.lsp.config("fsautocomplete", {
+    capabilities = capabilities,
+    on_attach = function(client)
+        client.server_capabilities.semanticTokensProvider = nil
+    end,
+    flags = { debounce_text_changes = 150 },
+    settings = {
+        FSharp = { ExternalAutocomplete = true },
+    },
+})
+vim.lsp.enable "fsautocomplete"
+
+local orig_hover = vim.lsp.handlers["textDocument/hover"]
 
 require("conform").setup { default_format_opts = { lsp_format = "fallback" } }
 require("mason-lspconfig").setup {}
 require("mason-conform").setup {}
 
 vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit UI" })
+vim.keymap.set("n", "<leader>gc", "<cmd>Neogit commit<cr>", { desc = "Git commit" })
+vim.keymap.set("n", "<leader>gl", "<cmd>Neogit log<cr>", { desc = "Git log" })
+vim.keymap.set("n", "<leader>gp", "<cmd>Neogit pull<cr>", { desc = "Git pull" })
