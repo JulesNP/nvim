@@ -131,6 +131,7 @@ vim.keymap.set("n", "<leader>fH", Snacks.picker.highlights, { desc = "Find highl
 vim.keymap.set("n", "<leader>fk", Snacks.picker.keymaps, { desc = "Find keymap" })
 vim.keymap.set("n", "<leader>fp", Snacks.picker.projects, { desc = "Find project" })
 vim.keymap.set({ "n", "x" }, "<leader>fw", Snacks.picker.grep_word, { desc = "Find <word>" })
+vim.keymap.set("n", "<leader>x", "<cmd>lua Snacks.bufdelete()<cr>", { desc = "Delete buffer" })
 -- }}}
 
 -- mini.nvim {{{
