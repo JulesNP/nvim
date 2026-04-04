@@ -14,6 +14,7 @@ vim.pack.add {
     "https://github.com/mechatroner/rainbow_csv",
     "https://github.com/seblyng/roslyn.nvim",
     "https://github.com/folke/snacks.nvim",
+    { src = "https://github.com/altermo/ultimate-autopair.nvim", version = "v0.6" },
     "https://github.com/tpope/vim-rsi",
 }
 -- }}}
@@ -359,6 +360,39 @@ vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit UI" }
 vim.keymap.set("n", "<leader>gc", "<cmd>Neogit commit<cr>", { desc = "Git commit" })
 vim.keymap.set("n", "<leader>gl", "<cmd>Neogit log<cr>", { desc = "Git log" })
 vim.keymap.set("n", "<leader>gp", "<cmd>Neogit pull<cr>", { desc = "Git pull" })
+-- }}}
+
+-- Ultimate Autopair {{{
+require("ultimate-autopair").setup {
+    { "[|", "|]", fly = true, dosuround = true, newline = true, space = true },
+    { "(|", "|)", fly = true, dosuround = true, newline = true, space = true, disable_end = true },
+    { "{|", "|}", fly = true, dosuround = true, newline = true, space = true },
+    { "[<", ">]", fly = true, dosuround = true, newline = true, space = true },
+    { ">", "<", newline = true, disable_start = true, disable_end = true },
+    {
+        "'",
+        "'",
+        suround = true,
+        cond = function(fn)
+            return not fn.in_lisp() or fn.in_string()
+        end,
+        alpha = true,
+        nft = { "tex", "fsharp" },
+        multiline = false,
+    },
+    {
+        "`",
+        "`",
+        cond = function(fn)
+            return not fn.in_lisp() or fn.in_string()
+        end,
+        nft = { "tex", "fsharp" },
+        multiline = false,
+    },
+    { "```", "```", newline = true },
+    { '"""', '"""', newline = true },
+    { "'''", "'''", newline = true },
+}
 -- }}}
 
 -- LSP config {{{
