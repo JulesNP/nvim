@@ -141,6 +141,35 @@ vim.keymap.set("n", "<p", putline "]p<']", { desc = "Put text after cursor at lo
 vim.keymap.set("n", "<P", putline "[p<']", { desc = "Put text before cursor at lower indent" })
 vim.keymap.set("n", "=p", putline "]p=']", { desc = "Put text after cursor and reformat" })
 vim.keymap.set("n", "=P", putline "[p=']", { desc = "Put text before cursor and reformat" })
+
+vim.keymap.set("n", "<c-left>", function()
+    if vim.b.rbcsv == 1 then
+        vim.cmd "RainbowCellGoLeft"
+    else
+        return "<c-left>"
+    end
+end)
+vim.keymap.set("n", "<c-right>", function()
+    if vim.b.rbcsv == 1 then
+        vim.cmd "RainbowCellGoRight"
+    else
+        return "<c-right>"
+    end
+end)
+vim.keymap.set("n", "<c-up>", function()
+    if vim.b.rbcsv == 1 then
+        vim.cmd "RainbowCellGoUp"
+    else
+        return "<c-up>"
+    end
+end)
+vim.keymap.set("n", "<c-down>", function()
+    if vim.b.rbcsv == 1 then
+        vim.cmd "RainbowCellGoDown"
+    else
+        return "<c-down>"
+    end
+end)
 -- }}}
 
 -- Snacks {{{
