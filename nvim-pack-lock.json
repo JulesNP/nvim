@@ -38,7 +38,7 @@
       "src": "https://github.com/neogitorg/neogit"
     },
     "nvim-lspconfig": {
-      "rev": "9ccd58a7949091c0cc2777d4e92a45a209c808c1",
+      "rev": "ffd2b00f8dd0ee07bd1252ef3857e28ea3272d56",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {

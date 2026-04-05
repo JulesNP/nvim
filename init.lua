@@ -106,6 +106,7 @@ vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set("x", "g/", "<esc>/\\%V", { silent = false, desc = "Search inside visual selection" })
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic" })
+vim.keymap.set("n", "<leader>p", vim.pack.update, { desc = "Update vim.pack" })
 vim.keymap.set("t", "<c-h>", "<cmd>wincmd h<cr>")
 vim.keymap.set("t", "<c-j>", "<cmd>wincmd j<cr>")
 vim.keymap.set("t", "<c-k>", "<cmd>wincmd k<cr>")
@@ -220,6 +221,7 @@ Snacks.setup {
 vim.keymap.set({ "n", "t" }, "<c-\\>", Snacks.terminal.toggle, { desc = "Toggle terminal" })
 vim.keymap.set("n", "go", Snacks.picker.lsp_symbols, { desc = "Document symbols" })
 vim.keymap.set("n", "gO", Snacks.picker.lsp_workspace_symbols, { desc = "Document symbols" })
+vim.keymap.set("n", "z=", Snacks.picker.spelling, { desc = "Show spelling suggestions" })
 vim.keymap.set("n", "<leader><leader>", Snacks.picker.smart, { desc = "Find recent file" })
 vim.keymap.set("n", "<leader>f<leader>", Snacks.picker.resume, { desc = "Resume last find" })
 vim.keymap.set("n", "<leader>fb", Snacks.picker.buffers, { desc = "Find buffer" })
@@ -567,6 +569,7 @@ require("mason").setup {
         "github:Crashdummyy/mason-registry",
     },
 }
+vim.keymap.set("n", "<leader>m", "<cmd>Mason<cr>", { desc = "Open Mason UI" })
 require("conform").setup { default_format_opts = { lsp_format = "fallback" } }
 require("mason-lspconfig").setup {}
 require("mason-conform").setup {}
