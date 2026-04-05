@@ -332,13 +332,18 @@ vim.api.nvim_create_autocmd("User", {
     pattern = "MiniFilesBufferCreate",
     callback = function(args)
         local buf_id = args.data.buf_id
+        vim.keymap.set("n", "<leader>a", function()
+            local path = vim.fs.dirname(MiniFiles.get_fs_entry().path)
+            MiniFiles.close()
+            require("easy-dotnet").create_new_item(path)
+        end, { buffer = buf_id, desc = "Create file from dotnet template" })
         vim.keymap.set("n", "<esc>", MiniFiles.close, { buffer = buf_id, desc = "Close" })
         vim.keymap.set("n", "-", MiniFiles.go_out, { buffer = buf_id, desc = "Go out of directory" })
         vim.keymap.set("n", "gh", "h", { buffer = buf_id, desc = "Left" })
         vim.keymap.set("n", "gl", "l", { buffer = buf_id, desc = "Right" })
         vim.keymap.set("n", "<c-\\>", function()
-            local fs_entry = MiniFiles.get_fs_entry()
-            Snacks.terminal.open(nil, { cwd = vim.fs.dirname(fs_entry.path) })
+            local path = vim.fs.dirname(MiniFiles.get_fs_entry().path)
+            Snacks.terminal.open(nil, { cwd = path })
         end, { buffer = buf_id, desc = "Open location in terminal" })
         vim.keymap.set("n", "<cr>", function()
             local fs_entry = MiniFiles.get_fs_entry()
@@ -349,9 +354,9 @@ vim.api.nvim_create_autocmd("User", {
             end
         end, { buffer = buf_id, desc = "Go in entry" })
         vim.keymap.set("n", "g.", function()
-            local cwd = vim.fs.dirname(MiniFiles.get_fs_entry().path)
-            vim.fn.chdir(cwd)
-            vim.notify("CWD set to: " .. cwd)
+            local path = vim.fs.dirname(MiniFiles.get_fs_entry().path)
+            vim.fn.chdir(path)
+            vim.notify("CWD set to: " .. path)
         end, { buffer = buf_id, desc = "Set CWD" })
         vim.keymap.set("n", "gx", function()
             local path = MiniFiles.get_fs_entry().path
@@ -414,8 +419,7 @@ vim.keymap.set("n", "yss", "ys_", { remap = true })
 -- }}}
 
 -- blink.cmp {{{
-local cmp = require "blink.cmp"
-cmp.setup {
+require("blink.cmp").setup {
     keymap = {
         preset = "none",
         ["<c-d>"] = { "scroll_documentation_down", "fallback" },
@@ -423,8 +427,8 @@ cmp.setup {
         ["<c-n>"] = { "select_next", "fallback_to_mappings" },
         ["<c-p>"] = { "select_prev", "fallback_to_mappings" },
         ["<c-s>"] = {
-            function(_cmp)
-                _cmp.hide_signature()
+            function(cmp)
+                cmp.hide_signature()
                 vim.lsp.buf.signature_help()
             end,
         },
@@ -458,13 +462,27 @@ cmp.setup {
         documentation = { auto_show = true },
         ghost_text = { enabled = true },
     },
-    sources = { providers = { buffer = { opts = { get_bufnrs = vim.api.nvim_list_bufs } } } },
+    sources = {
+        default = { "lsp", "easy-dotnet", "path", "snippets", "buffer" },
+        providers = {
+            buffer = { opts = { get_bufnrs = vim.api.nvim_list_bufs } },
+            ["easy-dotnet"] = {
+                name = "easy-dotnet",
+                enabled = true,
+                module = "easy-dotnet.completion.blink",
+                score_offset = 10000,
+                async = true,
+            },
+        },
+    },
     signature = { enabled = true },
 }
-local capabilities = cmp.get_lsp_capabilities()
 -- }}}
 
 -- Miscellaneous plugins {{{
+require("easy-dotnet").setup {}
+vim.keymap.set("n", "<leader>d", "<cmd>Dotnet<cr>", { desc = "Open Dotnet UI" })
+
 vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit UI" })
 vim.keymap.set("n", "<leader>gc", "<cmd>Neogit commit<cr>", { desc = "Git commit" })
 vim.keymap.set("n", "<leader>gl", "<cmd>Neogit log<cr>", { desc = "Git log" })
@@ -510,6 +528,7 @@ require("ultimate-autopair").setup {
 -- }}}
 
 -- LSP config {{{
+local capabilities = require("blink.cmp").get_lsp_capabilities()
 vim.lsp.config("*", { capabilities = capabilities })
 vim.lsp.config("lua_ls", {
     capabilities = capabilities,
@@ -541,7 +560,6 @@ vim.lsp.config("fsautocomplete", {
     },
 })
 vim.lsp.enable "fsautocomplete"
-require("easy-dotnet").setup {}
 
 require("mason").setup {
     registries = {
