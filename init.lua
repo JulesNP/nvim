@@ -64,6 +64,13 @@ vim.api.nvim_create_autocmd("FileType", {
         end
         if event.match == "fsharp" then
             vim.bo.commentstring = "// %s"
+        elseif event.match == "lua" then
+            vim.opt.formatoptions:remove "o"
+        elseif event.match == "qf" then
+            vim.keymap.set("n", "<tab>", "<cr><c-w>p", { buffer = 0, desc = "Open but stay in quickfix list" })
+            vim.keymap.set("n", "{", "<cmd>cpfile<cr><c-w>p", { buffer = 0, desc = "Move to previous file" })
+            vim.keymap.set("n", "}", "<cmd>cnfile<cr><c-w>p", { buffer = 0, desc = "Move to next file" })
+            vim.keymap.set("n", "o", "<cr><cmd>cclose<cr>", { buffer = 0, desc = "Open and close quickfix list" })
         elseif event.match == "sql" then
             vim.bo.commentstring = "-- %s"
         end
@@ -79,15 +86,6 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     pattern = "*.*",
     callback = function()
         vim.cmd "silent! loadview"
-    end,
-})
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "qf",
-    callback = function()
-        vim.keymap.set("n", "<tab>", "<cr><c-w>p", { buffer = 0, desc = "Open but stay in quickfix list" })
-        vim.keymap.set("n", "{", "<cmd>cpfile<cr><c-w>p", { buffer = 0, desc = "Move to previous file" })
-        vim.keymap.set("n", "}", "<cmd>cnfile<cr><c-w>p", { buffer = 0, desc = "Move to next file" })
-        vim.keymap.set("n", "o", "<cr><cmd>cclose<cr>", { buffer = 0, desc = "Open and close quickfix list" })
     end,
 })
 vim.api.nvim_create_autocmd("User", {
@@ -505,6 +503,9 @@ require("ultimate-autopair").setup {
     { "```", "```", newline = true },
     { '"""', '"""', newline = true },
     { "'''", "'''", newline = true },
+    bs = { cmap = "<m-bs>" },
+    space2 = { enable = true },
+    tabout = { enable = true, map = "<m-]>", cmap = "<m-]>", hopout = true },
 }
 -- }}}
 
