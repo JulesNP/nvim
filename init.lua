@@ -53,6 +53,7 @@ if vim.uv.os_uname().sysname == "Windows_NT" then
        let $__SuppressAnsiEscapeSequences = 1
     ]]
 end
+require("vim._core.ui2").enable { enable = true }
 -- }}}
 
 -- Autocommands {{{
