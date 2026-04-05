@@ -4,6 +4,7 @@ vim.pack.add {
     "https://github.com/stevearc/conform.nvim",
     "https://github.com/GustavEikaas/easy-dotnet.nvim",
     "https://github.com/rafamadriz/friendly-snippets",
+    "https://github.com/ellisonleao/gruvbox.nvim",
     "https://github.com/zapling/mason-conform.nvim",
     "https://github.com/mason-org/mason-lspconfig.nvim",
     "https://github.com/mason-org/mason.nvim",
@@ -52,7 +53,6 @@ if vim.uv.os_uname().sysname == "Windows_NT" then
        let $__SuppressAnsiEscapeSequences = 1
     ]]
 end
-vim.cmd.colorscheme "catppuccin"
 -- }}}
 
 -- Autocommands {{{
@@ -588,6 +588,9 @@ require("blink.cmp").setup {
 -- Miscellaneous plugins {{{
 require("easy-dotnet").setup {}
 vim.keymap.set("n", "<leader>o", "<cmd>Dotnet<cr>", { desc = "Open Dotnet UI" })
+
+require("gruvbox").setup { italic = { strings = false } }
+vim.cmd.colorscheme "gruvbox"
 
 vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit UI" })
 vim.keymap.set("n", "<leader>gc", "<cmd>Neogit commit<cr>", { desc = "Git commit" })
