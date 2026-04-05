@@ -66,6 +66,10 @@
       "src": "https://github.com/altermo/ultimate-autopair.nvim",
       "version": "'v0.6'"
     },
+    "vim-abolish": {
+      "rev": "dcbfe065297d31823561ba787f51056c147aa682",
+      "src": "https://github.com/tpope/vim-abolish"
+    },
     "vim-rsi": {
       "rev": "45540637ead22f011e8215f1c90142e49d946a54",
       "src": "https://github.com/tpope/vim-rsi"

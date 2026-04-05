@@ -16,6 +16,7 @@ vim.pack.add {
     "https://github.com/mechatroner/rainbow_csv",
     "https://github.com/folke/snacks.nvim",
     { src = "https://github.com/altermo/ultimate-autopair.nvim", version = "v0.6" },
+    "https://github.com/tpope/vim-abolish",
     "https://github.com/tpope/vim-rsi",
 }
 -- }}}
