@@ -1,6 +1,6 @@
 -- Plugins {{{
 vim.pack.add {
-    { src = "https://github.com/saghen/blink.cmp",               version = vim.version.range "1.x" },
+    { src = "https://github.com/saghen/blink.cmp", version = vim.version.range "1.x" },
     "https://github.com/stevearc/conform.nvim",
     "https://github.com/GustavEikaas/easy-dotnet.nvim",
     "https://github.com/rafamadriz/friendly-snippets",
@@ -180,7 +180,9 @@ local function toggle_char_eol(character)
     local delimiters = { ",", ";" }
     local mode = vim.api.nvim_get_mode().mode
     local is_visual = mode == "v" or mode == "V" or mode == "\22" -- <C-v>
-    if is_visual then vim.fn.feedkeys(":", "nx") end
+    if is_visual then
+        vim.fn.feedkeys(":", "nx")
+    end
     local start_line = is_visual and vim.fn.getpos("'<")[2] or vim.api.nvim_win_get_cursor(0)[1]
     local end_line = is_visual and vim.fn.getpos("'>")[2] or start_line
     for line_idx = start_line, end_line do
@@ -195,7 +197,6 @@ local function toggle_char_eol(character)
         end
     end
 end
-
 vim.keymap.set({ "n", "x" }, "<leader>,", function()
     toggle_char_eol ","
 end, { desc = "Toggle ," })
@@ -275,15 +276,15 @@ MiniClue.setup {
     triggers = {
         { mode = { "n", "x" }, keys = "<leader>" },
         { mode = { "n", "x" }, keys = "\\" },
-        { mode = "n",          keys = "[" },
-        { mode = "n",          keys = "]" },
-        { mode = "i",          keys = "<C-x>" },
+        { mode = "n", keys = "[" },
+        { mode = "n", keys = "]" },
+        { mode = "i", keys = "<C-x>" },
         { mode = { "n", "x" }, keys = "g" },
         { mode = { "n", "x" }, keys = "'" },
         { mode = { "n", "x" }, keys = "`" },
         { mode = { "n", "x" }, keys = '"' },
         { mode = { "i", "c" }, keys = "<C-r>" },
-        { mode = "n",          keys = "<C-w>" },
+        { mode = "n", keys = "<C-w>" },
         { mode = { "n", "x" }, keys = "z" },
     },
     clues = {
@@ -471,11 +472,11 @@ vim.keymap.set("n", "<leader>gz", "<cmd>Neogit stash<cr>", { desc = "Git stash" 
 require("quicker").setup {}
 
 require("ultimate-autopair").setup {
-    { "[|", "|]", fly = true,     dosuround = true,     newline = true,    space = true },
-    { "(|", "|)", fly = true,     dosuround = true,     newline = true,    space = true, disable_end = true },
-    { "{|", "|}", fly = true,     dosuround = true,     newline = true,    space = true },
-    { "[<", ">]", fly = true,     dosuround = true,     newline = true,    space = true },
-    { ">",  "<",  newline = true, disable_start = true, disable_end = true },
+    { "[|", "|]", fly = true, dosuround = true, newline = true, space = true },
+    { "(|", "|)", fly = true, dosuround = true, newline = true, space = true, disable_end = true },
+    { "{|", "|}", fly = true, dosuround = true, newline = true, space = true },
+    { "[<", ">]", fly = true, dosuround = true, newline = true, space = true },
+    { ">", "<", newline = true, disable_start = true, disable_end = true },
     {
         "'",
         "'",
