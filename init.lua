@@ -59,11 +59,14 @@ vim.api.nvim_create_autocmd("FileType", {
     callback = function(event)
         local ok = pcall(vim.treesitter.start)
         if ok then
-            vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
             vim.wo.foldmethod = "expr"
+            vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
         end
         if event.match == "fsharp" then
             vim.bo.commentstring = "// %s"
+        elseif event.match == "diff" or event.match == "git" then
+            vim.wo.foldmethod = "expr"
+            vim.wo.foldexpr = "v:lua.MiniGit.diff_foldexpr()"
         elseif event.match == "lua" then
             vim.opt.formatoptions:remove "o"
         elseif event.match == "qf" then
@@ -102,10 +105,10 @@ vim.api.nvim_create_autocmd("User", {
 vim.keymap.set("n", "<esc>", "<cmd>nohlsearch<bar>diffupdate<bar>normal! <c-l><cr>", { desc = ":help CTRL-L-default" })
 vim.keymap.set("n", "<c-s>", function()
     require("conform").format()
-    vim.cmd "mkview"
+    vim.cmd "silent! mkview"
     vim.cmd "update"
 end, { desc = "Format & save" })
-vim.keymap.set("n", "<m-s>", "<cmd>mkview<bar>wall<cr>", { desc = "Save all buffers" })
+vim.keymap.set("n", "<m-s>", "<cmd>silent! mkview<bar>wall<cr>", { desc = "Save all buffers" })
 vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set("x", "g/", "<esc>/\\%V", { silent = false, desc = "Search inside visual selection" })
@@ -313,7 +316,12 @@ require("mini.diff").setup {}
 vim.keymap.set("n", "\\o", require("mini.diff").toggle_overlay, { desc = "Tooggle diff overlay" })
 
 local MiniFiles = require "mini.files"
+local show_dotfiles = false
+local filter_dotfiles = function(fs_entry)
+    return show_dotfiles or not vim.startswith(fs_entry.name, ".")
+end
 MiniFiles.setup {
+    content = { filter = filter_dotfiles },
     mappings = {
         go_in = "<tab>",
         go_in_plus = "l",
@@ -343,8 +351,15 @@ vim.api.nvim_create_autocmd("User", {
             MiniFiles.close()
             require("easy-dotnet").create_new_item(path)
         end, { buffer = buf_id, desc = "Create file from dotnet template" })
+        vim.keymap.set("n", "<m-p>", function()
+            MiniFiles.refresh { windows = { preview = true } }
+        end, { buffer = buf_id, desc = "Show file previews" })
         vim.keymap.set("n", "<esc>", MiniFiles.close, { buffer = buf_id, desc = "Close" })
         vim.keymap.set("n", "-", MiniFiles.go_out, { buffer = buf_id, desc = "Go out of directory" })
+        vim.keymap.set("n", "<c-h>", function()
+            show_dotfiles = not show_dotfiles
+            MiniFiles.refresh { content = { filter = filter_dotfiles } }
+        end, { buffer = buf_id })
         vim.keymap.set("n", "gh", "h", { buffer = buf_id, desc = "Left" })
         vim.keymap.set("n", "gl", "l", { buffer = buf_id, desc = "Right" })
         vim.keymap.set("n", "<c-\\>", function()
@@ -375,6 +390,9 @@ vim.api.nvim_create_autocmd("User", {
         end, { buffer = buf_id, desc = "Yank filepath" })
     end,
 })
+
+require("mini.git").setup {}
+vim.keymap.set("n", "<leader>gs", require("mini.git").show_at_cursor, { desc = "Git show_at_cursor" })
 
 require("mini.icons").setup {}
 
