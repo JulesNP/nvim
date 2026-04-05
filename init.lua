@@ -415,7 +415,84 @@ MiniOperators.make_mappings("exchange", { textobject = "sx", line = "sxx", selec
 vim.keymap.set("n", "S", "s$", { remap = true, desc = "Substite to end of line" })
 vim.keymap.set("n", "sX", "sx$", { remap = true, desc = "Exchange to end of line" })
 
-require("mini.sessions").setup {}
+local function confirm_discard_changes(all_buffers)
+    local buf_list = all_buffers == false and { 0 } or vim.api.nvim_list_bufs()
+    local unsaved = vim.tbl_filter(function(buf_id)
+        return vim.bo[buf_id].modified and vim.bo[buf_id].buflisted
+    end, buf_list)
+    if #unsaved == 0 then
+        return true
+    end
+    for _, buf_id in ipairs(unsaved) do
+        local name = vim.api.nvim_buf_get_name(buf_id)
+        local result = vim.fn.confirm(
+            string.format('Save changes to "%s"?', name ~= "" and vim.fn.fnamemodify(name, ":~:.") or "Untitled"),
+            "&Yes\n&No\n&Cancel",
+            1,
+            "Question"
+        )
+        if result == 1 then
+            if buf_id ~= 0 then
+                vim.cmd("buffer " .. buf_id)
+            end
+            vim.cmd "update"
+        elseif result == 0 or result == 3 then
+            return false
+        end
+    end
+    return true
+end
+local MiniSessions = require "mini.sessions"
+MiniSessions.setup {}
+vim.keymap.set("n", "<leader>sd", function()
+    MiniSessions.select "delete"
+end, { desc = "Delete session" })
+vim.keymap.set("n", "<leader>ss", function()
+    local items = vim.tbl_values(MiniSessions.detected)
+    local current = vim.fn.fnamemodify(vim.v.this_session, ":t")
+    table.sort(items, function(a, b)
+        if a.name == current then
+            return false
+        elseif b.name == current then
+            return true
+        end
+        return a.modify_time > b.modify_time
+    end)
+    local picker_items = vim.tbl_map(function(item)
+        return { text = item.name, label = item.name .. " (" .. item.type .. ")" }
+    end, items)
+    Snacks.picker {
+        title = "Select Session",
+        items = picker_items,
+        layout = { preset = "select" },
+        confirm = function(picker, item)
+            picker:close()
+            if not item then
+                return
+            end
+            if confirm_discard_changes() then
+                MiniSessions.read(item.text, { force = true })
+            end
+        end,
+    }
+end, { desc = "Select session" })
+vim.keymap.set("n", "<leader>sw", function()
+    vim.ui.input({
+        prompt = "Session Name: ",
+        default = vim.v.this_session ~= "" and vim.v.this_session or vim.fn.fnamemodify(vim.fn.getcwd(), ":t"),
+    }, function(input)
+        if input ~= nil then
+            MiniSessions.write(input, { force = true })
+        end
+    end)
+end, { desc = "Save session" })
+vim.keymap.set("n", "<leader>sx", function()
+    if confirm_discard_changes() then
+        vim.v.this_session = ""
+        vim.cmd "%bwipeout!"
+        vim.cmd "cd ~"
+    end
+end, { desc = "Clear current session" })
 
 local MiniSplitjoin = require "mini.splitjoin"
 MiniSplitjoin.setup {
@@ -427,6 +504,8 @@ MiniSplitjoin.setup {
         hooks_post = { MiniSplitjoin.gen_hook.pad_brackets { brackets = { "%b||", "%b[]", "%b{}" } } },
     },
 }
+
+require("mini.statusline").setup {}
 
 require("mini.surround").setup {
     mappings = {
