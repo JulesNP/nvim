@@ -25,21 +25,21 @@ vim.pack.add {
 -- Settings {{{
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-vim.o.conceallevel = 2
-vim.o.confirm = true
+vim.opt.conceallevel = 2
+vim.opt.confirm = true
 vim.opt.diffopt:append { algorithm = "histogram" }
-vim.o.expandtab = true
-vim.o.foldlevel = 99
-vim.o.foldtext = ""
-vim.o.inccommand = "split"
-vim.o.shiftwidth = 4
-vim.o.signcolumn = "number"
-vim.o.spelllang = "en_ca,en"
-vim.o.spelloptions = "camel,noplainbuffer"
-vim.o.startofline = true
-vim.o.whichwrap = "b,s,<,>,[,]"
+vim.opt.expandtab = true
+vim.opt.foldlevel = 99
+vim.opt.foldtext = ""
+vim.opt.inccommand = "split"
+vim.opt.shiftwidth = 4
+vim.opt.signcolumn = "number"
+vim.opt.spelllang = "en_ca,en"
+vim.opt.spelloptions = "camel,noplainbuffer"
+vim.opt.startofline = true
+vim.opt.whichwrap = "b,s,<,>,[,]"
 if vim.uv.os_uname().sysname == "Windows_NT" then
-    vim.o.shellslash = true
+    vim.opt.shellslash = true
     vim.cmd [[
        set noshelltemp
        let &shell = 'pwsh'
@@ -335,12 +335,7 @@ local filter_dotfiles = function(fs_entry)
 end
 MiniFiles.setup {
     content = { filter = filter_dotfiles },
-    mappings = {
-        go_in = "<tab>",
-        go_in_plus = "l",
-        go_out_plus = "",
-        synchronize = "<c-s>",
-    },
+    mappings = { go_in = "<tab>", go_in_plus = "l", go_out_plus = "", synchronize = "<c-s>" },
 }
 vim.keymap.set("n", "-", function()
     if vim.bo.buftype == "" then
@@ -508,13 +503,8 @@ end, { desc = "Clear current session" })
 
 local MiniSplitjoin = require "mini.splitjoin"
 MiniSplitjoin.setup {
-    detect = {
-        brackets = { "%b||", "%b()", "%b[]", "%b{}" },
-        separator = "[,;]",
-    },
-    join = {
-        hooks_post = { MiniSplitjoin.gen_hook.pad_brackets { brackets = { "%b||", "%b[]", "%b{}" } } },
-    },
+    detect = { brackets = { "%b||", "%b()", "%b[]", "%b{}" }, separator = "[,;]" },
+    join = { hooks_post = { MiniSplitjoin.gen_hook.pad_brackets { brackets = { "%b||", "%b[]", "%b{}" } } } },
 }
 
 require("mini.statusline").setup {}
@@ -664,16 +654,9 @@ vim.lsp.config("lua_ls", {
     root_markers = { { ".luarc.json", ".luarc.jsonc" }, ".git" },
     settings = {
         Lua = {
-            hint = {
-                enable = true,
-            },
-            runtime = {
-                version = "LuaJIT",
-            },
-            workspace = {
-                checkThirdParty = false,
-                library = { vim.env.VIMRUNTIME },
-            },
+            hint = { enable = true },
+            runtime = { version = "LuaJIT" },
+            workspace = { checkThirdParty = false, library = { vim.env.VIMRUNTIME } },
         },
     },
 })
@@ -684,18 +667,11 @@ vim.lsp.config("fsautocomplete", {
         client.server_capabilities.semanticTokensProvider = nil
     end,
     flags = { debounce_text_changes = 100 },
-    settings = {
-        FSharp = { ExternalAutocomplete = true },
-    },
+    settings = { FSharp = { ExternalAutocomplete = true } },
 })
 vim.lsp.enable "fsautocomplete"
 
-require("mason").setup {
-    registries = {
-        "github:mason-org/mason-registry",
-        "github:Crashdummyy/mason-registry",
-    },
-}
+require("mason").setup { registries = { "github:mason-org/mason-registry", "github:Crashdummyy/mason-registry" } }
 vim.keymap.set("n", "<leader>m", "<cmd>Mason<cr>", { desc = "Open Mason UI" })
 require("conform").setup { default_format_opts = { lsp_format = "fallback" }, format_on_save = { timeout_ms = 500 } }
 require("mason-lspconfig").setup {}
@@ -704,6 +680,6 @@ require("mason-conform").setup {}
 
 -- Deferred settings {{{
 vim.schedule(function()
-    vim.o.clipboard = "unnamedplus"
+    vim.opt.clipboard = "unnamedplus"
 end)
 -- vim: set foldmethod=marker: }}}
