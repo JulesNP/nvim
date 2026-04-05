@@ -103,12 +103,14 @@ vim.api.nvim_create_autocmd("User", {
 
 -- Keymaps {{{
 vim.keymap.set("n", "<esc>", "<cmd>nohlsearch<bar>diffupdate<bar>normal! <c-l><cr>", { desc = ":help CTRL-L-default" })
-vim.keymap.set("n", "<c-s>", function()
-    require("conform").format()
-    vim.cmd "silent! mkview"
-    vim.cmd "update"
-end, { desc = "Format & save" })
+vim.keymap.set("n", "<c-s>", "<cmd>silent! mkview<bar>update<cr>", { desc = "Save buffer" })
 vim.keymap.set("n", "<m-s>", "<cmd>silent! mkview<bar>wall<cr>", { desc = "Save all buffers" })
+vim.keymap.set(
+    "n",
+    "<leader><c-s>",
+    "<cmd>silent! mkview<bar>noautocmd update<cr>",
+    { desc = "Save without auto-format" }
+)
 vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set("x", "g/", "<esc>/\\%V", { silent = false, desc = "Search inside visual selection" })
@@ -592,7 +594,7 @@ require("mason").setup {
     },
 }
 vim.keymap.set("n", "<leader>m", "<cmd>Mason<cr>", { desc = "Open Mason UI" })
-require("conform").setup { default_format_opts = { lsp_format = "fallback" } }
+require("conform").setup { default_format_opts = { lsp_format = "fallback" }, format_on_save = { timeout_ms = 500 } }
 require("mason-lspconfig").setup {}
 require("mason-conform").setup {}
 -- }}}
