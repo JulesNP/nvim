@@ -416,6 +416,7 @@ require("mini.indentscope").setup {
 }
 Snacks.util.set_hl { MiniIndentscopeSymbol = { link = "NonText" } }
 
+require("mini.misc").setup_auto_root()
 vim.keymap.set("n", "<leader>z", require("mini.misc").zoom, { desc = "Zoom buffer" })
 
 require("mini.move").setup { options = { reindent_linewise = false } }
