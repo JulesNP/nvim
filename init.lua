@@ -2,6 +2,7 @@
 vim.pack.add {
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range "1.x" },
     "https://github.com/stevearc/conform.nvim",
+    "https://github.com/GustavEikaas/easy-dotnet.nvim",
     "https://github.com/rafamadriz/friendly-snippets",
     "https://github.com/zapling/mason-conform.nvim",
     "https://github.com/mason-org/mason-lspconfig.nvim",
@@ -13,7 +14,6 @@ vim.pack.add {
     "https://github.com/nvim-lua/plenary.nvim",
     "https://github.com/stevearc/quicker.nvim",
     "https://github.com/mechatroner/rainbow_csv",
-    "https://github.com/seblyng/roslyn.nvim",
     "https://github.com/folke/snacks.nvim",
     { src = "https://github.com/altermo/ultimate-autopair.nvim", version = "v0.6" },
     "https://github.com/tpope/vim-rsi",
@@ -507,6 +507,7 @@ vim.lsp.config("fsautocomplete", {
     },
 })
 vim.lsp.enable "fsautocomplete"
+require("easy-dotnet").setup {}
 
 require("mason").setup {
     registries = {

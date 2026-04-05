@@ -1,13 +1,17 @@
 {
   "plugins": {
     "blink.cmp": {
-      "rev": "451168851e8e2466bc97ee3e026c3dcb9141ce07",
+      "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
       "src": "https://github.com/saghen/blink.cmp",
       "version": "1.0.0 - 2.0.0"
     },
     "conform.nvim": {
       "rev": "086a40dc7ed8242c03be9f47fbcee68699cc2395",
       "src": "https://github.com/stevearc/conform.nvim"
+    },
+    "easy-dotnet.nvim": {
+      "rev": "8f557b46d0954d216ce73c2f4ca7dcd04ff27b64",
+      "src": "https://github.com/GustavEikaas/easy-dotnet.nvim"
     },
     "friendly-snippets": {
       "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
@@ -52,10 +56,6 @@
     "rainbow_csv": {
       "rev": "3dbbfd7d17536aebfb80f571255548495574c32b",
       "src": "https://github.com/mechatroner/rainbow_csv"
-    },
-    "roslyn.nvim": {
-      "rev": "ff43201090361b8936e008a006473b59ef2c0ca6",
-      "src": "https://github.com/seblyng/roslyn.nvim"
     },
     "snacks.nvim": {
       "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
