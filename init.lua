@@ -51,6 +51,7 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
        let $__SuppressAnsiEscapeSequences = 1
     ]]
 end
+vim.cmd.colorscheme "catppuccin"
 -- }}}
 
 -- Autocommands {{{
