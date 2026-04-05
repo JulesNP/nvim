@@ -228,7 +228,17 @@ Snacks.setup {
     scroll = { enabled = true },
     terminal = { enabled = true },
 }
-vim.keymap.set({ "n", "t" }, "<c-\\>", Snacks.terminal.toggle, { desc = "Toggle terminal" })
+local function terminal_win_options()
+    local columns = vim.o.columns
+    return {
+        position = columns > 160 and "right" or "bottom",
+        width = math.max(80, columns / 3),
+        height = 0.3,
+    }
+end
+vim.keymap.set({ "n", "t" }, "<c-\\>", function()
+    Snacks.terminal.toggle(nil, { win = terminal_win_options() })
+end, { desc = "Toggle terminal" })
 vim.keymap.set("n", "go", Snacks.picker.lsp_symbols, { desc = "Document symbols" })
 vim.keymap.set("n", "gO", Snacks.picker.lsp_workspace_symbols, { desc = "Document symbols" })
 vim.keymap.set("n", "z=", Snacks.picker.spelling, { desc = "Show spelling suggestions" })
@@ -367,7 +377,7 @@ vim.api.nvim_create_autocmd("User", {
         vim.keymap.set("n", "gl", "l", { buffer = buf_id, desc = "Right" })
         vim.keymap.set("n", "<c-\\>", function()
             local path = vim.fs.dirname(MiniFiles.get_fs_entry().path)
-            Snacks.terminal.open(nil, { cwd = path })
+            Snacks.terminal.open(nil, { cwd = path, win = terminal_win_options() })
         end, { buffer = buf_id, desc = "Open location in terminal" })
         vim.keymap.set("n", "<cr>", function()
             local fs_entry = MiniFiles.get_fs_entry()
@@ -589,7 +599,7 @@ require("blink.cmp").setup {
 require("easy-dotnet").setup {}
 vim.keymap.set("n", "<leader>o", "<cmd>Dotnet<cr>", { desc = "Open Dotnet UI" })
 
-require("gruvbox").setup { italic = { strings = false } }
+require("gruvbox").setup { italic = { strings = false }, contrast = "hard" }
 vim.cmd.colorscheme "gruvbox"
 
 vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit UI" })
