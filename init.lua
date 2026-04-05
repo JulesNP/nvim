@@ -36,7 +36,7 @@ vim.o.spelllang = "en_ca,en"
 vim.o.spelloptions = "camel,noplainbuffer"
 vim.o.startofline = true
 vim.o.whichwrap = "b,s,<,>,[,]"
-if vim.loop.os_uname().sysname == "Windows_NT" then
+if vim.uv.os_uname().sysname == "Windows_NT" then
     vim.o.shellslash = true
     vim.cmd [[
        set noshelltemp
@@ -57,8 +57,8 @@ vim.cmd.colorscheme "catppuccin"
 -- Autocommands {{{
 vim.api.nvim_create_autocmd("FileType", {
     callback = function(event)
-        local success, _ = pcall(vim.treesitter.start)
-        if success then
+        local ok = pcall(vim.treesitter.start)
+        if ok then
             vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
             vim.wo.foldmethod = "expr"
         end
@@ -79,13 +79,17 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("BufWinLeave", {
     pattern = "*.*",
     callback = function()
-        vim.cmd "silent! mkview"
+        if vim.bo.buftype == "" then
+            vim.cmd "silent! mkview"
+        end
     end,
 })
 vim.api.nvim_create_autocmd("BufWinEnter", {
     pattern = "*.*",
     callback = function()
-        vim.cmd "silent! loadview"
+        if vim.bo.buftype == "" then
+            vim.cmd "silent! loadview"
+        end
     end,
 })
 vim.api.nvim_create_autocmd("User", {
@@ -205,7 +209,7 @@ vim.keymap.set({ "n", "x" }, "<leader>,", function()
     toggle_char_eol ","
 end, { desc = "Toggle ," })
 vim.keymap.set({ "n", "x" }, "<leader>;", function()
-    toggle_char_eol ","
+    toggle_char_eol ";"
 end, { desc = "Toggle ;" })
 -- }}}
 
@@ -483,7 +487,7 @@ require("blink.cmp").setup {
 
 -- Miscellaneous plugins {{{
 require("easy-dotnet").setup {}
-vim.keymap.set("n", "<leader>d", "<cmd>Dotnet<cr>", { desc = "Open Dotnet UI" })
+vim.keymap.set("n", "<leader>o", "<cmd>Dotnet<cr>", { desc = "Open Dotnet UI" })
 
 vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit UI" })
 vim.keymap.set("n", "<leader>gc", "<cmd>Neogit commit<cr>", { desc = "Git commit" })
@@ -556,7 +560,7 @@ vim.lsp.config("fsautocomplete", {
     on_attach = function(client)
         client.server_capabilities.semanticTokensProvider = nil
     end,
-    flags = { debounce_text_changes = 150 },
+    flags = { debounce_text_changes = 100 },
     settings = {
         FSharp = { ExternalAutocomplete = true },
     },
