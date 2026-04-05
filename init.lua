@@ -90,6 +90,10 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.keymap.set("n", "o", "<cr><cmd>cclose<cr>", { buffer = 0, desc = "Open and close quickfix list" })
     end,
 })
+vim.api.nvim_create_autocmd("User", {
+    pattern = { "NeogitStatusRefreshed", "NeogitPullComplete", "NeogitStash" },
+    command = "checktime",
+})
 -- }}}
 
 -- Keymaps {{{
