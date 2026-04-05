@@ -582,7 +582,16 @@ require("blink.cmp").setup {
     sources = {
         default = { "lsp", "easy-dotnet", "path", "snippets", "buffer" },
         providers = {
-            buffer = { opts = { get_bufnrs = vim.api.nvim_list_bufs } },
+            buffer = {
+                opts = {
+                    get_bufnrs = function()
+                        return vim.tbl_filter(function(bufnr)
+                            local buftype = vim.bo[bufnr]
+                            return buftype == "" or buftype == "help"
+                        end, vim.api.nvim_list_bufs())
+                    end,
+                },
+            },
             ["easy-dotnet"] = {
                 name = "easy-dotnet",
                 enabled = true,
