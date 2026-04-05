@@ -1,6 +1,6 @@
 -- Plugins {{{
 vim.pack.add {
-    { src = "https://github.com/saghen/blink.cmp", version = vim.version.range "1.x" },
+    { src = "https://github.com/saghen/blink.cmp",               version = vim.version.range "1.x" },
     "https://github.com/stevearc/conform.nvim",
     "https://github.com/GustavEikaas/easy-dotnet.nvim",
     "https://github.com/rafamadriz/friendly-snippets",
@@ -175,6 +175,33 @@ vim.keymap.set("n", "<c-down>", function()
         return "<c-down>"
     end
 end)
+
+local function toggle_char_eol(character)
+    local delimiters = { ",", ";" }
+    local mode = vim.api.nvim_get_mode().mode
+    local is_visual = mode == "v" or mode == "V" or mode == "\22" -- <C-v>
+    if is_visual then vim.fn.feedkeys(":", "nx") end
+    local start_line = is_visual and vim.fn.getpos("'<")[2] or vim.api.nvim_win_get_cursor(0)[1]
+    local end_line = is_visual and vim.fn.getpos("'>")[2] or start_line
+    for line_idx = start_line, end_line do
+        local line = vim.api.nvim_buf_get_lines(0, line_idx - 1, line_idx, false)[1]
+        local last_char = line:sub(-1)
+        if last_char == character then
+            vim.api.nvim_buf_set_lines(0, line_idx - 1, line_idx, false, { line:sub(1, #line - 1) })
+        elseif vim.tbl_contains(delimiters, last_char) then
+            vim.api.nvim_buf_set_lines(0, line_idx - 1, line_idx, false, { line:sub(1, #line - 1) .. character })
+        else
+            vim.api.nvim_buf_set_lines(0, line_idx - 1, line_idx, false, { line .. character })
+        end
+    end
+end
+
+vim.keymap.set({ "n", "x" }, "<leader>,", function()
+    toggle_char_eol ","
+end, { desc = "Toggle ," })
+vim.keymap.set({ "n", "x" }, "<leader>;", function()
+    toggle_char_eol ","
+end, { desc = "Toggle ;" })
 -- }}}
 
 -- Snacks {{{
@@ -248,15 +275,15 @@ MiniClue.setup {
     triggers = {
         { mode = { "n", "x" }, keys = "<leader>" },
         { mode = { "n", "x" }, keys = "\\" },
-        { mode = "n", keys = "[" },
-        { mode = "n", keys = "]" },
-        { mode = "i", keys = "<C-x>" },
+        { mode = "n",          keys = "[" },
+        { mode = "n",          keys = "]" },
+        { mode = "i",          keys = "<C-x>" },
         { mode = { "n", "x" }, keys = "g" },
         { mode = { "n", "x" }, keys = "'" },
         { mode = { "n", "x" }, keys = "`" },
         { mode = { "n", "x" }, keys = '"' },
         { mode = { "i", "c" }, keys = "<C-r>" },
-        { mode = "n", keys = "<C-w>" },
+        { mode = "n",          keys = "<C-w>" },
         { mode = { "n", "x" }, keys = "z" },
     },
     clues = {
@@ -444,11 +471,11 @@ vim.keymap.set("n", "<leader>gz", "<cmd>Neogit stash<cr>", { desc = "Git stash" 
 require("quicker").setup {}
 
 require("ultimate-autopair").setup {
-    { "[|", "|]", fly = true, dosuround = true, newline = true, space = true },
-    { "(|", "|)", fly = true, dosuround = true, newline = true, space = true, disable_end = true },
-    { "{|", "|}", fly = true, dosuround = true, newline = true, space = true },
-    { "[<", ">]", fly = true, dosuround = true, newline = true, space = true },
-    { ">", "<", newline = true, disable_start = true, disable_end = true },
+    { "[|", "|]", fly = true,     dosuround = true,     newline = true,    space = true },
+    { "(|", "|)", fly = true,     dosuround = true,     newline = true,    space = true, disable_end = true },
+    { "{|", "|}", fly = true,     dosuround = true,     newline = true,    space = true },
+    { "[<", ">]", fly = true,     dosuround = true,     newline = true,    space = true },
+    { ">",  "<",  newline = true, disable_start = true, disable_end = true },
     {
         "'",
         "'",
