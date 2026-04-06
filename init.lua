@@ -590,6 +590,8 @@ require("diffview").setup {
         file_panel = { q = "<cmd>DiffviewClose<cr>" },
     },
 }
+vim.keymap.set("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", { desc = "Open Diffview UI" })
+vim.keymap.set({ "n", "x" }, "<leader>gf", ":DiffviewFileHistory<cr>", { desc = "Diffview file history" })
 
 require("easy-dotnet").setup {}
 vim.keymap.set("n", "<leader>o", "<cmd>Dotnet<cr>", { desc = "Open Dotnet UI" })
