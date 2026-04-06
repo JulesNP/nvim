@@ -9,6 +9,10 @@
       "rev": "086a40dc7ed8242c03be9f47fbcee68699cc2395",
       "src": "https://github.com/stevearc/conform.nvim"
     },
+    "diffview.nvim": {
+      "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
+      "src": "https://github.com/sindrets/diffview.nvim"
+    },
     "easy-dotnet.nvim": {
       "rev": "8f557b46d0954d216ce73c2f4ca7dcd04ff27b64",
       "src": "https://github.com/GustavEikaas/easy-dotnet.nvim"

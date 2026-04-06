@@ -2,6 +2,7 @@
 vim.pack.add {
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range "1.x" },
     "https://github.com/stevearc/conform.nvim",
+    "https://github.com/sindrets/diffview.nvim",
     "https://github.com/GustavEikaas/easy-dotnet.nvim",
     "https://github.com/rafamadriz/friendly-snippets",
     "https://github.com/ellisonleao/gruvbox.nvim",
@@ -78,22 +79,6 @@ vim.api.nvim_create_autocmd("FileType", {
             vim.keymap.set("n", "o", "<cr><cmd>cclose<cr>", { buffer = 0, desc = "Open and close quickfix list" })
         elseif event.match == "sql" then
             vim.bo.commentstring = "-- %s"
-        end
-    end,
-})
-vim.api.nvim_create_autocmd("BufWinLeave", {
-    pattern = "*.*",
-    callback = function()
-        if vim.bo.buftype == "" then
-            vim.cmd "silent! mkview"
-        end
-    end,
-})
-vim.api.nvim_create_autocmd("BufWinEnter", {
-    pattern = "*.*",
-    callback = function()
-        if vim.bo.buftype == "" then
-            vim.cmd "silent! loadview"
         end
     end,
 })
@@ -418,8 +403,11 @@ require("mini.indentscope").setup {
 }
 Snacks.util.set_hl { MiniIndentscopeSymbol = { link = "NonText" } }
 
-require("mini.misc").setup_auto_root()
-vim.keymap.set("n", "<leader>z", require("mini.misc").zoom, { desc = "Zoom buffer" })
+local MiniMisc = require "mini.misc"
+MiniMisc.setup_auto_root()
+MiniMisc.setup_termbg_sync()
+MiniMisc.setup_restore_cursor()
+vim.keymap.set("n", "<leader>z", MiniMisc.zoom, { desc = "Zoom buffer" })
 
 require("mini.move").setup { options = { reindent_linewise = false } }
 
@@ -594,6 +582,15 @@ require("blink.cmp").setup {
 -- }}}
 
 -- Miscellaneous plugins {{{
+require("diffview").setup {
+    enhanced_diff_hl = true,
+    keymaps = {
+        view = { q = "<cmd>DiffviewClose<cr>" },
+        file_history_panel = { q = "<cmd>DiffviewClose<cr>" },
+        file_panel = { q = "<cmd>DiffviewClose<cr>" },
+    },
+}
+
 require("easy-dotnet").setup {}
 vim.keymap.set("n", "<leader>o", "<cmd>Dotnet<cr>", { desc = "Open Dotnet UI" })
 
