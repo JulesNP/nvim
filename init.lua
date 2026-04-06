@@ -30,6 +30,7 @@ vim.opt.conceallevel = 2
 vim.opt.confirm = true
 vim.opt.diffopt:append { algorithm = "histogram" }
 vim.opt.expandtab = true
+vim.opt.fillchars:append { diff = "╱" }
 vim.opt.foldlevel = 99
 vim.opt.foldtext = ""
 vim.opt.inccommand = "split"
@@ -591,12 +592,12 @@ require("diffview").setup {
     },
 }
 vim.keymap.set("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", { desc = "Open Diffview UI" })
-vim.keymap.set({ "n", "x" }, "<leader>gf", ":DiffviewFileHistory<cr>", { desc = "Diffview file history" })
+vim.keymap.set({ "n", "x" }, "<leader>gh", ":DiffviewFileHistory<cr>", { desc = "Diffview file history" })
 
 require("easy-dotnet").setup {}
 vim.keymap.set("n", "<leader>o", "<cmd>Dotnet<cr>", { desc = "Open Dotnet UI" })
 
-require("gruvbox").setup { italic = { strings = false }, contrast = "hard" }
+require("gruvbox").setup { italic = { folds = false, strings = false }, contrast = "hard" }
 vim.cmd.colorscheme "gruvbox"
 
 vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit UI" })
