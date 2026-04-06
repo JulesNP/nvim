@@ -15,7 +15,7 @@ setlocal indentexpr=FSharpIndent()
 setlocal indentkeys+=0=\|,0=\|],0=when,0=elif,0=else,0=\|\>,==,=with
 
 " Only define the function once
-if exists("*GetFsharpIndent")
+if exists("*FsharpIndent")
   finish
 endif
 
@@ -54,7 +54,7 @@ function! s:ScopedFind(regex, start_line, scope)
   " we reach the top of the file,
   " or we go out of function scope (2 blank lines)
   " In addition, it ignores lines that are indented further
-  while lnum >= 0 && blank_lines < 2 && (
+  while lnum > 0 && blank_lines < 2 && (
         \ in_comment || line == "" || indent > max_indent ||
         \ line !~ a:regex
         \ )
@@ -62,7 +62,7 @@ function! s:ScopedFind(regex, start_line, scope)
     let line = getline(lnum)
     let indent = indent(lnum)
 
-    Log 'lnum:'.lnum.', indent:'.indent.', min_indent:'.min_indent.', max_indent:'.max_indent
+    Log 'lnum:'.lnum.', indent:'.indent.', max_indent:'.max_indent
     Log 'in_comment:'.in_comment.', line:'.line
 
     " Indicate if we are in a multiline comment
@@ -203,7 +203,7 @@ function! FSharpIndent()
     endif
 
 
-  elseif current_line =~ '^\s*\with$'
+  elseif current_line =~ '^\s*with$'
     Log '! with'
     let indent = previous_indent - s:width
 
