@@ -83,10 +83,12 @@ vim.api.nvim_create_autocmd("FileType", {
         end
     end,
 })
+
 vim.api.nvim_create_autocmd("User", {
     pattern = { "NeogitStatusRefreshed", "NeogitPullComplete", "NeogitStash" },
     command = "checktime",
 })
+
 vim.api.nvim_create_autocmd("LspProgress", {
     callback = function(event)
         local value = event.data.params.value
