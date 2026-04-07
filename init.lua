@@ -91,15 +91,17 @@ vim.api.nvim_create_autocmd("User", {
 
 vim.api.nvim_create_autocmd("LspProgress", {
     callback = function(event)
-        local value = event.data.params.value
-        vim.api.nvim_echo({ { value.message or "done" } }, false, {
-            id = "lsp." .. event.data.client_id,
-            kind = "progress",
-            source = "vim.lsp",
-            title = value.title,
-            status = value.kind ~= "end" and "running" or "success",
-            percent = value.percentage,
-        })
+        if vim.api.nvim_get_mode().mode == "n" then
+            local value = event.data.params.value
+            vim.api.nvim_echo({ { value.message or "done" } }, false, {
+                id = "lsp." .. event.data.client_id,
+                kind = "progress",
+                source = "vim.lsp",
+                title = value.title,
+                status = value.kind ~= "end" and "running" or "success",
+                percent = value.percentage,
+            })
+        end
     end,
 })
 -- }}}
