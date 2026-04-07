@@ -108,25 +108,16 @@ vim.api.nvim_create_autocmd("LspProgress", {
 
 -- Keymaps {{{
 vim.keymap.set("n", "<esc>", "<cmd>nohlsearch<bar>diffupdate<bar>normal! <c-l><cr>", { desc = ":help CTRL-L-default" })
-vim.keymap.set("n", "<c-s>", "<cmd>silent! mkview<bar>update<cr>", { desc = "Save buffer" })
-vim.keymap.set("n", "<m-s>", "<cmd>silent! mkview<bar>wall<cr>", { desc = "Save all buffers" })
-vim.keymap.set(
-    "n",
-    "<leader><c-s>",
-    "<cmd>silent! mkview<bar>noautocmd update<cr>",
-    { desc = "Save without auto-format" }
-)
+vim.keymap.set("n", "<c-s>", "<cmd>update<cr>", { desc = "Save buffer" })
+vim.keymap.set("n", "<m-s>", "<cmd>wall<cr>", { desc = "Save all buffers" })
+vim.keymap.set("n", "<leader><c-s>", "<cmd>noautocmd update<cr>", { desc = "Save without auto-format" })
 vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set("x", "g/", "<esc>/\\%V", { silent = false, desc = "Search inside visual selection" })
 vim.keymap.set("c", "<c-o>", function()
-    local search = vim.fn.getreg("/")
+    local search = vim.fn.getreg "/"
     local hlsearch = vim.v.hlsearch
-    vim.api.nvim_feedkeys(
-        vim.api.nvim_replace_termcodes("<cr>", true, false, true),
-        "n",
-        true
-    )
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, false, true), "n", true)
     vim.schedule(function()
         vim.fn.setreg("/", search)
         vim.v.hlsearch = hlsearch
