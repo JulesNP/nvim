@@ -119,7 +119,19 @@ vim.keymap.set(
 vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set("x", "g/", "<esc>/\\%V", { silent = false, desc = "Search inside visual selection" })
-vim.keymap.set("c", "<c-o>", "<cr><cmd>nohlsearch<cr>", { desc = "Jump to match" })
+vim.keymap.set("c", "<c-o>", function()
+    local search = vim.fn.getreg("/")
+    local hlsearch = vim.v.hlsearch
+    vim.api.nvim_feedkeys(
+        vim.api.nvim_replace_termcodes("<cr>", true, false, true),
+        "n",
+        true
+    )
+    vim.schedule(function()
+        vim.fn.setreg("/", search)
+        vim.v.hlsearch = hlsearch
+    end)
+end, { desc = "Jump to match without changing search" })
 vim.keymap.set("n", "\\L", function()
     vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled())
 end, { desc = "Toggle code lens" })
