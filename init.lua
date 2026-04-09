@@ -19,6 +19,9 @@ vim.pack.add {
     "https://github.com/folke/snacks.nvim",
     { src = "https://github.com/altermo/ultimate-autopair.nvim", version = "v0.6" },
     "https://github.com/tpope/vim-abolish",
+    "https://github.com/tpope/vim-dadbod",
+    "https://github.com/kristijanhusak/vim-dadbod-completion",
+    "https://github.com/kristijanhusak/vim-dadbod-ui",
     "https://github.com/tpope/vim-rsi",
 }
 -- }}}
@@ -589,8 +592,12 @@ require("blink.cmp").setup {
     },
     sources = {
         default = { "lsp", "easy-dotnet", "path", "snippets", "buffer" },
+        per_filetype = {
+            sql = { "lsp", "snippets", "dadbod", "path", "buffer" },
+        },
         providers = {
             lsp = { fallbacks = {} },
+            dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
             ["easy-dotnet"] = {
                 name = "easy-dotnet",
                 enabled = true,
@@ -605,6 +612,10 @@ require("blink.cmp").setup {
 -- }}}
 
 -- Miscellaneous plugins {{{
+vim.g.db_ui_use_nerd_fonts = 1
+vim.g.db_ui_use_nvim_notify = 1
+vim.keymap.set("n", "<leader>b", "<cmd>DBUIToggle<cr>", { desc = "Toggle Dadbod UI" })
+
 require("diffview").setup {
     enhanced_diff_hl = true,
     keymaps = {
