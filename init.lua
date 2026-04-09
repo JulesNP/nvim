@@ -1,6 +1,7 @@
 -- Plugins {{{
 vim.pack.add {
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range "1.x" },
+    "https://github.com/uga-rosa/ccc.nvim",
     "https://github.com/stevearc/conform.nvim",
     "https://github.com/sindrets/diffview.nvim",
     "https://github.com/GustavEikaas/easy-dotnet.nvim",
@@ -615,6 +616,18 @@ require("blink.cmp").setup {
 vim.g.db_ui_use_nerd_fonts = 1
 vim.g.db_ui_use_nvim_notify = 1
 vim.keymap.set("n", "<leader>b", "<cmd>DBUIToggle<cr>", { desc = "Toggle Dadbod UI" })
+
+local ccc = require "ccc"
+ccc.setup {
+    highlighter = { auto_enable = true, lsp = true },
+    inputs = {
+        ccc.input.okhsl,
+        ccc.input.rgb,
+        ccc.input.hsl,
+        ccc.input.cmyk,
+    },
+}
+vim.keymap.set({ "n", "x" }, "<leader>c", "<cmd>CccPick<cr>", { desc = "Open Color Picker" })
 
 require("diffview").setup {
     enhanced_diff_hl = true,
