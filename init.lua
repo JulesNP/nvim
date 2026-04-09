@@ -30,6 +30,7 @@ vim.opt.conceallevel = 2
 vim.opt.confirm = true
 vim.opt.diffopt:append { algorithm = "histogram" }
 vim.opt.expandtab = true
+vim.opt.exrc = true
 vim.opt.fillchars:append { diff = "╱" }
 vim.opt.foldlevel = 99
 vim.opt.foldtext = ""
