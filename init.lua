@@ -7,9 +7,9 @@ vim.pack.add {
     "https://github.com/GustavEikaas/easy-dotnet.nvim",
     "https://github.com/rafamadriz/friendly-snippets",
     "https://github.com/ellisonleao/gruvbox.nvim",
+    "https://github.com/mason-org/mason.nvim",
     "https://github.com/zapling/mason-conform.nvim",
     "https://github.com/mason-org/mason-lspconfig.nvim",
-    "https://github.com/mason-org/mason.nvim",
     "https://github.com/nvim-mini/mini.nvim",
     "https://github.com/neogitorg/neogit",
     "https://github.com/neovim/nvim-lspconfig",
@@ -98,7 +98,7 @@ vim.api.nvim_create_autocmd("LspProgress", {
     callback = function(event)
         if vim.api.nvim_get_mode().mode == "n" then
             local value = event.data.params.value
-            vim.api.nvim_echo({ { value.message or "done" } }, false, {
+            vim.api.nvim_echo({ { value.message or "Done" } }, false, {
                 id = "lsp." .. event.data.client_id,
                 kind = "progress",
                 source = "vim.lsp",
