@@ -593,7 +593,7 @@ require("blink.cmp").setup {
     sources = {
         default = { "lsp", "easy-dotnet", "path", "snippets", "buffer" },
         per_filetype = {
-            sql = { "lsp", "snippets", "dadbod", "path", "buffer" },
+            sql = { "snippets", "lsp", "dadbod", "path", "buffer" },
         },
         providers = {
             lsp = { fallbacks = {} },
