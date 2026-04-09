@@ -14,6 +14,7 @@ vim.pack.add {
     "https://github.com/neogitorg/neogit",
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/nvim-treesitter/nvim-treesitter",
+    "https://github.com/windwp/nvim-ts-autotag",
     "https://github.com/nvim-lua/plenary.nvim",
     "https://github.com/stevearc/quicker.nvim",
     "https://github.com/mechatroner/rainbow_csv",
@@ -653,6 +654,7 @@ vim.keymap.set("n", "<leader>gp", "<cmd>Neogit pull<cr>", { desc = "Git pull" })
 vim.keymap.set("n", "<leader>gP", "<cmd>Neogit push<cr>", { desc = "Git push" })
 vim.keymap.set("n", "<leader>gz", "<cmd>Neogit stash<cr>", { desc = "Git stash" })
 
+require("nvim-ts-autotag").setup()
 require("quicker").setup {}
 
 require("ultimate-autopair").setup {
