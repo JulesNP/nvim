@@ -15,6 +15,7 @@ vim.pack.add {
     "https://github.com/neovim/nvim-lspconfig",
     "https://github.com/nvim-treesitter/nvim-treesitter",
     "https://github.com/windwp/nvim-ts-autotag",
+    "https://github.com/lifepillar/pgsql.vim",
     "https://github.com/nvim-lua/plenary.nvim",
     "https://github.com/stevearc/quicker.nvim",
     "https://github.com/mechatroner/rainbow_csv",

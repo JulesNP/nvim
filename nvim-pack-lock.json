@@ -61,6 +61,10 @@
       "rev": "8e1c0a389f20bf7f5b0dd0e00306c1247bda2595",
       "src": "https://github.com/windwp/nvim-ts-autotag"
     },
+    "pgsql.vim": {
+      "rev": "16584d7a1f2c528560a646a63625c6731a72c8c7",
+      "src": "https://github.com/lifepillar/pgsql.vim"
+    },
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
