@@ -435,7 +435,9 @@ Snacks.util.set_hl { MiniIndentscopeSymbol = { link = "NonText" } }
 
 local MiniMisc = require "mini.misc"
 MiniMisc.setup_auto_root()
-MiniMisc.setup_termbg_sync()
+if vim.uv.os_uname().sysname ~= "Windows_NT" then
+    MiniMisc.setup_termbg_sync()
+end
 MiniMisc.setup_restore_cursor()
 vim.keymap.set("n", "<leader>z", MiniMisc.zoom, { desc = "Zoom buffer" })
 
