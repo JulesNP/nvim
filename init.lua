@@ -41,6 +41,7 @@ vim.opt.fillchars:append { diff = "╱" }
 vim.opt.foldlevel = 99
 vim.opt.foldtext = ""
 vim.opt.inccommand = "split"
+vim.opt.nrformats:append { "alpha", "blank" }
 vim.opt.shiftwidth = 4
 vim.opt.signcolumn = "number"
 vim.opt.spelllang = "en_ca,en"
