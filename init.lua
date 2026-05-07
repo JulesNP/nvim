@@ -138,7 +138,17 @@ vim.keymap.set("n", "\\H", function()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Toggle inlay hints" })
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic" })
-vim.keymap.set("n", "<leader>p", vim.pack.update, { desc = "Update vim.pack" })
+vim.keymap.set("n", "<leader>pu", vim.pack.update, { desc = "Update plugins" })
+vim.keymap.set("n", "<leader>pr", function ()
+    vim.pack.update(nil, { target = "lockfile" })
+end, { desc = "Restore plugins" })
+vim.keymap.set("n", "<leader>px", function ()
+    local inactive = vim.iter(vim.pack.get())
+        :filter(function(x) return not x.active end)
+        :map(function(x) return x.spec.name end)
+        :totable()
+    vim.pack.del(inactive)
+end, { desc = "Delete inactive plugins" })
 vim.keymap.set("t", "<c-h>", "<cmd>wincmd h<cr>")
 vim.keymap.set("t", "<c-j>", "<cmd>wincmd j<cr>")
 vim.keymap.set("t", "<c-k>", "<cmd>wincmd k<cr>")
@@ -344,6 +354,7 @@ MiniClue.setup {
         MiniClue.gen_clues.z(),
         { mode = "n", keys = "<leader>f", desc = "+Find" },
         { mode = "n", keys = "<leader>g", desc = "+Git" },
+        { mode = "n", keys = "<leader>p", desc = "+Plugins" },
     },
 }
 
