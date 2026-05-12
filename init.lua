@@ -5,6 +5,7 @@ vim.pack.add {
     "https://github.com/stevearc/conform.nvim",
     "https://github.com/sindrets/diffview.nvim",
     "https://github.com/GustavEikaas/easy-dotnet.nvim",
+    "https://github.com/glacambre/firenvim",
     "https://github.com/rafamadriz/friendly-snippets",
     "https://github.com/ellisonleao/gruvbox.nvim",
     "https://github.com/mason-org/mason.nvim",
@@ -66,6 +67,18 @@ end
 if not vim.g.vscode then
     require("vim._core.ui2").enable { enable = true }
 end
+vim.g.firenvim_config = {
+    globalSettings = { alt = "all" },
+    localSettings = {
+        [".*"] = {
+            cmdline = "neovim",
+            content = "text",
+            priority = 0,
+            selector = "textarea",
+            takeover = "never",
+        },
+    },
+}
 -- }}}
 
 -- Autocommands {{{
@@ -112,6 +125,16 @@ if not vim.g.vscode then
                     status = value.kind ~= "end" and "running" or "success",
                     percent = value.percentage,
                 })
+            end
+        end,
+    })
+
+    vim.api.nvim_create_autocmd("PackChanged", {
+        callback = function(ev)
+            if ev.data.spec.name == "nvim-treesitter" then
+                vim.cmd "TSUpdate"
+            elseif ev.data.spec.name == "firenvim" then
+                vim.cmd "call firenvim#install(0)"
             end
         end,
     })
