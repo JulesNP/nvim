@@ -3,6 +3,7 @@ vim.pack.add {
     { src = "https://github.com/saghen/blink.cmp", version = vim.version.range "1.x" },
     "https://github.com/uga-rosa/ccc.nvim",
     "https://github.com/stevearc/conform.nvim",
+    "https://github.com/github/copilot.vim",
     "https://github.com/sindrets/diffview.nvim",
     "https://github.com/GustavEikaas/easy-dotnet.nvim",
     "https://github.com/glacambre/firenvim",
@@ -79,6 +80,7 @@ vim.g.firenvim_config = {
         },
     },
 }
+vim.g.copilot_no_tab_map = true
 -- }}}
 
 -- Autocommands {{{
@@ -160,6 +162,10 @@ vim.keymap.set("c", "<c-o>", function()
 end, { desc = "Jump to match without changing search" })
 
 if not vim.g.vscode then
+    vim.keymap.set("i", "<c-cr>", 'copilot#Accept("\\<cr>")', {
+        expr = true,
+        replace_keycodes = false,
+    })
     vim.keymap.set("n", "\\L", function()
         vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled())
     end, { desc = "Toggle code lens" })
@@ -167,6 +173,7 @@ if not vim.g.vscode then
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
     end, { desc = "Toggle inlay hints" })
     vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic" })
+    vim.keymap.set("n", "<leader>e", "<cmd>edit<cr>", { desc = "Reload file" })
     vim.keymap.set("n", "<leader>pu", vim.pack.update, { desc = "Update plugins" })
     vim.keymap.set("n", "<leader>pr", function()
         vim.pack.update(nil, { target = "lockfile" })
