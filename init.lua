@@ -298,15 +298,15 @@ Snacks.setup {
     scroll = { enabled = not vim.g.vscode },
     terminal = { enabled = not vim.g.vscode },
 }
+local function terminal_win_options()
+    local columns = vim.o.columns
+    return {
+        position = columns > 160 and "right" or "bottom",
+        width = math.max(80, columns / 3),
+        height = 0.3,
+    }
+end
 if not vim.g.vscode then
-    local function terminal_win_options()
-        local columns = vim.o.columns
-        return {
-            position = columns > 160 and "right" or "bottom",
-            width = math.max(80, columns / 3),
-            height = 0.3,
-        }
-    end
     vim.keymap.set({ "n", "t" }, "<c-\\>", function()
         Snacks.terminal.toggle(nil, { win = terminal_win_options() })
     end, { desc = "Toggle terminal" })
