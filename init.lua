@@ -93,6 +93,19 @@ if not vim.g.vscode then
             end
             if event.match == "fsharp" then
                 vim.bo.commentstring = "// %s"
+            elseif
+                vim.tbl_contains({
+                    "csv",
+                    "csv_pipe",
+                    "csv_semicolon",
+                    "csv_whitespace",
+                    "rfc_csv",
+                    "rfc_semicolon",
+                    "tsv",
+                }, event.match)
+            then
+                vim.treesitter.stop(event.buf)
+                vim.bo.syntax = event.match
             elseif event.match == "diff" or event.match == "git" then
                 vim.wo.foldmethod = "expr"
                 vim.wo.foldexpr = "v:lua.MiniGit.diff_foldexpr()"
@@ -235,33 +248,17 @@ vim.keymap.set("n", "=p", putline "]p=']", { desc = "Put text after cursor and r
 vim.keymap.set("n", "=P", putline "[p=']", { desc = "Put text before cursor and reformat" })
 
 vim.keymap.set("n", "<c-left>", function()
-    if vim.b.rbcsv == 1 then
-        vim.cmd "RainbowCellGoLeft"
-    else
-        return "<c-left>"
-    end
-end)
+    return vim.b.rbcsv == 1 and "<cmd>RainbowCellGoLeft<cr>" or "<c-left>"
+end, { expr = true })
 vim.keymap.set("n", "<c-right>", function()
-    if vim.b.rbcsv == 1 then
-        vim.cmd "RainbowCellGoRight"
-    else
-        return "<c-right>"
-    end
-end)
+    return vim.b.rbcsv == 1 and "<cmd>RainbowCellGoRight<cr>" or "<c-right>"
+end, { expr = true })
 vim.keymap.set("n", "<c-up>", function()
-    if vim.b.rbcsv == 1 then
-        vim.cmd "RainbowCellGoUp"
-    else
-        return "<c-up>"
-    end
-end)
+    return vim.b.rbcsv == 1 and "<cmd>RainbowCellGoUp<cr>" or "<c-up>"
+end, { expr = true })
 vim.keymap.set("n", "<c-down>", function()
-    if vim.b.rbcsv == 1 then
-        vim.cmd "RainbowCellGoDown"
-    else
-        return "<c-down>"
-    end
-end)
+    return vim.b.rbcsv == 1 and "<cmd>RainbowCellGoDown<cr>" or "<c-down>"
+end, { expr = true })
 
 local function toggle_char_eol(character)
     local delimiters = { ",", ";" }
