@@ -178,6 +178,10 @@ if not vim.g.vscode then
         expr = true,
         replace_keycodes = false,
     })
+    vim.keymap.set("i", "<c-\\>", 'copilot#Accept("\\<cr>")', {
+        expr = true,
+        replace_keycodes = false,
+    })
     vim.keymap.set("n", "\\L", function()
         vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled())
     end, { desc = "Toggle code lens" })
