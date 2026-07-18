@@ -190,6 +190,7 @@ if not vim.g.vscode then
     end, { desc = "Toggle inlay hints" })
     vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic" })
     vim.keymap.set("n", "<leader>e", "<cmd>edit<cr>", { desc = "Reload file" })
+    vim.keymap.set("n", "<leader>n", "<cmd>enew<cr>", { desc = "Reload file" })
     vim.keymap.set("n", "<leader>pu", vim.pack.update, { desc = "Update plugins" })
     vim.keymap.set("n", "<leader>pr", function()
         vim.pack.update(nil, { target = "lockfile" })
@@ -205,10 +206,19 @@ if not vim.g.vscode then
             :totable()
         vim.pack.del(inactive)
     end, { desc = "Delete inactive plugins" })
-    vim.keymap.set("t", "<c-h>", "<cmd>wincmd h<cr>")
-    vim.keymap.set("t", "<c-j>", "<cmd>wincmd j<cr>")
-    vim.keymap.set("t", "<c-k>", "<cmd>wincmd k<cr>")
-    vim.keymap.set("t", "<c-l>", "<cmd>wincmd l<cr>")
+    local function window_navigation(key, direction)
+        vim.keymap.set({ "n", "t" }, key, function()
+            if vim.fn.winnr(direction) ~= vim.fn.winnr() then
+                return "<cmd>wincmd " .. direction .. "<cr>"
+            end
+            return key
+        end, { expr = true, desc = "Move to window " .. direction })
+    end
+    window_navigation("<c-h>", "h")
+    window_navigation("<c-j>", "j")
+    window_navigation("<c-k>", "k")
+    window_navigation("<c-l>", "l")
+    vim.keymap.set("t", "<m-x>", "<c-\\><c-n>", { desc = "Normal mode" })
 
     vim.keymap.set({ "x", "o" }, "<cr>", function()
         if vim.treesitter.get_parser(nil, nil, { error = false }) then
@@ -297,7 +307,7 @@ end, { desc = "Toggle ;" })
 local Snacks = require "snacks"
 Snacks.setup {
     bigfile = { enabled = true },
-    picker = { enabled = not vim.g.vscode },
+    picker = { enabled = not vim.g.vscode, ui_select = true },
     quickfile = { enabled = true },
     scroll = { enabled = not vim.g.vscode },
     terminal = { enabled = not vim.g.vscode },
@@ -315,7 +325,7 @@ if not vim.g.vscode then
         Snacks.terminal.toggle(nil, { win = terminal_win_options() })
     end, { desc = "Toggle terminal" })
     vim.keymap.set("n", "go", Snacks.picker.lsp_symbols, { desc = "Document symbols" })
-    vim.keymap.set("n", "gO", Snacks.picker.lsp_workspace_symbols, { desc = "Document symbols" })
+    vim.keymap.set("n", "gO", Snacks.picker.lsp_workspace_symbols, { desc = "Workspace symbols" })
     vim.keymap.set("n", "z=", Snacks.picker.spelling, { desc = "Show spelling suggestions" })
     vim.keymap.set("n", "<leader><leader>", Snacks.picker.smart, { desc = "Find recent file" })
     vim.keymap.set("n", "<leader>f<leader>", Snacks.picker.resume, { desc = "Resume last find" })
@@ -354,7 +364,7 @@ require("mini.ai").setup {
 require("mini.align").setup {}
 
 require("mini.basics").setup {
-    mappings = { basic = false, windows = true },
+    mappings = { basic = false },
     autocommands = { relnum_in_visual_mode = true },
 }
 
@@ -661,20 +671,13 @@ if not vim.g.vscode then
             ghost_text = { enabled = true },
         },
         sources = {
-            default = { "lsp", "easy-dotnet", "path", "snippets", "buffer" },
+            default = { "lsp", "path", "snippets", "buffer" },
             per_filetype = {
                 sql = { "snippets", "lsp", "dadbod", "path", "buffer" },
             },
             providers = {
                 lsp = { fallbacks = {} },
                 dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
-                ["easy-dotnet"] = {
-                    name = "easy-dotnet",
-                    enabled = true,
-                    module = "easy-dotnet.completion.blink",
-                    score_offset = 10000,
-                    async = true,
-                },
             },
         },
         signature = { enabled = true },
