@@ -1,54 +1,74 @@
 -- Plugins {{{
 vim.pack.add {
-    { src = "https://github.com/saghen/blink.cmp", version = vim.version.range "1.x" },
-    "https://github.com/uga-rosa/ccc.nvim",
-    "https://github.com/stevearc/conform.nvim",
-    "https://github.com/github/copilot.vim",
-    "https://github.com/sindrets/diffview.nvim",
-    "https://github.com/GustavEikaas/easy-dotnet.nvim",
-    "https://github.com/glacambre/firenvim",
-    "https://github.com/rafamadriz/friendly-snippets",
-    "https://github.com/ellisonleao/gruvbox.nvim",
-    "https://github.com/mason-org/mason.nvim",
-    "https://github.com/zapling/mason-conform.nvim",
-    "https://github.com/mason-org/mason-lspconfig.nvim",
     "https://github.com/nvim-mini/mini.nvim",
-    "https://github.com/neogitorg/neogit",
-    "https://github.com/neovim/nvim-lspconfig",
-    "https://github.com/nvim-treesitter/nvim-treesitter",
-    "https://github.com/windwp/nvim-ts-autotag",
-    "https://github.com/lifepillar/pgsql.vim",
-    "https://github.com/nvim-lua/plenary.nvim",
-    "https://github.com/stevearc/quicker.nvim",
-    "https://github.com/mechatroner/rainbow_csv",
-    "https://github.com/folke/snacks.nvim",
-    { src = "https://github.com/altermo/ultimate-autopair.nvim", version = "v0.6" },
     "https://github.com/tpope/vim-abolish",
-    "https://github.com/tpope/vim-dadbod",
-    "https://github.com/kristijanhusak/vim-dadbod-completion",
-    "https://github.com/kristijanhusak/vim-dadbod-ui",
-    "https://github.com/tpope/vim-rsi",
 }
+if not vim.g.vscode then
+    vim.pack.add {
+        { src = "https://github.com/saghen/blink.cmp", version = vim.version.range "1.x" },
+        "https://github.com/uga-rosa/ccc.nvim",
+        "https://github.com/stevearc/conform.nvim",
+        "https://github.com/github/copilot.vim",
+        "https://github.com/sindrets/diffview.nvim",
+        "https://github.com/GustavEikaas/easy-dotnet.nvim",
+        "https://github.com/glacambre/firenvim",
+        "https://github.com/rafamadriz/friendly-snippets",
+        "https://github.com/ellisonleao/gruvbox.nvim",
+        "https://github.com/mason-org/mason.nvim",
+        "https://github.com/zapling/mason-conform.nvim",
+        "https://github.com/mason-org/mason-lspconfig.nvim",
+        "https://github.com/neogitorg/neogit",
+        "https://github.com/neovim/nvim-lspconfig",
+        "https://github.com/nvim-treesitter/nvim-treesitter",
+        "https://github.com/windwp/nvim-ts-autotag",
+        "https://github.com/lifepillar/pgsql.vim",
+        "https://github.com/nvim-lua/plenary.nvim",
+        "https://github.com/stevearc/quicker.nvim",
+        "https://github.com/mechatroner/rainbow_csv",
+        "https://github.com/folke/snacks.nvim",
+        { src = "https://github.com/altermo/ultimate-autopair.nvim", version = "v0.6" },
+        "https://github.com/tpope/vim-dadbod",
+        "https://github.com/kristijanhusak/vim-dadbod-completion",
+        "https://github.com/kristijanhusak/vim-dadbod-ui",
+        "https://github.com/tpope/vim-rsi",
+    }
+end
 -- }}}
 
 -- Settings {{{
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-vim.opt.conceallevel = 2
-vim.opt.confirm = true
-vim.opt.diffopt:append { algorithm = "histogram" }
 vim.opt.expandtab = true
-vim.opt.fillchars:append { diff = "╱" }
-vim.opt.foldlevel = 99
-vim.opt.foldtext = ""
-vim.opt.inccommand = "split"
 vim.opt.nrformats:append { "alpha", "blank" }
 vim.opt.shiftwidth = 4
-vim.opt.signcolumn = "number"
 vim.opt.spelllang = "en_ca,en"
 vim.opt.spelloptions = "camel,noplainbuffer"
 vim.opt.startofline = true
 vim.opt.whichwrap = "b,s,<,>,[,]"
+if not vim.g.vscode then
+    vim.opt.conceallevel = 2
+    vim.opt.confirm = true
+    vim.opt.diffopt:append { algorithm = "histogram" }
+    vim.opt.fillchars:append { diff = "╱" }
+    vim.opt.foldlevel = 99
+    vim.opt.foldtext = ""
+    vim.opt.inccommand = "split"
+    vim.opt.signcolumn = "number"
+    require("vim._core.ui2").enable { enable = true }
+    vim.g.firenvim_config = {
+        globalSettings = { alt = "all" },
+        localSettings = {
+            [".*"] = {
+                cmdline = "neovim",
+                content = "text",
+                priority = 0,
+                selector = "textarea",
+                takeover = "never",
+            },
+        },
+    }
+    vim.g.copilot_no_tab_map = true
+end
 if vim.uv.os_uname().sysname == "Windows_NT" then
     vim.opt.shellslash = true
     vim.cmd [[
@@ -64,22 +84,6 @@ if vim.uv.os_uname().sysname == "Windows_NT" then
        let $__SuppressAnsiEscapeSequences = 1
     ]]
 end
-if not vim.g.vscode then
-    require("vim._core.ui2").enable { enable = true }
-end
-vim.g.firenvim_config = {
-    globalSettings = { alt = "all" },
-    localSettings = {
-        [".*"] = {
-            cmdline = "neovim",
-            content = "text",
-            priority = 0,
-            selector = "textarea",
-            takeover = "never",
-        },
-    },
-}
-vim.g.copilot_no_tab_map = true
 -- }}}
 
 -- Autocommands {{{
@@ -261,18 +265,20 @@ vim.keymap.set("n", "<P", putline "[p<']", { desc = "Put text before cursor at l
 vim.keymap.set("n", "=p", putline "]p=']", { desc = "Put text after cursor and reformat" })
 vim.keymap.set("n", "=P", putline "[p=']", { desc = "Put text before cursor and reformat" })
 
-vim.keymap.set("n", "<c-left>", function()
-    return vim.b.rbcsv == 1 and "<cmd>RainbowCellGoLeft<cr>" or "<c-left>"
-end, { expr = true })
-vim.keymap.set("n", "<c-right>", function()
-    return vim.b.rbcsv == 1 and "<cmd>RainbowCellGoRight<cr>" or "<c-right>"
-end, { expr = true })
-vim.keymap.set("n", "<c-up>", function()
-    return vim.b.rbcsv == 1 and "<cmd>RainbowCellGoUp<cr>" or "<c-up>"
-end, { expr = true })
-vim.keymap.set("n", "<c-down>", function()
-    return vim.b.rbcsv == 1 and "<cmd>RainbowCellGoDown<cr>" or "<c-down>"
-end, { expr = true })
+if not vim.g.vscode then
+    vim.keymap.set("n", "<c-left>", function()
+        return vim.b.rbcsv == 1 and "<cmd>RainbowCellGoLeft<cr>" or "<c-left>"
+    end, { expr = true })
+    vim.keymap.set("n", "<c-right>", function()
+        return vim.b.rbcsv == 1 and "<cmd>RainbowCellGoRight<cr>" or "<c-right>"
+    end, { expr = true })
+    vim.keymap.set("n", "<c-up>", function()
+        return vim.b.rbcsv == 1 and "<cmd>RainbowCellGoUp<cr>" or "<c-up>"
+    end, { expr = true })
+    vim.keymap.set("n", "<c-down>", function()
+        return vim.b.rbcsv == 1 and "<cmd>RainbowCellGoDown<cr>" or "<c-down>"
+    end, { expr = true })
+end
 
 local function toggle_char_eol(character)
     local delimiters = { ",", ";" }
@@ -304,14 +310,7 @@ end, { desc = "Toggle ;" })
 -- }}}
 
 -- Snacks {{{
-local Snacks = require "snacks"
-Snacks.setup {
-    bigfile = { enabled = true },
-    picker = { enabled = not vim.g.vscode, ui_select = true },
-    quickfile = { enabled = true },
-    scroll = { enabled = not vim.g.vscode },
-    terminal = { enabled = not vim.g.vscode },
-}
+local Snacks
 local function terminal_win_options()
     local columns = vim.o.columns
     return {
@@ -321,6 +320,14 @@ local function terminal_win_options()
     }
 end
 if not vim.g.vscode then
+    Snacks = require "snacks"
+    Snacks.setup {
+        bigfile = { enabled = true },
+        picker = { enabled = true, ui_select = true },
+        quickfile = { enabled = true },
+        scroll = { enabled = true },
+        terminal = { enabled = true },
+    }
     vim.keymap.set({ "n", "t" }, "<c-\\>", function()
         Snacks.terminal.toggle(nil, { win = terminal_win_options() })
     end, { desc = "Toggle terminal" })
@@ -352,23 +359,33 @@ end
 
 -- mini.nvim {{{
 local gen_extra = require("mini.extra").gen_ai_spec
+local ai_textobjects = {
+    a = require("mini.ai").gen_spec.argument { separator = "[,;]" },
+    N = gen_extra.number(),
+    g = gen_extra.buffer(),
+}
+if not vim.g.vscode then
+    ai_textobjects.d = gen_extra.diagnostic()
+end
 require("mini.ai").setup {
-    custom_textobjects = {
-        a = require("mini.ai").gen_spec.argument { separator = "[,;]" },
-        N = gen_extra.number(),
-        d = gen_extra.diagnostic(),
-        g = gen_extra.buffer(),
-    },
+    custom_textobjects = ai_textobjects,
 }
 
 require("mini.align").setup {}
 
-require("mini.basics").setup {
-    mappings = { basic = false },
-    autocommands = { relnum_in_visual_mode = true },
-}
+if not vim.g.vscode then
+    require("mini.basics").setup {
+        mappings = { basic = false },
+        autocommands = { relnum_in_visual_mode = true },
+    }
+end
 
-require("mini.bracketed").setup { indent = { suffix = "" } }
+local bracketed_config = { indent = { suffix = "" } }
+if vim.g.vscode then
+    bracketed_config.diagnostic = { suffix = "" }
+    bracketed_config.treesitter = { suffix = "" }
+end
+require("mini.bracketed").setup(bracketed_config)
 local function set_error_keymap(map, direction)
     vim.keymap.set(
         "n",
@@ -377,10 +394,19 @@ local function set_error_keymap(map, direction)
         { desc = "Error " .. direction }
     )
 end
-set_error_keymap("[e", "backward")
-set_error_keymap("]e", "forward")
-set_error_keymap("[E", "first")
-set_error_keymap("]E", "last")
+if vim.g.vscode then
+    vim.keymap.set("n", "[e", function()
+        require("vscode").action "editor.action.marker.prev"
+    end, { desc = "Previous problem" })
+    vim.keymap.set("n", "]e", function()
+        require("vscode").action "editor.action.marker.next"
+    end, { desc = "Next problem" })
+else
+    set_error_keymap("[e", "backward")
+    set_error_keymap("]e", "forward")
+    set_error_keymap("[E", "first")
+    set_error_keymap("]E", "last")
+end
 
 if not vim.g.vscode then
     local MiniClue = require "mini.clue"
@@ -491,16 +517,14 @@ if not vim.g.vscode then
     vim.keymap.set("n", "<leader>gs", require("mini.git").show_at_cursor, { desc = "Git show_at_cursor" })
 
     require("mini.icons").setup {}
-end
 
-require("mini.indentscope").setup {
-    draw = { animation = require("mini.indentscope").gen_animation.none() },
-    options = { indent_at_cursor = false },
-    symbol = "▏",
-}
-Snacks.util.set_hl { MiniIndentscopeSymbol = { link = "NonText" } }
+    require("mini.indentscope").setup {
+        draw = { animation = require("mini.indentscope").gen_animation.none() },
+        options = { indent_at_cursor = false },
+        symbol = "▏",
+    }
+    Snacks.util.set_hl { MiniIndentscopeSymbol = { link = "NonText" } }
 
-if not vim.g.vscode then
     local MiniMisc = require "mini.misc"
     MiniMisc.setup_auto_root()
     if vim.uv.os_uname().sysname ~= "Windows_NT" then
@@ -801,6 +825,9 @@ end
 -- }}}
 
 -- Deferred settings {{{
+if vim.g.vscode and vim.g.vscode_clipboard then
+    vim.g.clipboard = vim.g.vscode_clipboard
+end
 vim.schedule(function()
     vim.opt.clipboard = "unnamedplus"
 end)
