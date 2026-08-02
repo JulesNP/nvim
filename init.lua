@@ -1,32 +1,834 @@
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-    local out = vim.fn.system { "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath }
-    if vim.v.shell_error ~= 0 then
-        vim.api.nvim_echo({
-            { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-            { out, "WarningMsg" },
-            { "\nPress any key to exit..." },
-        }, true, {})
-        vim.fn.getchar()
-        os.exit(1)
+-- Plugins {{{
+vim.pack.add {
+    "https://github.com/nvim-mini/mini.nvim",
+    "https://github.com/tpope/vim-abolish",
+}
+if not vim.g.vscode then
+    vim.pack.add {
+        { src = "https://github.com/saghen/blink.cmp", version = vim.version.range "1.x" },
+        "https://github.com/uga-rosa/ccc.nvim",
+        "https://github.com/stevearc/conform.nvim",
+        "https://github.com/github/copilot.vim",
+        "https://github.com/sindrets/diffview.nvim",
+        "https://github.com/GustavEikaas/easy-dotnet.nvim",
+        "https://github.com/glacambre/firenvim",
+        "https://github.com/rafamadriz/friendly-snippets",
+        "https://github.com/ellisonleao/gruvbox.nvim",
+        "https://github.com/mason-org/mason.nvim",
+        "https://github.com/zapling/mason-conform.nvim",
+        "https://github.com/mason-org/mason-lspconfig.nvim",
+        "https://github.com/neogitorg/neogit",
+        "https://github.com/neovim/nvim-lspconfig",
+        "https://github.com/nvim-treesitter/nvim-treesitter",
+        "https://github.com/windwp/nvim-ts-autotag",
+        "https://github.com/lifepillar/pgsql.vim",
+        "https://github.com/nvim-lua/plenary.nvim",
+        "https://github.com/stevearc/quicker.nvim",
+        "https://github.com/mechatroner/rainbow_csv",
+        "https://github.com/folke/snacks.nvim",
+        { src = "https://github.com/altermo/ultimate-autopair.nvim", version = "v0.6" },
+        "https://github.com/tpope/vim-dadbod",
+        "https://github.com/kristijanhusak/vim-dadbod-completion",
+        "https://github.com/kristijanhusak/vim-dadbod-ui",
+        "https://github.com/tpope/vim-rsi",
+    }
+end
+-- }}}
+
+-- Settings {{{
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+vim.opt.expandtab = true
+vim.opt.nrformats:append { "alpha", "blank" }
+vim.opt.shiftwidth = 4
+vim.opt.spelllang = "en_ca,en"
+vim.opt.spelloptions = "camel,noplainbuffer"
+vim.opt.startofline = true
+vim.opt.whichwrap = "b,s,<,>,[,]"
+if not vim.g.vscode then
+    vim.opt.conceallevel = 2
+    vim.opt.confirm = true
+    vim.opt.diffopt:append { algorithm = "histogram" }
+    vim.opt.fillchars:append { diff = "╱" }
+    vim.opt.foldlevel = 99
+    vim.opt.foldtext = ""
+    vim.opt.inccommand = "split"
+    vim.opt.signcolumn = "number"
+    require("vim._core.ui2").enable { enable = true }
+    vim.g.firenvim_config = {
+        globalSettings = { alt = "all" },
+        localSettings = {
+            [".*"] = {
+                cmdline = "neovim",
+                content = "text",
+                priority = 0,
+                selector = "textarea",
+                takeover = "never",
+            },
+        },
+    }
+    vim.g.copilot_no_tab_map = true
+end
+if vim.uv.os_uname().sysname == "Windows_NT" then
+    vim.opt.shellslash = true
+    vim.cmd [[
+       set noshelltemp
+       let &shell = 'pwsh'
+       let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command '
+       let &shellcmdflag .= '[Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();'
+       let &shellcmdflag .= '$PSDefaultParameterValues[''Out-File:Encoding'']=''utf8'';'
+       let &shellpipe  = '> %s 2>&1'
+       set shellquote= shellxquote=
+       let &shellcmdflag .= '$PSStyle.OutputRendering = ''PlainText'';'
+       " Workaround (may not be needed in future version of pwsh):
+       let $__SuppressAnsiEscapeSequences = 1
+    ]]
+end
+-- }}}
+
+-- Autocommands {{{
+if not vim.g.vscode then
+    vim.api.nvim_create_autocmd("FileType", {
+        callback = function(event)
+            local ok = pcall(vim.treesitter.start)
+            if ok then
+                vim.wo.foldmethod = "expr"
+                vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+            end
+            if event.match == "fsharp" then
+                vim.bo.commentstring = "// %s"
+            elseif
+                vim.tbl_contains({
+                    "csv",
+                    "csv_pipe",
+                    "csv_semicolon",
+                    "csv_whitespace",
+                    "rfc_csv",
+                    "rfc_semicolon",
+                    "tsv",
+                }, event.match)
+            then
+                vim.treesitter.stop(event.buf)
+                vim.bo.syntax = event.match
+            elseif event.match == "diff" or event.match == "git" then
+                vim.wo.foldmethod = "expr"
+                vim.wo.foldexpr = "v:lua.MiniGit.diff_foldexpr()"
+            elseif event.match == "lua" then
+                vim.opt.formatoptions:remove "o"
+            elseif event.match == "qf" then
+                vim.keymap.set("n", "<tab>", "<cr><c-w>p", { buffer = 0, desc = "Open but stay in quickfix list" })
+                vim.keymap.set("n", "{", "<cmd>cpfile<cr><c-w>p", { buffer = 0, desc = "Move to previous file" })
+                vim.keymap.set("n", "}", "<cmd>cnfile<cr><c-w>p", { buffer = 0, desc = "Move to next file" })
+                vim.keymap.set("n", "o", "<cr><cmd>cclose<cr>", { buffer = 0, desc = "Open and close quickfix list" })
+            elseif event.match == "sql" then
+                vim.bo.commentstring = "-- %s"
+            end
+        end,
+    })
+
+    vim.api.nvim_create_autocmd("User", {
+        pattern = { "NeogitStatusRefreshed", "NeogitPullComplete", "NeogitStash" },
+        command = "checktime",
+    })
+
+    vim.api.nvim_create_autocmd("LspProgress", {
+        callback = function(event)
+            if vim.api.nvim_get_mode().mode == "n" then
+                local value = event.data.params.value
+                vim.api.nvim_echo({ { value.message or "Done" } }, false, {
+                    id = "lsp." .. event.data.client_id,
+                    kind = "progress",
+                    source = "vim.lsp",
+                    title = value.title,
+                    status = value.kind ~= "end" and "running" or "success",
+                    percent = value.percentage,
+                })
+            end
+        end,
+    })
+
+    vim.api.nvim_create_autocmd("PackChanged", {
+        callback = function(ev)
+            if ev.data.spec.name == "nvim-treesitter" then
+                vim.cmd "TSUpdate"
+            elseif ev.data.spec.name == "firenvim" then
+                vim.cmd "call firenvim#install(0)"
+            end
+        end,
+    })
+end
+-- }}}
+
+-- Keymaps {{{
+vim.keymap.set("n", "<esc>", "<cmd>nohlsearch<bar>diffupdate<bar>normal! <c-l><cr>", { desc = ":help CTRL-L-default" })
+vim.keymap.set("n", "<c-s>", "<cmd>update<cr>", { desc = "Save buffer" })
+vim.keymap.set("n", "<m-s>", "<cmd>wall<cr>", { desc = "Save all buffers" })
+vim.keymap.set("n", "<leader><c-s>", "<cmd>noautocmd update<cr>", { desc = "Save without auto-format" })
+vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
+vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
+vim.keymap.set("x", "g/", "<esc>/\\%V", { silent = false, desc = "Search inside visual selection" })
+vim.keymap.set("c", "<c-o>", function()
+    local search = vim.fn.getreg "/"
+    local hlsearch = vim.v.hlsearch
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, false, true), "n", true)
+    vim.schedule(function()
+        vim.fn.setreg("/", search)
+        vim.v.hlsearch = hlsearch
+    end)
+end, { desc = "Jump to match without changing search" })
+
+if not vim.g.vscode then
+    vim.keymap.set("i", "<c-cr>", 'copilot#Accept("\\<cr>")', {
+        expr = true,
+        replace_keycodes = false,
+    })
+    vim.keymap.set("i", "<c-\\>", 'copilot#Accept("\\<cr>")', {
+        expr = true,
+        replace_keycodes = false,
+    })
+    vim.keymap.set("n", "\\L", function()
+        vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled())
+    end, { desc = "Toggle code lens" })
+    vim.keymap.set("n", "\\H", function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+    end, { desc = "Toggle inlay hints" })
+    vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic" })
+    vim.keymap.set("n", "<leader>e", "<cmd>edit<cr>", { desc = "Reload file" })
+    vim.keymap.set("n", "<leader>n", "<cmd>enew<cr>", { desc = "Reload file" })
+    vim.keymap.set("n", "<leader>pu", vim.pack.update, { desc = "Update plugins" })
+    vim.keymap.set("n", "<leader>pr", function()
+        vim.pack.update(nil, { target = "lockfile" })
+    end, { desc = "Restore plugins" })
+    vim.keymap.set("n", "<leader>px", function()
+        local inactive = vim.iter(vim.pack.get())
+            :filter(function(x)
+                return not x.active
+            end)
+            :map(function(x)
+                return x.spec.name
+            end)
+            :totable()
+        vim.pack.del(inactive)
+    end, { desc = "Delete inactive plugins" })
+    local function window_navigation(key, direction)
+        vim.keymap.set({ "n", "t" }, key, function()
+            if vim.fn.winnr(direction) ~= vim.fn.winnr() then
+                return "<cmd>wincmd " .. direction .. "<cr>"
+            end
+            return key
+        end, { expr = true, desc = "Move to window " .. direction })
+    end
+    window_navigation("<c-h>", "h")
+    window_navigation("<c-j>", "j")
+    window_navigation("<c-k>", "k")
+    window_navigation("<c-l>", "l")
+    vim.keymap.set("t", "<m-x>", "<c-\\><c-n>", { desc = "Normal mode" })
+
+    vim.keymap.set({ "x", "o" }, "<cr>", function()
+        if vim.treesitter.get_parser(nil, nil, { error = false }) then
+            require("vim.treesitter._select").select_parent(vim.v.count1)
+        else
+            vim.lsp.buf.selection_range(vim.v.count1)
+        end
+    end, { desc = "Select parent (outer) node" })
+    vim.keymap.set({ "x", "o" }, "<bs>", function()
+        if vim.treesitter.get_parser(nil, nil, { error = false }) then
+            require("vim.treesitter._select").select_child(vim.v.count1)
+        else
+            vim.lsp.buf.selection_range(-vim.v.count1)
+        end
+    end, { desc = "Select child (inner) node" })
+end
+
+local function putline(action)
+    return function()
+        local regName = vim.v.register
+        local regType = vim.fn.getregtype(regName)
+        if regType ~= "V" then
+            local regValue = vim.fn.getreg(regName)
+            vim.fn.setreg(regName, regValue, "V")
+            vim.cmd("normal! " .. vim.v.count .. '"' .. regName .. action)
+            vim.fn.setreg(regName, regValue, regType)
+        else
+            vim.cmd("normal! " .. vim.v.count .. '"' .. regName .. action)
+        end
     end
 end
-vim.opt.rtp:prepend(lazypath)
+vim.keymap.set("n", "]p", putline "]p", { desc = "Put text after cursor at current indent" })
+vim.keymap.set("n", "]P", putline "]P", { desc = "Put text after cursor at current indent" })
+vim.keymap.set("n", "[p", putline "[p", { desc = "Put text before cursor at current indent" })
+vim.keymap.set("n", "[P", putline "[P", { desc = "Put text before cursor at current indent" })
+vim.keymap.set("n", ">p", putline "]p>']", { desc = "Put text after cursor at higher indent" })
+vim.keymap.set("n", ">P", putline "[p>']", { desc = "Put text before cursor at higher indent" })
+vim.keymap.set("n", "<p", putline "]p<']", { desc = "Put text after cursor at lower indent" })
+vim.keymap.set("n", "<P", putline "[p<']", { desc = "Put text before cursor at lower indent" })
+vim.keymap.set("n", "=p", putline "]p=']", { desc = "Put text after cursor and reformat" })
+vim.keymap.set("n", "=P", putline "[p=']", { desc = "Put text before cursor and reformat" })
 
-require "settings" -- General settings
-require "autocommands" -- Autocommands
-require "powershell" -- Use PowerShell on Windows
-require "keymaps" -- Load keymaps
+if not vim.g.vscode then
+    vim.keymap.set("n", "<c-left>", function()
+        return vim.b.rbcsv == 1 and "<cmd>RainbowCellGoLeft<cr>" or "<c-left>"
+    end, { expr = true })
+    vim.keymap.set("n", "<c-right>", function()
+        return vim.b.rbcsv == 1 and "<cmd>RainbowCellGoRight<cr>" or "<c-right>"
+    end, { expr = true })
+    vim.keymap.set("n", "<c-up>", function()
+        return vim.b.rbcsv == 1 and "<cmd>RainbowCellGoUp<cr>" or "<c-up>"
+    end, { expr = true })
+    vim.keymap.set("n", "<c-down>", function()
+        return vim.b.rbcsv == 1 and "<cmd>RainbowCellGoDown<cr>" or "<c-down>"
+    end, { expr = true })
+end
 
-require("lazy").setup {
-    spec = { import = "plugins" },
-    ui = {
-        border = "rounded",
-    },
-    diff = { cmd = "diffview.nvim" },
-    change_detection = {
-        enabled = true,
-        notify = false,
-    },
+local function toggle_char_eol(character)
+    local delimiters = { ",", ";" }
+    local mode = vim.api.nvim_get_mode().mode
+    local is_visual = mode == "v" or mode == "V" or mode == "\22" -- <C-v>
+    if is_visual then
+        vim.fn.feedkeys(":", "nx")
+    end
+    local start_line = is_visual and vim.fn.getpos("'<")[2] or vim.api.nvim_win_get_cursor(0)[1]
+    local end_line = is_visual and vim.fn.getpos("'>")[2] or start_line
+    for line_idx = start_line, end_line do
+        local line = vim.api.nvim_buf_get_lines(0, line_idx - 1, line_idx, false)[1]
+        local last_char = line:sub(-1)
+        if last_char == character then
+            vim.api.nvim_buf_set_lines(0, line_idx - 1, line_idx, false, { line:sub(1, #line - 1) })
+        elseif vim.tbl_contains(delimiters, last_char) then
+            vim.api.nvim_buf_set_lines(0, line_idx - 1, line_idx, false, { line:sub(1, #line - 1) .. character })
+        else
+            vim.api.nvim_buf_set_lines(0, line_idx - 1, line_idx, false, { line .. character })
+        end
+    end
+end
+vim.keymap.set({ "n", "x" }, "<leader>,", function()
+    toggle_char_eol ","
+end, { desc = "Toggle ," })
+vim.keymap.set({ "n", "x" }, "<leader>;", function()
+    toggle_char_eol ";"
+end, { desc = "Toggle ;" })
+-- }}}
+
+-- Snacks {{{
+local Snacks
+local function terminal_win_options()
+    local columns = vim.o.columns
+    return {
+        position = columns > 160 and "right" or "bottom",
+        width = math.max(80, columns / 3),
+        height = 0.3,
+    }
+end
+if not vim.g.vscode then
+    Snacks = require "snacks"
+    Snacks.setup {
+        bigfile = { enabled = true },
+        picker = { enabled = true, ui_select = true },
+        quickfile = { enabled = true },
+        scroll = { enabled = true },
+        terminal = { enabled = true },
+    }
+    vim.keymap.set({ "n", "t" }, "<c-\\>", function()
+        Snacks.terminal.toggle(nil, { win = terminal_win_options() })
+    end, { desc = "Toggle terminal" })
+    vim.keymap.set("n", "go", Snacks.picker.lsp_symbols, { desc = "Document symbols" })
+    vim.keymap.set("n", "gO", Snacks.picker.lsp_workspace_symbols, { desc = "Workspace symbols" })
+    vim.keymap.set("n", "z=", Snacks.picker.spelling, { desc = "Show spelling suggestions" })
+    vim.keymap.set("n", "<leader><leader>", Snacks.picker.smart, { desc = "Find recent file" })
+    vim.keymap.set("n", "<leader>f<leader>", Snacks.picker.resume, { desc = "Resume last find" })
+    vim.keymap.set("n", "<leader>fb", Snacks.picker.buffers, { desc = "Find buffer" })
+    vim.keymap.set("n", "<leader>fc", Snacks.picker.colorschemes, { desc = "Find colorscheme" })
+    vim.keymap.set("n", "<leader>fd", Snacks.picker.diagnostics, { desc = "Find diagnostic" })
+    vim.keymap.set("n", "<leader>fe", function()
+        Snacks.picker.diagnostics { severity = vim.diagnostic.severity.ERROR }
+    end, { desc = "Find error" })
+    vim.keymap.set("n", "<leader>ff", Snacks.picker.files, { desc = "Find file" })
+    vim.keymap.set("n", "<leader>fg", Snacks.picker.grep, { desc = "Find with grep" })
+    vim.keymap.set("n", "<leader>fh", Snacks.picker.help, { desc = "Find help" })
+    vim.keymap.set("n", "<leader>fH", Snacks.picker.highlights, { desc = "Find highlight" })
+    vim.keymap.set("n", "<leader>fj", Snacks.picker.jumps, { desc = "Find jump" })
+    vim.keymap.set("n", "<leader>fk", Snacks.picker.keymaps, { desc = "Find keymap" })
+    vim.keymap.set("n", "<leader>fm", Snacks.picker.marks, { desc = "Find mark" })
+    vim.keymap.set("n", "<leader>fo", Snacks.picker.recent, { desc = "Find in :oldfiles" })
+    vim.keymap.set("n", "<leader>fp", Snacks.picker.projects, { desc = "Find project" })
+    vim.keymap.set("n", "<leader>fr", Snacks.picker.registers, { desc = "Find register" })
+    vim.keymap.set({ "n", "x" }, "<leader>fw", Snacks.picker.grep_word, { desc = "Find <word>" })
+    vim.keymap.set("n", "<leader>x", "<cmd>lua Snacks.bufdelete()<cr>", { desc = "Delete buffer" })
+end
+-- }}}
+
+-- mini.nvim {{{
+local gen_extra = require("mini.extra").gen_ai_spec
+local ai_textobjects = {
+    a = require("mini.ai").gen_spec.argument { separator = "[,;]" },
+    N = gen_extra.number(),
+    g = gen_extra.buffer(),
 }
+if not vim.g.vscode then
+    ai_textobjects.d = gen_extra.diagnostic()
+end
+require("mini.ai").setup {
+    custom_textobjects = ai_textobjects,
+}
+
+require("mini.align").setup {}
+
+if not vim.g.vscode then
+    require("mini.basics").setup {
+        mappings = { basic = false },
+        autocommands = { relnum_in_visual_mode = true },
+    }
+end
+
+local bracketed_config = { indent = { suffix = "" } }
+if vim.g.vscode then
+    bracketed_config.diagnostic = { suffix = "" }
+    bracketed_config.treesitter = { suffix = "" }
+end
+require("mini.bracketed").setup(bracketed_config)
+local function set_error_keymap(map, direction)
+    vim.keymap.set(
+        "n",
+        map,
+        "<cmd>lua MiniBracketed.diagnostic('" .. direction .. "', { severity = vim.diagnostic.severity.ERROR })<cr>",
+        { desc = "Error " .. direction }
+    )
+end
+if vim.g.vscode then
+    vim.keymap.set("n", "[e", function()
+        require("vscode").action "editor.action.marker.prev"
+    end, { desc = "Previous problem" })
+    vim.keymap.set("n", "]e", function()
+        require("vscode").action "editor.action.marker.next"
+    end, { desc = "Next problem" })
+else
+    set_error_keymap("[e", "backward")
+    set_error_keymap("]e", "forward")
+    set_error_keymap("[E", "first")
+    set_error_keymap("]E", "last")
+end
+
+if not vim.g.vscode then
+    local MiniClue = require "mini.clue"
+    MiniClue.setup {
+        triggers = {
+            { mode = { "n", "x" }, keys = "<leader>" },
+            { mode = { "n", "x" }, keys = "\\" },
+            { mode = "n", keys = "[" },
+            { mode = "n", keys = "]" },
+            { mode = "i", keys = "<C-x>" },
+            { mode = { "n", "x" }, keys = "g" },
+            { mode = { "n", "x" }, keys = "'" },
+            { mode = { "n", "x" }, keys = "`" },
+            { mode = { "n", "x" }, keys = '"' },
+            { mode = { "i", "c" }, keys = "<C-r>" },
+            { mode = "n", keys = "<C-w>" },
+            { mode = { "n", "x" }, keys = "z" },
+        },
+        clues = {
+            MiniClue.gen_clues.square_brackets(),
+            MiniClue.gen_clues.builtin_completion(),
+            MiniClue.gen_clues.g(),
+            MiniClue.gen_clues.marks(),
+            MiniClue.gen_clues.registers(),
+            MiniClue.gen_clues.windows(),
+            MiniClue.gen_clues.z(),
+            { mode = "n", keys = "<leader>f", desc = "+Find" },
+            { mode = "n", keys = "<leader>g", desc = "+Git" },
+            { mode = "n", keys = "<leader>p", desc = "+Plugins" },
+        },
+    }
+
+    require("mini.diff").setup {}
+    vim.keymap.set("n", "\\o", require("mini.diff").toggle_overlay, { desc = "Tooggle diff overlay" })
+
+    local MiniFiles = require "mini.files"
+    local show_dotfiles = false
+    local filter_dotfiles = function(fs_entry)
+        return show_dotfiles or not vim.startswith(fs_entry.name, ".")
+    end
+    MiniFiles.setup {
+        content = { filter = filter_dotfiles },
+        mappings = { go_in = "<tab>", go_in_plus = "l", go_out_plus = "", synchronize = "<c-s>" },
+    }
+    vim.keymap.set("n", "-", function()
+        if vim.bo.buftype == "" then
+            MiniFiles.open(vim.fn.expand "%")
+        else
+            MiniFiles.open(vim.fn.expand "%:h")
+        end
+    end, { desc = "Open Mini Files" })
+    vim.api.nvim_create_autocmd("User", {
+        pattern = "MiniFilesActionRename",
+        callback = function(event)
+            Snacks.rename.on_rename_file(event.data.from, event.data.to)
+        end,
+    })
+    vim.api.nvim_create_autocmd("User", {
+        pattern = "MiniFilesBufferCreate",
+        callback = function(args)
+            local buf_id = args.data.buf_id
+            vim.keymap.set("n", "<leader>a", function()
+                local path = vim.fs.dirname(MiniFiles.get_fs_entry().path)
+                MiniFiles.close()
+                require("easy-dotnet").create_new_item(path)
+            end, { buffer = buf_id, desc = "Create file from dotnet template" })
+            vim.keymap.set("n", "<m-p>", function()
+                MiniFiles.refresh { windows = { preview = true } }
+            end, { buffer = buf_id, desc = "Show file previews" })
+            vim.keymap.set("n", "<esc>", MiniFiles.close, { buffer = buf_id, desc = "Close" })
+            vim.keymap.set("n", "-", MiniFiles.go_out, { buffer = buf_id, desc = "Go out of directory" })
+            vim.keymap.set("n", "<c-h>", function()
+                show_dotfiles = not show_dotfiles
+                MiniFiles.refresh { content = { filter = filter_dotfiles } }
+            end, { buffer = buf_id })
+            vim.keymap.set("n", "gh", "h", { buffer = buf_id, desc = "Left" })
+            vim.keymap.set("n", "gl", "l", { buffer = buf_id, desc = "Right" })
+            vim.keymap.set("n", "<c-\\>", function()
+                local path = vim.fs.dirname(MiniFiles.get_fs_entry().path)
+                Snacks.terminal.open(nil, { cwd = path, win = terminal_win_options() })
+            end, { buffer = buf_id, desc = "Open location in terminal" })
+            vim.keymap.set("n", "<cr>", function()
+                local fs_entry = MiniFiles.get_fs_entry()
+                local is_at_file = fs_entry ~= nil and fs_entry.fs_type == "file"
+                MiniFiles.go_in {}
+                if is_at_file then
+                    MiniFiles.close()
+                end
+            end, { buffer = buf_id, desc = "Go in entry" })
+            vim.keymap.set("n", "g.", function()
+                local path = vim.fs.dirname(MiniFiles.get_fs_entry().path)
+                vim.fn.chdir(path)
+                vim.notify("CWD set to: " .. path)
+            end, { buffer = buf_id, desc = "Set CWD" })
+            vim.keymap.set("n", "gx", function()
+                local path = MiniFiles.get_fs_entry().path
+                vim.ui.open(path)
+            end, { buffer = buf_id, desc = "Open filepath with system handler" })
+            vim.keymap.set("n", "gy", function()
+                local path = MiniFiles.get_fs_entry().path
+                vim.fn.setreg(vim.v.register, path)
+                vim.notify("Yanked to " .. vim.v.register .. " register: " .. path)
+            end, { buffer = buf_id, desc = "Yank filepath" })
+        end,
+    })
+
+    require("mini.git").setup {}
+    vim.keymap.set("n", "<leader>gs", require("mini.git").show_at_cursor, { desc = "Git show_at_cursor" })
+
+    require("mini.icons").setup {}
+
+    require("mini.indentscope").setup {
+        draw = { animation = require("mini.indentscope").gen_animation.none() },
+        options = { indent_at_cursor = false },
+        symbol = "▏",
+    }
+    Snacks.util.set_hl { MiniIndentscopeSymbol = { link = "NonText" } }
+
+    local MiniMisc = require "mini.misc"
+    MiniMisc.setup_auto_root()
+    if vim.uv.os_uname().sysname ~= "Windows_NT" then
+        MiniMisc.setup_termbg_sync()
+    end
+    MiniMisc.setup_restore_cursor()
+    vim.keymap.set("n", "<leader>z", MiniMisc.zoom, { desc = "Zoom buffer" })
+end
+
+require("mini.move").setup { options = { reindent_linewise = false } }
+
+local MiniOperators = require "mini.operators"
+MiniOperators.setup { exchange = { prefix = "" }, replace = { prefix = "s" } }
+MiniOperators.make_mappings("exchange", { textobject = "sx", line = "sxx", selection = "X" })
+vim.keymap.set("n", "S", "s$", { remap = true, desc = "Substite to end of line" })
+vim.keymap.set("n", "sX", "sx$", { remap = true, desc = "Exchange to end of line" })
+
+if not vim.g.vscode then
+    local function confirm_discard_changes(all_buffers)
+        local buf_list = all_buffers == false and { 0 } or vim.api.nvim_list_bufs()
+        local unsaved = vim.tbl_filter(function(buf_id)
+            return vim.bo[buf_id].modified and vim.bo[buf_id].buflisted
+        end, buf_list)
+        if #unsaved == 0 then
+            return true
+        end
+        for _, buf_id in ipairs(unsaved) do
+            local name = vim.api.nvim_buf_get_name(buf_id)
+            local result = vim.fn.confirm(
+                string.format('Save changes to "%s"?', name ~= "" and vim.fn.fnamemodify(name, ":~:.") or "Untitled"),
+                "&Yes\n&No\n&Cancel",
+                1,
+                "Question"
+            )
+            if result == 1 then
+                if buf_id ~= 0 then
+                    vim.cmd("buffer " .. buf_id)
+                end
+                vim.cmd "update"
+            elseif result == 0 or result == 3 then
+                return false
+            end
+        end
+        return true
+    end
+    local MiniSessions = require "mini.sessions"
+    MiniSessions.setup {}
+    vim.keymap.set("n", "<leader>sd", function()
+        MiniSessions.select "delete"
+    end, { desc = "Delete session" })
+    vim.keymap.set("n", "<leader>ss", function()
+        local items = vim.tbl_values(MiniSessions.detected)
+        local current = vim.fn.fnamemodify(vim.v.this_session, ":t")
+        table.sort(items, function(a, b)
+            if a.name == current then
+                return false
+            elseif b.name == current then
+                return true
+            end
+            return a.modify_time > b.modify_time
+        end)
+        local picker_items = vim.tbl_map(function(item)
+            return { text = item.name, label = item.name .. " (" .. item.type .. ")" }
+        end, items)
+        Snacks.picker {
+            title = "Select Session",
+            items = picker_items,
+            layout = { preset = "select" },
+            confirm = function(picker, item)
+                picker:close()
+                if not item then
+                    return
+                end
+                if confirm_discard_changes() then
+                    MiniSessions.read(item.text, { force = true })
+                end
+            end,
+        }
+    end, { desc = "Select session" })
+    vim.keymap.set("n", "<leader>sw", function()
+        vim.ui.input({
+            prompt = "Session Name: ",
+            default = vim.v.this_session ~= "" and vim.v.this_session or vim.fn.fnamemodify(vim.fn.getcwd(), ":t"),
+        }, function(input)
+            if input ~= nil then
+                MiniSessions.write(input, { force = true })
+            end
+        end)
+    end, { desc = "Save session" })
+    vim.keymap.set("n", "<leader>sx", function()
+        if confirm_discard_changes() then
+            vim.v.this_session = ""
+            vim.cmd "%bwipeout!"
+            vim.cmd "cd ~"
+        end
+    end, { desc = "Clear current session" })
+end
+
+local MiniSplitjoin = require "mini.splitjoin"
+MiniSplitjoin.setup {
+    detect = { brackets = { "%b||", "%b()", "%b[]", "%b{}" }, separator = "[,;]" },
+    join = { hooks_post = { MiniSplitjoin.gen_hook.pad_brackets { brackets = { "%b||", "%b[]", "%b{}" } } } },
+}
+
+if not vim.g.vscode then
+    require("mini.statusline").setup {}
+end
+
+require("mini.surround").setup {
+    mappings = {
+        add = "ys",
+        delete = "ds",
+        find = "",
+        find_left = "",
+        highlight = "",
+        replace = "cs",
+    },
+    search_method = "cover_or_next",
+}
+vim.keymap.del("x", "ys")
+vim.keymap.set("x", "S", ":<C-u>lua MiniSurround.add('visual')<CR>", { silent = true })
+vim.keymap.set("n", "yss", "ys_", { remap = true })
+-- }}}
+
+-- blink.cmp {{{
+if not vim.g.vscode then
+    require("blink.cmp").setup {
+        keymap = {
+            preset = "none",
+            ["<c-d>"] = { "scroll_documentation_down", "fallback" },
+            ["<c-e>"] = { "hide", "fallback" },
+            ["<c-n>"] = { "select_next", "fallback_to_mappings" },
+            ["<c-p>"] = { "select_prev", "fallback_to_mappings" },
+            ["<c-s>"] = {
+                function(cmp)
+                    cmp.hide_signature()
+                    vim.lsp.buf.signature_help()
+                end,
+            },
+            ["<c-space>"] = { "show", "show_documentation", "hide_documentation" },
+            ["<c-u>"] = { "scroll_documentation_up", "fallback" },
+            ["<c-y>"] = { "select_and_accept", "fallback" },
+            ["<cr>"] = { "accept", "fallback" },
+            ["<down>"] = { "select_next", "fallback" },
+            ["<s-tab>"] = { "select_prev", "snippet_backward", "fallback" },
+            ["<tab>"] = { "select_next", "snippet_forward", "fallback" },
+            ["<up>"] = { "select_prev", "fallback" },
+        },
+        cmdline = {
+            keymap = {
+                ["<c-space>"] = { "show", "hide", "fallback" },
+                ["<s-tab>"] = { "show_and_insert", "select_prev", "fallback" },
+                ["<tab>"] = { "show_and_insert", "select_next", "fallback" },
+            },
+            completion = {
+                menu = {
+                    auto_show = function()
+                        return vim.fn.getcmdtype() == ":"
+                    end,
+                },
+                list = { selection = { preselect = false } },
+            },
+        },
+        completion = {
+            accept = { auto_brackets = { enabled = true } },
+            list = { selection = { preselect = false } },
+            documentation = { auto_show = true },
+            ghost_text = { enabled = true },
+        },
+        sources = {
+            default = { "lsp", "path", "snippets", "buffer" },
+            per_filetype = {
+                sql = { "snippets", "lsp", "dadbod", "path", "buffer" },
+            },
+            providers = {
+                lsp = { fallbacks = {} },
+                dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+            },
+        },
+        signature = { enabled = true },
+    }
+end
+-- }}}
+
+-- Miscellaneous plugins {{{
+if not vim.g.vscode then
+    vim.g.db_ui_use_nerd_fonts = 1
+    vim.g.db_ui_use_nvim_notify = 1
+    vim.keymap.set("n", "<leader>b", "<cmd>DBUIToggle<cr>", { desc = "Toggle Dadbod UI" })
+
+    local ccc = require "ccc"
+    ccc.setup {
+        highlighter = { auto_enable = true, lsp = true },
+        inputs = {
+            ccc.input.okhsl,
+            ccc.input.rgb,
+            ccc.input.hsl,
+            ccc.input.cmyk,
+        },
+    }
+    vim.keymap.set({ "n", "x" }, "<leader>c", "<cmd>CccPick<cr>", { desc = "Open Color Picker" })
+
+    require("diffview").setup {
+        enhanced_diff_hl = true,
+        keymaps = {
+            view = { q = "<cmd>DiffviewClose<cr>" },
+            file_history_panel = { q = "<cmd>DiffviewClose<cr>" },
+            file_panel = { q = "<cmd>DiffviewClose<cr>" },
+        },
+    }
+    vim.keymap.set("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", { desc = "Open Diffview UI" })
+    vim.keymap.set({ "n", "x" }, "<leader>gh", ":DiffviewFileHistory<cr>", { desc = "Diffview file history" })
+
+    require("easy-dotnet").setup {}
+    vim.keymap.set("n", "<leader>o", "<cmd>Dotnet<cr>", { desc = "Open Dotnet UI" })
+
+    require("gruvbox").setup { italic = { folds = false, strings = false }, contrast = "hard" }
+    vim.cmd.colorscheme "gruvbox"
+
+    vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit UI" })
+    vim.keymap.set("n", "<leader>gc", "<cmd>Neogit commit<cr>", { desc = "Git commit" })
+    vim.keymap.set("n", "<leader>gl", "<cmd>Neogit log<cr>", { desc = "Git log" })
+    vim.keymap.set("n", "<leader>gp", "<cmd>Neogit pull<cr>", { desc = "Git pull" })
+    vim.keymap.set("n", "<leader>gP", "<cmd>Neogit push<cr>", { desc = "Git push" })
+    vim.keymap.set("n", "<leader>gz", "<cmd>Neogit stash<cr>", { desc = "Git stash" })
+
+    require("nvim-ts-autotag").setup()
+    require("quicker").setup {}
+
+    require("ultimate-autopair").setup {
+        { "[|", "|]", fly = true, dosuround = true, newline = true, space = true },
+        { "(|", "|)", fly = true, dosuround = true, newline = true, space = true, disable_end = true },
+        { "{|", "|}", fly = true, dosuround = true, newline = true, space = true },
+        { "[<", ">]", fly = true, dosuround = true, newline = true, space = true },
+        { ">", "<", newline = true, disable_start = true, disable_end = true },
+        {
+            "'",
+            "'",
+            suround = true,
+            cond = function(fn)
+                return not fn.in_lisp() or fn.in_string()
+            end,
+            alpha = true,
+            nft = { "tex", "fsharp" },
+            multiline = false,
+        },
+        {
+            "`",
+            "`",
+            cond = function(fn)
+                return not fn.in_lisp() or fn.in_string()
+            end,
+            nft = { "tex", "fsharp" },
+            multiline = false,
+        },
+        { "```", "```", newline = true },
+        { '"""', '"""', newline = true },
+        { "'''", "'''", newline = true },
+        bs = { cmap = "<m-bs>" },
+        space2 = { enable = true },
+        tabout = { enable = true, map = "<m-]>", cmap = "<m-]>", hopout = true },
+    }
+end
+-- }}}
+
+-- LSP config {{{
+if not vim.g.vscode then
+    local capabilities = require("blink.cmp").get_lsp_capabilities()
+    vim.lsp.config("*", { capabilities = capabilities })
+    vim.lsp.config("lua_ls", {
+        capabilities = capabilities,
+        root_markers = { { ".luarc.json", ".luarc.jsonc" }, ".git" },
+        settings = {
+            Lua = {
+                hint = { enable = true },
+                runtime = { version = "LuaJIT" },
+                workspace = { checkThirdParty = false, library = { vim.env.VIMRUNTIME } },
+            },
+        },
+    })
+    vim.lsp.enable "lua_ls"
+    vim.lsp.config("fsautocomplete", {
+        capabilities = capabilities,
+        on_attach = function(client)
+            client.server_capabilities.semanticTokensProvider = nil
+        end,
+        flags = { debounce_text_changes = 100 },
+        settings = { FSharp = { ExternalAutocomplete = true } },
+    })
+    vim.lsp.enable "fsautocomplete"
+
+    require("mason").setup { registries = { "github:mason-org/mason-registry", "github:Crashdummyy/mason-registry" } }
+    vim.keymap.set("n", "<leader>m", "<cmd>Mason<cr>", { desc = "Open Mason UI" })
+    require("conform").setup { default_format_opts = { lsp_format = "fallback" }, format_on_save = { timeout_ms = 500 } }
+    require("mason-lspconfig").setup {}
+    require("mason-conform").setup {}
+end
+-- }}}
+
+-- Deferred settings {{{
+if vim.g.vscode and vim.g.vscode_clipboard then
+    vim.g.clipboard = vim.g.vscode_clipboard
+end
+vim.schedule(function()
+    vim.opt.clipboard = "unnamedplus"
+end)
+-- vim: set foldmethod=marker: }}}
