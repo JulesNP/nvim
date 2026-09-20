@@ -516,7 +516,9 @@ if not vim.g.vscode then
     require("mini.git").setup {}
     vim.keymap.set("n", "<leader>gs", require("mini.git").show_at_cursor, { desc = "Git show_at_cursor" })
 
-    require("mini.icons").setup {}
+    local MiniIcons = require "mini.icons"
+    MiniIcons.setup {}
+    MiniIcons.mock_nvim_web_devicons()
 
     require("mini.indentscope").setup {
         draw = { animation = require("mini.indentscope").gen_animation.none() },
