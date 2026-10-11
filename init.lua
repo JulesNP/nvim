@@ -25,6 +25,7 @@ if not vim.g.vscode then
         "https://github.com/nvim-lua/plenary.nvim",
         "https://github.com/stevearc/quicker.nvim",
         "https://github.com/mechatroner/rainbow_csv",
+        "https://github.com/hiphish/rainbow-delimiters.nvim",
         "https://github.com/folke/snacks.nvim",
         { src = "https://github.com/altermo/ultimate-autopair.nvim", version = "v0.6" },
         "https://github.com/tpope/vim-dadbod",
