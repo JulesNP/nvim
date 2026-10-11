@@ -97,6 +97,19 @@ if not vim.g.vscode then
             end
             if event.match == "fsharp" then
                 vim.bo.commentstring = "// %s"
+            elseif event.match == "diff" or event.match == "git" then
+                vim.wo.foldmethod = "expr"
+                vim.wo.foldexpr = "v:lua.MiniGit.diff_foldexpr()"
+            elseif event.match == "lua" then
+                vim.opt.formatoptions:remove "o"
+            elseif event.match == "qf" then
+                vim.b.miniindentscope_disable = true
+                vim.keymap.set("n", "<tab>", "<cr><c-w>p", { buffer = 0, desc = "Open but stay in quickfix list" })
+                vim.keymap.set("n", "{", "<cmd>cpfile<cr><c-w>p", { buffer = 0, desc = "Move to previous file" })
+                vim.keymap.set("n", "}", "<cmd>cnfile<cr><c-w>p", { buffer = 0, desc = "Move to next file" })
+                vim.keymap.set("n", "o", "<cr><cmd>cclose<cr>", { buffer = 0, desc = "Open and close quickfix list" })
+            elseif event.match == "sql" then
+                vim.bo.commentstring = "-- %s"
             elseif
                 vim.tbl_contains({
                     "csv",
@@ -110,18 +123,23 @@ if not vim.g.vscode then
             then
                 vim.treesitter.stop(event.buf)
                 vim.bo.syntax = event.match
-            elseif event.match == "diff" or event.match == "git" then
-                vim.wo.foldmethod = "expr"
-                vim.wo.foldexpr = "v:lua.MiniGit.diff_foldexpr()"
-            elseif event.match == "lua" then
-                vim.opt.formatoptions:remove "o"
-            elseif event.match == "qf" then
-                vim.keymap.set("n", "<tab>", "<cr><c-w>p", { buffer = 0, desc = "Open but stay in quickfix list" })
-                vim.keymap.set("n", "{", "<cmd>cpfile<cr><c-w>p", { buffer = 0, desc = "Move to previous file" })
-                vim.keymap.set("n", "}", "<cmd>cnfile<cr><c-w>p", { buffer = 0, desc = "Move to next file" })
-                vim.keymap.set("n", "o", "<cr><cmd>cclose<cr>", { buffer = 0, desc = "Open and close quickfix list" })
-            elseif event.match == "sql" then
-                vim.bo.commentstring = "-- %s"
+            elseif
+                vim.tbl_contains({
+                    "ccc-ui",
+                    "dbout",
+                    "dbui",
+                    "DiffviewFileHistory",
+                    "DiffviewFiles",
+                    "easy-dotnet",
+                    "help",
+                    "mason",
+                    "minifiles",
+                    "snacks_picker_input",
+                    "snacks_picker_list",
+                    "snacks_terminal",
+                }, event.match) or vim.startswith(event.match, "Neogit")
+            then
+                vim.b.miniindentscope_disable = true
             end
         end,
     })
