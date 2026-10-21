@@ -848,6 +848,24 @@ end
 -- Deferred settings {{{
 if vim.g.vscode and vim.g.vscode_clipboard then
     vim.g.clipboard = vim.g.vscode_clipboard
+else
+    local remote = vim.env.SSH_CONNECTION or vim.env.SSH_TTY or vim.env.MOSH_IP
+    vim.g.clipboard = remote and "osc52" or nil
+    local function reload_clipboard_provider()
+        vim.g.loaded_clipboard_provider = nil
+        vim.cmd.runtime "autoload/provider/clipboard.vim"
+    end
+    vim.keymap.set("n", "\\y", function()
+        if vim.g.clipboard == "osc52" then
+            vim.g.clipboard = nil
+        else
+            vim.g.clipboard = "osc52"
+        end
+        reload_clipboard_provider()
+        vim.notify(vim.g.clipboard == "osc52" and "osc52" or "automatic")
+    end, {
+        desc = "Toggle OSC 52 clipboard",
+    })
 end
 vim.schedule(function()
     vim.opt.clipboard = "unnamedplus"
